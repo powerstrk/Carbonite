@@ -20,7 +20,7 @@ L["Astranaar, Ashenvale"] = "Astranaar, Orneval"
 L["Azure Watch, Azuremyst Isle"] = "Guet d'azur, île de Brume-azur"
 L["Bambala, Stranglethorn"] = "Bambala, Strangleronce"
 L["Bilgewater Harbor, Azshara"] = "Havre Baille-Fonds, Azshara"
-L["Binan Village, Kun-Lai Summit"] = true
+L["Binan Village, Kun-Lai Summit"] "Binan, Sommet de Kun-Lai"
 L["Blackfathom Camp, Ashenvale"] = "Camp de Brassenoire, Orneval"
 L["Blood Watch, Bloodmyst Isle"] = "Guet du sang, île de Brume-sang"
 L["Bloodgulch, Twilight Highlands"] = "Goulet Sanglant, hautes-terres du Crépuscule"
@@ -45,7 +45,7 @@ L["Chiselgrip, Burning Steppes"] = "Cisepoigne, steppes Ardentes"
 L["Cliffwalker Post, Stonetalon Mountains"] = "Poste de Rôde-falaise, Serres-rocheuses"
 L["Conquest Hold, Grizzly Hills"] = "Bastion de la Conquête, les Grisonnes"
 L["Cosmowrench, Netherstorm"] = "Cosmovrille, Raz-de-Néant"
-L["Cradle of Chi-Ji, Krasarang Wilds"] = true
+L["Cradle of Chi-Ji, Krasarang Wilds"] "Berceau de Chi-Ji, Etendues sauvages de kasarang"
 L["Crown Guard Tower, Eastern Plaguelands"] = "Tour de garde de la couronne, Maleterres de l'Est"
 L["Crusaders' Pinnacle, Icecrown"] = "Cime des Croisés, Couronne de glace"
 L["Crushblow, Twilight Highlands"] = "Frakass, hautes-terres du Crépuscule"
@@ -53,8 +53,8 @@ L["Dalaran"] = true
 L["Darkbreak Cove, Vashj'ir"] = "Crique du Sombre brisant, Vashj'ir"
 L["Darkshire, Duskwood"] = "Sombre-comté, bois de la Pénombre"
 L["Darnassus, Teldrassil"] = true
-L["Dawn's Blossom, Jade Forest"] = true
-L["Dawnchaser Retreat, Krasarang Wilds"] = true
+L["Dawn's Blossom, Jade Forest"] "Fleur de l'aube, La foret de jade"
+L["Dawnchaser Retreat, Krasarang Wilds"] "Retraite des chasselaube, Etendues sauvages de Kasarang"
 L["Dawnrise Expedition, Tanaris"] = "Expédition Montelaube, Tanaris"
 L["Death's Rise, Icecrown"] = "Cime de la Mort, Couronne de glace"
 L["Desolation Hold, Southern Barrens"] = "Fort de la désolation, Tarides du Sud"
@@ -69,10 +69,10 @@ L["Dustwind Dig, Badlands"] = "Site de fouilles de la Bourrasque, terres Ingrate
 L["Eastpoint Tower, Hillsbrad"] = "Tour du Point de l'Est, Hautebrande"
 L["Eastvale Logging Camp, Elwynn"] = "Camp de bûcherons du Val d'est, Elwynn"
 L["Eastwall Tower, Eastern Plaguelands"] = "Tour du Mur d'Est, Maleterres de l'Est"
-L["Eastwind Rest, Kun-Lai Summit"] = true
+L["Eastwind Rest, Kun-Lai Summit"] "Eastwind Rest, Sommet de Kun-Lai"
 L["Ebon Watch, Zul'Drak"] = "Guet d'Ébène, Zul'Drak"
 L["Emerald Sanctuary, Felwood"] = "Sanctuaire d'émeraude, Gangrebois"
-L["Emperor's Omen, Jade Forest"] = true
+L["Emperor's Omen, Jade Forest"] "Présage de l'empereur, La forêt de Jade"
 L["Ethel Rethor, Desolace"] = "Ethel Rethor, Désolace"
 L["Evergrove, Blade's Edge Mountains"] = "Bosquet éternel, les Tranchantes"
 L["Everlook, Winterspring"] = "Long-guet, Berceau-de-l'Hiver"
@@ -102,55 +102,55 @@ L["Furlbrow's Pumpkin Farm, Westfall"] = "Ferme de potirons de Froncebouille, Ma
 L["Fuselight, Badlands"] = "Lumèche, terres Ingrates"
 L["Gadgetzan, Tanaris"] = true
 L["Galen's Fall, Arathi"] = "Chute de Galen, Arathi"
-L["Gao-Ran Battlefront, Townlong Steppes"] = true
+L["Gao-Ran Battlefront, Townlong Steppes"] "Ligne de front Gao-Ran, Steppes de Tanglong"
 L["Garadar, Nagrand"] = true
-L["Gates of Sothann, Hyjal"] = true
+L["Gates of Sothann, Hyjal"] "Portes de Sothann, Mont Hyjal"
 L["Gol'Bolar Quarry, Dun Morogh"] = "Carrière de Gol'Bolar, Dun Morogh"
 L["Goldshire, Elwynn"] = "Comté-de-l'or, Elwynn"
-L["Grassy Cline, Valley of the Four Winds"] = true
+L["Grassy Cline, Valley of the Four Winds"] "L'inclinaison herbeuse, La vallée des quatres vents"
 L["Greenwarden's Grove, Wetlands"] = "Bosquet du Gouverneur vert, les Paluns"
 L["Grom'arsh Crash-Site, The Storm Peaks"] = "Point d'impact de Grom'arsh, les pics Foudroyés"
 L["Grom'gol, Stranglethorn"] = "Grom'gol, Strangleronce"
-L["Grookin Hill, Jade Forest"] = true
-L["Grove of Aessina, Hyjal"] = true
+L["Grookin Hill, Jade Forest"] "Grookin colline, La forêt de Jade"
+L["Grove of Aessina, Hyjal"] "Bosquet de Aessina, Mont Hyjal"
 L["Grove of the Ancients, Darkshore"] = "Bosquet des Anciens, Sombrivage"
 L["Gundrak, Zul'Drak"] = true
 L["Gunstan's Dig, Tanaris"] = "Site de fouilles de Gunstan, Tanaris"
-L["Halfhill, Valley of the Four Winds"] = true
+L["Halfhill, Valley of the Four Winds"] "Micolline, Vallée des quatres vents"
 L["Hammerfall, Arathi"] = "Trépas-d'Orgrim, Arathi"
 L["Hardwrench Hideaway, Stranglethorn"] = "Planque de Serrelavis, Strangleronce"
 L["Hearthglen, Western Plaguelands"] = "Âtreval, Maleterres de l'Ouest"
-L["Hellfire Peninsula, The Dark Portal"] = true
-L["Hellscream's Fist, Kun-Lai Summit"] = true
+L["Hellfire Peninsula, The Dark Portal"] "La porte des ténèbres, Péninsule des flammes infernales"
+L["Hellscream's Fist, Kun-Lai Summit"] "Poind de Hurlenfer, Sommet de Kun-Lai"
 L["Hellscream's Watch, Ashenvale"] = "Guet de Hurlenfer, Orneval"
-L["Highbank, Twilight Highlands"] = true
+L["Highbank, Twilight Highlands"] "Hauterive, Haute terres du crépuscule" 
 L["Hiri'watha Research Station, The Hinterlands"] = "Centre de recherche d'Hiri'watha, les Hinterlands"
-L["Honeydew Village, Jade Forest"] = true
-L["Honor Hold, Hellfire Peninsula"] = "Bastion de l'Honneur, péninsule des Flammes infernales"
+L["Honeydew Village, Jade Forest"] "Rosée de miel, La forêt de jade"
+L["Honor Hold, Hellfire Peninsula"] = "Bastion de l'Honneur, Péninsule des Flammes infernales"
 L["Honor's Stand, Southern Barrens"] = "Le Séjour de l'honneur, Tarides du Sud"
 L["Hunter's Hill, Southern Barrens"] = "Colline du Chasseur, Tarides du Sud"
 L["Iron Summit, Searing Gorge"] = "Sommet de Fer, gorge des Vents brûlants"
 L["Ironforge, Dun Morogh"] = "Forgefer, Dun Morogh"
 L["Irontree Clearing, Felwood"] = "Clairière d'Arbrefer, Gangrebois"
-L["Jade Temple Grounds, Jade Forest"] = true
+L["Jade Temple Grounds, Jade Forest"] "Temple de la forêt de jade, La forêt de Jade"
 L["K3, The Storm Peaks"] = "K3, les pics Foudroyés"
 L["Kamagua, Howling Fjord"] = "Kamagua, fjord Hurlant"
 L["Karnum's Glade, Desolace"] = "Clairière de Karnum, Désolace"
 L["Kharanos, Dun Morogh"] = true
 L["Kirthaven, Twilight Highlands"] = "Havran'iliz, hautes-terres du Crépuscule"
-L["Klaxxi'vess, Dread Wastes"] = true
-L["Kor'kron Vanguard, Dragonblight"] = true
-L["Kota Basecamp, Kun-Lai Summit"] = true
+L["Klaxxi'vess, Dread Wastes"] "Klaxxi'vess, terres de l'angoisse"
+L["Kor'kron Vanguard, Dragonblight"] "L'avant garde Kor'Kron, Désolation des dragons"
+L["Kota Basecamp, Kun-Lai Summit"] "Camp de base Kota, Sommet de Kun-Lai"
 L["Krom'gar Fortress, Stonetalon Mountains"] = "Forteresse de Krom'gar, Serres-Rocheuses"
 L["Lakeshire, Redridge"] = "Comté-du-lac, les Carmines"
 L["Legion's Rest, Vashj'ir"] = "Le Repos de la Légion, Vashj'ir"
 L["Light's Breach, Zul'Drak"] = "La Brèche de Lumière, Zul'Drak"
 L["Light's Hope Chapel, Eastern Plaguelands"] = "Chapelle de l'Espoir de Lumière, Maleterres de l'est"
 L["Light's Shield Tower, Eastern Plaguelands"] = "Tour du bouclier de Lumière, Maleterres de l'Est"
-L["Longying Outpost, Townlong Steppes"] = true
+L["Longying Outpost, Townlong Steppes"] "L'avant-poste Longying, Steppes de tanglong"
 L["Lor'danel, Darkshore"] = "Lor'danel, Sombrivage"
 L["Malaka'jin, Stonetalon Mountains"] = "Malaka'jin, Serres-Rocheuses"
-L["Marista, Krasarang Wilds"] = true
+L["Marista, Krasarang Wilds"] "Marista, Les étendues sauvages de kasarang"
 L["Marshal's Stand, Un'Goro Crater"] = "Camp retranché des Marshal, cratère d'Un'Goro"
 L["Marshtide Watch, Swamp of Sorrows"] = "Guet de l'Estran, marais des Chagrins"
 L["Menethil Harbor, Wetlands"] = "Port de Menethil, les Paluns"
@@ -175,15 +175,15 @@ L["Northwatch Expedition Base Camp, Stonetalon Mountains"] = "Camp de base de l'
 L["Northwatch Hold, Southern Barrens"] = "Fort de Guet-du-Nord, Tarides du Sud"
 L["Nozzlepot's Outpost, Northern Barrens"] = "Avant-poste de Potuyère, Tarides du Nord"
 L["Oasis of Vir'sar, Uldum"] = "Oasis de Vir'sar, Uldum"
-L["One Keg, Kun-Lai Summit"] = true
+L["One Keg, Kun-Lai Summit"] = "One Keg, Sommet de Kun-Lai"
 L["Orebor Harborage, Zangarmarsh"] = "Havre d'Orebor, marécage de Zangar"
 L["Orgrimmar, Durotar"] = true
-L["Pang's Stead, Valley of the Four Winds"] = true
-L["Paw'Don Village, Jade Forest"] = true
-L["Pearlfin Village, Jade Forest"] = true
+L["Pang's Stead, Valley of the Four Winds"] "Pang's Stead, Vallée des quatres vents"
+L["Paw'Don Village, Jade Forest"] "Village de Paw'Don, La forêt de jade"
+L["Pearlfin Village, Jade Forest"] "Nageperle, La forêt de jade"
 L["Plaguewood Tower, Eastern Plaguelands"] = "Tour de Pestebois, Maleterres de l'Est"
 L["Ramkahen, Uldum"] = true
-L["Ratchet, Northern Barrens"] = true
+L["Ratchet, Northern Barrens"] "Cabestan, Les tarides du nord"
 L["Raven Hill, Duskwood"] = "Colline-aux-Corbeaux, Bois de la Pénombre"
 L["Razor Hill, Durotar"] = "Tranchecolline, Durotar"
 L["Rebel Camp, Stranglethorn Vale"] = "Camp rebelle, vallée de Strangleronce"
@@ -193,26 +193,26 @@ L["Revantusk Village, The Hinterlands"] = "Village des Vengebroches, les Hinterl
 L["River's Heart, Sholazar Basin"] = "Le Cœur du fleuve, bassin de Sholazar"
 L["Ruins of Southshore, Hillsbrad"] = "Ruines d'Austrivage, Hautebrande"
 L["Rut'theran Village, Teldrassil"] = "Rut'theran, Teldrassil"
-L["Sanctuary of Malorne, Hyjal"] = true
+L["Sanctuary of Malorne, Hyjal"] = "Sanctuaire de Malorne, Mont Hyjal"
 L["Sanctum of the Stars, Shadowmoon Valley"] = "Sanctum des étoiles, vallée d'Ombrelune"
 L["Sandy Beach, Vashj'ir"] = "Plage Sablonneuse, Vashj'ir"
 L["Schnottz's Landing, Uldum"] = "Accostage de Schnottz, Uldum"
 L["Sen'jin Village, Durotar"] = "Village de Sen'jin, Durotar"
-L["Sentinel Basecamp, Krasarang Wilds"] = true
+L["Sentinel Basecamp, Krasarang Wilds"] "Camp de base des sentinelles, étendues sauvages de kasarang"
 L["Sentinel Hill, Westfall"] = "Colline des Sentinelles, marche de l'Ouest"
-L["Serpent's Overlook, Jade Forest"] = true
-L["Serpent's Spine, Vale of Eternal Blossoms"] = true
+L["Serpent's Overlook, Jade Forest"] = "Serpent's Overlook, La forêt de jade"
+L["Serpent's , Vale of Eternal Blossoms"] = "Serpent's, La vallée de l'éternel printemps"
 L["Shadebough, Feralas"] = "Ramures ombragées, Féralas"
-L["Shado-Pan Fallback, Kun-Lai Summit"] = true
+L["Shado-Pan Fallback, Kun-Lai Summit"] = "Le repli de Shado-Pan, Sommet de Kun-Lai"
 L["Shado-Pan Garrison, Townlong Steppes"] = true
 L["Shadowmoon Village, Shadowmoon Valley"] = "Village d'Ombrelune, vallée d'Ombrelune"
 L["Shadowprey Village, Desolace"] = "Proie-de-l'Ombre, Désolace"
 L["Shalewind Canyon, Redridge"] = "Canyon Vent-de-schiste, les Carmines"
 L["Shattered Sun Staging Area"] = "Zone de rassemblement du Soleil brisé"
 L["Shattrath, Terokkar Forest"] = "Shattrath, forêt de Terokkar"
-L["Shrine of Aviana, Hyjal"] = "Sanctuaire d'Aviana, Hyjal"
-L["Shrine of Seven Stars, Vale of Eternal Blossoms"] = true
-L["Shrine of Two Moons, Vale of Eternal Blossoms"] = true
+L["Shrine of Aviana, Hyjal"] = "Sanctuaire d'Aviana, Mont Hyjal"
+L["Shrine of Seven Stars, Vale of Eternal Blossoms"] = "Sanctuaire des septs étoiles, La vallée de L'éternel printemps"
+L["Shrine of Two Moons, Vale of Eternal Blossoms"] = "Sanctuaire des deux lunes, La vallée de L'éternel printemps"
 L["Silver Tide Hollow, Vashj'ir"] = "Creux des Flots argentés, Vashj'ir"
 L["Silvermoon City"] = "Lune-d'argent"
 L["Silverwind Refuge, Ashenvale"] = "Refuge de Vent-argent, Orneval"
@@ -229,7 +229,7 @@ L["Stars' Rest, Dragonblight"] = "Repos des étoiles, Désolation des dragons"
 L["Stonard, Swamp of Sorrows"] = "Pierrêche, marais des Chagrins"
 L["Stonebreaker Hold, Terokkar Forest"] = "Fort des Brise-pierres, forêt de Terokkar"
 L["Stonemaul Hold, Feralas"] = "Bastion Cognepierre, Féralas"
-L["Stoneplow, Valley of the Four Winds"] = true
+L[", Valley of the Four Winds"] = true
 L["Stormfeather Outpost, The Hinterlands"] = "Avant-poste de Plumorage, les Hinterlands"
 L["Stormwind, Elwynn"] = "Hurlevent, Elwynn"
 L["Strahnbrad, Alterac Mountains"] = "Strahnbrande, montagnes d'Alterac"
