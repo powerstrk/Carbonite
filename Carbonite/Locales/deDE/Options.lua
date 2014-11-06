@@ -6,60 +6,60 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "deDE", true)
 if not L then return end
 
 -- Profiles Menu
-L["Profiles"] = true
-L["New"] = true
-L["You can change the active database profile, so you can have different settings for every character."] = true
+L["Profiles"] = "Profile"
+L["New"] = "Neu"
+L["You can change the active database profile, so you can have different settings for every character."] = "Du kannst das aktive Profil ändern, um individuelle Einstellungen für jeden Character zu benutzen"
 L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = true
-L["Reset Profile"] = true
-L["Reset the current profile to the defaults"] = true
-L["Current Profile"] = true
+L["Reset Profile"] = "Profil zurücksetzen"
+L["Reset the current profile to the defaults"] = "setze aktuelles Profil auf Grundeinsetllungen zurück"
+L["Current Profile"] = "derzeitiges Profil"
 L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = true
-L["Create a new empty profile"] = true
-L["Select one of your currently available profiles"] = true
-L["Existing Profiles"] = true
-L["Copy the settings from one existing profile into the currently active profile."] = true
+L["Create a new empty profile"] = "Erstelle neues Leeres Profil"
+L["Select one of your currently available profiles"] = "Wähle eines deiner derzeitig vorhandenen Profile aus"
+L["Existing Profiles"] = "bestehende Profile"
+L["Copy the settings from one existing profile into the currently active profile."] = "Kopiere die Einstellungen von einem vorhandenen Profil in das aktuell aktivierte Profil"
 L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = true
-L["Delete a Profile"] = true
-L["Deletes a profile from the database."] = true
+L["Delete a Profile"] = "Lösche ein Profil"
+L["Deletes a profile from the database."] = "löscht ein Profil aus der Datenbank"
 
 -- Main Menu
-L["Main Options"] = true
+L["Main Options"] = "Allgemeine Optionen"
 L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = true
-L["Release Version"] = true
-L["Maintained by"] = true
-L["Website"] = true
-L["For support, please visit the forums for Carbonite on WoW Interface."] = true
-L["Special thanks to"] = true
+L["Release Version"] = "Veröffentlichte Version"
+L["Maintained by"] = "Gewartet von"
+L["Website"] = "Homepage"
+L["For support, please visit the forums for Carbonite on WoW Interface."] = "Für Support, schaue bitte in die Foren von Carbonite auf WoWInterface.com"
+L["Special thanks to"] = "Besonderes Danke an"
 L["Cirax for Carbonite2 Logo"] = true
 L["JimboBlue for guide location updates and checking"] = true
 
 -- Battlegrounds Menu
-L["Battlegrounds"] = true
-L["Show Battleground Stats"] = true
+L["Battlegrounds"] = "Schlachtfelder"
+L["Show Battleground Stats"] = "Zeige Schlachtfeldstatistiken" 
 L["Turns on or off displaying your battleground k/d and honor gained in chat during a match."] = true
 
 -- General Menu
-L["General Options"] = true
-L["Show Login Message"] = true
-L["When Enabled, displays the Carbonite loading messages in chat."] = true
-L["Show Login Graphic"] = true
-L["When Enabled, displays the Carbonite graphic during initialization."] = true
-L["Play Login Sound"] = true
-L["When Enabled, plays a sound when Carbonite is loaded."] = true
-L["Default Chat Channel"] = true
-L["Allows selection of which chat window to display Carbonite messages"] = true
+L["General Options"] = "Generelle Optionen"
+L["Show Login Message"] = "Zeige die Login Nachricht"
+L["When Enabled, displays the Carbonite loading messages in chat."] = "wenn aktiviert, dann werden die Ladenachrichten von Carbonite im Chat ausgegeben"
+L["Show Login Graphic"] = "Zeige Login Grafik"
+L["When Enabled, displays the Carbonite graphic during initialization."] = "wenn aktiviert, wird dir die Carbonite Grafik wärend der Initialisierung angezeigt"
+L["Play Login Sound"] = "Spiele den Login Sound"
+L["When Enabled, plays a sound when Carbonite is loaded."] = "wenn aktiviert, wird der Login Sound abgespielt wenn Carbonite geladen wird"
+L["Default Chat Channel"] = "Standard Chat Kanal"
+L["Allows selection of which chat window to display Carbonite messages"] = "Ermöglicht die Auswahl des Chatfensters, in welchem die Carbonite Nachrichten angezeigt werden"
 L["Force Max Camera Distance"] = true
 L["When enabled, sets the max camera distance higher then Blizzards options normally allows."] = true
 L["Hide Action Bar Gryphon Graphics"] = true
 L["Attempts to hide the two gryphons on your action bar."] = true
 
 -- Map Options
-L["Map Options"] = true
-L["Use Carbonite Map instead of Blizzards (Alt-M will open world map)"] = true
+L["Map Options"] = "Karten Einstellungen"
+L["Use Carbonite Map instead of Blizzards (Alt-M will open world map)"] = "Benutze die Carbonite Karte anstatt der Blizzard Karten (Alt-M öffnet Blizzards Weltkarte)"
 L["When enabled, pressing 'M' will maximize the carbonite map instead of opening the world map."] = true
 L["Enable Compatability Mode"] = true
 L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."] = true
-L["Center map when maximizing"] = true
+L["Center map when maximizing"] = "Zentriere die Karte beim maximieren"
 L["When enabled, the map will center on your current zone when you maximize it"] = true
 L["Ignore mouse on map except when ALT is pressed"] = true
 L["When enabled, the small game map will ignore all mouse clicks unless the ALT key is held down."] = true
@@ -142,7 +142,7 @@ L["Ctrl Button 4 Click"] = true
 L["Sets the action performed when clicking 4th mouse button holding CTRL"] = true
 
 -- Minimap Options
-L["MiniMap Options"] = true
+L["MiniMap Options"] = MiniKarten Optionen"
 L["Combine Blizzard Minimap with Carbonite Minimap"] = true
 L["When enabled, Carbonite will combine the minimap into itself to create a more functional minimap for you (RELOAD REQUIRED)"] = true
 L["Minimap Shape is Square"] = true
@@ -324,21 +324,21 @@ L["Enable TomTom Emulation"] = true
 L["When Enabled, Attempts to emulate tomtom's features (requires reload)"] = true
 
 -- Configuration Headers
-L["General"] = true
-L["Battlegrounds"] = true
-L["Fonts"] = true
-L["Guide & Gather"] = true
-L["Maps"] = true
-L["Menus"] = true
+L["General"] = "Allgemein"
+L["Battlegrounds"] = "Schlachtfelder"
+L["Fonts"] = "Schriften"
+L["Guide & Gather"] = "Guide und Sammeln"
+L["Maps"] = "Karten"
+L["Menus"] = "Menüs"
 L["Privacy"] = true
-L["Profiles"] = true
+L["Profiles"] = "Profil"
 L["Skin"] = true
 L["Tracking HUD"] = true
 
 -- General Text
-L["Reload UI"] = true
-L["Reset options"] = true
-L["Reset global options"] = true
+L["Reload UI"] = "UI neu laden"
+L["Reset options"] = "Optionen zurücksetzen"
+L["Reset global options"] = "Globale Optionen zurücksetzen"
 L["Reset window layouts"] = true
 L["Delete Herb Locations"] = true
 L["Delete Mine Locations"] = true
