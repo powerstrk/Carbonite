@@ -142,7 +142,7 @@ L["Ctrl Button 4 Click"] = true
 L["Sets the action performed when clicking 4th mouse button holding CTRL"] = true
 
 -- Minimap Options
-L["MiniMap Options"] = MiniKarten Optionen"
+L["MiniMap Options"] = "MiniKarten Optionen"
 L["Combine Blizzard Minimap with Carbonite Minimap"] = true
 L["When enabled, Carbonite will combine the minimap into itself to create a more functional minimap for you (RELOAD REQUIRED)"] = true
 L["Minimap Shape is Square"] = true

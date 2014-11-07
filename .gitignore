@@ -13,6 +13,8 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+# Info Dateien
+umlaute.txt
 
 # =========================
 # Operating System Files
@@ -41,3 +43,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+umlaute.txt.txt

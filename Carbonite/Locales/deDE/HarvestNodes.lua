@@ -6,9 +6,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "deDE", true)
 if not L then return end
 
 -- General Nodes
-L["Artifact"] = true
-L["Gas"] = true
-L["Everfrost"] = true
+L["Artifact"] = "Artefakt"
+L["Gas"] = "Gas"
+L["Everfrost"] = "Immerfrostsplitter" -- review
 L["Ooze Covered"] = true
 
 -- Herbs
