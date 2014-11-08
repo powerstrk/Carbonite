@@ -2269,7 +2269,7 @@ function Nx.Social.PunksHUD:Update()
 
 	if self.Changed then
 
-		local lockDown = InCombatLockdown() ~= nil
+		local lockDown = InCombatLockdown() ~= false
 		local lchanged = self.LockedDown ~= lockDown
 		self.LockedDown = lockDown
 
@@ -2488,7 +2488,7 @@ function Nx.Social.TeamHUD:Update()
 	local cw, ch = self.Win:GetSize()
 
 	local Social = Nx.Social
-	local lockDown = InCombatLockdown() ~= nil
+	local lockDown = InCombatLockdown() ~= false
 	local lchanged = self.LockedDown ~= lockDown
 	self.LockedDown = lockDown
 
@@ -2738,20 +2738,3 @@ end
 
 -------------------------------------------------------------------------------
 -- EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

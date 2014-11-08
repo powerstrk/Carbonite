@@ -11,4 +11,5 @@
     <Include file="ptBR\ptBR.xml"/>
     <Include file="ruRU\ruRU.xml"/>
     <Include file="zhTW\zhTW.xml"/>	
+	<Include file="zhCN\zhCN.xml"/>	
 </Ui>

@@ -729,6 +729,7 @@ function Nx.Map.Guide:OnEditBox (editbox, message)
 		self:Update()
 	end
 end
+
 function Nx.Map.Guide:PatchFolder (folder, parent)
 	local trainer
 	if folder.Name == L["Trainer"] and folder.Pre then

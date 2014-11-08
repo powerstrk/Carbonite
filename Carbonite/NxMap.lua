@@ -3844,7 +3844,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 			map.BackgndAlphaTarget = map.BackgndAlphaFade
 
-			local rid = map:GetRealMapId()			
+			local rid = map:GetRealMapId()				
 			if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
 				local mapId = map:GetCurrentMapId()
@@ -3865,7 +3865,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 				end
 				
 				if mapId ~= rid then
-					if map:IsBattleGroundMap (rid) then						
+					if map:IsBattleGroundMap (rid) then												
 						SetMapToCurrentZone()						
 					else						
 						map:SetCurrentMap (rid)
@@ -5992,8 +5992,7 @@ function Nx.Map:MoveCurZoneTiles (clear)
 			(not wzone or wzone.City or (wzone.StartZone and self.RMapId == mapId) or
 			self:IsBattleGroundMap (mapId)) or self:IsMicroDungeon(mapId) then
 
---		Nx.prt ("MoveCurZoneTiles %d", mapId)
-
+--		Nx.prt ("MoveCurZoneTiles %d", mapId)		
 		local alpha = self.BackgndAlpha * (wzone.Alpha or 1)
 
 		self:MoveZoneTiles (self.Cont, self.Zone, self.TileFrms, alpha, self.Level)
@@ -6029,7 +6028,7 @@ end
 -- Update map zone tiles (4x3 blocks)
 
 function Nx.Map:MoveZoneTiles (cont, zone, frms, alpha, level)
-	local zname, zx, zy, zw, zh = self:GetWorldZoneInfo (cont, zone)
+	local zname, zx, zy, zw, zh = self:GetWorldZoneInfo (cont, zone)	
 	if not zx then
 		return
 	end	
@@ -8251,13 +8250,14 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {13,14,466,485,751,862},
+		 [0] = {13,14,466,485,751,862,0,0,0,-1},
 		 [1] = {772,894,43,181,464,476,890,42,381,101,4,141,891,182,121,795,241,606,9,11,321,888,261,607,81,161,41,471,61,362,720,201,889,281},
 		 [2] = {614,16,17,19,29,866,32,892,27,34,23,30,462,463,545,611,24,341,499,610,35,895,37,864,36,684,685,28,615,480,21,301,689,893,38,673,26,502,20,708,700,382,613,22,39,40},
 		 [3] = {475,465,477,479,473,481,478,467},
 		 [4] = {486,510,504,488,490,491,541,492,493,495,501,496},
 		 [5] = {640,605,544,737},
 		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807}, 
+		 [90] = {401,461,482,540,860,512,856,736,626,443},
 		 [100] = {},
 	}
 	
@@ -8397,6 +8397,28 @@ function Nx.Map:InitTables()
 			end
 		end
 	end	
+		
+	for _, id in pairs (Nx.Map.MapZones[90]) do
+		local winfo = worldInfo[id]						
+		if winfo then			
+			local info = self.MapInfo[90]
+			if info then
+				local cx = info.X
+				local cy = info.Y		
+				if winfo[2] ~= nil and winfo[3] ~= nil then
+					winfo[4] = cx + winfo[2]
+					winfo[5] = cy + winfo[3]
+				else
+					Nx.prt("Map Error: " .. tostring(n))
+				end
+				winfo.Cont = 90
+				winfo.Zone = id				
+			else
+				Nx.prt("Map Error2: " .. tostring(n))
+			end
+		end	
+	end	
+		
 	--
 	for id, v in pairs (Nx.Zones) do
 
@@ -8743,29 +8765,27 @@ end
 --------
 -- Set the current using a map id
 
-function Nx.Map:SetCurrentMap (mapId)	
-	if mapId then
-
---		Nx.prt ("SetMapToCurrentZone %s", mapId)
-
+function Nx.Map:SetCurrentMap (mapId)		
+	if mapId then		
+--		Nx.prt ("SetMapToCurrentZone %s", mapId)		
 		self.BaseScale = 1
 		for n = 1, Nx.Map.ContCnt do
 			for i,j in pairs (Nx.Map.MapZones[n]) do
 				if mapId == j then
 					local cont = self.MapWorldInfo[mapId].Cont
 					local zone = self.MapWorldInfo[mapId].Zone
-					if not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId() then						
+					if not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId() then												
 						SetMapToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position
 						SetDungeonMapLevel (1)
 					else									
---						SetMapZoom (cont, i)
+--						SetMapZoom (cont, i)						
 						SetMapByID(mapId)
 					end
 					return
 				end
 			end
 		end
-		if self.IsInstance(mapId) then	-- Instance?
+		if self.IsInstanceMap(mapId) then	-- Instance?
 
 			self.BaseScale = .025
 
@@ -8809,11 +8829,10 @@ end
 --------
 -- Set the map to current zone
 
-function Nx.Map:SetToCurrentZone()
-
+function Nx.Map:SetToCurrentZone()	
 	SetMapToCurrentZone()
-
-	local aid = GetCurrentMapAreaID()
+	
+	local aid = GetCurrentMapAreaID()	
 	local id = Nx.AIdToId[aid]
 
 	if id == 1014 then					-- Orgrimmar
@@ -9007,16 +9026,12 @@ end
 -- Get a cont zone from the map id
 
 function Nx.Map:IdToContZone (mapId)
-
-	if mapId >= 10000 then
-		return floor (mapId / 1000) - 10, 0
-	end	
 	local info = self.MapWorldInfo[mapId]
 	if not info then
 		Nx.prt("IdToCont Err " .. mapId)
-		return 9, 0
+		return 90, 0
 	end
-	return info.Cont or 9, info.Zone or 0
+	return info.Cont or 90, info.Zone or 0
 end
 
 --------
@@ -9108,8 +9123,10 @@ end
 -- (cont #)
 
 function Nx.Map:GetWorldContinentInfo (cont)
-
 	local info = self.MapInfo[cont]
+	if Nx.inBG then
+		info = self.MapInfo[90]
+	end
 	if not info then
 		return
 	end
@@ -9128,17 +9145,15 @@ function Nx.Map:GetWorldZoneInfo (cont, zone)
 	local info = self.MapInfo[cont]
 	if not info then
 		return name, 0, 0, 1002, 668
-	end		
-	if zone == 0 then
-	Nx.prt("worldzoneinfo:" .. cont .. " " .. zone)
+	end			
+	if zone == 0 then	
 		zone = Nx.Map.MapZones[0][cont]
 	end
 	local winfo = self.MapWorldInfo[zone]
 	if not winfo then		
 		return
 	end
-	if not winfo[2] then
-		Nx.prt(cont .. " " .. zone)
+	if not winfo[2] then		
 		return name, 0, 0, 1002, 668
 	end
 	local x = info.X + winfo[2]	
@@ -9186,7 +9201,7 @@ function Nx.Map:GetWorldPos (mapId,  mapX, mapY)
 		local scale = winfo[1]
 		if not winfo[4] or not winfo[5] then			
 			return 0,0
-		end
+		end				
 		return	winfo[4] + mapX * scale,
 					winfo[5] + mapY * scale / 1.5
 	end	

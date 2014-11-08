@@ -11,4 +11,5 @@
     <Include file="ptBR.lua"/>
     <Include file="ruRU.lua"/>
     <Include file="zhTW.lua"/>	
+	<Include file="zhCN.lua"/>	
 </Ui>

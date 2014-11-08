@@ -890,16 +890,16 @@ Map.MapInfo = {
 		Min = 6001,
 		Max = 6016,
 	},
-	[8] = {
-		Name = "Instance",
-		X = 2000,
-		Y = 100,
-	},
-	[9] = {
+	[90] = {
 		Name = "BG",
 		X = 2000,
 		Y = 200,
 	},
+	[100] = {
+		Name = "Instance",
+		X = 2000,
+		Y = 100,
+	},	
 }
 
 Map.BloodelfXO = -503
@@ -910,6 +910,10 @@ Map.DraeneiYO = -2010
 Map.MapWorldInfo = {
 
 	-- Dummy if we get a zero on startup
+	[-1] = {
+		1.0,
+		0,0,
+	},
 	[0] = {
 		10,
 		0, 0,
@@ -1751,10 +1755,6 @@ Map.MapWorldInfo = {
 		810.2668,1885.6667968,
 		Explored = true,
 		Overlay = "timelessisle",
-	},
-	[9000] = {
-		1,				-- Scale
-		0, 0,			-- Origin
 	},
 	[461] = {		-- AB
 		Name = L["Arathi Basin"],
