@@ -3749,12 +3749,9 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	-- Title text
 
-	local title = ""
-
-	if Nx.db.profile.Map.ShowTitleName then
-
-		title = map:IdToName (map.RMapId)
-
+	local title = ""	
+	if Nx.db.profile.Map.ShowTitleName then		
+		title = map:IdToName (map.RMapId)			
 --		for n = 1, MAX_BATTLEFIELD_QUEUES do
 		for n = 1, GetMaxBattlefieldID() do		-- Patch 4.3
 
@@ -4207,11 +4204,11 @@ function Nx.Map:Update (elapsed)
 				self.CurOpts = nil
 				self:SwitchOptions (rid, true)
 			end
-
-			self.RMapId = rid
-
-			self:SwitchOptions (rid)
-			self:SwitchRealMap (rid)
+			if not Nx.Menu:IsAnyOpened() then				
+				self.RMapId = rid
+				self:SwitchOptions (rid)
+				self:SwitchRealMap (rid)
+			end
 		end
 		self.Scale = self.RealScale
 	end
@@ -8403,8 +8400,7 @@ function Nx.Map:InitTables()
 				end
 				winfo.Cont = 90
 				winfo.Zone = id				
-			else
-				Nx.prt("Map Error2: " .. tostring(n))
+			else				
 			end
 		end	
 	end	

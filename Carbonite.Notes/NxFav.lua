@@ -22,7 +22,7 @@
 
 --------
 
-Nx.VERSIONFAV			= .14				-- Favorite data
+Nx.VERSIONFAV			= .15				-- Favorite data
 
 Nx.Notes = {}
 
@@ -803,7 +803,7 @@ function Nx.Notes:UpdateItems (selectI)
 							list:ItemAdd(item)
 							local icon, id, x, y = self:ParseItemNote (data)				
 							icon = self:GetIconInline (icon)							
-							id = Nx.MapIdToName[Nx.AIdToId[id]] or "?"
+							id = GetMapNameByID(id) or "?"
 							list:ItemSet (2, "Note:")
 							list:ItemSet (3, format ("%s %s", icon, name))
 							list:ItemSet (4, format ("|cff80ef80(%s %.1f %.1f)", id, x, y))					
@@ -826,10 +826,7 @@ function Nx.Notes:UpdateItems (selectI)
 
 					local icon, id, x, y = self:ParseItemNote (data)				
 					icon = self:GetIconInline (icon)					
-					local newid = Nx.MapIdToName[Nx.AIdToId[id]] or "?"					
-					if newid == "?" then
-						newid = Nx.MapIdToName[id] or "?"
-					end
+					local newid = GetMapNameByID(id) or "?"					
 					list:ItemSet (2, L["Note"] .. ":")
 					list:ItemSet (3, format ("%s %s", icon, name))
 					list:ItemSet (4, format ("|cff80ef80(%s %.1f %.1f)", newid, x, y))
@@ -838,10 +835,7 @@ function Nx.Notes:UpdateItems (selectI)
 
 					local typName = typ == "T" and "Target 1st" or "Target"					
 					local mapId, x, y = self:ParseItemTarget (data)
-					local mapName = Nx.MapIdToName[Nx.AIdToId[mapId]] or "?"
-					if mapName == "?" then
-						mapName = Nx.MapIdToName[mapId] or "?"
-					end
+					local mapName = GetMapNameByID(mapId) or "?"
 					list:ItemSet (2, format ("%s:", typName))
 					list:ItemSet (3, format ("%s", name))
 					list:ItemSet (4, format ("|cff80ef80(%s %.1f %.1f)", mapName, x, y))
@@ -1411,7 +1405,7 @@ function Nx.Notes:UpdateIcons()
 			if a ~= "Hide" then				
 				for c,d in pairs(addonNotes[a]["notes"]) do
 					local icon, zoneid, x, y = self:ParseItemNote(d)
-					if Nx.AIdToId[zoneid] == mapId then										
+					if zoneid == mapId then										
 						icon = self:GetIconFile (icon)
 						local wx, wy = Map:GetWorldPos(mapId,x,y)
 						local icon = map:AddIconPt("!Fav", wx, wy, nil, icon)
@@ -1438,9 +1432,12 @@ function Nx:GetFav()
 end
 
 function Nx.Notes:Menu_OnAddNote()
+	local map = Nx.Map:GetMap (1)
+	local mId = map.RMapId
+	Nx.prt(mId)
 	local wx, wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)	
-	local zx, zy = self:GetZonePos (self.MapId, wx, wy)	
-	Nx.Notes:AddNote ("?", self.MapId, zx, zy)
+	local zx, zy = self:GetZonePos (mId, wx, wy)	
+	Nx.Notes:AddNote ("?", mId, zx, zy)
 end
 
 function Nx.Notes:AddNote (name, id, x, y)	
