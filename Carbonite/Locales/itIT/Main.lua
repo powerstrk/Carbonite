@@ -2,7 +2,7 @@ if ( GetLocale() ~= "itIT" ) then
 	return;
 end
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "itIT", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "itIT")
 if not L then return end
 
 NXClassLocToCap = {		-- Convert localized class name to generic caps

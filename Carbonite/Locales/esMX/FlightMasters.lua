@@ -2,7 +2,7 @@ if ( GetLocale() ~= "esMX" ) then
 	return;
 end
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "esMX", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "esMX")
 if not L then return end
 
 L["Acherus: The Ebon Hold"] = "Acherus: El Bastión de Ébano"

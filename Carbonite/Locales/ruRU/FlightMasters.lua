@@ -2,7 +2,7 @@ if ( GetLocale() ~= "ruRU" ) then
 	return;
 end
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "ruRU", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "ruRU")
 if not L then return end
 
 L["Acherus: The Ebon Hold"] = "Акерус: Черный оплот"

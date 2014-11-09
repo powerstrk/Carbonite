@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "zhCN", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "zhCN")
 if not L then return end
 
 L["Info Options"] = "信息模块"

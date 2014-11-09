@@ -27,6 +27,7 @@
 -------------------------------------------------------------------------------
 
 --------
+local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
 function Nx.Travel:Init()
 	self.OrigTakeTaxiNode = TakeTaxiNode
@@ -38,7 +39,7 @@ function Nx.Travel:Init()
 	end	
 	self.Travel = tr
 
-	self:Add ("Flight Master")
+	self:Add (L["Flight Master"])
 
 --	if Nx:GetUnitClass() == "DRUID" then
 --		local taxiT = NxCData["Taxi"]

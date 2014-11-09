@@ -2,7 +2,7 @@ if ( GetLocale() ~= "koKR" ) then
 	return;
 end
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "koKR", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "koKR")
 if not L then return end
 
 L["Info Options"] = true

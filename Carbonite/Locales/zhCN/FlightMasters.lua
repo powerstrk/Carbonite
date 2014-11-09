@@ -1,4 +1,8 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "zhCN", true)
+﻿if ( GetLocale() ~= "zhCN" ) then
+	return
+end
+
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "zhCN")
 if not L then return end
 
 L["Acherus: The Ebon Hold"] = "阿彻鲁斯：黑锋要塞"

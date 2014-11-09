@@ -1453,12 +1453,12 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 	end
 end
 Nx.GuidePOI = {
-	"Auctioneer~Racial_Dwarf_FindTreasure",
-	"Banker~INV_Misc_Coin_02",
-	"Flight Master~Ability_Mount_Wyvern_01",
-	"Innkeeper~Spell_Shadow_Twilight",
-	"Mailbox~INV_Letter_15",
-    "Arcane Reforger~INV_Sword_67",	
+	L["Auctioneer"] .. "~Racial_Dwarf_FindTreasure",
+	L["Banker"] .. "~INV_Misc_Coin_02",
+	L["Flight Master"] .. "~Ability_Mount_Wyvern_01",
+	L["Innkeeper"] .. "~Spell_Shadow_Twilight",
+	L["Mailbox"] .. "~INV_Letter_15",
+    L["Arcane Reforger"] .. "~INV_Sword_67",	
 }
 
 function Nx.Map.Guide:UpdateZonePOIIcons()	
