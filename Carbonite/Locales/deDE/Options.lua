@@ -10,26 +10,26 @@ if not L then return end
 L["Profiles"] = "Profile"
 L["New"] = "Neu"
 L["You can change the active database profile, so you can have different settings for every character."] = "Du kannst das aktive Profil \195\164ndern, um individuelle Einstellungen für jeden Charakter zu benutzen"
-L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = "setzt das aktuelle Profil auf die Standardeinstellungen zur\195\188ck, f\195\188r den Fall das deine Einstellungen besch\195\164digt sind oder du einfach alles neu einstellen willst"
+L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = "Setzt das aktuelle Profil auf die Standardeinstellungen zur\195\188ck, f\195\188r den Fall das deine Einstellungen besch\195\164digt sind oder du einfach alles neu einstellen willst."
 L["Reset Profile"] = "Profil zur\195\188cksetzen"
-L["Reset the current profile to the defaults"] = "setze aktuelles Profil auf Grundeinsetllungen zur\195\188ck"
+L["Reset the current profile to the defaults"] = "Setze aktuelles Profil auf Grundeinsetllungen zur\195\188ck"
 L["Current Profile"] = "derzeitiges Profil"
-L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = "Du kannst entweder ein Neues Profil erstellen in dem du einen neuen Namen angibst oder ein bereits existierendes Profil ausw\195\164hlen"
+L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = "Du kannst entweder ein Neues Profil erstellen in dem du einen neuen Namen angibst oder ein bereits existierendes Profil ausw\195\164hlen."
 L["Create a new empty profile"] = "Erstelle neues Leeres Profil"
 L["Select one of your currently available profiles"] = "Wähle eines deiner derzeitig vorhandenen Profile aus"
 L["Existing Profiles"] = "bestehende Profile"
 L["Copy the settings from one existing profile into the currently active profile."] = "Kopiere die Einstellungen von einem vorhandenen Profil in das aktuell aktivierte Profil"
-L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = "L\195\182sche ein ungenutztes Profil aus der Datenbank um Speicherplatz zu sparen und die Savedvariable Datei aufzur\195{164umen"
+L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = "L\195\182sche ein ungenutztes Profil aus der Datenbank um Speicherplatz zu sparen und die Savedvariable Datei aufzur\195{164umen."
 L["Delete a Profile"] = "Lösche ein Profil"
 L["Deletes a profile from the database."] = "löscht ein Profil aus der Datenbank"
 
 -- Main Menu
 L["Main Options"] = "Allgemeine Optionen"
-L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = "/nCarbonite ist ein vollwertiges, m\195\164chtiges Kartenaddon im Google-Map Stil, welches entwerder Blizzards Weltkarten ersetzt oder mit den Weltkarten zusammen arbeitet .\n\n Durch verschiedene Module kann es das Spielerlebnis mit Hilfen f\195\188r dich erleichtern.
-L["Release Version"] = "Veröffentlichte Version"
-L["Maintained by"] = "Gewartet von"
+L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = "/nCarbonite ist ein vollwertiges, m\195\164chtiges Kartenaddon im Google-Map Stil, welches entwerder Blizzards Weltkarten ersetzt oder mit den Weltkarten zusammen arbeitet .\n\n Durch verschiedene Module kann es das Spielerlebnis mit Hilfen f\195\188r dich erleichtern."
+L["Release Version"] = "Ver\195\182ffentlichte Version"
+L["Maintained by"] = "weiterentwickelt von"
 L["Website"] = "Homepage"
-L["For support, please visit the forums for Carbonite on WoW Interface."] = "Für Support, schaue bitte in die Foren von Carbonite auf WoWInterface.com"
+L["For support, please visit the forums for Carbonite on WoW Interface."] = "F\195\188r Support, schaue bitte in die Foren von Carbonite auf WoWInterface.com"
 L["Special thanks to"] = "Besonderes Danke an"
 L["Cirax for Carbonite2 Logo"] = "Cirax f\195\188r das Carbonite2 Logo"
 L["JimboBlue for guide location updates and checking"] = "JimboBlue f\195\188r die Gebietsguide Updates und das kontrollieren"
@@ -37,45 +37,45 @@ L["JimboBlue for guide location updates and checking"] = "JimboBlue f\195\188r d
 -- Battlegrounds Menu
 L["Battlegrounds"] = "Schlachtfelder"
 L["Show Battleground Stats"] = "Zeige Schlachtfeldstatistiken" 
-L["Turns on or off displaying your battleground k/d and honor gained in chat during a match."] = "Schaltet die Anzeige der Schlachtfeldinformationen k/t und erhaltene Ehre an oder aus"
+L["Turns on or off displaying your battleground k/d and honor gained in chat during a match."] = "Schaltet die Anzeige der Schlachtfeldinformationen k/t und erhaltene Ehre an oder aus."
 
 -- General Menu
 L["General Options"] = "Generelle Optionen"
 L["Show Login Message"] = "Zeige die Login Nachricht"
-L["When Enabled, displays the Carbonite loading messages in chat."] = "wenn aktiviert, dann werden die Ladenachrichten von Carbonite im Chat ausgegeben"
+L["When Enabled, displays the Carbonite loading messages in chat."] = "Wenn aktiviert, dann werden die Ladenachrichten von Carbonite im Chat ausgegeben."
 L["Show Login Graphic"] = "Zeige Login Grafik"
-L["When Enabled, displays the Carbonite graphic during initialization."] = "wenn aktiviert, wird dir die Carbonite Grafik w\195\164hrend der Initialisierung angezeigt"
+L["When Enabled, displays the Carbonite graphic during initialization."] = "Wenn aktiviert, wird dir die Carbonite Grafik w\195\164hrend der Initialisierung angezeigt."
 L["Play Login Sound"] = "Spiele den Login Sound"
-L["When Enabled, plays a sound when Carbonite is loaded."] = "wenn aktiviert, wird der Login Sound abgespielt wenn Carbonite geladen wird"
+L["When Enabled, plays a sound when Carbonite is loaded."] = "Wenn aktiviert, wird der Login Sound abgespielt wenn Carbonite geladen wird."
 L["Default Chat Channel"] = "Standard Chat Kanal"
-L["Allows selection of which chat window to display Carbonite messages"] = "Ermöglicht die Auswahl des Chatfensters, in welchem die Carbonite Nachrichten angezeigt werden"
+L["Allows selection of which chat window to display Carbonite messages"] = "Ermöglicht die Auswahl des Chatfensters, in welchem die Carbonite Nachrichten angezeigt werden."
 L["Force Max Camera Distance"] = "Erzwinge Maximale Kameradistanz"
-L["When enabled, sets the max camera distance higher then Blizzards options normally allows."] = "Wenn eingeschaltet, wird die maximale Kamera Distanz h\195\182\her gesetzt als die Blizzard Optionen normalerweise zulassen"
+L["When enabled, sets the max camera distance higher then Blizzards options normally allows."] = "Wenn eingeschaltet, wird die maximale Kamera Distanz h\195\182\her gesetzt als die Blizzard Optionen normalerweise zulassen."
 L["Hide Action Bar Gryphon Graphics"] = "Aktionleisten Greifgrafiken ausblenden"
-L["Attempts to hide the two gryphons on your action bar."] = "Versucht die beiden Greifgrafiken an der Seite deiner Aktionsleisten auszubelnden"
+L["Attempts to hide the two gryphons on your action bar."] = "Versucht die beiden Greifgrafiken an der Seite deiner Aktionsleisten auszubelnden."
 
 -- Map Options
 L["Map Options"] = "Karten Einstellungen"
-L["Use Carbonite Map instead of Blizzards (Alt-M will open world map)"] = "Benutze die Carbonite Karte anstatt der Blizzard Karten (Alt-M öffnet Blizzards Weltkarte)"
-L["When enabled, pressing 'M' will maximize the carbonite map instead of opening the world map."] = "wenn eingeschaltet, wird die Carbonite Karte maximiert, anstatt Blizzard's Weltkarte zu \195\182\ffnen"
+L["Use Carbonite Map instead of Blizzards (Alt-M will open world map)"] = "Benutze die Carbonite Karte anstatt der Blizzard Karten (Alt-M öffnet Blizzards Weltkarte)."
+L["When enabled, pressing 'M' will maximize the carbonite map instead of opening the world map."] = "Wenn eingeschaltet, wird die Carbonite Karte maximiert, anstatt Blizzard's Weltkarte zu \195\182\ffnen."
 L["Enable Compatability Mode"] = "Kompatibilt\195\164tsmodus einschalten"
 L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."] = "Wenn eingeschaltet, wird Carbonite immer kontrollieren ob du dich im Kampf befindest bevor jegliche Karten/Fenster Funktionen ausgeführt werden.\n Dies verhindert bei anderen UI's gesch\195\188tzter Modus Fehler."
 L["Center map when maximizing"] = "Zentriere die Karte beim maximieren"
 L["When enabled, the map will center on your current zone when you maximize it"] = "Wenn eingeschaltet, wird das aktulle Gebiet in der Karte zentriert, wenn du es maximierst"
-L["Ignore mouse on map except when ALT is pressed"] = "Ignoriere deine Maus auf der Karte, au\195\159er die ALT-Taste wird gehalten"
-L["When enabled, the small game map will ignore all mouse clicks unless the ALT key is held down."] = true
-L["Ignore mouse on full-sized map except when ALT is pressed"] = true
-L["When enabled, the full size map will ignore all mouse clicks unless the ALT key is held down."] = true
-L["Move Worldmap Data into Maximized Map"] = true
-L["When enabled, Carbonite will attempt to move anything drawn on your world map onto the Maximized Map."] = true
-L["Close Map instead of minimize"] = true
-L["When enabled, pressing either 'M' or ESC will close the maximized map instead of switching back to small map."] = true
-L["Show Friends/Guildmates in Cities"] = true
-L["When enabled, will attempt to draw a marker on the map for friends & guildmates positions."] = true
-L["Show Other people in Cities"] = true
-L["When enabled, will attempt to draw a marker on the map for other Carbonite users."] = true
-L["Show Other people In Zone"] = true
-L["When enabled, will attempt to draw a marker on the map for other Carbonite users."] = true
+L["Ignore mouse on map except when ALT is pressed"] = "Ignoriere deine Maus auf der Karte, au\195\159er die ALT-Taste wird gedr\195\188ckt"
+L["When enabled, the small game map will ignore all mouse clicks unless the ALT key is held down."] = "Wenn eingeschaltet, wird die kleine Karte keine Mausbefehle entgegennehmen, au\195\159er die ALT-Taste wird gehalten."
+L["Ignore mouse on full-sized map except when ALT is pressed"] = "Ignoriere die Maus auf der Weltkarte, au\195\159er ALT wird gedr\195\188ckt"
+L["When enabled, the full size map will ignore all mouse clicks unless the ALT key is held down."] = "Wenn eingeschaltet, wird die Weltkarte keine Mausbefehle entgegennehmen, au\195\159er die ALT-Taste wird gehalten."
+L["Move Worldmap Data into Maximized Map"] = "Verschiebe Weltkartendaten in die Maximierte Karte"
+L["When enabled, Carbonite will attempt to move anything drawn on your world map onto the Maximized Map."] = "Wenn eingeschaltet wird Carbonite versuchen alles was auf der Weltkarte dargestellt wird in die Maximierte Karte zu verschieben."
+L["Close Map instead of minimize"] = "Schlie\195\159e die Karte anstatt zu minimieren"
+L["When enabled, pressing either 'M' or ESC will close the maximized map instead of switching back to small map."] = "Wenn eingeschaltet, wird das dr\195\188cken von ESC oder 'M' bewirken anstatt auf die Kleine Karte zu wechseln." 
+L["Show Friends/Guildmates in Cities"] = "Zeige Freunde/Gildenmitglieder in St\195\164dten"
+L["When enabled, will attempt to draw a marker on the map for friends & guildmates positions."] = "Wenn eingeschaltet, wird versucht deine Freunde und Gildenmitglieder auf der Karte anzuzeigen." 
+L["Show Other people in Cities"] = "Zeige andere Spieler in St\195\164dten"
+L["When enabled, will attempt to draw a marker on the map for other Carbonite users."] = "Wenn eingeschaltet, wird versucht auf der Stadtkarte andere Spieler die Carbonite nutzen anzuzeigen."
+L["Show Other people In Zone"] = "Zeige andere Spieler im Gebiet"
+L["When enabled, will attempt to draw a marker on the map for other Carbonite users."] = "Wenn eingeschaltet, wird versucht auf der Gebietskarte andere Spieler die Carbonite nutzen anzuzeigen."
 L["Restore map scale after track"] = true
 L["When enabled, restores your previous map scale when tracking is cleared."] = true
 L["Use Travel Routing"] = true
@@ -244,7 +244,7 @@ L["Menu Font Spacing"] = true
 L["Sets the spacing of the menu font"] = true
 
 -- Guide Options
-L["Guide Options"] = true
+L["Guide Options"] = "Guide und Farmeinstellungen"
 L["Max Vendors To Record"] = true
 L["Sets the number of vendors you visit that will be held in memory for recall in the guide."] = true
 L["Gather Options"] = true
@@ -262,14 +262,14 @@ L["Nodes On Map"] = true
 L["Mining"] = true
 
 -- Menu Options
-L["Menu Options"] = true
+L["Menu Options"] = "Men\195\188 Optionen"
 L["Center Menus Horizontally On Cursor"] = true
 L["When Enabled, Carbonite Menus Will Be Drawn Horizontally Centered On The Mouse"] = true
 L["Center Menus Vertically On Cursor"] = true
 L["When Enabled, Carbonite Menus Will Be Drawn Vertically Centered On The Mouse"] = true
 
 -- Privacy Options
-L["Privacy Options"] = true
+L["Privacy Options"] = "Privatsph\195\164re Optionen"
 L["Send Position & Level Ups To Friends"] = true
 L["When Enabled, Carbonite will send your current location and any levelups you get to your other friends using carbonite"] = true
 L["Send Position & Level Ups To Guild"] = true
@@ -284,15 +284,15 @@ L["Enable Zone Channel (Used for locations of others in your zone)"] = true
 L["When Enabled, Carbonite will send your current location and listen for messages from others who are in the same zone as you"] = true
 
 -- Skin Options
-L["Skin Options"] = true
-L["Current Skin"] = true
-L["Sets the current skin for carbonite windows"] = true
-L["Border Color of Windows"] = true
-L["Background Color of Fixed Sized Windows"] = true
-L["Background Color of Resizable Windows"] = true
+L["Skin Options"] = "Stil Optionen"
+L["Current Skin"] = "aktueller Stil"
+L["Sets the current skin for carbonite windows"] = "Setzt den aktuellen Stil f\195\188r die Carbonite Fenster"
+L["Border Color of Windows"] = "Randfarbe der Fenster"
+L["Background Color of Fixed Sized Windows"] = "Hintergrundfarbe der festgesetzten Fenster"
+L["Background Color of Resizable Windows"] = "Hintergrundfarbe der gr\195\182ßenver\195\164nderbaren Fenster"
 
 -- Track Options
-L["Tracking Options"] = true
+L["Tracking Options"] = "Tracking Optionen"
 L["Hide Tracking HUD"] = true
 L["When Enabled, Carbonite will hide the tracking hud from display"] = true
 L["Hide Tracking HUD in BG's"] = true
@@ -330,20 +330,20 @@ L["Battlegrounds"] = "Schlachtfelder"
 L["Fonts"] = "Schriften"
 L["Guide & Gather"] = "Guide und Sammeln"
 L["Maps"] = "Karten"
-L["Menus"] = "Menüs"
+L["Menus"] = "Men\195\188s"
 L["Privacy"] = "Privatsph\195\164re"
 L["Profiles"] = "Profil"
-L["Skin"] = true
-L["Tracking HUD"] = true
+L["Skin"] = "Stil"
+L["Tracking HUD"] = "Tracking HUD"
 
 -- General Text
 L["Reload UI"] = "UI neu laden"
 L["Reset options"] = "Optionen zur\195\188cksetzen"
 L["Reset global options"] = "Globale Optionen zur\195\188cksetzen"
-L["Reset window layouts"] = true
-L["Delete Herb Locations"] = true
-L["Delete Mine Locations"] = true
-L["Delete Misc Locations"] = true
-L["Import Herbs"] = true
-L["Import Mining"] = true
-L["Import Misc"] = true
+L["Reset window layouts"] = "Fenstereinstellungen zur\195\188cksetzen"
+L["Delete Herb Locations"] = "L\195\182sche Kr\195\164uterpostitionen"
+L["Delete Mine Locations"] = "L\195\182sche Erzpostitionen"
+L["Delete Misc Locations"] = "L\195\182sche Sonstige Postitionen"
+L["Import Herbs"] = "Importiere Kr\195\164uter"
+L["Import Mining"] = "Importiere Erze"
+L["Import Misc"] = "Importiere Sonstige"
