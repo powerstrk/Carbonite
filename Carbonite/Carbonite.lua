@@ -25,9 +25,9 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR			= 5.1
-Nx.VERMINOR			= .6			-- Not 0 is a test version
-Nx.BUILD				= 292
+Nx.VERMAJOR			= 6.0
+Nx.VERMINOR			= .0			-- Not 0 is a test version
+Nx.BUILD				= 118
 
 Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
 

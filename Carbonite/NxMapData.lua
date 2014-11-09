@@ -660,12 +660,6 @@ Map.MapGenAreas = {	-- Auto gen by ConvertMapData()
 		1605.833300782, -- [3]
 		"uldum_terrain1", -- [4]
 	},
-	[751] = {
-		3.1, -- [1]
-		-311.25, -- [2]
-		-274.16665039, -- [3]
-		"themaelstrom", -- [4]
-	},
 	[606] = {
 		8.491666748046001, -- [1]
 		185.8333251954, -- [2]
@@ -940,14 +934,14 @@ Map.MapWorldInfo = {
 		Name = L["Azuremyst Isle"],
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
-		MId = 1003,
+		MId = 464,
 		Fish = 25,
 	},
 	[476] = {
 		Name = L["Bloodmyst Isle"],
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
-		MId = 1003,
+		MId = 464,
 		Fish = 75,
 		QAchievementIdA = 4926,
 	},
@@ -1043,7 +1037,7 @@ Map.MapWorldInfo = {
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
 		City = true,
-		MId = 1003,
+		MId = 464,
 	},
 	[61] = {
 		Name = L["Thousand Needles"],
@@ -1102,7 +1096,7 @@ Map.MapWorldInfo = {
 		Name = L["Ammen Vale"],
 		XOff = Map.DraeneiXO,
 		YOff = Map.DraeneiYO,
-		MId = 1003,
+		MId = 464,
 		StartZone = true,
 	},
 	[890] = {
@@ -1170,14 +1164,14 @@ Map.MapWorldInfo = {
 		Name = L["Eversong Woods"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 2011,
+		MId = 462,
 		Fish = 25,
 	},
 	[463] = {
 		Name = L["Ghostlands"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 2011,
+		MId = 462,
 		Fish = 75,
 		QAchievementIdH = 4908,
 	},
@@ -1216,7 +1210,7 @@ Map.MapWorldInfo = {
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
 		City = true,
-		MId = 2011,
+		MId = 462,
 	},
 	[21] = {
 		Name = L["Silverpine Forest"],
@@ -1281,7 +1275,7 @@ Map.MapWorldInfo = {
 		Name = L["Isle of Quel'Danas"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 2011,
+		MId = 462,
 		Fish = 450,
 	},
 	[502] = {
@@ -1343,7 +1337,7 @@ Map.MapWorldInfo = {
 		Name = L["Tol Barad Peninsula"],
 		XOff = -600,
 		YOff = 320,
-		MId = 709,
+		MId = 708,
 		Fish = 75,
 		Explored = true,
 	},
@@ -1386,7 +1380,7 @@ Map.MapWorldInfo = {
 		Name = L["Sunstrider Isle"],
 		XOff = Map.BloodelfXO,
 		YOff = Map.BloodelfYO,
-		MId = 2011,
+		MId = 462,
 		StartZone = true,
 	},
 
@@ -1633,12 +1627,6 @@ Map.MapWorldInfo = {
 		City = true,
 		Explored = true,
 	},	
-	[751] = {
-		3.1, -- [1]
-		-311.25, -- [2]
-		-274.16665039, -- [3]
-		"themaelstrom", -- [4]
-	},	
     [823] = { 
 	    Name = L["Darkmoon Island"],
 		3.8,
@@ -1721,10 +1709,11 @@ Map.MapWorldInfo = {
 	[808] = {
 		Name=L["The Wandering Isle"],
 		5.341666015625,
-		-500,-200,
+		-500,-200,		
 		Overlay = "thewanderingisle",
 		StartZone = true,
 --		City = true,
+		MId = 808,
 		MMOutside = true,		
 	},    
     [903] = { 
@@ -7196,49 +7185,49 @@ Map.MiniMapBlks = {
 		850, 2225-2500+800,
 		"World\\Minimaps\\HawaiiMainLand"
 	},
-	[1003] = {
+	[464] = {
 		Map.DraeneiMapBlks,
 		5033,
 		50, 33,
 		-3380.243817,-1703.381588,
 		"World\\Minimaps\\Expansion01"
 	},
-	[2011] = {
+	[462] = {
 		Map.BloodelfMapBlks,
 		4111,
 		41, 11,
 		6341.011121,-1924.128369,
 		"World\\Minimaps\\Expansion01"
 	},
-	[2038] = {
+	[708] = {
 		Map.TolBaradMapBlks,
 		2731,
 		27, 31,
 		4750.5466,13.3466,
 		"World\\Minimaps\\TolBarad"
 	},
-	[4012] = {
+	[795] = {
 		Map.MoltenFrontMapBlks,
 		2725,		-- 2725 to 3531
 		27, 25,
 		1253.256,-2406.387,
 		"World\\Minimaps\\FirelandsDailies"
 	},
-	[5001] = {	-- 2625 to 3534
+	[640] = {	-- 2625 to 3534
 		Map.DeepholmMapBlks,
 		2625,
 		26, 25,
 		2314.91-1375+1100,54.81-100-1800,
 		"World\\Minimaps\\Deephome"
 	},
-	[5002] = {
+	[605] = {
 		Map.KezanMapBlks,
 		2324,
 		23, 24,
 		1670.80-1375+1100,-1295.70-100-1800,
 		"World\\Minimaps\\LostIsles"
 	},
-	[5005] = {
+	[823] = {
 		Map.DarkMoonFaireBlks,
 		1636,
 		16, 36,
@@ -7265,8 +7254,12 @@ function Nx.Map:GetMiniInfo (mapId)
 	local id = winfo.MId
 
 	if not id then
-		id = floor (mapId / 1000)
+		id = winfo.Cont
 
+		if not id then
+			return
+		end
+		
 		if id == 9 then	-- BGs?
 			return
 		end

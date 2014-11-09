@@ -1940,7 +1940,7 @@ function CarboniteQuest:OnInitialize()
 	
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
-		Nx.Quest:HideUIPanel (_G["QuestLogFrame"])
+		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
 	end
 	CarboniteQuest:RegisterComm("carbmodule",Nx.Quest.OnChat_msg_addon)	
 	Nx:AddToConfig("Quest Module",QuestOptions(),"Quest Module")	
@@ -2022,8 +2022,8 @@ function Nx.Quest:Init()
 --	SelectQuestLogEntry = Nx.Quest.SelectQuestLogEntry
 
 	-- Force it to create/enable and then we disable
-	GetUIPanelWidth (QuestLogFrame)
-	QuestLogFrame:SetAttribute ("UIPanelLayout-enabled", false)
+	GetUIPanelWidth (QuestMapFrame)
+	QuestMapFrame:SetAttribute ("UIPanelLayout-enabled", false)
 
 	if QuestLogDetailFrame then	-- Patch 3.2
 		GetUIPanelWidth (QuestLogDetailFrame)
@@ -2591,7 +2591,7 @@ end
 
 function CarboniteQuest.ShowUIPanel(frame)
 	if frame then
-		if frame == _G["QuestLogFrame"] and Nx.qdb.profile.Quest.Enable then
+		if frame == _G["QuestMapFrame"] and Nx.qdb.profile.Quest.Enable then
 			Nx.Quest:ShowUIPanel (frame)
 		end
 	end
@@ -2599,7 +2599,7 @@ end
 
 function CarboniteQuest.HideUIPanel (frame)
 	if frame then		
-		if frame == _G["QuestLogFrame"] and Nx.qdb.profile.Quest.Enable then
+		if frame == _G["QuestMapFrame"] and Nx.qdb.profile.Quest.Enable then
 			Nx.Quest:HideUIPanel (frame)
 		end
 	end
@@ -2781,7 +2781,7 @@ end
 function Nx.Quest:CheckQuestSE (q, n)
 
 	local _, zone, x, y = self:GetSEPos (q[n])
-	local mapId = Nx.Map.NxzoneToMapId[zone]
+	local mapId = zone
 
 	if (x == 0 or y == 0) and mapId and not Nx.Map:IsInstanceMap (mapId) then
 		q[n] = format ("%s# ####", strsub (q[n], 1, 2))	-- Zero it to get a red button
@@ -2793,7 +2793,7 @@ end
 function Nx.Quest:CheckQuestObj (q, n)
 
 	local oName, zone, x, y = self:GetObjectivePos (q[n])
-	local mapId = Nx.Map.NxzoneToMapId[zone]
+	local mapId = zone
 
 	if (x == 0 or y == 0) and mapId and not Nx.Map:IsInstanceMap (mapId) then		
 		q[n] = format ("%c%s# ####", #oName + 35, oName)	-- Zero it to get a red button
@@ -2853,7 +2853,7 @@ end
 
 function Nx.Quest:Menu_OnShowQuest()
 
-	ShowUIPanel (QuestLogFrame)
+	ShowUIPanel (QuestMapFrame)
 
 	self.List.Bar:Select (1)
 
@@ -2981,7 +2981,7 @@ function Nx.Quest:ExpandQuests()
 
 		for qn = 1, cnt do
 
-			local title, level, tag, groupCnt, isHeader, isCollapsed = GetQuestLogTitle (qn)
+			local title, level, groupCnt, isHeader, isCollapsed = GetQuestLogTitle (qn)
 			if isHeader and isCollapsed then
 
 				local he = self.HeaderExpanded
@@ -3115,7 +3115,7 @@ function Nx.Quest:RecordQuestsLog()
 			local qi = cur.QI
 			if qi > 0 then
 
-				local title, level, tag, groupCnt, isHeader, isCollapsed, isComplete = GetQuestLogTitle (qi)
+				local title, level, groupCnt, isHeader, isCollapsed, isComplete = GetQuestLogTitle (qi)
 				title = self:ExtractTitle (title)
 
 --				Nx.prt ("QD %s %s %s %s", title, qi, isHeader and "H1" or "H0", isComplete and "C1" or "C0")
@@ -3224,7 +3224,7 @@ function Nx.Quest:RecordQuestsLog()
 
 	for qn = 1, qcnt do
 
-		local title, level, tag, groupCnt, isHeader, isCollapsed, isComplete, isDaily = GetQuestLogTitle (qn)
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete, isDaily = GetQuestLogTitle (qn)
 
 --		Nx.prt ("Q %d %s %s %d %s %s %s %s", qn, isHeader and "H" or " ", title, level, tag or "nil", groupCnt or "nil", isDaily or "not daily", isComplete and "C1" or "C0")
 
@@ -3239,131 +3239,131 @@ function Nx.Quest:RecordQuestsLog()
 
 			SelectQuestLogEntry (qn)
 
-			local qDesc, qObj = GetQuestLogQuestText()
-
+			local qDesc, qObj = GetQuestLogQuestText()			
 			local qId, qLevel = self:GetLogIdLevel (qn)
-			assert (qId)
-			local quest = Nx.Quests[qId]
+			if qId then
+				local quest = Nx.Quests[qId]
 
 --			local quest = self:Find (title, level, qDesc, qObj)
-			local lbCnt = GetNumQuestLeaderBoards (qn)
+				local lbCnt = GetNumQuestLeaderBoards (qn)
 
-			local cur = quest and fakeq[quest]
+				local cur = quest and fakeq[quest]
 --			local DBqId = quest and self:UnpackId (quest[1])
 --			assert (qId == DBqId)
 
-			if not cur then
-				cur = {}
-				curq[index] = cur
-				cur.Index = index
-				index = index + 1
+				if not cur then
+					cur = {}
+					curq[index] = cur
+					cur.Index = index
+					index = index + 1
 
-			else
-				cur.Goto = nil						-- Might have been a goto quest
-				cur.Index = index
+				else
+					cur.Goto = nil						-- Might have been a goto quest
+					cur.Index = index
 
-				if quest then
-					self.Tracking[qId] = 0
-					self:TrackOnMap (qId, 0, true)
+					if quest then
+						self.Tracking[qId] = 0
+						self:TrackOnMap (qId, 0, true)
+					end
 				end
-			end
 
-			qIds[qId] = cur
+				qIds[qId] = cur
 
-			cur.Q = quest
-			cur.QI = qn							-- Blizzard index
-			cur.QId = qId
-			cur.Header = header
-			cur.Title = title
-			cur.ObjText = qObj
-			cur.DescText = qDesc
-			cur.Level = level
-			cur.RealLevel = qLevel
-			cur.NewTime = self.QIdsNew[qId]	-- Copy new time
+				cur.Q = quest
+				cur.QI = qn							-- Blizzard index
+				cur.QId = qId
+				cur.Header = header
+				cur.Title = title
+				cur.ObjText = qObj
+				cur.DescText = qDesc
+				cur.Level = level
+				cur.RealLevel = qLevel
+				cur.NewTime = self.QIdsNew[qId]	-- Copy new time
 
-			cur.Tag = tag
-			cur.GCnt = groupCnt or 0
+				cur.Tag = tag
+				cur.GCnt = groupCnt or 0
 
-			cur.PartySize = groupCnt or 1
+				cur.PartySize = groupCnt or 1
 --			if cur.Tag then Nx.prt ("%s %s", cur.Tag, cur.GCnt) end
-			if tag == "Dungeon" or tag == "Heroic" then
-				cur.PartySize = 5
-			elseif tag == "Raid" then
-				cur.PartySize = 10
-			end
-
-			cur.TagShort = self.TagNames[tag] or ""
-
-			cur.Daily = isDaily
-			if isDaily then
-				cur.TagShort = "$" .. cur.TagShort
-			end
-
-			cur.CanShare = GetQuestLogPushable()
-			cur.Complete = isComplete		-- 1 is Done, nil not. Otherwise failed
-			cur.IsAutoComplete = GetQuestLogIsAutoComplete (qn)
-
-			local left = GetQuestLogTimeLeft()
-			if left then
-				cur.TimeExpire = time() + left
-				cur.HighPri = true
-			end
-
-			cur.ItemLink, cur.ItemImg, cur.ItemCharges = GetQuestLogSpecialItemInfo (qn)
-
-			cur.Priority = 1
-			cur.Distance = 999999999
-			cur.LBCnt = lbCnt
-
-			for n = 1, lbCnt do
-				local desc, typ, done = GetQuestLogLeaderBoard (n, qn)
-				cur[n] = desc or "?"		--V4
-				cur[n + 100] = done
-			end
-
-			local mask = 0
-			local ender = quest and (quest["End"] or quest["Start"])
-
-			if (isComplete and ender) or lbCnt == 0 or (cur.Goto and quest["Start"]) then
-				mask = 1
-
-			else
-				for n = 1, 99 do
-
-					local done
-					if n <= lbCnt then
-						done = cur[n + 100]
-					end
-
-					local obj = quest and quest["Objectives"]
-
-					if not obj then
-						break
-				    else obj = quest and quest["Objectives"][n]
-					end
-					if not obj then
-						break
-					end
-					
-					if obj and not done then
-						mask = mask + bit.lshift (1, n)
-					end
+				if tag == "Dungeon" or tag == "Heroic" then
+					cur.PartySize = 5
+				elseif tag == "Raid" then
+					cur.PartySize = 10
 				end
-			end			
-			cur.TrackMask = mask
+
+				cur.TagShort = self.TagNames[tag] or ""
+
+				cur.Daily = isDaily
+				if isDaily == LE_QUEST_FREQUENCY_DAILY then
+					cur.TagShort = "$" .. cur.TagShort
+				end
+				if isDaily == LE_QUEST_FREQUENCY_WEEKLY then
+					cur.TagShort = "#" .. cur.TagShort
+				end
+				cur.CanShare = GetQuestLogPushable()
+				cur.Complete = isComplete		-- 1 is Done, nil not. Otherwise failed
+				cur.IsAutoComplete = GetQuestLogIsAutoComplete (qn)
+
+				local left = GetQuestLogTimeLeft()
+				if left then
+					cur.TimeExpire = time() + left
+					cur.HighPri = true
+				end
+
+				cur.ItemLink, cur.ItemImg, cur.ItemCharges = GetQuestLogSpecialItemInfo (qn)
+
+				cur.Priority = 1
+				cur.Distance = 999999999
+				cur.LBCnt = lbCnt
+
+				for n = 1, lbCnt do
+					local desc, typ, done = GetQuestLogLeaderBoard (n, qn)
+					cur[n] = desc or "?"		--V4
+					cur[n + 100] = done
+				end
+
+				local mask = 0
+				local ender = quest and (quest["End"] or quest["Start"])
+
+				if (isComplete and ender) or lbCnt == 0 or (cur.Goto and quest["Start"]) then
+					mask = 1
+
+				else
+					for n = 1, 99 do
+						local done
+						if n <= lbCnt then
+							done = cur[n + 100]
+						end
+
+						local obj = quest and quest["Objectives"]
+
+						if not obj then
+							break
+						else obj = quest and quest["Objectives"][n]
+						end
+						if not obj then
+							break
+						end
+					
+						if obj and not done then
+							mask = mask + bit.lshift (1, n)
+						end
+					end
+				end			
+				cur.TrackMask = mask
 
 --			Nx.prt ("%s %x", title, mask)
 
-			self.RealQ[title] = cur			-- For diff
+				self.RealQ[title] = cur			-- For diff
 
 			-- Calc total number in quest chain
 
-			if quest then
-				self:CalcCNumMax (cur, quest)
+				if quest then
+					self:CalcCNumMax (cur, quest)
+				end
 			end
 		end
 	end
-
 	--
 
 	if Nx.qdb.profile.Quest.PartyShare and self.Watch.ButShowParty:GetPressed() then
@@ -3543,7 +3543,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 		return
 	end
 	IS_BACKGROUND_WORLD_CACHING = true
-	WatchFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
+	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
 
 --	local tm = GetTime()
 
@@ -3553,7 +3553,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 	for a,b in pairs(Nx.Map.MapZones[self.ScanBlizzMapId]) do
 		local mapId = b
 		if InCombatLockdown() then			
-			WatchFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+			ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
 			Nx.Quest.WorldUpdate = false
 			return
 		end
@@ -3565,7 +3565,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 		local info = Map.MapInfo[cont]		
 	end
 	if self.ScanBlizzMapId > Nx.Map.ContCnt then
-		WatchFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+		ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
 		Map:SetCurrentMap (curMapId)
 		IS_BACKGROUND_WORLD_CACHING = false
 		self:RecordQuestsLog()			
@@ -3615,22 +3615,18 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	    	    
 		QuestPOIUpdateIcons()
 		
-		local mapId = Nx.Map:GetCurrentMapId()
-		local zone = Nx.MapIdToNxzone[mapId]
-		if mapId >= 9000 then
+		local mapId = Nx.Map:GetCurrentMapId()				
+		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
-		if not zone then
---			Nx.prt ("ScanQuestZone %s, %s", mapId or "nil", num)
+		if not mapId then
 			return
 		end
-
---		Nx.prt ("Id %s, %s", mapId, num)
 		
 		for n = 1, num do			
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
 			if qi and qi > 0 then				
-				local title, level, tag, groupCnt, isHeader, isCollapsed, isComplete = GetQuestLogTitle (qi)
+				local title, level, groupCnt, isHeader, isCollapsed, isComplete = GetQuestLogTitle (qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)				
 				local quest = Nx.Quests[id] or {}				
 				local patch = Nx.Quests[-id] or 0
@@ -3649,7 +3645,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 						end
 						if needEnd or bit.band (patch, 1) then							
 							if not quest["End"] or bit.band(patch,1) then
-								quest["End"] = format ("|%s|32|%f|%f", zone,x,y)									
+								quest["End"] = format ("|%s|32|%f|%f", mapId,x,y)									
 							end
 							patch = bit.bor (patch, 1)		-- Flag as a patched quest
 						end
@@ -3661,7 +3657,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 							patch = bit.bor (patch, 2)
 
 							local s = title						
-							local obj = format ("|%s|32|%f|%f|6|6",zone, x, y)
+							local obj = format ("|%s|32|%f|%f|6|6",mapId, x, y)
 
 							for i = 1, lbCnt do
 								quest["Objectives"][i] = {obj}
@@ -3830,15 +3826,13 @@ end
 
 
 function Nx.Quest:GetLogIdLevel (index)
-
-	if index > 0 then
+	if index > 0 then		
 		local qlink = GetQuestLink (index)
-		if qlink then
-			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")
+		if qlink then			
+			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")			
 			if s1 then
 
---				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))
-
+--				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))				
 				return tonumber (id), tonumber (level)
 			end
 		end
@@ -3981,7 +3975,7 @@ function Nx.Quest:FindNewQuest()
 
 	for qn = 1, cnt do
 
-		local title, level, tag, groupCnt, isHeader, isCollapsed, isComplete = GetQuestLogTitle (qn)
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete = GetQuestLogTitle (qn)
 
 		if not isHeader then
 
@@ -4029,7 +4023,7 @@ function Nx.Quest:RecordQuestAcceptOrFinish()
 
 	local id = Nx.Map:GetRealMapId()
 --	self.AcceptNxzone = Nx.MapIdToNxzone[id] or 0
-	self.AcceptAId = Nx.IdToAId[id] or 0
+	self.AcceptAId = id or 0
 
 	self.AcceptDLvl = 0
 
@@ -4176,7 +4170,7 @@ function Nx.Quest:Capture (curi, objNum)
 
 		local map = self.Map
 --		local nxzone = Nx.MapIdToNxzone[map.RMapId]
-		local nxzone = Nx.IdToAId[map.RMapId]
+		local nxzone = map.RMapId
 		if nxzone then
 
 			local index = objNum + 2
@@ -4400,7 +4394,7 @@ end
 
 function Nx.Quest:CheckShow (mapId, qId)
 
-	local nxid = Nx.MapIdToNxzone[mapId]
+	local nxid = mapId
 	local quest = Nx.Quests[qId]
 
 	if not quest then
@@ -4544,7 +4538,7 @@ function Nx.Quest:Abandon (qIndex, qId)
 
 		self:ExpandQuests()
 
-		local title, level, tag, groupCnt, isHeader = GetQuestLogTitle (qIndex)
+		local title, level, groupCnt, isHeader = GetQuestLogTitle (qIndex)
 
 		if not isHeader then
 
@@ -5055,7 +5049,7 @@ function Nx.Quest.List:Open()
 	win:CreateButtons (true, true)
 	win:InitLayoutData (nil, -.24, -.15, -.52, -.65)
 
-	tinsert (UISpecialFrames, "QuestLogFrame")
+	tinsert (UISpecialFrames, "QuestMapFrame")
 	tinsert (UISpecialFrames, win.Frm:GetName())
 
 	win.Frm:SetToplevel (true)
@@ -5420,7 +5414,7 @@ function Nx.Quest:ShowUIPanel (frame)
 
 		frame:SetScale (1)
 
-		QuestLogFrame:SetAttribute ("UIPanelLayout-enabled", true)
+		QuestMapFrame:SetAttribute ("UIPanelLayout-enabled", true)
 		ShowUIPanel (frame)
 
 		if detailFrm then
@@ -5469,7 +5463,7 @@ end
 
 function Nx.Quest:HideUIPanel (frame)
 
-	QuestLogFrame:SetAttribute ("UIPanelLayout-enabled", false)
+	QuestMapFrame:SetAttribute ("UIPanelLayout-enabled", false)
 
 	local detailFrm = QuestLogDetailFrame
 	if detailFrm then
@@ -5633,7 +5627,7 @@ end
 function Nx.Quest.List:OnWin (typ)
 
 	if typ == "Close" then
-		HideUIPanel (QuestLogFrame)
+		HideUIPanel (QuestMapFrame)
 --		QuestLogFrame:Hide()
 	end
 end
@@ -6862,14 +6856,14 @@ function Nx.Quest.List:Update()
 				local sMapName
 				local sName, sMapId = Quest:UnpackSE (quest["Start"])
 				if sMapId then
-					sMapName = Map:IdToName (Map.NxzoneToMapId[sMapId])
+					sMapName = Map:IdToName (sMapId)
 					filterName = format ("%s(%s)", sName, sMapName)
 				end
 
 				local eMapName
 				local eName, eMapId = Quest:UnpackSE (quest["End"])
 				if eMapId then
-					eMapName = Map:IdToName (Map.NxzoneToMapId[eMapId])
+					eMapName = Map:IdToName (eMapId)
 					if sName ~= eName then
 						filterName = format ("%s%s(%s)", filterName, eName, eMapName)
 					end
@@ -6889,7 +6883,7 @@ function Nx.Quest.List:Update()
 
 						local name, zone = Nx.Quest:UnpackObjectiveNew (obj)
 						if zone then
-							filterName = filterName .. Map:IdToName (Map.NxzoneToMapId[zone])
+							filterName = filterName .. Map:IdToName (zone)
 						end
 					end
 
@@ -6980,7 +6974,7 @@ function Nx.Quest.List:Update()
 						if zone then
 							list:ItemSetButton ("QuestWatch", false)
 							list:ItemSetButtonTip (questTip)
-							list:ItemSet (4, Map:IdToName (Map.NxzoneToMapId[zone]))
+							list:ItemSet (4, Map:IdToName (zone))
 						end
 						
 						if bit.band (trackMode, bit.lshift (1, n)) > 0 then
@@ -7100,8 +7094,7 @@ function Nx.Quest.List:Update()
 end
 
 function Nx.Quest.List:CheckShow (mapId, index)
-
-	local NxzoneToMapId = Nx.Map.NxzoneToMapId
+	
 	local Quest = Nx.Quest
 
 	while true do
@@ -7175,7 +7168,7 @@ function Nx.Quest:UpdateIcons (map)
 			local obj = q["End"] or q["Start"]
 
 			local endName, zone, x, y = Quest:GetSEPos (obj)
-			local mapId = Map.NxzoneToMapId[zone]
+			local mapId = zone
 
 			if mapId then
 
@@ -7242,7 +7235,7 @@ function Nx.Quest:UpdateIcons (map)
 			if not (cur and (cur.QI > 0 or cur.Party)) then
 
 				local startName, zone, x, y = Quest:GetSEPos (quest["Start"])
-				local mapId = Map.NxzoneToMapId[zone]
+				local mapId = zone
 
 				if mapId then
 
@@ -7265,7 +7258,7 @@ function Nx.Quest:UpdateIcons (map)
 			local obj = quest["End"] or quest["Start"]
 
 			local endName, zone, x, y = Quest:GetSEPos (obj)
-			local mapId = Map.NxzoneToMapId[zone]
+			local mapId = zone
 
 			if mapId and (not cur or not cur.CompleteMerge) then
 
@@ -7313,7 +7306,7 @@ function Nx.Quest:UpdateIcons (map)
 
 				if objZone then
 					
-					local mapId = Map.NxzoneToMapId[objZone]
+					local mapId = objZone
 
 					if not mapId then
 --						Nx.prt ("Nxzone error %s %s", objName, objZone)
@@ -8208,7 +8201,7 @@ end
 
 function Nx.Quest.Watch:Menu_OnShowQuest()
 
-	ShowUIPanel (QuestLogFrame)
+	ShowUIPanel (QuestMapFrame)
 
 	Nx.Quest.List.Bar:Select (1)
 	Nx.Quest.List:Select (self.MenuQId, self.MenuQIndex)
@@ -8516,7 +8509,7 @@ function Nx.Quest.Watch:UpdateList()
 			self.FlashColor = (self.FlashColor + 1) % 2
 			list:SetItemFrameScaleAlpha (Nx.qdb.profile.QuestWatch.ItemScale, Nx.Util_str2a (Nx.qdb.profile.QuestWatch.ItemAlpha))
 			if Nx.qdb.profile.QuestWatch.HideBlizz then
-				WatchFrame:Hide()		-- Hide Blizzard's
+				ObjectiveTrackerFrame:Hide()		-- Hide Blizzard's
 			end
 			if Nx.Quest.AltView then
 				local curnum = 1
@@ -8658,7 +8651,6 @@ function Nx.Quest.Watch:UpdateList()
 					local cur = curq[n]
 					local qId = cur.QId				
 					if 1 then
-
 						local level, isComplete = cur.Level, cur.CompleteMerge
 						local quest = cur.Q
 						local qi = cur.QI
@@ -8669,7 +8661,7 @@ function Nx.Quest.Watch:UpdateList()
 						list:ItemAdd (qId * 0x10000 + qi)
 
 						local trackMode = Quest.Tracking[qId] or 0
-						local obj = quest and (quest["End"] or quest["Start"])					
+						local obj = quest and (quest["End"] or quest["Start"])											
 						if qId == 0 then						
 							list:ItemSetButton ("QuestWatchErr", false)
 						elseif not obj then
@@ -8689,7 +8681,7 @@ function Nx.Quest.Watch:UpdateList()
 							end
 
 							local name, zone = Quest:GetSEPos (obj)
-							if not zone or not Map.NxzoneToMapId[zone] then
+							if not zone or not zone then
 								butType = "QuestWatchErr"
 							end
 
@@ -8847,7 +8839,7 @@ function Nx.Quest.Watch:UpdateList()
 									local butType = "QuestWatchErr"
 
 									if zone then
-										if Map.NxzoneToMapId[zone] then
+										if zone then
 											butType = "QuestWatch"
 											if Quest:IsTargeted (qId, ln) then
 												butType = "QuestWatchTarget"
@@ -9063,7 +9055,7 @@ function Nx.Quest.Watch:OnListEvent (eventName, val1, val2, click, but)
 
 				if IsAltKeyDown() then
 					Quest.IgnoreAlt = true
-					ShowUIPanel (QuestLogFrame)
+					ShowUIPanel (QuestMapFrame)
 					Quest.IgnoreAlt = nil
 					Quest.List.Bar:Select (1)
 					Quest.List:Select (qId, qIndex)
@@ -9485,7 +9477,7 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 	if Nx.qdb.profile.QuestWatch.Sync then		
 		local i = 1
 		while GetQuestLogTitle(i) do
-			local _, _, _, _, _, _, _, _, questID = GetQuestLogTitle(i)
+			local _, _, _, _, _, _, _, questID = GetQuestLogTitle(i)
 			if questID == qId then
 				BlizIndex = i
 			else
@@ -9556,7 +9548,7 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 		end
 	end
 	
-			local mId = Map.NxzoneToMapId[zone]			
+			local mId = zone
 			if mId then
 
 				if target then
@@ -9965,7 +9957,7 @@ function Nx.Quest:CalcDistances (n1, n2)
 
 					if zone then
 
-						local mId = Map.NxzoneToMapId[zone]
+						local mId = zone
 						if mId then							
 							local x, y = self:GetClosestObjectivePos (questObj, loc, mId, px, py)		
 							if not x or not y then

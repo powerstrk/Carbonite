@@ -85,8 +85,6 @@ function Nx.Com:Init()
 	self.ZStatus = {}				-- Zones status. Indexed with map id
 	self.ZMonitor = {}			-- Zones to monitor
 
-	self.VerPlayers = {}			-- Version messages from players (for debug)
-
 	self.SendChanQ = {}
 
 	self.PosSendNext = -2
@@ -120,9 +118,7 @@ function Nx.Com:Init()
 	self.SentBytes = 0			-- Debugging
 	self.SentBytesSec = 0
 	self.SentBytesTime = GetTime()
---	Nx.Timer:Start ("ComBytesSec", 1, self, self.OnBytesSecTimer)
     ComBytesSec = Nx:ScheduleTimer(self.OnBytesSecTimer,1,self)
---	Nx.Timer:Start ("ComVerTest", 3, self, function() self:ShowVersionMsg() end)
 
 	hooksecurefunc ("SendChatMessage", self.SendChatHook)
 	Nx:RegisterComm(self.Name,Nx.Com.OnChat_msg_addon)
@@ -289,42 +285,6 @@ function Nx.Com:OnLoginTimer()
 --	self:SendA (format ("TEST"))
 end
 
-function Nx.Com:OnVersionTimer()
-
---	Nx.prt ("Com Test")
---	self:SendSecG ("? 0123 ABCD abcd [\]^_'", "")
-
-	self:SendSecG ("V ", self:MakeVersionMsg())
-
-	if IsInGuild() then
-		GuildRoster()		-- Force update
-	end
-
---	if Nx.Free then
---		Nx.Timer:Start ("ComLeaveA", 60 * 60, self, self.OnLeaveATimer)
---	end
-
-	self:LeaveChans ("A")	-- Old
-end
-
-function Nx.Com:MakeVersionMsg()
-
---	local r, c = Nx.Sec:GetRCMsg()
-	local r = ""
-	local dt = date ("%y%m%d", time())
-	local qCnt = 0
-	if Nx.Quest then
-	  qCnt = Nx.Quest:CaptureGetCount()
-	end
-	local lvl = UnitLevel ("player")
-	if Nx.db.profile.Version.NXVer1 then
-		return format ("%f^%s^^%s^%f^%d^%x^%x", Nx.VERSION, r, dt, Nx.db.profile.Version.NXVer1, qCnt, lvl, self.PlyrMapId)
-	else
-		return format ("%f^%s^^%s^%f^%d^%x^%x", Nx.VERSION, r, dt, Nx.VERSION, qCnt, lvl, self.PlyrMapId)	
-	end
-	
-end
-
 function Nx.Com:OnLeaveATimer()
 --	Nx.prt ("Com OnLeaveATimer")
 	self:LeaveChan ("A")
@@ -413,9 +373,6 @@ function Nx.Com:OnChatEvent (event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, ar
 
 --					Nx.prt ("Join %s", arg9)
 					Nx:CancelTimer(ComA)
-
-					ComVerSend = Nx:ScheduleTimer(self.OnVersionTimer, 3, self)
-
 				elseif typ == "Z" then
 
 					local mapId = tonumber (strsub (nameRoot, 5))
@@ -493,8 +450,6 @@ function Nx.Com:OnChat_msg_channel (event, arg1, arg2, arg3, arg4, arg5, arg6, a
 				end
 
 			elseif id == 86 then	-- V (Version and registered name)
-
-				self:OnMsgVersion (name, msg, arg2, arg9)
 			end
 		end
 	end
@@ -537,8 +492,7 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 					if Nx.Quest then
 						Nx.Quest:OnMsgQuest (name, msg)
 					end
-				elseif id == 86 then	-- V (Version and registered name)
-					self:OnMsgVersion (name, msg, arg2, arg9)
+				elseif id == 86 then	-- V (Version and registered name)					
 				end
 			end
 		end
@@ -1804,266 +1758,6 @@ function Nx.Com:GetPlyrQStr (name)
 
 	local info = self.PalsInfo[name] or self.ZPInfo[name]
 	return info and info.QStr
-end
-
---------
--- Show newer version message
-
-function Nx.Com:ShowVersionMsg()
---[[
-	local pop = StaticPopupDialogs["NxVerMsg"]
-
-	if not pop then
-
-		pop = {
-		  ["button1"] = "OK",
-		  ["timeout"] = 0,
-		  ["whileDead"] = 1,
-		  ["hideOnEscape"] = 1
-		}
-
-		StaticPopupDialogs["NxVerMsg"] = pop
-	end
-
-	pop["text"] = format ("A newer CARBONITE version has been detected.")
-
-	StaticPopup_Show ("NxVerMsg")
---]]
-    
-	local verstemp, verstemp2 = math.modf(Nx.NEWVER * 10)	
-	verstemp = verstemp / 10
-	verstemp2 = verstemp2 * 100
-	local s1 = format ("version %s.%s of %s is available", verstemp, verstemp2, NXTITLEFULL)
-	local s2 = format ("Visit %s%s|cffffffff for an update", Nx.TXTBLUE, Nx.WebSite)
-	UIErrorsFrame:AddMessage (s2, 1, 1, 1, 1)	-- Flip order so it show correctly
-	UIErrorsFrame:AddMessage (s1, 1, 1, 0, 1)
-	Nx.prt (s1)
-	Nx.prt (s2)	
-end
-
---------
--- Show version data from player
-
-function Nx.Com:ShowPlyrVersion (name)
-
-	self:SendSecW ("V?", "", name)		-- Ask for it
-end
-
---------
--- Handle version messages
-
-function Nx.Com:OnMsgVersion (name, enmsg, arg2, arg9)
-
-	-- Header is VxCC
-
-	local msg = self:Decode (enmsg)
-
---	Nx.prt ("Ver %s", msg)
-
-	if self:IsChksumOK (msg) then
-
-		local subType = strsub (msg, 2, 2)
-
-		if subType == " " then	-- Global version?
-
-			local ver, r, c, dt, ver1, qCnt = Nx.Split ("^", msg)
-
-			ver = tonumber (strsub (ver, 5))
-			if ver then
-
-				if Nx.VERMINOR <= 0 then	-- Not test?
-
-					local vermajor = floor (ver * 1000) / 1000
-					local verminor = ver - vermajor
-
---					if verminor > 0 then		-- Is test?
---						return					-- Ignore
---					end
-				end
-
---				ver = ver + 9	-- Test the message				
-				if ver - .0000001 > Nx.VERSION and not self.NewVerMsg then
-					Nx.NEWVER = ver
-					self.NewVerMsg = true
-					ComShowVer = Nx:ScheduleTimer (self.ShowVerTimer, 60, self)
-
---					local s = format ("%s Ver %f > %f", arg2, ver, Nx.VERSION)
---					Nx.prt (s)
-				end
-
-				-- Is arg2 always correct?? Look at the 2 callers??
-
-				self.List:AddInfo ("C:"..arg9, format ("(%s) ver %s", arg2, ver))
-
-				self:RcvVersion (name, msg)
-			end
-
-		elseif subType == "?" then		-- Request?
-
-			local str = self:MakeVersionMsg()
-			self:SendSecW ("V!", str, name)		-- Reply
-
-		elseif subType == "!" then		-- Reply?
-
-			self:RcvVersion (name, msg)
-		end
-
-	else
-	end
-end
-
---------
--- 
-
-function Nx.Com:RcvVersion (name, msg)
-
-	if Nx.db.profile.Debug.VerDebug then
-
-		local ver, r, c, dt, ver1, qCnt, lvl, mapId = Nx.Split ("^", msg)
-		ver = tonumber (strsub (ver, 5))
-		lvl = tonumber (lvl or 0, 16)
-		mapId = tonumber (mapId or 0, 16)
-
-		Nx.prt ("Ver %s %s (%s) %s %s %s Q%s L%s %s", name, ver, ver1 or "", r, c, dt, qCnt or "", lvl, mapId)
-
-		if ver >= 1.6 then
-
-			self.VerPlayers[name] = msg
-			Nx.prt("lsend")
-			Nx:SendCommMessage("carbmodule","LIST_UPDATE","WHISPER",UnitName("player"))			
-		end
-	end
-end
-
---------
--- Bug user with update
-
-function Nx.Com:ShowVerTimer()
-
-	if UnitAffectingCombat ("player") or UnitIsAFK ("player") then
---		Nx.prt ("ShowVerTimer delay")
-		return 5
-	end
-
-	local lasttm = Nx.db.profile.Debug.VerT
-	local tm = time()
-
---	Nx.prt ("ShowVerTimer %s %s = %s", lasttm or 0, tm, difftime (tm, lasttm or 0))
-
-	if not lasttm or difftime (tm, lasttm) > 4 * 3600 then	-- Hours since last message?
-
-		local map = Nx.Map:GetMap (1)
-		if map.InstanceId then
---			Nx.prt ("ShowVerTimer Instance")
-			return 60
-		end
-
-		Nx.db.profile.Debug.VerT = tm
-		self:ShowVersionMsg()
-	end
-
-	return 60
-end
-
---------
-
-function Nx.Com:GetUserVer()
-
-	self.VerPlayers = {}
-	ComGetUserVer = Nx:ScheduleTimer (self.GetUserVerTimer, 0, self)
-end
-
---------
-
-function Nx.Com:GetUserVerTimer()
-
-	for n = 1, GetNumDisplayChannels() do
-
-		local chname, header, collapsed, chanNumber, plCnt, active, category, voiceEnabled, voiceActive = GetChannelDisplayInfo (n)
-
-		if not header then
-
-			if chname == "General" then
-				SetSelectedDisplayChannel (n)	-- Force roster update
-			end
-
---			Nx.prt ("Chan %s (%s) Cnt %s", chname or "nil", n, plCnt or "nil")
-
-			local s1 = strfind (strlower (chname), "^crbb")
-			if s1 then
-				SetSelectedDisplayChannel (n)
-				self.GettingVersion = true
-				return
-			end
-		end
-	end
-
-	local s = "crbb1"
-	Nx.prt ("Joining %s", s)
-	JoinChannelByName (s)
-
-	return 2
-end
-
-function Nx.Com:OnChannel_roster_update (event, arg1, arg2)
-
-	local self = Nx.Com
-
-	if not self.GettingVersion then
-		return
-	end
-
-	Nx.prt ("OnChannel_roster_update %s, %s", arg1, arg2 or "nil")
-
-	local n = arg1
-	local chname, header, collapsed, chanNumber, plCnt, active, category, voiceEnabled, voiceActive = GetChannelDisplayInfo (n)
-
-	if not header then
-
-		Nx.prt ("Chan %s (%s) Cnt %s", chname or "nil", n, plCnt or "nil")
-
-		local s1 = strfind (strlower (chname), "^crbb")
-		if s1 then
-
-			if plCnt then
-
-				self.GettingVersion = false
-
-				Nx.prt ("Found %s %s (%s)", chname, plCnt, n)
-
-				local names = {}
-
-				for n2 = 1, plCnt do
-					local plName, owner, moderator, muted, active, enabled = GetChannelRosterInfo (n, n2)
-					if plName ~= UnitName ("player") then
-						tinsert (names, plName)
-					end
-				end
-
-				self.GetUserVerNames = names
-				self.GetUserVerI = 1
-
-				GetUserVer = Nx:ScheduleTimer (self.OnGetUserVerTimer, 0, self)
-			end
-		end
-	end
-end
-
-function Nx.Com:OnGetUserVerTimer()
-
-	local i = self.GetUserVerI
-
-	if i <= #self.GetUserVerNames then
-
-		local plName = self.GetUserVerNames[i]
---		Nx.prt (" %s", plName)
-
-		self:SendSecW ("V?", "", plName)		-- Ask for it
-
-		self.GetUserVerI = i + 1
-
-		return .1
-	end
 end
 
 -------------------------------------------------------------------------------

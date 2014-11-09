@@ -73,7 +73,7 @@ function Nx.Travel:Add (typ)
 					end			
 					local tdata = self.Travel[tonumber(cont)]				
 					if fac ~= hideFac then								
-						local mapId = Map.NxzoneToMapId[zone]				
+						local mapId = zone				
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
 						local node = {}
 						node.Name = locName

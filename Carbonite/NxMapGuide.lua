@@ -1434,7 +1434,10 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 							for c,d in pairs(temp_arr) do
 								local fac,x,y = Nx.Split(",",d)							
 								fac,x,y = tonumber(fac), tonumber(x), tonumber(y)								
-								if fac ~= hideFac then									
+								if fac ~= hideFac then			
+									if mapId == 748 then
+										Nx.prt(showType)
+									end
 									local wx, wy = map:GetWorldPos(mapId, x, y)									
 									local icon = map:AddIconPt (iconType, wx, wy, nil, tx)			
 									if not GetMapNameByID(mapId) then
