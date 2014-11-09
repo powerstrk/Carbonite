@@ -2,7 +2,7 @@ if ( GetLocale() ~= "deDE" ) then
 	return;
 end
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "deDE", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "deDE")
 if not L then return end
 
 NXClassLocToCap = {
@@ -53,7 +53,7 @@ L["GUID player"] = "GUID Spieler"
 L["GUID NPC"] = "GUID NPC"
 L["GUID pet"] = "GUID Tier"
 L["Unit map error"] = "interner Kartenfehler" -- pls review
-L["Gather"] = "Sammeln"
+L["Gather"] = "Farmen"
 L["Entered"] = "betreten"
 L["Level"] = "Stufe"
 L["Deaths"] = "Tode"
@@ -95,7 +95,7 @@ L["Imported"] = "Importiert"
 L["nodes from GatherMate2_Data"] = "Notitzen von GatherMate2_Data"
 L["Delete visited vendor data?"] = "L\195\182sche Daten der  besuchten H\195\164ndler?"
 L["This will stop the attempted retrieval of items on login."] = "Dies wird die Abrage der Items beim einloggen beenden"
-L["Delete"] = "Löschen"	
+L["Delete"] = "L\195\182schen"	
 L["Cancel"] = "Abbrechen"
 L["items retrieved"] = "Items abgefragt"
 L["Item retrieval from server complete"] = "Itemabfrage vom Server abgeschlossen"
@@ -106,13 +106,13 @@ L["Show Auction Buyout Per Item"] = "Zeige Auktionsankauf pro Stück" -- review?
 L["Show Com Window"] = "Zeige Kommunikationsfenster"
 L["Toggle Profiling"] = "Profilbildung umschalten"
 L["Left click toggle Map"] = "Linksklick um Karte zu fixieren"
-L["Shift left click toggle minimize"] = "Shift LinksKlick um Minimieren zu fixieren"
-L["Alt left click toggle Watch List"] = "ALT LinksKlick um Beobachtungsliste zu fixieren"
-L["Middle click toggle Guide"] = "Mittleklick um Guide zu fixieren"
-L["Right click for Menu"] = "Rechtsklick für Menü"
+L["Shift left click toggle minimize"] = "Shift LinksKlick zum Minimieren"
+L["Alt left click toggle Watch List"] = "ALT LinksKlick f\195\198r die Beobachtungsliste"
+L["Middle click toggle Guide"] = "Mittleklick um Guide aufzurufen"
+L["Right click for Menu"] = "Rechtsklick für Men\195\188"
 L["Shift drag to move"] = "Shift Halten für Bewegen"
 L["Hide In Combat"] = "Im Kampf verstecken"
-L["Lock"] = "Gesperrt"
+L["Lock"] = "Sperren"
 L["Fade In"] = "Einblenden"
 L["Fade Out"] = "Ausblenden"
 L["Layer"] = "Ebene"

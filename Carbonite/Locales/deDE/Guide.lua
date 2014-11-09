@@ -2,10 +2,9 @@ if ( GetLocale() ~= "deDE" ) then
 	return;
 end
 
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "deDE", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "deDE")
 if not L then return end
 
--- Main Guide
 L["Kalimdor"] = "Kalimdor"
 L["Eastern Kingdoms"] = "Östliche Königreiche"
 L["Outlands"] = "Scherbenwelt"
@@ -16,7 +15,7 @@ L["All"] = "Alle"
 L["Quest Givers"] = "Questgeber"
 L["Stable Master"] = "Stallmeister"
 L["Flight Master"] = "Flugmeister"	
-L["Common Place"] = "gewöhnlich" -- needs review!
+L["Common Place"] = "Stadtbev\195\182lkerung" 
 L["Auctioneer"] = "Auktionator"
 L["Banker"] = "Bankier"
 L["Innkeeper"] = "Gastwirt"
@@ -24,7 +23,7 @@ L["Arcane Reforger"] = "Arkaner Umschmieder"
 L["Void Storage"] = "Leerenlager"
 L["Transmogrifier"] = "Transmogrifizierer"
 L["Battle Pet Trainer"] = "Kampfhaustierlehrer"
-L["Barber"] = "Frisör"
+L["Barber"] = "Fris\195\182r"
 L["Mailbox"] = "Postkasten"
 L["Anvil"] = "Amboss"
 L["Forge"] = "Schmiede"
@@ -61,14 +60,14 @@ L["Tailoring"] = "Schneiderei"
 L["Travel"] = "Reisen"
 L["Visited Vendor"] = "Besuchte Händler"
 L["All Items"] = "Alle Items"
-L["Gather"] = "Sammeln"
+L["Gather"] = "Farmen"
 L["Herb"] = "Kr/195/164uter"
 L["Ore"] = "Erze"
 L["Artifacts"] = "Artefakte"
 L["Everfrost"] = "Immerfrost"
 L["Gas"] = "Gas"
 L["Instances"] = "Instanzen"
-L["Zone"] = "Zone"
+L["Zone"] = "Gebiete"
 L["Trade Skill"] = "Berufsf/195/164higkeit"
 L["Alchemy Lab"] = "Alchemielabor"
 L["Altar Of Shadows"] = "Altar der Schatten"
