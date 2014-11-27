@@ -80,7 +80,7 @@ function Nx:prtGetChatFrames()
 end
 
 function Nx:prtSetChatFrame()
-	Nx.prtChatFrm = DEFAULT_CHAT_FRAME	
+	Nx.prtChatFrm = DEFAULT_CHAT_FRAME
 	for n = 1, 10 do
 		local cfrm = _G["ChatFrame" .. n]
 		if cfrm then
@@ -393,7 +393,7 @@ end
 -- Convert hex color number to R G B A floats (0-1)
 -- (RRGGBBAA number)
 
-function Nx.Util_str2rgba (colors)		
+function Nx.Util_str2rgba (colors)
 	local arr = { Nx.Split("|",colors) }
 	return arr[1], arr[2], arr[3], arr[4]
 end
@@ -613,12 +613,12 @@ function Nx.Util_GetMoneyStr (money)
 		str = format ("|cffffff00%dg", g)
 	end
 
-	local s = mod (floor (money / 100), 100) 
+	local s = mod (floor (money / 100), 100)
 	if s > 0 then
 		str = format ("%s |cffbfbfbf%ds", str, s)
 	end
 
-	local c = mod (money, 100) 
+	local c = mod (money, 100)
 	if c > 0 then
 		str = format ("%s |cff7f7f00%dc", str, c)
 	end
@@ -700,7 +700,7 @@ function Nx:SetTooltipText (str)
 
 		local t = { Nx.Split ("\n", str) }
 
-		GameTooltip:SetText (t[1], 1, 1, 1, 1, 1)		-- Wrap text
+		GameTooltip:SetText (t[1], 1, 1, 1, 1, true)		-- Wrap text
 		tremove (t, 1)
 
 		for _, line in ipairs (t) do
@@ -709,22 +709,22 @@ function Nx:SetTooltipText (str)
 			if s2 then
 				GameTooltip:AddDoubleLine (s1, s2, 1, 1, 1, 1, 1, 1)
 			else
-				GameTooltip:AddLine (line, 1, 1, 1, 1)		-- Wrap text
+				GameTooltip:AddLine (line, 1, 1, 1, true)		-- Wrap text
 			end
 		end
 
 --[[
 		local s = strsub (str, 1, s1 - 1)
 --		Nx.prt ("Tool %s", s)
-		GameTooltip:SetText (s, 1, 1, 1, 1, 1)
+		GameTooltip:SetText (s, 1, 1, 1, 1, true)
 
 		s = strsub (str, s2 + 1)
-		GameTooltip:AddLine (s, 1, 1, 1, 1, 1)
+		GameTooltip:AddLine (s, 1, 1, 1, true)
 --]]
 		GameTooltip:Show()
 
 	else
-		GameTooltip:SetText (str, 1, 1, 1, 1, 1)	-- Wrap text
+		GameTooltip:SetText (str, 1, 1, 1, 1, true)	-- Wrap text
 	end
 end
 
@@ -753,7 +753,7 @@ function Nx.Font:Init()
 		["Font.Medium"] = { "NxFontM", "GameFontNormal", "db" },
 		["Font.Map"] = { "NxFontMap", "GameFontNormalSmall", "db" },
 		["Font.MapLoc"] = { "NxFontMapLoc", "GameFontNormalSmall", "db" },
-		["Font.Menu"] = { "NxFontMenu", "GameFontNormalSmall", "db" },		
+		["Font.Menu"] = { "NxFontMenu", "GameFontNormalSmall", "db" },
 	}
 
 	self.Faces = {
@@ -782,12 +782,12 @@ function Nx.Font:Init()
 	self:Update()
 end
 
-function Nx.Font:ModuleAdd (key, value)  
+function Nx.Font:ModuleAdd (key, value)
   self.Fonts[key] = value
   local font = CreateFont (value[1])
   value.Font = font
   font:SetFontObject(value[2])
-  value.Font.db = value[3]  
+  value.Font.db = value[3]
   self:Update()
 end
 
@@ -844,12 +844,12 @@ function Nx.Font:FontScan (ace, libName)
 	end
 end
 
-function Nx.Font:GetObj (name)		
+function Nx.Font:GetObj (name)
 	return self.Fonts[name].Font
 end
 
 function Nx.Font:GetH (name)
---	Nx.prt ("Font %s", name or "nil")			
+--	Nx.prt ("Font %s", name or "nil")
 	return self.Fonts[name].H
 end
 
@@ -869,7 +869,7 @@ end
 
 function Nx.Font:GetFile (name)
 
-	for k, v in ipairs (self.Faces) do		
+	for k, v in ipairs (self.Faces) do
 		if v[1] == name then
 			return v[2]
 		end
@@ -884,14 +884,14 @@ function Nx.Font:Update()
 
 		local font = v.Font
 		local dbloc = v.Font.db
-		local fname, size, flags = font:GetFont()		
+		local fname, size, flags = font:GetFont()
 		local optname = "Nx." .. dbloc .. ".profile." .. name
 --		Nx.prt ("Font %s %s %s", fname, size, flags)
-		local parts1, parts2 = Nx.Split(".",name) 		
-		local file = self:GetFile (Nx[dbloc].profile[parts1][parts2])       
+		local parts1, parts2 = Nx.Split(".",name)
+		local file = self:GetFile (Nx[dbloc].profile[parts1][parts2])
 		local size = Nx[dbloc].profile[parts1][parts2 .. "Size"]
-		font:SetFont (file, size, flags)		
-		v.H = max (size + (Nx[dbloc].profile[parts1][parts2 .. "Spacing"] or 0), 6)				
+		font:SetFont (file, size, flags)
+		v.H = max (size + (Nx[dbloc].profile[parts1][parts2 .. "Spacing"] or 0), 6)
 	end
 
 	Nx.List:NextUpdateFull()
@@ -1899,7 +1899,7 @@ function Nx.Window:Show (show)
 
 	local svdata = self.SaveData
 
-	if show ~= false then	
+	if show ~= false then
 		self.Frm:Show()
 		self.Frm:Raise()
 		self.Frm:Raise()
@@ -2158,7 +2158,7 @@ end
 --------
 -- Set our background color
 
-function Nx.Window:SetBGColor (r, g, b, a)	
+function Nx.Window:SetBGColor (r, g, b, a)
 	if self.Frm.texture then
 		self.Frm.texture:SetTexture (r, g, b, a or 1)
 	end
@@ -2649,7 +2649,7 @@ end
 -- Register for event and set event handler
 -- (event name, handler to call)
 
-function Nx.Window:RegisterEvent (event, handler)	
+function Nx.Window:RegisterEvent (event, handler)
 	self.Frm:RegisterEvent (event)
 
 	if not self.Events then
@@ -3391,7 +3391,7 @@ function Nx.Button:Create (parentFrm, typ, text, tip, bx, by, side, width, heigh
 		local reg = { f:GetRegions() }
 		for n, o in ipairs (reg) do
 			if o:IsObjectType ("Texture") and o ~= f.texture then
-				o:Hide()		-- Hide 
+				o:Hide()		-- Hide
 			end
 		end
 	end
@@ -3412,7 +3412,7 @@ end
 --------
 -- Get type
 
-function Nx.Button:GetType()	
+function Nx.Button:GetType()
 	return self.Type
 end
 
@@ -4346,7 +4346,7 @@ end
 ------
 -- Set slider position and optionally min and max values
 
-function Nx.MenuI:SetSlider (pos, min, max, step, varName)	
+function Nx.MenuI:SetSlider (pos, min, max, step, varName)
 	if type (pos) == "table" then
 		assert (varName)
 		self.Table = pos
@@ -4928,32 +4928,21 @@ function Nx.List:GetFrame (list, typ)
 
 	local frms = self.Frms[typ]
 	local f = tremove (frms, 1)
-
 	if not f then
-
 		self.FrmsUniqueI = self.FrmsUniqueI + 1
-
 		if typ == "Color" then
 			f = CreateFrame ("ColorSelect", nil, list.Frm)
-
 		elseif typ == "WatchItem" then
-
-			f = CreateFrame ("Button", "NxListFrms" .. self.FrmsUniqueI, list.Frm, "WatchFrameItemButtonTemplate")
-
+			f = CreateFrame ("Button", "NxListFrms" .. self.FrmsUniqueI, list.Frm, "NxWatchListItem")
+			f:SetAttribute ("type1", "item")
 		elseif typ == "Info" then
-
 			f = Nx.Info:CreateFrame (list.Frm)
-
 		end
-
 		f.NXListFType = typ
 	end
-
 	f:Show()
 	f:SetParent (list.Frm)
-
 	tinsert (list.UsedFrms, f)
-
 	return f
 end
 
@@ -5017,7 +5006,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 	inst.Strs = {}
 	inst.Buts = {}
 
-	inst.Font = self.CFont	
+	inst.Font = self.CFont
 	inst.FontObj = Nx.Font:GetObj (inst.Font)
 --	inst.LineH = self.CLineH
 	inst.LineHPad = 0
@@ -5148,7 +5137,7 @@ end
 -- Set list background color
 -- self = instance
 
-function Nx.List:SetBGColor (r, g, b, a, noFade)	
+function Nx.List:SetBGColor (r, g, b, a, noFade)
 	if self.Frm.texture then
 		self.Frm.texture:SetTexture (r, g, b, a or 1)
 	end
@@ -5190,8 +5179,8 @@ function Nx.List:SetLineHeight (height, hdrH)
 	self:Update()
 end
 
-function Nx.List:GetLineH()	
-	return Nx.Font:GetH (self.Font) + self.LineHPad	
+function Nx.List:GetLineH()
+	return Nx.Font:GetH (self.Font) + self.LineHPad
 end
 
 --------
@@ -5536,7 +5525,7 @@ function Nx.List:Update (showLast)
 
 		local f = self.Frm
 		local win = f:GetParent().NxWin
-	
+
 		if win then
 			win:SetSize (f:GetWidth(), -7, true)
 		end
@@ -5692,13 +5681,23 @@ function Nx.List:Update (showLast)
 					SetItemButtonCount (f, tonumber (v3));
 					f["charges"] = tonumber (v3);
 
-					local _, dur = GetQuestLogSpecialItemCooldown (id)
-					if dur then
-						WatchFrameItem_UpdateCooldown (f)
-					end
+					f["questLogIndex"] = id
+
+					local start, duration, enable = GetQuestLogSpecialItemCooldown (id)
+					if start then
+						CooldownFrame_SetTimer (f.Cooldown, start, duration, enable)
+						if duration > 0 and enable == 0 then
+							SetItemButtonTextureVertexColor (itemButton, 0.4, 0.4, 0.4)
+						else
+							SetItemButtonTextureVertexColor (itemButton, 1, 1, 1)
+						end
+ 					end
+
+					local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo (id)
+					f:SetAttribute ("item", link)
 
 					if doBind then
-						doBind = false						
+						doBind = false
 						local key = GetBindingKey ("NxWATCHUSEITEM")
 						if key then
 							Nx.qdb.profile.QuestWatch.KeyUseItem = key
@@ -6014,9 +6013,9 @@ function Nx.List:ItemSetButton (typ, pressed, tex, tip, func)
 
 	local index = self.Num
 
-	self.ButData[index] = typ	
+	self.ButData[index] = typ
 	self.ButData[-index] = pressed
-	
+
 	if tex then
 		self.ButData[index + 1000000] = tex
 	end
@@ -7151,7 +7150,7 @@ function Nx.Util_c2rgb (colors)
 
 	local r = tonumber (strsub (colors, 1, 2), 16) / 255
 	local g = tonumber (strsub (colors, 3, 4), 16) / 255
-	local b = tonumber (strsub (colors, 5, 6), 16) / 255	
+	local b = tonumber (strsub (colors, 5, 6), 16) / 255
 	return r, g, b
 end
 
@@ -7395,7 +7394,7 @@ function Nx.Graph:Create (width, height, parentFrm)
 		["edgeFile"] = "Interface\Buttons\UI-SliderBar-Border",
 		["tile"] = true,
 		["tileSize"] = 8,
-		["edgeSize"] = 8, 
+		["edgeSize"] = 8,
 		["insets"] = { ["left"] = 3, ["right"] = 3, ["top"] = 6, ["bottom"] = 6 }}
 	sf:SetBackdrop (bd)
 
@@ -7649,19 +7648,33 @@ function Nx.Graph:OnLeave (motion)
 	end
 end
 
+function NxWatchListItem_OnUpdate(self, elapsed)
+	-- Handle range indicator
+	local rangeTimer = self.rangeTimer;
+	if ( rangeTimer ) then
+		rangeTimer = rangeTimer - elapsed;
+		if ( rangeTimer <= 0 ) then
+			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(self.questLogIndex);
+			if ( not charges or charges ~= self.charges ) then
+				--ObjectiveTracker_Update(OBJECTIVE_TRACKER_UPDATE_MODULE_QUEST);
+				return;
+			end
+			local count = self.HotKey;
+			local valid = IsQuestLogSpecialItemInRange(self.questLogIndex);
+			if ( valid == 0 ) then
+				count:Show();
+				count:SetVertexColor(1.0, 0.1, 0.1);
+			elseif ( valid == 1 ) then
+				count:Show();
+				count:SetVertexColor(0.6, 0.6, 0.6);
+			else
+				count:Hide();
+			end
+			rangeTimer = TOOLTIP_UPDATE_TIME;
+		end
+		self.rangeTimer = rangeTimer;
+	end
+end
+
 -----------------------------------------------------------------------------
 --EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-

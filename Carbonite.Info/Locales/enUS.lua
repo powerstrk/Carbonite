@@ -31,4 +31,3 @@ L["Cancel"] = true
 L["One minute until the Arena"] = true
 L["Thirty seconds until the Arena"] = true
 L["Fifteen seconds until the Arena"] = true
-

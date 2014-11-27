@@ -26,7 +26,7 @@ Nx.VERSIONFAV			= .15				-- Favorite data
 
 Nx.Notes = {}
 
-CarboniteNotes = LibStub("AceAddon-3.0"):NewAddon("CarboniteNotes","AceEvent-3.0","AceTimer-3.0","AceComm-3.0")	
+CarboniteNotes = LibStub("AceAddon-3.0"):NewAddon("CarboniteNotes","AceEvent-3.0","AceTimer-3.0","AceComm-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Notes", true)
 
 local addonNotes = {}
@@ -47,7 +47,7 @@ local function notesConfig()
 		notesoptions = {
 			type = "group",
 			name = L["Note Options"],
-			args = {	
+			args = {
 				notemap = {
 					order = 1,
 					type = "toggle",
@@ -58,8 +58,8 @@ local function notesConfig()
 						return Nx.fdb.profile.Notes.ShowMap
 					end,
 					set = function()
-						Nx.fdb.profile.Notes.ShowMap = not Nx.fdb.profile.Notes.ShowMap						
-					end,				
+						Nx.fdb.profile.Notes.ShowMap = not Nx.fdb.profile.Notes.ShowMap
+					end,
 				},
 			},
 		}
@@ -76,7 +76,7 @@ function CarboniteNotes:OnInitialize()
 	Nx.fdb:SetProfile(Nx.db:GetCurrentProfile())
 	tinsert(Nx.dbs,Nx.fdb)
 	Nx.Notes:Init()
-	CarboniteNotes:RegisterComm("carbmodule",Nx.Notes.OnChat_msg_addon)		
+	CarboniteNotes:RegisterComm("carbmodule",Nx.Notes.OnChat_msg_addon)
 	local function func()
 		Nx.Notes:ToggleShow()
 	end
@@ -85,22 +85,22 @@ function CarboniteNotes:OnInitialize()
 		SizeUp = 22,
 		SizeDn = 22,
 	}
-	Nx.NXMiniMapBut.Menu:AddItem(0, L["Show Notes"], func, Nx.NXMiniMapBut)		
-	tinsert (Nx.ModuleUpdateIcon,"Notes")	
-	tinsert (Nx.BarData,{"MapFav", L["-Notes-"], Nx.Notes.OnButToggleFav, false })	
+	Nx.NXMiniMapBut.Menu:AddItem(0, L["Show Notes"], func, Nx.NXMiniMapBut)
+	tinsert (Nx.ModuleUpdateIcon,"Notes")
+	tinsert (Nx.BarData,{"MapFav", L["-Notes-"], Nx.Notes.OnButToggleFav, false })
 	Nx.Map.Maps[1]:CreateToolBar()
-	Nx.Map.Maps[1].Menu:AddItem (0, L["Add Note"], Nx.Notes.Menu_OnAddNote, Nx.Map.Maps[1])	
+	Nx.Map.Maps[1].Menu:AddItem (0, L["Add Note"], Nx.Notes.Menu_OnAddNote, Nx.Map.Maps[1])
 	Nx.Map.Maps[1].GIconMenu:AddItem (0, L["Add Note"], Nx.Notes.Menu_OnAddNote, Nx.Map.Maps[1])
 	Nx:AddToConfig("Notes Module",notesConfig(),L["Notes Module"])
 	tinsert(Nx.BrokerMenuTemplate,{ text = L["Toggle Notes"], func = function() Nx.Notes:ToggleShow() end })
 end
 
-function Nx.Notes:OnChat_msg_addon(msg, dist, target)	
+function Nx.Notes:OnChat_msg_addon(msg, dist, target)
 	local ssplit = { strsplit("|",msg) }
 	if ssplit[1] == "CMD" then
 		if ssplit[2] == "note" then
 			Nx.Notes:SetNoteAtStr (ssplit[3])
-		end	
+		end
 	end
 end
 
@@ -121,14 +121,14 @@ function Nx.Notes:Init()
 
 
 	self.Folders = Nx.GetFav()
-	self.NoteIcons = { 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_1", 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_2", 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_3", 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_4", 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_5", 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_6", 
-	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_7", 
+	self.NoteIcons = {
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_1",
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_2",
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_3",
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_4",
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_5",
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_6",
+	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_7",
 	"Interface\\TargetingFrame\\UI-RaidTargetingIcon_8",
 	"Interface\\Minimap\\Tracking\\Auctioneer",
 	"Interface\\Minimap\\Tracking\\Banker",
@@ -145,11 +145,11 @@ function Nx.Notes:Init()
 	"Interface\\Minimap\\Tracking\\Food",
 	"Interface\\Minimap\\Tracking\\Poisons",
 	"Interface\\Minimap\\Tracking\\Reagents",
-	"Interface\\TargetingFrame\\UI-PVP-Alliance",		
+	"Interface\\TargetingFrame\\UI-PVP-Alliance",
 	"Interface\\TargetingFrame\\UI-PVP-Horde",
-	"Interface\\TargetingFrame\\UI-PVP-FFA",		
+	"Interface\\TargetingFrame\\UI-PVP-FFA",
 	"Interface\\PVPFrame\\PVP-ArenaPoints-Icon",
-	"Interface\\Icons\\Spell_Arcane_PortalDalaran",	
+	"Interface\\Icons\\Spell_Arcane_PortalDalaran",
 	}
 end
 
@@ -272,7 +272,7 @@ function Nx.Notes:SetRecord (on)
 		Nx:CancelTimer(self.FavRec)
 		self.Recording = nil
 		but:SetAlpha (1)
-		but:SetPressed (false)		
+		but:SetPressed (false)
 	end
 end
 
@@ -281,7 +281,7 @@ function Nx.Notes:RecordAnimTimer()
 	if self.Recording then
 		local a = (self.RecAlphaAnim - 35) % 1000
 		self.RecAlphaAnim = a
-		self.RecBut:SetAlpha (abs (a - 500) / 1000 + .5)		
+		self.RecBut:SetAlpha (abs (a - 500) / 1000 + .5)
 	end
 end
 
@@ -628,9 +628,9 @@ function Nx.Notes:OnListEvent (eventName, sel, val2, click)
 		if eventName == "menu" then
 			if type(self.CurFav) == "string" then
 				self.Menu:Show(-1)
-			else 
+			else
 				self.Menu:Show(1)
-			end		
+			end
 			self.Menu:Open()
 		end
 
@@ -643,7 +643,7 @@ function Nx.Notes:OnListEvent (eventName, sel, val2, click)
 			if type(data) == "string" then
 				data = addonNotes
 			end
-			if data["Hide"] then					
+			if data["Hide"] then
 				data["Hide"] = nil
 			else
 				data["Hide"] = true
@@ -660,7 +660,7 @@ function Nx.Notes:OnItemListEvent (eventName, sel, val2, click)
 
 --	Nx.prt ("List event "..eventName)
 
-	local list = self.ItemList	
+	local list = self.ItemList
 
 	local item = list:ItemGetData (sel)
 
@@ -669,12 +669,12 @@ function Nx.Notes:OnItemListEvent (eventName, sel, val2, click)
 
 	if eventName == "select" or eventName == "mid" or eventName == "menu" then
 
-		if eventName == "menu" then			
+		if eventName == "menu" then
 			self.ItemMenu:Show (self.CurFav and true or -1)
 			if type(self.CurFav) == "string" then
 				self.ItemMenu:Show(-1)
 			end
-			self.ItemMenu:Open()			
+			self.ItemMenu:Open()
 		end
 
 	elseif eventName == "button" then	-- Button icon
@@ -712,9 +712,9 @@ function Nx.Notes:Update()
 
 	self.FavCnt = 0
 
-	self:UpdateFolder (self.Folders, 1)	
+	self:UpdateFolder (self.Folders, 1)
 	self:AddonFolders(1)
-	list:Update()	
+	list:Update()
 	-- Right side list
 
 	self:UpdateItems()
@@ -728,16 +728,16 @@ function Nx.Notes:AddonFolders(level)
 	local list = self.List
 	local hide = addonNotes.Hide
 	list:ItemAdd("addons")
-	list:ItemSet(2,"  " .. L["Note Addons"])	
+	list:ItemSet(2,"  " .. L["Note Addons"])
 	list:ItemSetButton ("QuestHdr", hide)
 	if not hide then
 		for a,b in pairs(addonNotes) do
 			if a ~= "Hide" then
-				local space = strrep ("  ", level+1)		
+				local space = strrep ("  ", level+1)
 				list:ItemAdd(a)
 				list:ItemSet(2, format ("%s|cffdfdfdf%s",space,a))
 			end
-		end	
+		end
 	end
 end
 
@@ -793,7 +793,7 @@ function Nx.Notes:UpdateItems (selectI)
 
 	if self.CurFav then
 		if type(self.CurFav) == "string" then
-			if self.CurFav == "addons" then			
+			if self.CurFav == "addons" then
 				selectI = 0
 			else
 				if self.CurFav ~= "Hide" then
@@ -801,12 +801,12 @@ function Nx.Notes:UpdateItems (selectI)
 						for a,b in pairs (addonNotes[self.CurFav]["notes"]) do
 							local name, data = a,b
 							list:ItemAdd(item)
-							local icon, id, x, y = self:ParseItemNote (data)				
-							icon = self:GetIconInline (icon)							
+							local icon, id, x, y = self:ParseItemNote (data)
+							icon = self:GetIconInline (icon)
 							id = GetMapNameByID(id) or "?"
 							list:ItemSet (2, "Note:")
 							list:ItemSet (3, format ("%s %s", icon, name))
-							list:ItemSet (4, format ("|cff80ef80(%s %.1f %.1f)", id, x, y))					
+							list:ItemSet (4, format ("|cff80ef80(%s %.1f %.1f)", id, x, y))
 						end
 					end
 				end
@@ -824,16 +824,16 @@ function Nx.Notes:UpdateItems (selectI)
 
 				elseif typ == "N" then			-- Note
 
-					local icon, id, x, y = self:ParseItemNote (data)				
-					icon = self:GetIconInline (icon)					
-					local newid = GetMapNameByID(id) or "?"					
+					local icon, id, x, y = self:ParseItemNote (data)
+					icon = self:GetIconInline (icon)
+					local newid = GetMapNameByID(id) or "?"
 					list:ItemSet (2, L["Note"] .. ":")
 					list:ItemSet (3, format ("%s %s", icon, name))
 					list:ItemSet (4, format ("|cff80ef80(%s %.1f %.1f)", newid, x, y))
 
 				elseif typ == "T" or typ == "t" then			-- Target
 
-					local typName = typ == "T" and "Target 1st" or "Target"					
+					local typName = typ == "T" and "Target 1st" or "Target"
 					local mapId, x, y = self:ParseItemTarget (data)
 					local mapName = GetMapNameByID(mapId) or "?"
 					list:ItemSet (2, format ("%s:", typName))
@@ -844,7 +844,7 @@ function Nx.Notes:UpdateItems (selectI)
 		end
 	end
 
-	if selectI then		
+	if selectI then
 		list:Select (selectI)
 	end
 
@@ -921,7 +921,7 @@ function Nx.Notes:FindFav (val, varName, parent)
 end
 
 --------
--- 
+--
 -- (item)
 
 function Nx.Notes:OpenFoldersToFav (item, folder)
@@ -1031,7 +1031,7 @@ function Nx.Notes:CreateItem (typ, flags, name, p1, p2, p3, p4)
 	if typ == "" then			-- Comment
 		return format ("~%c~%s", flags, name)
 
-	elseif typ == "N" then	-- Note		
+	elseif typ == "N" then	-- Note
 		return format ("N~%c~%s~%s|%s|%s|%s", flags, name, p1, p2, p3,p4)
 	elseif typ == "T" or typ == "t" then	-- Target
 		Nx.prt(p1)
@@ -1060,7 +1060,7 @@ end
 
 function Nx.Notes:ParseItemTarget (data)
 	local zone, x, y, dLvl = Nx.Split("|",data)
-	if not dLvl then 
+	if not dLvl then
 		dLvl = 0
 	end
 	return tonumber(zone), tonumber(x), tonumber(y), tonumber(dLvl)
@@ -1162,7 +1162,7 @@ function Nx.Notes:Record (typ, name, id, x, y)
 	elseif typ == "Target" then
 
 		local fav = self.Recording
-		if fav then			
+		if fav then
 			local s = self:CreateItem ("t", 0, name, self.RecId, self.RecX, self.RecY)
 			self:AddItem (fav, self.CurItemI, s)
 			self:Update()
@@ -1291,7 +1291,7 @@ function Nx.Notes:UpdateTargets()
 		for n = self.CurItemI, #self.CurFav do
 
 			local str = self.CurFav[n]
-			local typ, flags, name, data = self:ParseItem (str)			
+			local typ, flags, name, data = self:ParseItem (str)
 			if typ == "T" then
 
 				if n ~= self.CurItemI then		-- Another 1st target?
@@ -1370,31 +1370,31 @@ function Nx.Notes:UpdateIcons()
 	map:InitIconType ("!Fav", "WP", "", 17, 17)
 --	map:SetIconTypeAlpha ("!Fav", map.GOpts["MapIconFavAlpha"])
 
-	if not draw then		
+	if not draw then
 		return
 	end
 
 	local cont = map:IdToContZone (mapId)
-
+	cont = tonumber(cont)
 --	Nx.prt ("mapid %s, cont %s", mapId, cont)
 
-	if cont > 0 and cont < 9 then
+	if cont > 0 and cont < 90 then
 
 		local notes = self:FindFolder (L["My Notes"])
 
 		if notes then
 
-			local fav = self:FindFav (mapId, "ID", notes)			
-			if fav then				
-				for n, str in ipairs (fav) do					
+			local fav = self:FindFav (mapId, "ID", notes)
+			if fav then
+				for n, str in ipairs (fav) do
 					local typ, flags, name, data = self:ParseItem (str)
 
-					if typ == "N" then						
+					if typ == "N" then
 						local icon, _, x, y = self:ParseItemNote (data)
 						icon = self:GetIconFile (icon)
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
 
-						local icon = map:AddIconPt ("!Fav", wx, wy, nil, icon)						
+						local icon = map:AddIconPt ("!Fav", wx, wy, nil, icon)
 						map:SetIconTip (icon, L["Note"] .. ": " .. name)
 						map:SetIconFavData (icon, fav, n)
 					end
@@ -1402,17 +1402,17 @@ function Nx.Notes:UpdateIcons()
 			end
 		end
 		for a,b in pairs(addonNotes) do
-			if a ~= "Hide" then				
+			if a ~= "Hide" then
 				for c,d in pairs(addonNotes[a]["notes"]) do
 					local icon, zoneid, x, y = self:ParseItemNote(d)
-					if zoneid == mapId then										
+					if zoneid == mapId then
 						icon = self:GetIconFile (icon)
 						local wx, wy = Map:GetWorldPos(mapId,x,y)
 						local icon = map:AddIconPt("!Fav", wx, wy, nil, icon)
 						map:SetIconTip(icon, L["Note"] .. ": " .. c)
 						map:SetIconFavData(icon, fav, d)
 					end
-				end				
+				end
 			end
 		end
 	end
@@ -1435,36 +1435,22 @@ function Nx.Notes:Menu_OnAddNote()
 	local map = Nx.Map:GetMap (1)
 	local mId = map.RMapId
 	Nx.prt(mId)
-	local wx, wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)	
-	local zx, zy = self:GetZonePos (mId, wx, wy)	
+	local wx, wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)
+	local zx, zy = self:GetZonePos (mId, wx, wy)
 	Nx.Notes:AddNote ("?", mId, zx, zy)
 end
 
-function Nx.Notes:AddNote (name, id, x, y)	
-		Nx.Notes:Record ("Note", name, id, x, y)	
+function Nx.Notes:AddNote (name, id, x, y)
+		Nx.Notes:Record ("Note", name, id, x, y)
 end
 
 function Nx.Notes:AddonNote(folder,name,icon,id,x,y)
 	if not addonNotes[folder] then
 		addonNotes[folder] = {}
-		addonNotes[folder]["notes"] = {}		
+		addonNotes[folder]["notes"] = {}
 	end
-	addonNotes[folder]["notes"][name] = icon .. "|" .. id .. "|" .. x .. "|" .. y	
+	addonNotes[folder]["notes"][name] = icon .. "|" .. id .. "|" .. x .. "|" .. y
 end
 -- Nx.Notes:AddonNote("Test2","Test",4,301,33.3,33.3)
 -------------------------------------------------------------------------------
 -- EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-

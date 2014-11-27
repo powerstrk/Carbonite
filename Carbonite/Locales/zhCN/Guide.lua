@@ -74,7 +74,6 @@ L["Alchemy Lab"] = "炼金实验室"
 L["Altar Of Shadows"] = "黑暗祭坛"
 L["Mana Loom"] = "魔法织布机"
 L["Moonwell"] = "月亮井"
-L["Quest Givers"] = "任务给予人"
 
 -- Menus
 L["Delete"] = "删除"

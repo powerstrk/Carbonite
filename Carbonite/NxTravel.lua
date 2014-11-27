@@ -34,9 +34,9 @@ function Nx.Travel:Init()
 	TakeTaxiNode = self.TakeTaxiNode		-- Hook it
 
 	local tr = {}
-	for n = 1, 6 do		
+	for n = 1, 7 do
 		tr[n] = {}
-	end	
+	end
 	self.Travel = tr
 
 	self:Add (L["Flight Master"])
@@ -54,35 +54,29 @@ end
 function Nx.Travel:Add (typ)
 
 
-	local Map = Nx.Map	
+	local Map = Nx.Map
 	local hideFac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-	for a,b in pairs(Nx.GuideData[typ]) do					
+	for a,b in pairs(Nx.GuideData[typ]) do
 		if a ~= "Mode" then
-			local ext = { Nx.Split("|",b) }		
+			local ext = { Nx.Split("|",b) }
 			for c,d in pairs(ext) do
 				if d then
-					local side,x,y,num = Nx.Split(",",d)					
-					local fac,name,locName,zone,x,y = Nx.Split("|",Nx.NPCData[tonumber(num)])						
-					fac,zone,x,y = tonumber(fac),tonumber(zone),tonumber(x),tonumber(y)			
-					local _, _, _, _, cont, _, _ = Nx.Split ("|", Nx.Zones[tonumber(zone)])						
-					if cont == "7" then
-						cont = 4
-					end
-					if cont == "8" then
-						cont = 5
-					end			
-					local tdata = self.Travel[tonumber(cont)]				
-					if fac ~= hideFac then								
-						local mapId = zone				
+					local side,x,y,num = Nx.Split(",",d)
+					local fac,name,locName,zone,x,y = Nx.Split("|",Nx.NPCData[tonumber(num)])
+					fac,zone,x,y = tonumber(fac),tonumber(zone),tonumber(x),tonumber(y)
+					local _, _, _, _, cont, _, _ = Nx.Split ("|", Nx.Zones[tonumber(zone)])
+					local tdata = self.Travel[tonumber(cont)]
+					if fac ~= hideFac then
+						local mapId = zone
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
 						local node = {}
 						node.Name = locName
 						node.LocName = locName		-- Localize it
 						node.MapId = mapId
 						node.WX = wx
-						node.WY = wy					
+						node.WY = wy
 						tinsert (tdata, node)
-					end			
+					end
 				end
 			end
 		end
@@ -162,7 +156,7 @@ function Nx.Travel.TakeTaxiNode (node)
 end
 
 --------
--- 
+--
 
 function Nx.Travel:TaxiCalcTime (dest)
 
@@ -233,7 +227,7 @@ function Nx.Travel:TaxiCalcTime (dest)
 end
 
 --------
--- 
+--
 
 function Nx.Travel:TaxiFindNodeFromRouteXY (x, y)
 
@@ -254,7 +248,7 @@ function Nx.Travel:TaxiFindNodeFromRouteXY (x, y)
 end
 
 --------
--- 
+--
 
 function Nx.Travel:TaxiFindConnectionTime (srcName, destName)
 	local srcNPCName, x, y = Nx.Map.Guide:FindTaxis (srcName)
@@ -368,7 +362,7 @@ end
 --  *          *             *
 --  ************************
 
-function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dstY, targetType)	
+function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dstY, targetType)
 	if not Nx.db.profile.Map.RouteUse then
 		return
 	end
@@ -392,7 +386,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 	if srcMapId == dstMapId and tarDist < 500 / 4.575 then		-- Short travel?
 		return
 	end
-	
+
 	local riding = Nx.Travel:GetRidingSkill()
 
 	if IsAltKeyDown() then
@@ -417,8 +411,8 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 		elseif cont1 == 4 then
 			self.FlyingMount = GetSpellInfo (self.ColdFlyName)
         elseif cont1 == 6 then
-            self.FlyingMount = IsSpellKnown(self.FlySkillPandaria)            
-			
+            self.FlyingMount = IsSpellKnown(self.FlySkillPandaria)
+
 		end
 	end
 
@@ -908,17 +902,3 @@ function Nx.Travel:GetRidingSkill()
 end
 -------------------------------------------------------------------------------
 -- EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-

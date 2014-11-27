@@ -119,10 +119,10 @@ L["Transparency"] = true
 L["Reset Layout"] = true
 
 -- Stuff from old localization
-L["Searching for Artifacts"] = "B\195\186squeda de artefactos" 		-- NXlARTIFACTS
-L["Extract Gas"] = "Extraer gas"						-- NXlEXTRACTGAS
-L["Herb Gathering"] = "Recolectar hierbas"					-- NXlHERBGATHERING
-L["In Conflict"] = "En conflicto"						-- NXlINCONFLICT
-L["Opening"] = "Apertura"							-- NXlOpening	
-L["Opening - No Text"] = "Apertura - Sin texto"				-- NXlOpeningNoText
+L["Searching for Artifacts"] = "B\195\186squeda de artefactos"		-- NXlARTIFACTS
+L["Extract Gas"] = "Extraer gas"									-- NXlEXTRACTGAS
+L["Herb Gathering"] = "Recolectar hierbas"							-- NXlHERBGATHERING
+L["In Conflict"] = "En conflicto"									-- NXlINCONFLICT
+L["Opening"] = "Apertura"											-- NXlOpening
+L["Opening - No Text"] = "Apertura - Sin texto"						-- NXlOpeningNoText
 L["Everfrost Chip"] = "Esquirla de siemprescarcha"					-- NXlEverfrost

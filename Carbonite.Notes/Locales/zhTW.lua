@@ -35,6 +35,7 @@ L["Name"] = true
 L["Nothing to paste"] = true
 L["Can't paste that on the left side"] = true
 L["Can't paste that on the right side"] = true
+L["Note"] = true
 L["Notes"] = true
 L["Note Addons"] = true
 L["My Notes"] = true

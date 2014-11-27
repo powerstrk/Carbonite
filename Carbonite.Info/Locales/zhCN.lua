@@ -31,4 +31,3 @@ L["Cancel"] = "取消"
 L["One minute until the Arena"] = "一分钟后进入竞技场"
 L["Thirty seconds until the Arena"] = "半分钟后进入竞技场"
 L["Fifteen seconds until the Arena"] = "十五秒后进入竞技场"
-

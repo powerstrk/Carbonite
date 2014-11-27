@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-
 -- Main Guide
 L["Kalimdor"] = true
 L["Eastern Kingdoms"] = true
@@ -75,7 +74,6 @@ L["Alchemy Lab"] = true
 L["Altar Of Shadows"] = true
 L["Mana Loom"] = true
 L["Moonwell"] = true
-L["Quest Givers"] = true
 
 -- Menus
 L["Delete"] = true

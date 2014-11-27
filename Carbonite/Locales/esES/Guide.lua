@@ -74,7 +74,6 @@ L["Alchemy Lab"] = true
 L["Altar Of Shadows"] = true
 L["Mana Loom"] = true
 L["Moonwell"] = true
-L["Quest Givers"] = true
 
 -- Menus
 L["Delete"] = true

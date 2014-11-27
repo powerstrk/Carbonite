@@ -13,7 +13,7 @@
 --
 -- This program is distributed in the hope that it will be useful,
 -- but WITHOUT ANY WARRANTY; without even the implied warranty of
--- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
 -- GNU General Public License for more details.
 --
 -- You should have received a copy of the GNU General Public License
@@ -52,7 +52,7 @@ function Nx.Com:Init()
 		NxComOpts = NxComOptsDefaults
 	end
 
-	--	
+	--
 	self.Created = false
 	self.Data = {}
 	self.Data.Rcv = {}
@@ -179,12 +179,12 @@ end
 --------
 -- On com event
 
-function Nx.Com:OnEvent (event)	
+function Nx.Com:OnEvent (event)
 	local self = Nx.Com
 
 --	Nx.prt ("Com Event: %s", event)
 
-	if event == "PLAYER_LOGIN" then	
+	if event == "PLAYER_LOGIN" then
 		local playername, realmname = UnitFullName("player")
 		self.PlyrName = playername .. "-" .. realmname
 		self.PlyrMapId = Nx.Map:GetRealMapId()
@@ -242,17 +242,17 @@ function Nx.Com:OnLoginTimer()
 	if self.WasOnTaxi then
 		self.WasOnTaxi = nil
 		redeploy = 3
-	end	
+	end
 
 	if GetChannelName(1)  ~= 1 then
 		redeploy = 3
 	end
-	
+
 	if redeploy > 0 then
 		ComLogin = Nx:ScheduleTimer(self.OnLoginTimer,redeploy,self)
 		return
 	end
-	
+
 	if IsControlKeyDown() and IsAltKeyDown() then
 		Nx.prt ("Disabling com functions!")
 		Nx.db.profile.Comm.Global = false
@@ -464,7 +464,7 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 
 --	Nx.prt ("ComChatAddonEvent: %s %s %s", args, distribution, target)
 
-		local name = target		
+		local name = target
 --		if 1 then
 		if name ~= self.PlyrName then		-- Ignore myself
 --			self.List:AddInfo ("A:"..arg1, format ("(%s %s) %s", name, arg3, arg2))
@@ -472,17 +472,17 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 			for k, msg in ipairs (data) do
 				local id = strbyte (msg)
 				if id == 83 then	-- S (status) Check 1st for performance
-					if self.PalNames[name] ~= nil then						
+					if self.PalNames[name] ~= nil then
 						if #msg >= 16 then
 							local pal = self.PalsInfo[name]
 							if not pal then
 								pal = {}
-								self.PalsInfo[name] = pal								
+								self.PalsInfo[name] = pal
 							end
 							self:ParsePlyrStatus (name, pal, msg)
 						end
 					end
-				elseif id == 76 then	-- L (Level)					
+				elseif id == 76 then	-- L (Level)
 					if Nx.db.profile.Comm.LvlUpShow then
 						local s = format ("%s " .. L["reached level"] .." %d!", name, strbyte (msg, 2) - 35)
 						Nx.prt (s)
@@ -492,7 +492,7 @@ function Nx.Com:OnChat_msg_addon (args, distribution, target)
 					if Nx.Quest then
 						Nx.Quest:OnMsgQuest (name, msg)
 					end
-				elseif id == 86 then	-- V (Version and registered name)					
+				elseif id == 86 then	-- V (Version and registered name)
 				end
 			end
 		end
@@ -590,12 +590,12 @@ function Nx.Com:ParsePlyrStatus (name, info, msg)
 
 	-- Quest tracking data
 
-	if bit.band (flags, 4) > 0 then		
+	if bit.band (flags, 4) > 0 then
 		Nx.qTEMPinfo = info
 		Nx.qTEMPmsg = strsub(msg,off)
-        Nx.qTEMPname = name			
+        Nx.qTEMPname = name
 		if Nx.qTEMPinfo and Nx.qTEMPmsg and Nx.qTEMPname then
---			Nx:SendCommMessage("carbmodule","QUEST_DECODE","WHISPER",UnitName("player"),"BULK")		
+--			Nx:SendCommMessage("carbmodule","QUEST_DECODE","WHISPER",UnitName("player"),"BULK")
 			Nx.ModQAction = "QUEST_DECODE"
 		end
 		if not Nx.qTEMPmsg or #Nx.qTEMPmsg > 7 then
@@ -603,7 +603,7 @@ function Nx.Com:ParsePlyrStatus (name, info, msg)
 			off = off + (7 + tmp * 2)
 		else
 			off = off
-		end		
+		end
 	end
 
 	-- Punks data
@@ -665,11 +665,11 @@ function Nx.Com:UpdateChannels()
 	ComUC = Nx:ScheduleTimer(self.UpdateChannelsTimer,0,self)
 end
 
-function Nx.Com:UpdateChannelsTimer()	
+function Nx.Com:UpdateChannelsTimer()
 	if Nx:TimeLeft(ComLogin) > 0 then
 		return 0
 	end
-	
+
 	local curMapId = Nx.Map:GetRealMapId()
 
 	if UnitIsAFK ("player") or not Nx.db.profile.Comm.Zone then		-- No current zone channel?
@@ -724,7 +724,7 @@ function Nx.Com:UpdateChannelsTimer()
 		if status.Join then
 			status.Join = false
 
-			if not status.ChanName then				
+			if not status.ChanName then
 				if Nx:TimeLeft(ComZ) == 0 then
 
 --					Nx.prt ("Com Status Join %s", mapId)
@@ -762,7 +762,7 @@ function Nx.Com:JoinChan (chanId)
 				ComZ = Nx:ScheduleTimer(self.OnJoinChanZTimer,2,self)
 				timer = {}
 				timer.UMapId = mapId
-				timer.UTryCnt = 0			
+				timer.UTryCnt = 0
 			end
 		end
 	else
@@ -804,7 +804,7 @@ function Nx.Com:OnJoinChanZTimer ()
 
 	timer.UTryCnt = timer.UTryCnt + 1
 
-	local name = format ("%sZ%dI%d", self.Name, timer.UMapId, timer.UTryCnt)	
+	local name = format ("%sZ%dI%d", self.Name, timer.UMapId, timer.UTryCnt)
 	if self:InChan (name) then
 		return
 	end
@@ -1050,7 +1050,7 @@ function Nx.Com:Send (chanId, msg, plName)
 			if GetNumSubgroupMembers() > 0 then
 				if (IsPartyLFG()) then
 					self:SendChatMessageFixed (msg, "INSTANCE_CHAT")
-				else					
+				else
 					self:SendChatMessageFixed (msg, "PARTY")
 				end
 			end
@@ -1593,7 +1593,7 @@ function Nx.Com:UpdateIcons (map)
 	if alt then
 		map.Level = map.Level + 3
 	end
-	
+
 
 	self.TrackX = nil
 
@@ -1643,7 +1643,7 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 		if t - pl.T > 35 then
 			info[name] = nil
 --			Nx.prt ("Com del plyr %s", name)
-		elseif not memberNames[name] and (not inBG or map.MapId ~= pl.MId) and pl.Y then		-- Y can be nil somehow			
+		elseif not memberNames[name] and (not inBG or map.MapId ~= pl.MId) and pl.Y then		-- Y can be nil somehow
 			if pl.MId >= 10000 then
 				return
 			end
@@ -1837,20 +1837,3 @@ end
 
 -------------------------------------------------------------------------------
 --EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

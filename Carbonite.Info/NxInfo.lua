@@ -31,24 +31,24 @@ Nx.InfoStats = {}
 
 local defaults = {
 	profile = {
-		Info = {		    
+		Info = {
 			ListCol = "0|0|0|0.4",
 			Lock = false,
 			InfoFont = "Arial",
 			InfoFontSize = 11,
 			InfoFontSpacing = 0,
-			
-		},	   
+
+		},
 	},
 }
 local options
 
-local function createOptions() 
+local function createOptions()
 	if not options then
 		options = {
 			type = "group",
 			name = L["Info Options"],
-			args = {	
+			args = {
 				InfoLock = {
 					order = 1,
 					type = "toggle",
@@ -59,9 +59,9 @@ local function createOptions()
 						return Nx.idb.profile.Info.Lock
 					end,
 					set = function()
-						Nx.idb.profile.Info.Lock = not Nx.idb.profile.Info.Lock						
+						Nx.idb.profile.Info.Lock = not Nx.idb.profile.Info.Lock
 						Nx.Info:OptionsUpdate()
-					end,				
+					end,
 				},
 				InfoBGCol = {
 					order = 2,
@@ -80,7 +80,7 @@ local function createOptions()
 					set = function(_,r,g,b,a)
 						Nx.idb.profile.Info.ListCol = r .. "|" .. g .. "|" .. b .. "|" .. a
 						Nx.Info:OptionsUpdate()
-					end,						
+					end,
 				},
 				InfoFont = {
 					order = 3,
@@ -98,16 +98,16 @@ local function createOptions()
 					end,
 					set	= function(info, name)
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						Nx.idb.profile.Info.InfoFont = vals[name]						
+						Nx.idb.profile.Info.InfoFont = vals[name]
 						Nx.Opts:NXCmdFontChange()
 					end,
 					values	= function()
 						return Nx.Opts:CalcChoices("FontFace","Get")
-					end,					
+					end,
 				},
 				InfoFontSize = {
 					order = 4,
-					type = "range",							
+					type = "range",
 					name = L["Info Font Size"],
 					desc = L["Sets the size of the info font"],
 					min = 6,
@@ -120,11 +120,11 @@ local function createOptions()
 					set = function(info,value)
 						Nx.idb.profile.Info.InfoFontSize = value
 						Nx.Opts:NXCmdFontChange()
-					end,				
-				},		
+					end,
+				},
 				InfoFontSpacing = {
 					order = 5,
-					type = "range",							
+					type = "range",
 					name = L["Info Font Spacing"],
 					desc = L["Sets the spacing of the info font"],
 					min = -10,
@@ -137,8 +137,8 @@ local function createOptions()
 					set = function(info,value)
 						Nx.idb.profile.Info.InfoFontSpacing = value
 						Nx.Opts:NXCmdFontChange()
-					end,				
-				},					
+					end,
+				},
 			},
 		}
 	end
@@ -153,13 +153,13 @@ function CarboniteInfo:OnInitialize()
 	Nx.idb = LibStub("AceDB-3.0"):New("NXInfo",defaults, true)
 	Nx.idb:SetProfile(Nx.db:GetCurrentProfile())
 	tinsert(Nx.dbs,Nx.idb)
-	Nx.Font:ModuleAdd("Info.InfoFont",{ "NxFontI", "GameFontNormal","idb" })	
-	Nx.Info:Init()	
+	Nx.Font:ModuleAdd("Info.InfoFont",{ "NxFontI", "GameFontNormal","idb" })
+	Nx.Info:Init()
 	CarboniteInfo:PLAYER_LOGIN()
 	local function func ()
 		Nx.Info:ToggleShow()
 	end
-	Nx.NXMiniMapBut.Menu:AddItem(0, L["Show Info Windows"], func, Nx.NXMiniMapBut)		
+	Nx.NXMiniMapBut.Menu:AddItem(0, L["Show Info Windows"], func, Nx.NXMiniMapBut)
 	CarboniteInfo:RegisterEvent("PLAYER_LOGIN")
 	tinsert(Nx.BrokerMenuTemplate,{ text = L["Toggle Info Windows"], func = function() Nx.Info:ToggleShow()end })
 end
@@ -168,11 +168,11 @@ function CarboniteInfo:PLAYER_LOGIN()
 	local ch = Nx.CurCharacter
 	Nx.InfoStats["ArenaPts"] = ch["ArenaPts"]
 	Nx.InfoStats["Honor"] = ch["Honor"]
-	Nx.InfoStats["XPRest%"] = ch["XPRest"] / ch["XPMax"] * 100  
+	Nx.InfoStats["XPRest%"] = ch["XPRest"] / ch["XPMax"] * 100
 end
 
 
-function Nx.Info:Init()	
+function Nx.Info:Init()
 	local info = Nx.idb.profile.InfoData
 
 	if not info or info.Version < Nx.VERSIONINFO then
@@ -243,8 +243,8 @@ function Nx.Info:Init()
 		["TMana%"] = self.CalcTargetManaPercent,
 --		["TManaChange"] = self.CalcTargetManaChange,
 		["Time"] = self.CalcTime,
-	}	
-	
+	}
+
 	local dinfo = Nx.idb.profile.InfoData
 	self:OnTimer()
 --	self:Create (1)
@@ -253,7 +253,7 @@ function Nx.Info:Init()
 
 		local info = dinfo[n]
 
-		if info then			
+		if info then
 			self:Create (n)
 		end
 	end
@@ -320,7 +320,7 @@ end
 
 --------
 
-function Nx.Info:OptionsUpdate()	
+function Nx.Info:OptionsUpdate()
 	local lock = Nx.idb.profile.Info.Lock
 
 	for i, info in pairs (self.Infos) do
@@ -501,8 +501,8 @@ function Nx.Info:Create (index)
 	local info = self.Infos[index] or {}
 
 	self.Infos[index] = info
-	
-	setmetatable (info, self)	
+
+	setmetatable (info, self)
 	self.__index = self
 
 	info:Create2 (index)
@@ -520,7 +520,7 @@ function Nx.Info:Create2 (index)
 
 	self.Data = Nx.idb.profile.InfoData[index] or {}
 	Nx.idb.profile.InfoData[index] = self.Data
-	
+
 	--
 
 	local items = self.Data["Items"]
@@ -779,7 +779,7 @@ function Nx.Info:UpdateItems()
 					end
 
 				else
-					local cmd, v1, v2, v3, v4 = strsplit (";", cap)	-- FIX for multiple params!					
+					local cmd, v1, v2, v3, v4 = strsplit (";", cap)	-- FIX for multiple params!
 					local func = self.ItemFuncs[cmd]
 					if func then
 						color, text = func (self, v1, v2, v3, v4)
@@ -1412,17 +1412,3 @@ end
 
 -------------------------------------------------------------------------------
 -- EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-

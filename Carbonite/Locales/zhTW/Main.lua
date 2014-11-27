@@ -16,7 +16,7 @@ NXClassLocToCap = {		-- Convert localized class name to generic caps
 	["盜賊"] = "ROGUE",
 	["薩滿"] = "SHAMAN",
 	["術士"] = "WARLOCK",
-	["戰士"] = "WARRIOR",	
+	["戰士"] = "WARRIOR",
 }
 
 -- Main Carbonite
@@ -113,10 +113,10 @@ L["Transparency"] = true
 L["Reset Layout"] = true
 
 -- Stuff from old localization
-L["Searching for Artifacts"] = true 		-- NXlARTIFACTS
-L["Extract Gas"] = "氣體微粒"						-- NXlEXTRACTGAS
+L["Searching for Artifacts"] = true				-- NXlARTIFACTS
+L["Extract Gas"] = "氣體微粒"					-- NXlEXTRACTGAS
 L["Herb Gathering"] = "草點"					-- NXlHERBGATHERING
 L["In Conflict"] = "戰鬥中"						-- NXlINCONFLICT
-L["Opening"] = "開啟"							-- NXlOpening	
-L["Opening - No Text"] = "開啟 - 無文字"				-- NXlOpeningNoText
-L["Everfrost Chip"] = "永霜屑片"					-- NXlEverfrost
+L["Opening"] = "開啟"							-- NXlOpening
+L["Opening - No Text"] = "開啟 - 無文字"		-- NXlOpeningNoText
+L["Everfrost Chip"] = "永霜屑片"				-- NXlEverfrost

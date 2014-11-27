@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-
 L["reached level"] = true
 L["Monitor Error: All 10 chat channels are in use"] = true
 L["This will disable some communication features"] = true
