@@ -3636,8 +3636,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 		end
 		if not mapId then
 			return
-		end
-
+		end		
 		for n = 1, num do
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
 			if qi and qi > 0 then
@@ -3646,8 +3645,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
-				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-
+				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2				
 				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
 					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
@@ -3682,6 +3680,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 					Nx.Quests[-id] = patch
 					Nx.Quests[id] = quest
 					Nx.Quest.Watch:Update()
+					Nx.Quest:RecordQuestsLog()
 				end
 			end
 		end
@@ -6320,7 +6319,8 @@ function Nx.Quest.List:OnQuestUpdate (event)
 			Quest:AccessAllQuests()
 			QLogUpdate = Nx:ScheduleTimer(self.LogUpdate,.5,self)	-- Small delay, so access works (0 does work)
 
-		else
+		else			
+			Nx.Quest:ScanBlizzQuestDataZone()			
 			self:LogUpdate()
 		end
 	else
@@ -6486,8 +6486,7 @@ function Nx.Quest.List:Update()
 					tag = tag .. " " .. cur.GCnt
 				end
 
-				if cur.Daily then
-
+				if cur.Daily == LE_QUEST_FREQUENCY_DAILY then
 					if tag then
 						tag = format (DAILY_QUEST_TAG_TEMPLATE, tag)
 					else
@@ -8021,8 +8020,7 @@ function Nx.Quest.Watch:Open()
 	win:SetUser (self, self.OnWin)
 	win:SetBGAlpha (0, 1)
 	win.Frm:SetClampedToScreen (true)
-	RegisterStateDriver(win.Frm, "visibility", "[combat] hide; show");
-
+	
 	local xo = 0
 	local yo = 0
 

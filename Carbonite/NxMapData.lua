@@ -887,11 +887,20 @@ Map.MapWorldInfo = {
 		Name = L["The Cape of Stranglethorn"],
 		QAchievementId = 4905,
 	},
+	[678] = {
+		BaseMap = 545,
+	},
+	[679] = {
+		BaseMap = 545,
+	},
 	[681] = {
 		BaseMap = 544,
 	},
 	[682] = {
 		BaseMap = 544,
+	},
+	[683] = {
+		BaseMap = 606,
 	},
 	[684] = {
 		Scale = 6.2916665039063,
@@ -974,10 +983,16 @@ Map.MapWorldInfo = {
 		City = true,
 		Explored = true,
 	},
+	[748] = {
+		BaseMap = 720,
+	},
 	[751] = {
 		Scale = 26,
 		X = -311.25,
 		Y = -274.16665039063,
+	},
+	[770] = {
+	  BaseMap = 770,
 	},
 	[772] = {
 		Scale = 8.0999996643066,
@@ -1288,12 +1303,14 @@ Map.MapWorldInfo = {
 		Scale = 1.36666796875,
 		X = -109.166796875,
 		Y = -418.3333984375,
+		Garrison = true,
 		Overlay = "garrisonsmvalliance",
 	},
 	[976] = {
 		Scale = 1.404166015625,
 		X = -977.083203125,
 		Y = -1162.9166015625,
+		Garrison = true,
 		Overlay = "garrisonffhorde",
 	},
 	[978] = {

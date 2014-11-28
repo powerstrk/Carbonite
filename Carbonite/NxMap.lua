@@ -4048,6 +4048,10 @@ function Nx.Map:UpdateWorld()
     end
     if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName then texName = winfo.MapBaseName end
+	if winfo.Garrison then
+		local level, mapname, x, y = C_Garrison.GetGarrisonInfo()
+		texName = winfo.Overlay .. "_tier" .. level
+	end
 	for i = 1, 12 do
 		self.TileFrms[i].texture:SetTexture (texPath..texName..i)
 	end
