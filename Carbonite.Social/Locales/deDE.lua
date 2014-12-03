@@ -46,7 +46,7 @@ L["Sets the size of the punk area in BGs."] = "Einstellen der Gr\195\182\195\159
 L["Team Options"] = "Gruppen Optionen"
 L["Enable the Team HUD"] = "Einstellen des Gruppenwegweisers"
 L["When enabled, Carbonite can display a HUD of your team mates (RELOAD REQUIRED)"] = "Wenn eingestellt, wird ein Wegweiser zu den Gruppenmitgliedern von Carbonite dargestellt"
-L["Hide the team button window"] "Gruppenfenster verstecken"
+L["Hide the team button window"] = "Gruppenfenster verstecken"
 L["When enabled, Carbonite will hide the team window"] = "Wenn eingestellt, wird das Carbobonite Gruppenfenster versteckt"
 L["number of target buttons"] = "Anzahl der Gruppenkn/195/164pfe"
 L["Sets the number of buttons for team members in the teamhud (RELOAD REQUIRED)"] = "Einstellen der Anzahl von Kn\195\182pfen f\195\188r den Gruppen-Wegweiser"

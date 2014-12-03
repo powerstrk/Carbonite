@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-
 L["reached level"] = "레벨 달성"
 L["Monitor Error: All 10 chat channels are in use"] = "모니터링 오류: 10개의 대화 채널을 모두 사용중입니다."
 L["This will disable some communication features"] = "몇가지 커뮤니케이션 기능을 비활성합니다."

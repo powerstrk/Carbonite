@@ -25,7 +25,6 @@ L["Sets the size of the quest details"] = "die Gr\195\182\195\159e der Questbesc
 L["Show Quest Tooltips"] = "Questkurzinfos anzeigen"
 L["When enabled, adds quest information to tooltips"] = "Wenn eingestellt, werden Questinfos zu den Kurzinfos hinzugef\195\188gt"
 L["Share Quest Progress"] = "Questfortschritt teilen"
-L["When enabled, shares your quest progress to group members and accepts thier shares"] = "Wenn eingestellt, wird der Questfortschritt mit den Gruppenmitgliedern geteilt und deren Teilungen akzeptiert"
 L["When enabled, shares your quest progress to group members and accepts their shares"] = "Wenn eingestellt, wird der Questfortschritt mit den Gruppenmitgliedern geteilt und deren Teilungen akzeptiert" -- englischer Schreibfehler vorsichtshalber schon mal korrigiert
 L["Auto Accept Quests"] = "Quests automatisch annehmen"
 L["When enabled, will auto accept quests that get offered to you"] = "Wenn eingestellt, werden Quests automatisch angenommen, die dem Spieler angeboten werden"
@@ -256,9 +255,10 @@ L["Quest Giver Lower Levels To Show"] = "Niedrigstufige Questgeber anzeigen"
 L["Quest Giver Higher Levels To Show"] = "Hochstufigere Questgeber anzeigen"
 L["Group"] = "Gruppe"
 L["Remove Watch"] = "Verfolgung beenden"
-L["Link Quest (shift right click)"] = "Quest im Chat verlinken (Umschalten-Rechtsklick)"
-L["Show Quest Log (alt right click)"] = "Quest Logbuch anzeigen (Alt-Rechtsklick)"
-L["Show On Map (shift left click)"] = "Zeige auf der Karte (Umschalten-Linksklick)"
+-- still too long?
+L["Link Quest (shift right click)"] = "Quest verlinken (Shift-Rechtsklick)"
+L["Show Quest Log (alt right click)"] = "Quest-Log zeigen (Alt-Rechtsklick)"
+L["Show On Map (shift left click)"] = "Kartenansicht (Shift-Linksklick)"
 L["Quest Completion..."] = "Questfortschritt..."
 
 L["Menu"] = "Men\195\188"

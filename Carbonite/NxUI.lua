@@ -4895,7 +4895,7 @@ end
 --------
 -- Free list frames by adding back to global list
 
-function Nx.List:FreeFrames (list)	
+function Nx.List:FreeFrames (list)
 	local frms = self.Frms
 	for n, f in ipairs (list.UsedFrms) do
 		if not InCombatLockdown() then
@@ -4903,7 +4903,7 @@ function Nx.List:FreeFrames (list)
 		end
 		tinsert (frms[f.NXListFType], n, f)		-- Insert at top in same order, so we don't have flipping
 	end
-	list.UsedFrms = wipe (list.UsedFrms or {})	
+	list.UsedFrms = wipe (list.UsedFrms or {})
 end
 
 --------
@@ -4940,7 +4940,7 @@ function Nx.List:GetFrame (list, typ)
 		f.NXListFType = typ
 	end
 	f:Show()
-	f:SetParent (list.Frm)	
+	f:SetParent (list.Frm)
 	tinsert (list.UsedFrms, f)
 	return f
 end
@@ -5479,7 +5479,7 @@ function Nx.List:Update (showLast)
 		self:ShowLast()
 	end
 
-	if self.ShowAll then		
+	if self.ShowAll then
 		self:Resize (0, 0)
 	end
 

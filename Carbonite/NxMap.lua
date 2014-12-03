@@ -13,11 +13,11 @@
 --
 -- This program is distributed in the hope that it will be useful,
 -- but WITHOUT ANY WARRANTY; without even the implied warranty of
--- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 -- GNU General Public License for more details.
 --
 -- You should have received a copy of the GNU General Public License
--- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-- along with this program. If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
@@ -210,7 +210,7 @@ function Nx.Map:Open()
 	local m = self.Maps[1]
 
 	if not Nx.db.profile.MapSettings then		-- Missing?
-	    Nx.db.profile.MapSettings = {}
+		Nx.db.profile.MapSettings = {}
 		Nx.db.profile.MapSettings.Version = 0
 	end
 
@@ -1080,8 +1080,8 @@ function Nx.Map:Create (index)
 
 	local arch = CreateFrame("ArchaeologyDigSiteFrame")
 	m.Arch = arch
-    m.Arch:SetParent(m.TextScFrm:GetScrollChild())
-    m.Arch:Hide()
+	m.Arch:SetParent(m.TextScFrm:GetScrollChild())
+	m.Arch:Hide()
 	m.Arch:SetSize(WorldMapButton:GetSize())
 	m.Arch:SetFillAlpha(255 * m.ArchAlpha)
 	m.Arch:SetBorderAlpha(255 * m.ArchAlpha )
@@ -1484,7 +1484,7 @@ function Nx.Map.UpdateQuestMapPOIHook()
 
 		-- Just hide, since we draw ourselves
 
-  		for n = 1, QuestMapUpdateAllQuests() do
+		for n = 1, QuestMapUpdateAllQuests() do
 			local f = QUEST_MAP_POI[n]
 			if f then
 				f:Hide()
@@ -1937,7 +1937,7 @@ function Nx.Map:MinimapOwnInit()
 	self.MMAlphaDelay = 100
 
 	mm:SetParent (self.Frm)
-    self.MMFrm:SetQuestBlobRingAlpha(1)
+	self.MMFrm:SetQuestBlobRingAlpha(1)
 	self.MMFrm:SetPOIArrowTexture("")
 	mm:SetScript ("OnMouseDown", self.MinimapOnMouseDown)
 	mm:SetScript ("OnMouseUp", self.MinimapOnMouseUp)
@@ -2191,11 +2191,11 @@ end
 
 function Nx.Map:OnMinimapNodeGlowTimer (name)
 	if GlowLetter == "" then
-	  self:MinimapNodeGlowSet ("")
-      GlowLetter = "G"
+		self:MinimapNodeGlowSet ("")
+		GlowLetter = "G"
 	else
-	  self:MinimapNodeGlowSet("G")
-	  GlowLetter = ""
+		self:MinimapNodeGlowSet("G")
+		GlowLetter = ""
 	end
 	return Nx.db.profile.MiniMap.NodeGD * 2
 end
@@ -2303,9 +2303,9 @@ function Nx.Map:MinimapUpdate()
 	local resting = IsResting()
 	local indoorChange = self.Indoors ~= indoors
 	self.Indoors = indoors
-    local bugged = false
-    local bugtest = GetSubZoneText()
-    for _,zonetest in ipairs(Nx.BuggedAreas) do
+	local bugged = false
+	local bugtest = GetSubZoneText()
+	for _,zonetest in ipairs(Nx.BuggedAreas) do
 		if GetCurrentMapAreaID() == zonetest and not indoors then
 			bugged = true
 		end
@@ -2544,7 +2544,7 @@ function Nx.Map:MinimapUpdateMask (optName)
 	if self.MMArrowName ~= name then
 		self.MMArrowName = name
 		if (name ~= "") then
-    		self.MMFrm:SetPlayerTexture (name)
+			self.MMFrm:SetPlayerTexture (name)
 		end
 	end
 end
@@ -3428,21 +3428,21 @@ function Nx.Map:OnEvent (event, ...)
 			this.NxMap:UpdateAll()
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
-	  self.Arch:Hide()
-	  self.QuestWin:Hide()
-	  self.Arch:SetParent(nil)
-	  self.QuestWin:SetParent(nil)
-	  self.Arch:ClearAllPoints()
-	  self.QuestWin:ClearAllPoints()
+		self.Arch:Hide()
+		self.QuestWin:Hide()
+		self.Arch:SetParent(nil)
+		self.QuestWin:SetParent(nil)
+		self.Arch:ClearAllPoints()
+		self.QuestWin:ClearAllPoints()
 	elseif event == "PLAYER_REGEN_ENABLED" then
-	  self.Arch:SetParent(this.NxMap.TextScFrm:GetScrollChild())
-	  self.QuestWin:SetParent(this.NxMap.TextScFrm:GetScrollChild())
-	  self.Arch:Show()
-	  self.QuestWin:Hide()
+		self.Arch:SetParent(this.NxMap.TextScFrm:GetScrollChild())
+		self.QuestWin:SetParent(this.NxMap.TextScFrm:GetScrollChild())
+		self.Arch:Show()
+		self.QuestWin:Hide()
 	elseif event == "ZONE_CHANGED" then
-	  Nx.Map.Indoors = false
+		Nx.Map.Indoors = false
 	elseif event == "ZONE_CHANGED_INDOORS" then
-	  Nx.Map.Indoors = true
+		Nx.Map.Indoors = true
 	end
 end
 
@@ -3636,7 +3636,7 @@ function Nx.Map:MouseWheel (value)
 	map.StepTime = 10
 	if map:IsInstanceMap(map:GetRealMapId()) then
 	else
-	  map.RealScale = map.Scale
+		map.RealScale = map.Scale
 	end
 	map.MapScale = map.Scale / 10.02
 
@@ -3847,9 +3847,9 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 						if lrid ~= nil then rid = lrid end
 					end
 					if map:IsInstanceMap(rid) then
-					  map.Scale = 120
+						map.Scale = 120
 					else
-					  map.Scale = map.RealScale
+						map.Scale = map.RealScale
 					end
 					local lvl = GetCurrentMapDungeonLevel()
 					if lvl ~= map.InstLevelSet then
@@ -3986,11 +3986,11 @@ end
 -- Update all map data
 
 function Nx.Map:NewGetMapInfo()
-    local mapName, textureWidth, textureHeight, isMicroDungeon, microDungeonName = GetMapInfo()
-    if isMicroDungeon and microDungeonName then
-        return microDungeonName, textureWidth, textureHeight, isMicroDungeon, microDungeonName
-    end
-    return mapName, textureWidth, textureHeight, isMicroDungeon
+	local mapName, textureWidth, textureHeight, isMicroDungeon, microDungeonName = GetMapInfo()
+	if isMicroDungeon and microDungeonName then
+		return microDungeonName, textureWidth, textureHeight, isMicroDungeon, microDungeonName
+	end
+	return mapName, textureWidth, textureHeight, isMicroDungeon
 end
 
 function Nx.Map:UpdateWorld()
@@ -4021,7 +4021,7 @@ function Nx.Map:UpdateWorld()
 
 	self.CurWorldUpdateMapId = mapId
 	self.CurWorldUpdateOverlayNum = i
-    self.LastDungeonLevel = GetCurrentMapDungeonLevel()
+	self.LastDungeonLevel = GetCurrentMapDungeonLevel()
 
 	local mapFileName,_,_,isMicro,microTex = GetMapInfo()
 	if not mapFileName then
@@ -4031,8 +4031,8 @@ function Nx.Map:UpdateWorld()
 			mapFileName = "World"
 		end
 	end
-    local texPath = "Interface\\WorldMap\\"..(isMicro and "MicroDungeon\\"..mapFileName.."\\"..microTex or mapFileName).."\\"
-    local texName = microTex or mapFileName
+	local texPath = "Interface\\WorldMap\\"..(isMicro and "MicroDungeon\\"..mapFileName.."\\"..microTex or mapFileName).."\\"
+	local texName = microTex or mapFileName
 
 	self:UpdateOverlayUnexplored()
 
@@ -4042,11 +4042,11 @@ function Nx.Map:UpdateWorld()
 	end
 
 	Nx.UEvents:UpdateMap (true)
-    local dungeonLevel = GetCurrentMapDungeonLevel();
-    if (DungeonUsesTerrainMap()) then
-        dungeonLevel = dungeonLevel - 1;
-    end
-    if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
+	local dungeonLevel = GetCurrentMapDungeonLevel();
+	if (DungeonUsesTerrainMap()) then
+		dungeonLevel = dungeonLevel - 1;
+	end
+	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName then texName = winfo.MapBaseName end
 	if winfo.Garrison then
 		local level, mapname, x, y = C_Garrison.GetGarrisonInfo()
@@ -4308,7 +4308,7 @@ function Nx.Map:Update (elapsed)
 		if mapId ~= rid then			-- Not in real zone?
 			if (self:IsMicroDungeon(mapId)) then
 			else
-			  plZX, plZY = self:GetZonePos (rid, x, y)
+				plZX, plZY = self:GetZonePos (rid, x, y)
 			end
 		end
 
@@ -4545,7 +4545,7 @@ function Nx.Map:Update (elapsed)
 				if typ == "Drive" or typ == "Fly" then
 					sc = 1
 					if self.InstanceId then
-					  sc = .7
+						sc = .7
 					end
 				end
 				if self:ClipFrameZ (f2, x * 100, y * 100, vtex[typ]["width"] * sc, vtex[typ]["height"] * sc, orientation / PI * -180) then
@@ -4915,10 +4915,10 @@ function Nx.Map:SetInstanceMap (mapId)
 	local Map = Nx.Map
 	local info = Map.InstanceInfo[mapId]
 
-    if not(info) then
-        Nx.Map:GetInstanceMapTextures(mapId)
-        info=Map.InstanceInfo[mapId]
-    end
+	if not(info) then
+		Nx.Map:GetInstanceMapTextures(mapId)
+		info=Map.InstanceInfo[mapId]
+	end
 
 	local sizex, sizey = 1002, 668
 	if info then
@@ -4936,15 +4936,15 @@ function Nx.Map:SetInstanceMap (mapId)
 end
 
 function Nx.Map:GetInstanceMapTextures(mapId)
-    local areaId = mapId
-    if areaId then
-        SetMapByID(areaId)
-        local mapName = GetMapInfo();
-        local levels, first = GetNumDungeonMapLevels()
-        local useTerrainMap = DungeonUsesTerrainMap()
+	local areaId = mapId
+	if areaId then
+		SetMapByID(areaId)
+		local mapName = GetMapInfo();
+		local levels, first = GetNumDungeonMapLevels()
+		local useTerrainMap = DungeonUsesTerrainMap()
 		if (areaId == 824) then
-		  levels = 7
-		  first = 1
+			levels = 7
+			first = 1
 		end
 		if (areaId == 937) then
 			levels = 2
@@ -4954,19 +4954,19 @@ function Nx.Map:GetInstanceMapTextures(mapId)
 			levels = 1
 			first = 1
 		end
-        Nx.Map.InstanceInfo[mapId] = {}
-        for i=first,max(first,first+levels-1) do
-            SetDungeonMapLevel(i)
-            local level = useTerrainMap and i-1 or i
-            local fileName = mapName.."\\"..mapName;
-            if ( level > 0 ) then
-                fileName = fileName..level.."_";
-            end
-            Nx.Map.InstanceInfo[mapId][(i-first)*3+1] = 0
-            Nx.Map.InstanceInfo[mapId][(i-first)*3+2] = -100*(i-first)
-            Nx.Map.InstanceInfo[mapId][(i-first)*3+3] = fileName
-        end
-    end
+		Nx.Map.InstanceInfo[mapId] = {}
+		for i=first,max(first,first+levels-1) do
+			SetDungeonMapLevel(i)
+			local level = useTerrainMap and i-1 or i
+			local fileName = mapName.."\\"..mapName;
+			if ( level > 0 ) then
+				fileName = fileName..level.."_";
+			end
+			Nx.Map.InstanceInfo[mapId][(i-first)*3+1] = 0
+			Nx.Map.InstanceInfo[mapId][(i-first)*3+2] = -100*(i-first)
+			Nx.Map.InstanceInfo[mapId][(i-first)*3+3] = fileName
+		end
+	end
 end
 
 --------
@@ -5113,8 +5113,8 @@ function Nx.Map:ScanContinents()
 --]]
 	-- Restore
 
-    if(isMicroDungeon)then
-        SetMapToCurrentZone()
+	if(isMicroDungeon)then
+		SetMapToCurrentZone()
 	else
 		SetMapZoom (oldCont, oldZone)
 		SetDungeonMapLevel (mapLvl)
@@ -5989,7 +5989,7 @@ function Nx.Map:MoveCurZoneTiles (clear)
 
 	local mapId = self.MapId
 	local wzone = self:GetWorldZone (mapId)
-    if not wzone then
+	if not wzone then
 		wzone = {}
 	end
 	if not clear and
@@ -9053,7 +9053,7 @@ end
 --
 
 function Nx.Map:IsInstanceMap (mapId)
-    if (GetCurrentMapAreaID() == 20) then return false end
+	if (GetCurrentMapAreaID() == 20) then return false end
 	for _,map in pairs(Nx.Map.MapZones[100]) do
 		if map == mapId then
 			return true
@@ -9074,7 +9074,7 @@ function Nx.Map:IsBattleGroundMap (mapId)
 end
 
 function Nx.Map:IsMicroDungeon(mapId)
-    return select(4, GetMapInfo()) and Nx.Map:GetCurrentMapId() == mapId
+	return select(4, GetMapInfo()) and Nx.Map:GetCurrentMapId() == mapId
 	--and Nx.Map:GetCurrentMapId()==mapId and Nx.IdToAId[mapId] and not Nx.Map.MapLevels[Nx.IdToAId[mapId]] then
 end
 
@@ -9089,7 +9089,7 @@ function Nx.Map:IsScenario(mapId)
 end
 
 function Nx.Map:GCMI_OVERRIDE(mapId)
-    return mapId and Nx.Map:GetWorldZone(mapId) and Nx.Map:GetWorldZone(mapId).overrideMapWorldId or mapId
+	return mapId and Nx.Map:GetWorldZone(mapId) and Nx.Map:GetWorldZone(mapId).overrideMapWorldId or mapId
 end
 --------
 -- Get map short name (only BGs have)
@@ -9121,7 +9121,7 @@ end
 function Nx.Map:GetWorldZoneInfo (cont, zone)
 
 	local name = GetMapNameByID(zone)
---    local cont = self.MapWorldInfo[zone].Cont
+--	local cont = self.MapWorldInfo[zone].Cont
 	local info = self.MapInfo[cont]
 	if not info then
 		return name, 0, 0, 1002, 668
@@ -9178,7 +9178,7 @@ end
 -- Get world position of map (zone) location
 -- (id, x (0-100), y (0-100)
 
-function Nx.Map:GetWorldPos (mapId,  mapX, mapY)
+function Nx.Map:GetWorldPos (mapId, mapX, mapY)
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo then
 		if winfo.BaseMap then
@@ -9680,7 +9680,7 @@ function Nx.MapAddIcon (name, mapId, x, y, tip, texture, tx1, ty1, tx2, ty2)
 	if not Nx.CustomIcons[mapId] then
 		Nx.CustomIcons[mapId] = {}
 	end
-	local wx, wy = map:GetWorldPos (mapId, x, y)	
+	local wx, wy = map:GetWorldPos (mapId, x, y)
 	Nx.CustomIcons[mapId][name] = {}
 	Nx.CustomIcons[mapId][name].x = wx
 	Nx.CustomIcons[mapId][name].y = wy

@@ -6,12 +6,6 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "zhCN")
 if not L then return end
 
 -- Main Guide
-L["Kalimdor"] = "卡利姆多"
-L["Eastern Kingdoms"] = "东部王国"
-L["Outlands"] = "外域"
-L["Northrend"] = "诺森德"
-L["The Maelstrom"] = "大漩涡"
-L["Pandaria"] = "潘达利亚"
 L["All"] = "全部"
 L["Quest Givers"] = "任务给予人"
 L["Stable Master"] = "兽栏管理员"

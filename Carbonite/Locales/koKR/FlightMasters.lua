@@ -1,13 +1,13 @@
-if ( GetLocale() ~= "koKR" ) then
+﻿if ( GetLocale() ~= "koKR" ) then
 	return;
 end
 
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-L["Alliance Flight"] = "얼라이언스 와이번 조련사"
-L["Horde Flight"] = "호드 와이번 조련사"
-L["Neutral Flight"] = "중립 와이번 조련사"
+L["Alliance Flight"] = "얼라이언스 와이번 조련사"	-- Is this one used?
+L["Horde Flight"] = "호드 와이번 조련사"				-- Is this one used?
+L["Neutral Flight"] = "중립 와이번 조련사"			-- Is this one used?
 L["Acherus: The Ebon Hold"] = "아케루스: 칠흑의 요새"
 L["Aerie Peak, The Hinterlands"] = "맹금의 봉우리 - 동부 내륙지"
 L["Agmar's Hammer, Dragonblight"] = "아그마르의 망치 - 용의 안식처"
@@ -22,7 +22,7 @@ L["Argent Tournament Grounds, Icecrown"] = "은빛십자군 마상시합 광장 
 L["Astranaar, Ashenvale"] = "아스트라나르 - 잿빛 골짜기"
 L["Azure Watch, Azuremyst Isle"] = "하늘 감시초소 - 하늘안개 섬"
 L["Bambala, Stranglethorn"] = "밤발라 - 북부 가시덤불"
-L["Beeble's Wreck, Isle Of Giants"] = "비블의 추락지 - 괴수의 섬"
+L["Beeble's Wreck, Isle of Giants"] = "비블의 추락지 - 괴수의 섬"
 L["Bilgewater Harbor, Azshara"] = "빌지워터 항만 - 아즈샤라"
 L["Binan Village, Kun-Lai Summit"] = "빈안 마을- 쿤라이 봉우리"
 L["Blackfathom Camp, Ashenvale"] = "검은심연 야영지 - 잿빛 골짜기"
@@ -35,7 +35,7 @@ L["Bootlegger Outpost, Tanaris"] = "밀조장이 전초기지 - 타나리스"
 L["Booty Bay, Stranglethorn"] = "무법항 - 북부 가시덤불"
 L["Bor'gorok Outpost, Borean Tundra"] = "보르고로크 전초기지 - 북풍의 땅"
 L["Bouldercrag's Refuge, The Storm Peaks"] = "볼더크랙의 은거처 - 폭풍우 봉우리"
-L["Bozzle's Wreck, Isle Of Giants"] = "보즐의 난파지 - 괴수의 섬"
+L["Bozzle's Wreck, Isle of Giants"] = "보즐의 난파지 - 괴수의 섬"
 L["Brackenwall Village, Dustwallow Marsh"] = "담쟁이 마을 - 먼지진흙 습지대"
 L["Brill, Tirisfal Glades"] =  "브릴 - 티리스팔 숲"
 L["Camp Ataya, Feralas"] = "아타야 야영지 - 페랄라스"
@@ -125,7 +125,7 @@ L["Halfhill, Valley of the Four Winds"] = "언덕골 - 네 바람의 계곡"
 L["Hammerfall, Arathi"] =  "망치 주둔지 - 아라시"
 L["Hardwrench Hideaway, Stranglethorn"] = "하드렌치 은신처 - 북부 가시덤불"
 L["Hearthglen, Western Plaguelands"] = "하스글렌 - 서부 역병지대"
-L["Hellfire Peninsula, The Dark Portal"] = "어둠의 문 - 어둠의 문"
+L["The Dark Portal, Hellfire Peninsula"] = "어둠의 문 - 어둠의 문"
 L["Hellscream's Fist, Kun-Lai Summit"] = "헬스크림의 철권호 - 쿤라이 봉우리"
 L["Hellscream's Watch, Ashenvale"] = "헬스크림 감시초소 - 잿빛 골짜기"
 L["Highbank, Twilight Highlands"] = "높은 둑 - 황혼의 고원"
@@ -329,3 +329,4 @@ L["Zim'Torga, Zul'Drak"] = "짐토르가 - 줄드락"
 L["Zoram'gar Outpost, Ashenvale"] = "조람가르 전초기지 - 잿빛 골짜기"
 L["Zouchin Village, Kun-Lai Summit"] = "조우친 마을 - 쿤라이 봉우리"
 L["Zul'Aman, Ghostlands"] = "줄아만 - 유령의 땅"
+

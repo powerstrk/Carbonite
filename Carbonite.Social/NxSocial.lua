@@ -1697,11 +1697,12 @@ function Nx.Social:DecodeComRcvPunks (finderName, info, punksStr)
 			lvl = 0
 		end
 		if Nx.scdb.profile.Social.PunkEnable then
-			local punk = self:GetPunk (name, nil, info.MId, info.X, info.Y)
-
-			punk.FinderName = finderName
-			punk.Lvl = max (lvl, punk.Lvl or 0)
-			punk.Time = info.T
+			if info.MId < 1000 then
+				local punk = self:GetPunk (name, nil, info.MId, info.X, info.Y)
+				punk.FinderName = finderName
+				punk.Lvl = max (lvl, punk.Lvl or 0)
+				punk.Time = info.T
+			end
 		end
 	end
 
@@ -1794,7 +1795,11 @@ end
 --------
 
 function Nx.Social:GetPunk (name, plyrNear, mId, x, y)
-	if Nx.scdb.profile.Social.PunkEnable then
+	if mId > 1000 then ------ Work around to stop chat spam, to be removed at a later date once everyone is using the official code over work around version.
+		return
+	end
+	
+	if Nx.scdb.profile.Social.PunkEnable then	
 	local punk = self.PunksActive[name]
 	if not punk then
 		punk = {}
@@ -1897,192 +1902,155 @@ end
 
 function Nx.Social:UpdateIcons (map)
 	if Nx.scdb.profile.Social.PunkEnable then
-	if Nx.Tick % 120 == 4 then
-		self:CalcPunks()
-	end
-
-	local math = math
-	local alt = IsAltKeyDown()
-	local tm = GetTime()
-
-	local punks = self.Punks
-	local punksA = self.PunksActive
-
-	local size = Nx.scdb.profile.Social.PunkAreaSize * map.ScaleDraw
-	local sizeM = Nx.scdb.profile.Social.PunkMAreaSize * map.ScaleDraw
-
-	local areaR, areaG, areaB = Nx.Social.Cols["areaR"], Nx.Social.Cols["areaG"], Nx.Social.Cols["areaB"]
-	local iconR, iconG, iconB, iconA = Nx.Social.Cols["iconR"], Nx.Social.Cols["iconG"], Nx.Social.Cols["iconB"], Nx.Social.Cols["iconA"]
-	local areaRM, areaGM, areaBM = Nx.Social.Cols["areaRM"], Nx.Social.Cols["areaGM"], Nx.Social.Cols["areaBM"]
-
-	local showInSafeArea = Nx.scdb.profile.Social.PunkShowInSafeArea
-
-	local decay = .24
-	local decayM = .21
-
-	local inBG = Nx.InBG
-
-	if inBG then
-		if not Nx.scdb.profile.Social.PunkShowInBG or Nx.Free then
-			return
+		if Nx.Tick % 120 == 4 then
+			self:CalcPunks()
 		end
 
-		size = Nx.scdb.profile.Social.PunkBGAreaSize * map.ScaleDraw
-		areaR = Nx.Social.Cols["areaBGR"]
-		areaG = Nx.Social.Cols["areaBGG"]
-		areaB = Nx.Social.Cols["areaBGB"]
+		local math = math
+		local alt = IsAltKeyDown()
+		local tm = GetTime()
 
-		local decay = 2
-		local decayM = .25
-	end
+		local punks = self.Punks
+		local punksA = self.PunksActive
 
-	local iconGlow = abs (GetTime() * 400 % 200 - 100) / 400 + .75
+		local size = Nx.scdb.profile.Social.PunkAreaSize * map.ScaleDraw
+		local sizeM = Nx.scdb.profile.Social.PunkMAreaSize * map.ScaleDraw
 
-	if alt then
-		map.Level = map.Level + 11
-	end
+		local areaR, areaG, areaB = Nx.Social.Cols["areaR"], Nx.Social.Cols["areaG"], Nx.Social.Cols["areaB"]
+		local iconR, iconG, iconB, iconA = Nx.Social.Cols["iconR"], Nx.Social.Cols["iconG"], Nx.Social.Cols["iconB"], Nx.Social.Cols["iconA"]
+		local areaRM, areaGM, areaBM = Nx.Social.Cols["areaRM"], Nx.Social.Cols["areaGM"], Nx.Social.Cols["areaBM"]
 
-	for pName, punk in pairs (punksA) do
+		local showInSafeArea = Nx.scdb.profile.Social.PunkShowInSafeArea
 
-		local dur = tm - punk.Time
-		local circleDur = tm - punk.CircleTime
-		local punkMId = punk.MId
+		local decay = .24
+		local decayM = .21
 
-		local wx, wy = map:GetWorldPos (punkMId, punk.X, punk.Y)
-		local x = wx + math.sin (punk.DrawDir) * 2
-		local y = wy + math.cos (punk.DrawDir) * 2
+		local inBG = Nx.InBG
 
-		-- DEBUG!
---		if IsControlKeyDown() then
---			local sz = size / (circleDur * decay + 1)
---			Nx.prt ("Punk %s near %s %s %s sz%s", pName, punk.PlyrNear or "nil", x, y, sz)
---		end
-
-		if punks[pName] then	-- Punk match?
-
-			local sz = sizeM / (circleDur * decayM + 1)
-
-			if sz >= 1 then
-				sz = max (sz, 25)
-
-				local f = map:GetIconNI()
-
-				if map:ClipFrameW (f, x, y, sz, sz, 0) then
-
-					f.texture:SetBlendMode ("ADD")
-					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
-
-					if dur < .1 then
-						f.texture:SetVertexColor (.3, 1, .3, 1)
-					else
-						f.texture:SetVertexColor (areaRM, areaGM, areaBM, 1)
-					end
-				end
+		if inBG then
+			if not Nx.scdb.profile.Social.PunkShowInBG or Nx.Free then
+				return
 			end
 
-		else
+			size = Nx.scdb.profile.Social.PunkBGAreaSize * map.ScaleDraw
+			areaR = Nx.Social.Cols["areaBGR"]
+			areaG = Nx.Social.Cols["areaBGG"]
+			areaB = Nx.Social.Cols["areaBGB"]
 
-			if (not Nx.InSanctuary or showInSafeArea) then
-				local sz = size / (circleDur * decay + 1)
+			local decay = 2
+			local decayM = .25
+		end
 
-				if sz >= 1 then
-					sz = max (sz, 22)
+		local iconGlow = abs (GetTime() * 400 % 200 - 100) / 400 + .75
 
-					local f = map:GetIconNI()
+		if alt then
+			map.Level = map.Level + 11
+		end
 
-					if map:ClipFrameW (f, x, y, sz, sz, 0) then
+		for pName, punk in pairs (punksA) do
 
-						f.texture:SetBlendMode ("ADD")
-						f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
-
-						if dur < .05 then
-							if inBG then
-								f.texture:SetVertexColor (.15, .15, .15, 1)
+			local dur = tm - punk.Time
+			local circleDur = tm - punk.CircleTime
+			local punkMId = punk.MId
+			if punkMId < 1000 then			---- Work around to stop chat spam, to be removed at a later time when everyone is on official carbonite.
+				local wx, wy = map:GetWorldPos (punkMId, punk.X, punk.Y)
+				local x = wx + math.sin (punk.DrawDir) * 2
+				local y = wy + math.cos (punk.DrawDir) * 2
+				if punks[pName] then	-- Punk match?
+					local sz = sizeM / (circleDur * decayM + 1)
+					if sz >= 1 then
+						sz = max (sz, 25)
+						local f = map:GetIconNI()
+						if map:ClipFrameW (f, x, y, sz, sz, 0) then
+							f.texture:SetBlendMode ("ADD")
+							f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
+							if dur < .1 then
+								f.texture:SetVertexColor (.3, 1, .3, 1)
 							else
-								f.texture:SetVertexColor (.25, .25, .25, 1)
+								f.texture:SetVertexColor (areaRM, areaGM, areaBM, 1)
 							end
-						else
-							f.texture:SetVertexColor (areaR, areaG, areaB, 1)
+						end
+					end
+				else
+					if (not Nx.InSanctuary or showInSafeArea) then
+						local sz = size / (circleDur * decay + 1)
+						if sz >= 1 then
+							sz = max (sz, 22)
+							local f = map:GetIconNI()
+							if map:ClipFrameW (f, x, y, sz, sz, 0) then
+								f.texture:SetBlendMode ("ADD")
+								f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
+								if dur < .05 then
+									if inBG then
+										f.texture:SetVertexColor (.15, .15, .15, 1)
+									else
+										f.texture:SetVertexColor (.25, .25, .25, 1)
+									end
+								else
+									f.texture:SetVertexColor (areaR, areaG, areaB, 1)
+								end
+							end
+						end
+					end
+				end
+			-- Draw punk dot
+				if punks[pName] then	-- Punk match?
+					local f = map:GetIcon (2)
+					if map:ClipFrameW (f, x, y, 14, 14, 0) then
+						local lvl = punk.Lvl > 0 and punk.Lvl or "?"
+						local mapName = GetMapNameByID(punkMId) or "?"
+						f.NxTip = format ("*|cffff0000%s %s, %d:%02d ago\n%s (%d,%d)", pName, lvl, dur / 60 % 60, dur % 60, mapName, punk.X, punk.Y)
+						f.NXType = 3001
+						f.NXData = pName
+						f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconPlyrZ")
+						f.texture:SetVertexColor (iconR, iconG, iconB, iconA * iconGlow)
+						if alt then
+							local txt = map:GetText (format ("*|cffff0000%s|r*", pName))
+							map:MoveTextToIcon (txt, f, 18, 1)
+						end
+					end
+				else
+					if (not Nx.InSanctuary or showInSafeArea) then
+						local i = dur < 10 and 2 or 1
+						local f = map:GetIcon (i)
+						if map:ClipFrameW (f, x, y, 10, 10, 0) then
+							local lvl = punk.Lvl > 0 and punk.Lvl or "?"
+							local mapName = GetMapNameByID(punkMId) or "?"
+							f.NxTip = format ("|cffff6060%s %s, %d:%02d ago\n%s (%d,%d)", pName, lvl, dur / 60 % 60, dur % 60, mapName, punk.X, punk.Y)
+							f.NXType = 3001
+							f.NXData = pName
+							f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconPlyrZ")
+							if dur < 10 then
+								f.texture:SetVertexColor (iconR, iconG, iconB, iconA * iconGlow)
+							else
+								f.texture:SetVertexColor (iconR, iconG, iconB, iconA * .6)
+							end
 						end
 					end
 				end
 			end
 		end
-
-		-- Draw punk dot
-
-		if punks[pName] then	-- Punk match?
-
-			local f = map:GetIcon (2)
-
-			if map:ClipFrameW (f, x, y, 14, 14, 0) then
-
-				local lvl = punk.Lvl > 0 and punk.Lvl or "?"
-				local mapName = GetMapNameByID(punkMId) or "?"
-
-				f.NxTip = format ("*|cffff0000%s %s, %d:%02d ago\n%s (%d,%d)", pName, lvl, dur / 60 % 60, dur % 60, mapName, punk.X, punk.Y)
-				f.NXType = 3001
-				f.NXData = pName
-				f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconPlyrZ")
-				f.texture:SetVertexColor (iconR, iconG, iconB, iconA * iconGlow)
-
-				if alt then
-					local txt = map:GetText (format ("*|cffff0000%s|r*", pName))
-					map:MoveTextToIcon (txt, f, 18, 1)
-				end
-			end
-
+		if alt then
+			map.Level = map.Level - 11
 		else
-
-			if (not Nx.InSanctuary or showInSafeArea) then
-
-				local i = dur < 10 and 2 or 1
-				local f = map:GetIcon (i)
-
-				if map:ClipFrameW (f, x, y, 10, 10, 0) then
-
-					local lvl = punk.Lvl > 0 and punk.Lvl or "?"
-					local mapName = GetMapNameByID(punkMId) or "?"
-
-					f.NxTip = format ("|cffff6060%s %s, %d:%02d ago\n%s (%d,%d)", pName, lvl, dur / 60 % 60, dur % 60, mapName, punk.X, punk.Y)
-					f.NXType = 3001
-					f.NXData = pName
-
-					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconPlyrZ")
-
-					if dur < 10 then
-						f.texture:SetVertexColor (iconR, iconG, iconB, iconA * iconGlow)
-					else
-						f.texture:SetVertexColor (iconR, iconG, iconB, iconA * .6)
-					end
-				end
-			end
+			map.Level = map.Level + 3
 		end
 	end
-
-	if alt then
-		map.Level = map.Level - 11
-	else
-		map.Level = map.Level + 3
-	end
-	end
-
 end
 
 --------
 -- Goto a named punk
 
 function Nx.Social:GotoPunk (name)
-
 	local punk = self.PunksActive[name]
-	if punk then
-
-		local map = Nx.Map:GetMap (1)
-		local wx, wy = map:GetWorldPos (punk.MId, punk.X, punk.Y)
-		local x = wx + math.sin (punk.DrawDir) * 2
-		local y = wy + math.cos (punk.DrawDir) * 2
-
-		map:SetTarget ("Goto", x, y, x, y, false, 0, name)
+	if punk.MId < 1000 then --- WORK AROUND
+		if punk then
+			local map = Nx.Map:GetMap (1)
+			local wx, wy = map:GetWorldPos (punk.MId, punk.X, punk.Y)
+			local x = wx + math.sin (punk.DrawDir) * 2
+			local y = wy + math.cos (punk.DrawDir) * 2
+			map:SetTarget ("Goto", x, y, x, y, false, 0, name)
+		end
 	end
 end
 

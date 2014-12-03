@@ -75,7 +75,7 @@ Nx.MapWorldHotspots2 = {
 		[700] = "546000887ea62e50f927ca02",
 		[708] = "3fd3ff7fe7fc",
 		[709] = "3ff3ff7fe7fc",
--- Outlands
+-- Outland
 		[465] = "399000c65130198130e63b2f399c64c65198532dfeacc0cb5ffecb9fc064999f316650cb",
 		[467] = "0c90005323980c9393d967fe932b975320639ffbfe466194a65d983ff063accdff3990cb",
 		[473] = "5310649ff2623332ccbff4613ff732b32863",

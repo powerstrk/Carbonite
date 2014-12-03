@@ -1071,13 +1071,13 @@ function Nx.Warehouse:UpdateItems()
 			list:ItemAdd (0)
 			list:ItemSet (3, "|cffff1010No bank data - visit your bank")
 		end
-		
+
 		local rbank = ch["WareRBank"]
 		if not rbank then
 			list:ItemAdd (0)
 			list:ItemSet (3, "|cffff1010No reagent bank data - visit your bank")
 		end
-		
+
 		local inv = ch["WareInv"]
 
 		if inv then
@@ -1173,7 +1173,7 @@ function Nx.Warehouse:UpdateItems()
 				self:AddItem (items, 3, name, data)
 			end
 		end
-		
+
 		local mail = ch["WareMail"]
 
 		if mail then
@@ -1469,7 +1469,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 				end
 			end
 		end		
-		
+
 		local inv = ch["WareInv"]
 
 		if inv then
@@ -1479,7 +1479,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 				if iLink == link then
 					invCnt = invCnt + 1
 				end
-			end			
+			end
 		end
 
 		local mail = ch["WareMail"]
@@ -1493,7 +1493,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 					break
 				end
 			end
-		end		
+		end
 		local cnt = bagCnt + invCnt + bankCnt + rbankCnt + mailCnt
 
 		if cnt > 0 then
@@ -1502,13 +1502,13 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 			totalCnt = totalCnt + cnt
 
 			local s
-			
+
 			if invCnt > 0 then
 				s = format ("%s %d (%d Worn)", cname, bagCnt, invCnt)
 			else
 				s = format ("%s %d", cname, bagCnt)
 			end
-			
+
 			if bankCnt > 0 then
 				s = format ("%s (%d Bank)", s, bankCnt)
 			end
@@ -1516,7 +1516,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 			if rbankCnt > 0 then
 				s = format ("%s (%d RBank)", s, rbankCnt)
 			end
-			
+
 			if mailCnt > 0 then
 				s = format ("%s (%s Mail)", s, mailCnt)
 			end
@@ -1526,17 +1526,17 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 					s = format ("%s|cFFFF0000[|cFF00FF00Bags:%d|cFFFF0000]",s,bagCnt)
 				end
 				if invCnt > 0 then
-					s = format ("%s|cFFFF0000[|cFF00FF00Worn:%d|cFFFF0000]",s,invCnt)				
+					s = format ("%s|cFFFF0000[|cFF00FF00Worn:%d|cFFFF0000]",s,invCnt)
 				end				
 				if mailCnt > 0 then
-					s = format ("%s|cFFFF0000[|cFF00FF00Mail:%d|cFFFF0000]",s,mailCnt)				
+					s = format ("%s|cFFFF0000[|cFF00FF00Mail:%d|cFFFF0000]",s,mailCnt)
 				end				
 				if bankCnt > 0 then
-					s = format ("%s|cFFFF0000[|cFF00FF00Bank:%d|cFFFF0000]",s,bankCnt)				
+					s = format ("%s|cFFFF0000[|cFF00FF00Bank:%d|cFFFF0000]",s,bankCnt)
 				end
 				if rbankCnt > 0 then
-					s = format ("%s|cFFFF0000[|cFF00FF00RBank:%d|cFFFF0000]",s,rbankCnt)				
-				end				
+					s = format ("%s|cFFFF0000[|cFF00FF00RBank:%d|cFFFF0000]",s,rbankCnt)
+				end
 			end
 			if not str then
 				str = s
@@ -2004,8 +2004,8 @@ function Nx.Warehouse:CaptureItems()
 
 		for bag = NUM_BAG_SLOTS + 1, NUM_BAG_SLOTS + NUM_BANKBAGSLOTS do
 			self:AddBag (bag, true, inv)
-		end		
-		
+		end
+
 		if next (inv) then		-- Get any bank items?
 			ch["WareBank"] = inv
 
@@ -2015,7 +2015,7 @@ function Nx.Warehouse:CaptureItems()
 		self:AddBag (REAGENTBANK_CONTAINER, true, inv)
 		if next (inv) then		-- Get any bank items?
 			ch["WareRBank"] = inv
-		end		
+		end
 	else
 
 		if self.LockBank and self.LockBag and not self.Locked then

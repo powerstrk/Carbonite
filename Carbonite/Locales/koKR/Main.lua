@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-
 NXClassLocToCap = {		-- Convert localized class name to generic caps
 	["죽음의기사"] = "DEATHKNIGHT",
 	["드루이드"] = "DRUID",
@@ -129,30 +128,32 @@ L["Scale"] = "크기"
 L["Transparency"] = "투명도"
 L["Reset Layout"] = "레이아웃 초기화"
 
+-- Are the 4 lines below used?
 L["Toggle profiling? Reloads UI"] = "프로필을 전환할까요? UI 재시작"
-L["Reload"] = "재시작"                                              
+L["Reload"] = "재시작"
 L["Profiling is on. This decreases game performance. Disable?"] = "프로필이 있습니다. 게임 성능이 떨어지게 됩니다. 사용 안하시겠습니까?"
 L["Disable and Reload"] ="사용안함 그리고 재시작"
 
 -- UI Tooltips
-L["Close/Menu"] = true
-L["Close/Unlock"] = true
+L["Close/Menu"] = "닫기/메뉴"
+L["Close/Unlock"] = "닫기/잠금 해제"
 L["Pick Color"] = true
-L["Unlock"] = true
-L["Maximize"] = true
-L["Restore"] = true
-L["Minimize"] = true
-L["Auto Scale"] = true
+L["Unlock"] = "잠금 해제"
+L["Maximize"] = "최대화"
+L["Restore"] = "되돌리기"
+L["Minimize"] = "최소화"
+L["Auto Scale"] = "자동 크기조절"
 
 -- Stuff from old localization
-L["Searching for Artifacts"] = "유물 수색" 		-- NXlARTIFACTS
-L["Extract Gas"] = "가스 추출"						-- NXlEXTRACTGAS
-L["Herb Gathering"] = "약초채집"					-- NXlHERBGATHERING
-L["In Conflict"] = "분쟁 지역"						-- NXlINCONFLICT
-L["Opening"] = true							-- NXlOpening
-L["Opening - No Text"] = true				-- NXlOpeningNoText
-L["Everfrost Chip"] = "영원의 서리 파편"					-- NXlEverfrost
+L["Searching for Artifacts"] = "유물 수색"		-- NXlARTIFACTS
+L["Extract Gas"] = "가스 추출"					-- NXlEXTRACTGAS
+L["Herb Gathering"] = "약초채집"				-- NXlHERBGATHERING
+L["In Conflict"] = "분쟁 지역"					-- NXlINCONFLICT
+L["Opening"] = true								-- NXlOpening
+L["Opening - No Text"] = true					-- NXlOpeningNoText
+L["Everfrost Chip"] = "영원의 서리 파편"			-- NXlEverfrost
 
+-- Are the ones below used?
 -- 울보천사 추가함..
 L["%.1f days"] = "%.1f 일"
 L["%.1f hours"] = "%.1f 시간"
@@ -165,13 +166,6 @@ L["Reset old layout data"] = "오래된 레이아웃 데이타 초기화"
 L["Window version mismatch!"] = "윈도우 버전이 일치하지 않음!"
 L["XY missing (%s)"] = "XY 좌표가 일치하지 않음 (%s)"
 L["Window not found (%s)"] = "윈도우를 찾을 수 없음 (%s)"
-L["Close/Menu"] = "닫기/메뉴"
-L["Close/Unlock"] = "닫기/잠금 해제"
-L["Unlock"] = "잠금 해제"
-L["Maximize"] = "최대화"
-L["Restore"] = "되돌리기"
-L["Minimize"] = "최소화"
-L["Auto Scale"] = "자동 크기조절"
 L["Search: %[click%]"] = "검색: %[클릭%]"
 L["Search: [click]"] = "검색: [클릭]"
 L["Reset old list data"] = "오래된 목록 데이타 초기화"

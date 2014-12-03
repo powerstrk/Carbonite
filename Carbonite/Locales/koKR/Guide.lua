@@ -5,14 +5,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-
 -- Main Guide
-L["Kalimdor"] = "칼림도어"
-L["Eastern Kingdoms"] = "동부왕국"
-L["Outland"] = "아웃랜드"
-L["Northrend"] = "노스렌드"
-L["The Maelstrom"] = "혼돈의 소용돌이"
-L["Pandaria"] = "판다리아"
 L["All"] = "모두"
 L["Quest Givers"] = "퀘스트 부여자"
 L["Stable Master"] = "야수 관리인"
@@ -75,7 +68,6 @@ L["Alchemy Lab"] = "연금술 실험대"
 L["Altar Of Shadows"] = "어둠의 제단"
 L["Mana Loom"] = "마나 베틀"
 L["Moonwell"] = "달샘"
-L["Quest Givers"] = "퀘스트 부여자"
 
 -- Menus
 L["Delete"] = "삭제"
@@ -93,7 +85,7 @@ L["Boat to"] = "항구: "
 L["Zeppelin to"] = "비행선: "
 L["Tram to"] = "지하철: "
 
-L["Name"] = "이름"
-L["Info"] = "정보"
-L["Info2"] = "정보2"
-L["Info3"] = "정보3"
+L["Name"] = "이름"		-- Is this one used?
+L["Info"] = "정보"		-- Is this one used?
+L["Info2"] = "정보2"	-- Is this one used?
+L["Info3"] = "정보3"	-- Is this one used?

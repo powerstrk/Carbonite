@@ -79,8 +79,6 @@ L["Restore map scale after track"] = "추적이 끝나면 원래 지도배율로
 L["When enabled, restores your previous map scale when tracking is cleared."] = "사용할 경우, 추적이 해제되었을 때 이전 지도의 크기로 되돌립니다."
 L["Use Travel Routing"] = "여행 경로 사용"
 L["When enabled, attempts to route your travel when destination is in another zone."] = "사용할 경우, 대상이 다른 지역으로 이동할 때 여행 경로를 표시합니다."
-L["Restore map scale after track"] = "추적이 끝나면 원래 지도배율로 되돌림"
-L["When enabled, restores your previous map scale when tracking is cleared."] = "사용할 경우, 추적이 해제되었을 때 이전 지도의 크기로 되돌립니다."
 L["Show Movement Trail"] = "플레이어의 이동자취 보기"
 L["When enabled, draws a trail on the map to show your movements."] = "사용할 경우, 당신이 이동한 자취를 지도에 표시합니다."
 L["Movement trail distance"] = "이동 경로 점 간격"
@@ -346,6 +344,8 @@ L["Delete Misc Locations"] = "기타 위치 최기화"
 L["Import Herbs"] = "약초 채집위치 가져오기"
 L["Import Mining"] = "광물 채광위치 가져오기"
 L["Import Misc"] = "기타 위치 가져오기"
+
+-- Are the ones below used?
 L["Put the game minimap into the Carbonite map?\n\nThis will make one unified map. The minimap buttons will go into the Carbonite button window. This can also be changed using the Map Minimap options page."] = "미니맵을 Carbonite 지도 안으로 이동시키겠습니까?\n\n하나의 통합된 지도를 생성하게 됩니다. 미니맵 주변의 버튼도 Carbonite 지도 안으로 이동됩니다. 이 미니맵 옵션은 Carbonite 옵션-지도 미니맵  페이지에서 변경할 수 있습니다."
 L["Yes"] = "네"
 L["No"] = "아니오"
