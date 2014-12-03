@@ -1799,7 +1799,7 @@ function Nx.Social:GetPunk (name, plyrNear, mId, x, y)
 		return
 	end
 	
-	if Nx.scdb.profile.Social.PunkEnable then	
+	if Nx.scdb.profile.Social.PunkEnable then
 	local punk = self.PunksActive[name]
 	if not punk then
 		punk = {}

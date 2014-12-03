@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Quest", "frFR")
 if not L then return end
 
-
 L["Quest Module"] = true
 L["Quest Options"] = "Options de Qu\195\170tes"
 L["Quest Window Options"] = "Options fen\195\170tre de Qu\195\170te"
@@ -240,7 +239,6 @@ L["Options..."] = true
 L[" Completed"] = "Termin\195\169e"
 L[" Database"] = "Base de donn\195\169es"
 L["Complete"] = "Compl\195\168te"
--- L["NxQuestDSCItem"] = true
 L["Remove All Watches"] = "Enlever toutes les surveillances"
 L["Max Auto Track"] = "Maximum auto trace"
 L["Max Visible In List"] = "Maximum visible dans la liste"
