@@ -8791,7 +8791,7 @@ function Nx.Quest.Watch:UpdateList()
 								end
 								list:ItemSetButton (butType, pressed)
 							else
-								list:ItemSetButton ("QuestWatchTip", false)
+								list:ItemSetButton ("QuestWatchTip", false)		-- QuestWatchTip  >  QuestWatch?
 							end
 							if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
