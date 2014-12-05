@@ -284,3 +284,4 @@ L["Player"] = "Spieler"
 L["Daily Quests Completed: |cffffffff"] = "Tagesquests abgeschlossen: |cffffffff"
 L["|r  Daily reset: |cffffffff"] = "|r  Tagesquests zur\195\188ckgesetzt: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "Quests: |cffffffff%d/%d|r  %s"
+L["BONUS TASK"] = true

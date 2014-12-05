@@ -1125,7 +1125,7 @@ local function QuestOptions ()
 								Nx.Quest.Watch:Update()
 							end,
 						},
-						qwwatchtask = {						
+						qwwatchtask = {
 							order = 22,
 							type = "toggle",
 							width = "full",
@@ -1138,7 +1138,7 @@ local function QuestOptions ()
 								Nx.qdb.profile.QuestWatch.BonusTask = not Nx.qdb.profile.QuestWatch.BonusTask
 								Nx.Quest.Watch:Update()
 							end,
-						},												
+						},
 						qwwatchchal = {
 							order = 23,
 							type = "toggle",
@@ -3147,7 +3147,6 @@ function Nx.Quest:RecordQuestsLog()
 			if qi > 0 then
 
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
-				
 				title = self:ExtractTitle (title)
 
 --				Nx.prt ("QD %s %s %s %s", title, qi, isHeader and "H1" or "H0", isComplete and "C1" or "C0")
@@ -8624,7 +8623,7 @@ function Nx.Quest.Watch:UpdateList()
 						list:ItemAdd(0)
 						list:ItemSet(2,s)
 						for criteria = 1, numCriteria do
-							local text, _, finished, quantity, totalquantity = C_Scenario.GetCriteriaInfo(criteria)							
+							local text, _, finished, quantity, totalquantity = C_Scenario.GetCriteriaInfo(criteria)
 							if finished then
 								s = format("|cffffffff%d/%d %s |cffff0000[|cffffffffComplete|cffff0000]",quantity, totalquantity, text)
 							else
@@ -8638,9 +8637,9 @@ function Nx.Quest.Watch:UpdateList()
 					end
 				end
 				if Nx.qdb.profile.QuestWatch.BonusTask then
-					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.RMapId);					
+					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.RMapId);
 					if taskInfo then
-						for i=1,#taskInfo do						
+						for i=1,#taskInfo do
 							local inArea, onMap, numObjectives = GetTaskInfo(taskInfo[i].questId)
 							if inArea then
 								list:ItemAdd(0)
@@ -8651,7 +8650,7 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											list:ItemSet(2,"|cff00ff00Progress: " .. GetQuestProgressBarPercent(questId))										
+											list:ItemSet(2,"|cff00ff00Progress: " .. GetQuestProgressBarPercent(questId))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8765,7 +8764,7 @@ function Nx.Quest.Watch:UpdateList()
 							local quest = cur.Q
 							local qi = cur.QI
 							local lbNum = cur.LBCnt
-	--						local link, item, charges = GetQuestLogSpecialItemInfo (questIndex)
+--							local link, item, charges = GetQuestLogSpecialItemInfo (questIndex)
 							list:ItemAdd (qId * 0x10000 + qi)
 							local trackMode = Quest.Tracking[qId] or 0
 							local obj = quest and (quest["End"] or quest["Start"])

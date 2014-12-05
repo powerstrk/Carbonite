@@ -4558,13 +4558,13 @@ function Nx.Map:Update (elapsed)
 	end
 
 	local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(UpdateMapID);
-	if taskInfo then		
+	if taskInfo then
 		for i=1,#taskInfo do
-			local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100			
+			local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
 			local f = self:GetIcon (3)
 			f.NxTip = "Bonus Task"
-			f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")			
-			self:ClipFrameZ (f, x, y, 16, 16, 0)			
+			f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")
+			self:ClipFrameZ (f, x, y, 16, 16, 0)
 			f.texture:SetTexCoord (0.125, 0.25, 0.75, 0.875)
 		end
 	end
@@ -4586,7 +4586,7 @@ function Nx.Map:Update (elapsed)
 
 	for i = 1, poiNum do
 		if (UpdateMapID == rid) then
-			name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)			
+			name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
 			if txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 				local tip = name
