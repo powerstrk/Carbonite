@@ -58,7 +58,6 @@ L["Set Note"] = "D\195\169fini Note"
 L["Set Person"] = "D\195\169fini la personne"
 L["Make Pal (Red) Into Friend"] = "Ajouter alli\195\169 (rouge) dans ma liste d'amis"
 L["Make All Pals Into Friends"] = "Ajouter tous les alli\195\169s dans ma liste d'amis"
-
 L["Options..."] = true
 L["Goto"] = "Destination..."
 L["Add Character"] = "Ajouter Personnage"

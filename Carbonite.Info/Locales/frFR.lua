@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "frFR")
 if not L then return end
 
-
 L["Info Options"] = "Options Info"
 L["Lock Info Windows"] = "Verrouiller Fen\195\170tre Info"
 L["Locks the location of your info windows"] = "Verrouiller l'emplacement de la fen\195\170tre Info"

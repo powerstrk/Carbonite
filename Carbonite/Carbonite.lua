@@ -1775,37 +1775,38 @@ end
 --
 
 function Nx:CalcRealmChars()
-
 	local chars = Nx.db.global.Characters
-
 	local realmName = GetRealmName()
 	local fullName = realmName .. "." .. UnitName ("player")
-
-	local t = {}
-
+	local t = {}	
 	for rc, v in pairs (chars) do
 		if v ~= Nx.CurCharacter then
-
 			local rname = Nx.Split (".", rc)
 			if rname == realmName then
 				tinsert (t, rc)
 			end
 		end
 	end
-
+	local connectedrealms = GetAutoCompleteRealms()
+	if connectedrealms then
+		for i=1,#connectedrealms do
+			for rc, v in pairs (chars) do
+				if v ~= Nx.CurCharacter then
+					local rname = Nx.Split (".", rc)
+					if rname == connectedrealms[i] then
+						tinsert (t, rc)
+					end
+				end
+			end
+		end
+	end
 	sort (t)		-- Alphabetical
-
 	tinsert (t, 1, fullName)	-- Put me at top
-
 	self.RealmChars = t
-
 	-- Fix char data
-
 	for cnum, rc in ipairs (self.RealmChars) do
-
 		local ch = chars[rc]
 		if ch then
-
 			if ch["XP"] then
 				ch["XPMax"] = ch["XPMax"] or 1
 				ch["XPRest"] = ch["XPRest"] or 0
@@ -1813,7 +1814,6 @@ function Nx:CalcRealmChars()
 				ch["LXPMax"] = ch["LXPMax"] or 1
 				ch["LXPRest"] = ch["LXPRest"] or 0
 			end
-
 			ch["TimePlayed"] = ch["TimePlayed"] or 0
 		end
 	end

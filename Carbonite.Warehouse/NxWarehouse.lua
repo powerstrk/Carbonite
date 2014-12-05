@@ -842,17 +842,27 @@ function Nx.Warehouse:Update()
 
 	local ware = Nx.wdb.profile.WarehouseData
 	local rn = GetRealmName()
-
+	
 	for name, guilds in pairs (ware) do
 		if name == rn then
-
 			for gName, guild in pairs (guilds) do
-
 				local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
-
 				list:ItemAdd (100)
 				list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
 				list:ItemSetDataEx (nil, gName, 1)
+			end
+		end		
+		local connectedrealms = GetAutoCompleteRealms()
+		if connectedrealms then
+			for i=1,#connectedrealms do
+				if connectedrealms[i] ~= rn and name == connectedrealms[i] then
+					for gName, guild in pairs (guilds) do
+						local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
+						list:ItemAdd (100)
+						list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
+						list:ItemSetDataEx (nil, gName, 1)
+					end
+				end
 			end
 		end
 	end
@@ -861,31 +871,21 @@ function Nx.Warehouse:Update()
 	list:ItemSet (2, "-------------------------")
 
 	for cnum, rc in ipairs (Nx.RealmChars) do
-
 		local rname, cname = Nx.Split (".", rc)
-
 		local cnameCol = "|cffafdfaf"
-
 		if cname == myName then		-- Me?
 			cnameCol = "|cffdfffdf"
 		end
-
 		local ch = Nx.db.global.Characters[rc]
 		if ch then
-
 			totalChars = totalChars + 1
 			totalPlayed = totalPlayed + ch["TimePlayed"]
-
 			local lvl = tonumber (ch["Level"] or 0)
-
 --			ch["Class"] = "Deathknight"	-- TEST
-
 			local cls = ch["Class"] or "?"
-
 			local money = ch["Money"]
 			totalMoney = totalMoney + (money or 0)
 			local moneyStr = Nx.Util_GetMoneyStr (money)
-
 			list:ItemAdd (cnum)
 			local s = ch["Account"] and format ("%s (%s)", cname, ch["Account"]) or cname
 			list:ItemSet (2, format ("%s%s %s %s  %s", cnameCol, s, lvl, cls, moneyStr))
@@ -899,22 +899,22 @@ function Nx.Warehouse:Update()
 			if not hide then
 
 				if cname == myName then		-- Me?
-
+					
 					local secs = difftime (time(), ch["LTime"])
 					local mins = secs / 60 % 60
 					local hours = secs / 3600
 					local lvlHours = difftime (time(), ch["LvlTime"]) / 3600
 					local played = Nx.Util_GetTimeElapsedStr (ch["TimePlayed"])
-
+					list:ItemAdd (cnum)
+					list:ItemSet (2, format (" Realm:%s %s",hicol,rname))
 					list:ItemAdd (cnum)
 					list:ItemSet (2, format (" Time On: %s%2d:%02d:%02d|r, Played: %s%s", hicol, hours, mins, secs % 60, hicol, played))
-
 					local money = (ch["Money"] or 0) - ch["LMoney"]
 					local moneyStr = Nx.Util_GetMoneyStr (money)
 					local moneyHStr = Nx.Util_GetMoneyStr (money / hours)
 
 					list:ItemAdd (cnum)
-					list:ItemSet (2, format (" Session Money: %s|r, Per Hour: %s", moneyStr, moneyHStr))
+					list:ItemSet (2, format (" Session Money:%s %s|r, Per Hour:%s %s", hicol, moneyStr, hicol, moneyHStr))
 
 					if ch["DurPercent"] then
 
@@ -928,8 +928,7 @@ function Nx.Warehouse:Update()
 						local rest = ch["LXPRest"] / ch["LXPMax"] * 100		-- Sometimes over 150%?
 						local xp = ch["XP"] - ch["LXP"]
 						list:ItemAdd (cnum)
-						list:ItemSet (2, format (" Session XP: %s, Per Hour: %.0f", xp, xp / lvlHours))
-
+						list:ItemSet (2, format (" Session XP:%s %s|r, Per Hour:%s %.0f", hicol, xp, hicol, xp / lvlHours))
 						xp = max (1, xp)
 						local lvlTime = (ch["XPMax"] - ch["XP"]) / (xp / lvlHours)
 
@@ -939,7 +938,8 @@ function Nx.Warehouse:Update()
 						end
 					end
 				else
-
+					list:ItemAdd (cnum)
+					list:ItemSet (2, format (" Realm:%s %s",hicol,rname))
 					if ch["Time"] then
 
 						local secs = difftime (time(), ch["Time"])

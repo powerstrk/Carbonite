@@ -329,4 +329,3 @@ L["Zim'Torga, Zul'Drak"] = "짐토르가 - 줄드락"
 L["Zoram'gar Outpost, Ashenvale"] = "조람가르 전초기지 - 잿빛 골짜기"
 L["Zouchin Village, Kun-Lai Summit"] = "조우친 마을 - 쿤라이 봉우리"
 L["Zul'Aman, Ghostlands"] = "줄아만 - 유령의 땅"
-
