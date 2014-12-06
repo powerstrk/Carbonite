@@ -1757,7 +1757,7 @@ end
 
 function CarboniteQuest:OnInitialize()
 	if not Nx.Initialized then
-		CarbQuestInit = Nx:ScheduleTimer(CarboniteQuest.OnInitialize,1)
+		CarbQuestInit = Nx:ScheduleTimer(CarboniteQuest.OnInitialize,5)
 		return
 	end
 	Nx.qdb = LibStub("AceDB-3.0"):New("NXQuest",defaults, true)
@@ -2557,7 +2557,7 @@ function Nx.Quest:Init()
 			auto = not auto
 		end
 		if auto and not QuestGetAutoAccept() then
-			AcceptQuest()
+			AcceptQuest()			
 		end
 	end
 
@@ -4195,7 +4195,7 @@ function Nx.Quest:Capture (curi, objNum)
 	else
 
 		local map = self.Map:GetMap(1)
-		local nxzone = map.RMapId
+		local nxzone = map.UpdateMapID
 		if nxzone then
 
 			local index = objNum + 2
@@ -5088,6 +5088,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
     win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
     win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
@@ -6309,21 +6310,25 @@ function Nx.Quest.List:OnQuestUpdate (event)
 
 		if auto then
 			if GetNumQuestChoices() == 0 then
-				QuestRewardCompleteButton_OnClick()
+				GetQuestReward()
 --				Nx.prt ("Auto turn in choice")
 			end
 		end
 
 		return
-
+	elseif event == "QUEST_ACCEPTED" then
+		if QuestGetAutoAccept() then
+			QuestFrameDetailPanel:Hide();
+			CloseQuest();
+		end
 	elseif event == "QUEST_DETAIL" then		-- Happens when auto accept quest is given
 
 		if QuestGetAutoAccept() and QuestIsFromAreaTrigger() then
 
 			Quest:RecordQuestAcceptOrFinish()
-
+			CloseQuest();
 --			Quest.AcceptQId = GetQuestID()
-			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
+--			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
 		end
 
 	elseif event == "QUEST_LOG_UPDATE" then
@@ -7330,8 +7335,8 @@ function Nx.Quest:UpdateIcons (map)
 
 				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj[n])
 
-				if objZone then
-
+				if objZone and objZone ~= 9000 then
+					
 					local mapId = objZone
 
 					if not mapId then
@@ -7339,7 +7344,6 @@ function Nx.Quest:UpdateIcons (map)
 						break
 					end
 					if bit.band (mask, bit.lshift (1, n)) > 0 then
---					Nx.prt ("%s zone %d %s", objName, mapId, loc)
 						local colI = n
 
 						if colorPerQ then
@@ -7353,7 +7357,7 @@ function Nx.Quest:UpdateIcons (map)
 
 						local oname = cur and cur[n] or objName
 
-						if typ == 32 then  -- Points
+						if typ == 32 then  -- Points							
 --							Nx.prt ("%s, pt %s", objName, strsub (obj, loc + 1))
 							local cnt = 1
 							local sz = navscale
@@ -8638,7 +8642,7 @@ function Nx.Quest.Watch:UpdateList()
 					end
 				end
 				if Nx.qdb.profile.QuestWatch.BonusTask then
-					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.RMapId);					
+					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);					
 					if taskInfo then
 						for i=1,#taskInfo do						
 							local inArea, onMap, numObjectives = GetTaskInfo(taskInfo[i].questId)
@@ -8651,7 +8655,7 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											list:ItemSet(2,"|cff00ff00Progress: " .. GetQuestProgressBarPercent(questId))										
+											list:ItemSet(2,format("|cff00ff00Progress: %.2f",GetQuestProgressBarPercent(questId)))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8676,7 +8680,7 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											list:ItemSet(2,"|cff00ff00Progress: " .. GetQuestProgressBarPercent(questId))
+											list:ItemSet(2,format("|cff00ff00Progress: %.2f" ,GetQuestProgressBarPercent(questId)))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -10002,7 +10006,7 @@ function Nx.Quest:CalcDistances (n1, n2)
 					if zone then
 
 						local mId = zone
-						if mId then
+						if mId and mId ~= 9000 then							
 							local x, y = self:GetClosestObjectivePos (questObj, loc, mId, px, py)
 							if not x or not y then
 								return
@@ -10048,7 +10052,7 @@ function Nx.Quest:CalcDistances (n1, n2)
 
 			cur.Priority = 1 - pri / 2010
 
-			cur.InZone = Quest:CheckShow (map.RMapId, qId)
+			cur.InZone = Quest:CheckShow (map.UpdateMapID, qId)
 --PAIDE!
 		end
 	end

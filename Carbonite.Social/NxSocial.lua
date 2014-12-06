@@ -1731,7 +1731,7 @@ function Nx.Social:AddLocalPunk (name, plyrNear, level, class)
 
 	self.LastLocalPunk = name
 
-	local rMapId = map.RMapId
+	local rMapId = map.UpdateMapID
 	local x, y = map.PlyrRZX, map.PlyrRZY
 
 	if plyrNear then
@@ -2463,7 +2463,7 @@ function Nx.Social.TeamHUD:Update()
 
 		local Map = Nx.Map
 		local map = Map:GetMap (1)
-		local mapId, plX, plY = map.RMapId, map.PlyrRZX, map.PlyrRZY
+		local mapId, plX, plY = map.UpdateMapID, map.PlyrRZX, map.PlyrRZY
 		local plX, plY = Map:GetWorldPos (mapId, plX, plY)
 
 		local inArena = Nx.InArena
