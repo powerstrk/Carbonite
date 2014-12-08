@@ -1904,8 +1904,8 @@ function Nx:RecordCharacter()
 	local ch = self.CurCharacter
 
 	local map = self.Map:GetMap (1)
-	if map.RMapId then
-		ch["Pos"] = format ("%d^%f^%f", map.RMapId, map.PlyrRZX, map.PlyrRZY)
+	if map.UpdateMapID then
+		ch["Pos"] = format ("%d^%f^%f", map.UpdateMapID, map.PlyrRZX, map.PlyrRZY)
 	end
 
 	ch["Time"] = time()

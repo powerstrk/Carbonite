@@ -1234,16 +1234,15 @@ function Nx.Map.Guide:UpdateMapIcons()
 				if type == "M" and not Nx.db.profile.Guide.ShowMines[fid] then
 					return
 				end
---				if type == "H" and not Nx.db.profile.Guide.ShowHerbs[fid] then
---					return
---				end
+				if type == "H" and not Nx.db.profile.Guide.ShowHerbs[fid] then
+					return
+				end
 				local nodeT = zoneT[fid]
 				if nodeT then
 					local iconType = fid == "Art" and "!G" or "!Ga"
 					for k, node in ipairs (nodeT) do
 						local x, y = Nx:GatherUnpack (node)
 						local name, tex, skill = Nx:GetGather (type, fid)
-						assert (name)
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
 						icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
 						if skill > 0 then
@@ -1641,7 +1640,7 @@ function Nx.Map.Guide:FindClosest (findType)
 	local cont1 = 1
 	local cont2 = Map.ContCnt
 	if not self.ShowAllCont then
-		local mapId = map.RMapId
+		local mapId = map.UpdateMapID
 		cont1 = map:IdToContZone (mapId)
 		cont2 = cont1
 	end
@@ -1850,7 +1849,7 @@ function Nx.Map.Guide:SavePlayerNPCTarget()
 
 	local map = Nx.Map:GetMap (1)
 	local s = Nx:PackXY (map.PlyrRZX, map.PlyrRZY)
-	self.PlayerNPCTargetPos = format ("%d^%s", Nx.MapIdToNxzone[map.RMapId] or 0, s)
+	self.PlayerNPCTargetPos = format ("%d^%s", Nx.MapIdToNxzone[map.UpdateMapID] or 0, s)
 end
 function Nx.Map.Guide.OnGossip_show()
 	local self = Nx.Map.Guide
@@ -2059,7 +2058,7 @@ function Nx.Map.Guide:CaptureItems()
 		local tag, name = Nx.Split ("~", npc)
 		npc = format ("%s~%s", tag, name)
 		local links = {}
-		links["POS"] = format ("%d^%s^%s", map.RMapId, map.PlyrRZX, map.PlyrRZY)
+		links["POS"] = format ("%d^%s^%s", map.UpdateMapID, map.PlyrRZX, map.PlyrRZY)
 		links["T"] = time()
 		links["R"] = self.VendorRepair
 		for n = 1, GetMerchantNumItems() do
