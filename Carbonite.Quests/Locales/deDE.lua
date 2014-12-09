@@ -261,6 +261,7 @@ L["Group"] = "Gruppe"
 L["Remove Watch"] = "Verfolgung beenden"
 L["BONUS TASK"] = "ZUSATZAUFGABE"
 L["Progress: "] = "Fortschritt: "
+
 -- still too long?
 L["Link Quest (shift right click)"] = "Quest verlinken (Shift-Rechtsklick)"
 L["Show Quest Log (alt right click)"] = "Quest-Log zeigen (Alt-Rechtsklick)"
