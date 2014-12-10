@@ -1778,7 +1778,7 @@ function Nx:CalcRealmChars()
 	local chars = Nx.db.global.Characters
 	local realmName = GetRealmName()
 	local fullName = realmName .. "." .. UnitName ("player")
-	local t = {}	
+	local t = {}
 	for rc, v in pairs (chars) do
 		if v ~= Nx.CurCharacter then
 			local rname = Nx.Split (".", rc)
