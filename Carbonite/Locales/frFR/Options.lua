@@ -186,7 +186,7 @@ L["When enabled, The minimap will display the old nameplates above the map."] = 
 
 -- Minimap Button Options
 L["Minimap Button Options"] = "Options boutons MiniMap"
-L["Move Minimap Buttons into Carbonite Minimap Frame"] = "D\195\169placer les boutons dans le cadre de la MiniMap"
+L["Move Minimap Buttons into Carbonite Minimap Frame"] = "D\195\169place les boutons de la MiniMap dans le cadre \195\160 boutons de Carbonite" -- please check length old :"D\195\169placer les boutons dans le cadre de la MiniMap"
 -- Line below need retranslation since original text changed
 L["When enabled, Carbonite will pull all minimap icons into it's own button frame which can be moved around and minimized as needed (RELOAD REQUIRED)"] = "Quand activ\195\169, Carbonite place toutes les ic\195\180nes de la MiniMap dans son propre cadre qui peut \195\170tre d\195\169plac\195\169 et r\195\169duit au minimum en cas de besoin (NECESSITE REDEMARRAGE)"
 L["Hide Minimap Button Window"] = "Cacher MiniMap fen\195\170tre/bouton" 
