@@ -326,3 +326,79 @@ L["Zim'Torga, Zul'Drak"] = true
 L["Zoram'gar Outpost, Ashenvale"] = "Avant-poste de Zoram'gar, Orneval"
 L["Zouchin Village, Kun-Lai Summit"] = "Zouchin, Sommet de Kun-Lai"
 L["Zul'Aman, Ghostlands"] = "Zul'Aman, Terres fant\195\180mes"
+-- WOD Flightmasters
+-- Ashran
+L["Stormshield, Ashran"] = true
+L["Warspear, Ashran"] = true
+--Frostfire Ridge
+L["Bloodmaul Slag Mines, Frostfire Ridge"] = true
+L["Iron Siegeworks, Frostfire Ridge"] = true
+L["Bladespire Fortress, Frostfire Ridge"] = true
+L["Darkspear's Edge, Frostfire Ridge"] = true
+L["Frostwall Garrison, Frostfire Ridge"] = true -- Garrison subzone
+L["Stonefang Outpost, Frostfire Ridge"] = true
+L["Throm'Var, Frostfire Ridge"] = true
+L["Thunder Pass, Frostfire Ridge"] = true
+L["Wolf's Stand, Frostfire Ridge"] = true
+L["Wor'gol, Frostfire Ridge"] = true
+--Gorgrond
+L["Breaker's Crown, Gorgrond"] = true
+L["Everbloom Overlook, Gorgrond"] = true
+L["Everbloom Wilds, Gorgrond"] = true
+L["Iron Docks, Gorgrond"] = true
+L["Skysea Point, Gorgrond"] = true
+L["Bastion Rise, Gorgrond"] = true
+L["Deeproot, Gorgrond"] = true
+L["Highpass, Gorgrond"] = true
+L["Wildwood Wash, Gorgrond"] = true
+L["Bastion Rise, Gorgrond"] = true
+L["Beastwatch, Gorgrond"] = true
+L["Evermorn Springs, Gorgrond"] = true
+	--Nagrand (WOD)
+L["Joz's Rylaks, Nagrand"] = true
+L["Nivek's Overlook, Nagrand"] = true
+L["Rilzit's Holdfast, Nagrand"] = true
+L["The Ring of Trials, Nagrand"] = true
+L["Throne of the Elements, Nagrand"] = true
+L["Telaari Station, Nagrand"] = true
+L["Yrel's Watch, Nagrand"] = true
+L["Riverside Post, Nagrand"] = true
+L["Wor'var, Nagrand"] = true
+--Shadowmoon Valley
+L["Darktide Roost, Shadowmoon Valley"] = true
+L["Exil's Rise, Shadowmoon Valley"] = true
+L["Socrethar's Rise, Shadowmoon Valley"] = true
+L["Elodor, Shadowmoon Valley"] = true
+L["Embaari Village, Shadowmoon Valley"] = true
+L["Lunarfall, Shadowmoon Valley"] = true --Garrison Subzone
+L["Path of Light, Shadowmoon Valley"] = true
+L["The Draakorium, Shadowmoon Valley"] = true
+L["Tranquil Court, Shadowmoon Valley"] = true
+L["Twilight Glade, Shadowmoon Valley"] = true
+--Spires of Arak
+L["Akeeta's Hovel, Shadowmoon Valley"] = true  -- is in Spires of Arak but Shadowmoon Valley named
+L["Apexis Excavation, Spires of Arak"] = true
+L["Crow's Cook, Spires of Arak"] = true
+L["Pinchwhitsle Gearworks, Spires of Arak"] = true
+L["Talon Watch, Spires of Arak"] = true
+L["Veil Terrok, Spires of Arak"] = true
+L["Southport, Spires of Arak"] = true
+L["Axefall, Spires of Arak"] = true
+--Talador
+L["Retrebution Point, Talador"] = true
+L["Shattrath City, Talador"] = true
+L["Terrokar Refuge, Talador"] = true
+L["Zangarra, Talador"] = true
+L["Anchorite's Sojourn, Talador"] = true
+L["Exarch's Refuge, Talador"] = true
+L["Fort Wrynn, Talador"] = true
+L["Redemption Rise, Talador"] = true
+L["Durotan's Grasp, Talador"] = true
+L["Exarch's Refuge, Talador"] = true
+L["Frostwolf Overlook, Talador"] = true
+L["Vol'jin's Pride, Talador"] = true
+
+-- Translation for Flight_LOC
+L["Alliance Flight"] = true
+L["Horde Flight"] = true
+L["Neutral Flight"] = true
