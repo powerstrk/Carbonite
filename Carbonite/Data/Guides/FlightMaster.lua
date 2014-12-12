@@ -337,8 +337,79 @@ local FLIGHT_DATA = {
 	["0,858,55.82,34.86"]=L["Klaxxi'vess, Dread Wastes"],
 	["0,858,56.12,70.13"]=L["Soggy's Gamble, Dread Wastes"],
 	["0,873,56.65,75.65"]=L["Tavern in the Mists, The Veiled Stair"],
+-- Flightmasters WOD cords from wowhead.com Testing before sorting 
+	-- Ashran
+	["1,1009,30.8,48.8"]=L["Stormshield, Ashran"],
+	["2,1011,44.2,34.2"]=L["Warspear, Ashran"],
+	--Frostfire Ridge
+	["0,941,51.4,21.4"]=L["Bloodmaul Slag Mines, Frostfire Ridge"],
+	["1,941,87.4,62.6"]=L["Iron Siegeworks, Frostfire Ridge"],
+	["2,941,24.4,37.2"]=L["Bladespire Fortress, Frostfire Ridge"],
+	["2,941,51.8,41.0"]=L["Darkspear's Edge, Frostfire Ridge"],
+	["2,976,45.8,50.6"]=L["Frostwall Garrison, Frostfire Ridge"], -- Garrison subzone
+	["2,941,40.0,51.8"]=L["Stonefang Outpost, Frostfire Ridge"],
+	["2,941,31.8,9.6"]=L["Throm'Var, Frostfire Ridge"],
+	["2,941,83.6,60.8"]=L["Thunder Pass, Frostfire Ridge"],
+	["2,941,73.6,60.0"]=L["Wolf's Stand, Frostfire Ridge"],
+	["2,941,21.6,56.0"]=L["Wor'gol, Frostfire Ridge"],
+	--Gorgrond
+	["0,949,45.8,55.0"]=L["Breaker's Crown, Gorgrond"],
+	["0,949,68.6,28.8"]=L["Everbloom Overlook, Gorgrond"],
+	["0,949,57.0,45.8"]=L["Everbloom Wilds, Gorgrond"],
+	["0,949,43.0,20.2"]=L["Iron Docks, Gorgrond"],
+	["0,949,39.6,36.6"]=L["Skysea Point, Gorgrond"],
+	["1,949,46.4,92.4"]=L["Bastion Rise, Gorgrond"],
+	["1,949,46.4,76.6"]=L["Deeproot, Gorgrond"],
+	["1,949,52.8,59.4"]=L["Highpass, Gorgrond"],
+	["1,949,64.0,57.4"]=L["Wildwood Wash, Gorgrond"],
+	["2,949,47.4,90.8"]=L["Bastion Rise, Gorgrond"],
+	["2,949,46.0,69.2"]=L["Beastwatch, Gorgrond"],
+	["2,949,41.2,87.2"]=L["Evermorn Springs, Gorgrond"],
+	--Nagrand (WOD)
+	["0,950,62.2,32.8"]=L["Joz's Rylaks, Nagrand"],
+	["0,950,49.4,75.8"]=L["Nivek's Overlook, Nagrand"],
+	["0,950,50.6,30.6"]=L["Rilzit's Holdfast, Nagrand"],
+	["0,950,79.8,49.6"]=L["The Ring of Trials, Nagrand"],
+	["0,950,73.6,26.6"]=L["Throne of the Elements, Nagrand"],
+	["1,950,63.6,61.6"]=L["Telaari Station, Nagrand"],
+	["1,950,62.6,40.6"]=L["Yrel's Watch, Nagrand"],
+	["2,950,49.6,48.0"]=L["Riverside Post, Nagrand"],
+	["2,950,83.2,44.6"]=L["Wor'var, Nagrand"],
+	--Shadowmoon Valley
+    ["0,947,59.8,81.4"]=L["Darktide Roost, Shadowmoon Valley"],
+	["0,947,45.6,25.4"]=L["Exil's Rise, Shadowmoon Valley"],
+	["0,947,43.8,77.4"]=L["Socrethar's Rise, Shadowmoon Valley"],
+	["1,947,58.6,31.8"]=L["Elodor, Shadowmoon Valley"],
+	["1,947,45.6,38.8"]=L["Embaari Village, Shadowmoon Valley"],
+	["1,971,47.4,49.4"]=L["Lunarfall, Shadowmoon Valley"], -- Garrison subzone
+	["1,947,59.4,46.0"]=L["Path of Light, Shadowmoon Valley"],
+	["1,947,57.0,56.6"]=L["The Draakorium, Shadowmoon Valley"],
+	["1,947,70.4,50.4"]=L["Tranquil Court, Shadowmoon Valley"],
+	["1,947,40.6,55.2"]=L["Twilight Glade, Shadowmoon Valley"],
+	--Spires of Arak
+	["0,948,65.6,17.6"]=L["Akeeta's Hovel, Shadowmoon Valley"], -- is in Spires of Arak but Shadowmoon Valley named
+	["0,948,37.0,24.6"]=L["Apexis Excavation, Spires of Arak"],
+	["0,948,51.8,31.0"]=L["Crow's Cook, Spires of Arak"],
+	["0,948,60.8,73.2"]=L["Pinchwhitsle Gearworks, Spires of Arak"],
+	["0,948,61.8,42.6"]=L["Talon Watch, Spires of Arak"],
+	["0,948,46.2,44.0"]=L["Veil Terrok, Spires of Arak"],
+	["1,948,39.0,61.8"]=L["Southport, Spires of Arak"],
+	["2,948,39.4,43.2"]=L["Axefall, Spires of Arak"],
+	--Talador
+	["0,946,42.0,76.8"]=L["Retrebution Point, Talador"],
+	["0,946,51.2,42.6"]=L["Shattrath City, Talador"],
+	["0,946,70.4,57.0"]=L["Terrokar Refuge, Talador"],
+	["0,946,80.4,25.4"]=L["Zangarra, Talador"],
+	["1,946,80.0,56.6"]=L["Anchorite's Sojourn, Talador"],
+	["1,946,54.8,68.8"]=L["Exarch's Refuge, Talador"],
+	["1,946,69.8,21.4"]=L["Fort Wrynn, Talador"],
+	["1,946,63.2,25.8"]=L["Redemption Rise, Talador"],
+	["2,946,55.4,40.8"]=L["Durotan's Grasp, Talador"],
+	["2,946,54.6,67.8"]=L["Exarch's Refuge, Talador"],
+	["2,946,61.4,10.6"]=L["Frostwolf Overlook, Talador"],
+	["2,946,70.8,29.4"]=L["Vol'jin's Pride, Talador"],
 }
-local NX_FLIGHT_LOC = { ["1"] = "Alliance Flight", ["2"] = "Horde Flight", ["0"] = "Neutral Flight", }
+local NX_FLIGHT_LOC = { ["1"] = L["Alliance Flight"], ["2"] = L["Horde Flight"], ["0"] = L["Neutral Flight"], }
 Nx.NPCData={}
 for k, v in pairs(FLIGHT_DATA) do
 	local side, zon, x, y = Nx.Split(",", k)
