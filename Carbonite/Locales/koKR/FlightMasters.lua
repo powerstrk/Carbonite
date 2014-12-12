@@ -5,9 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-L["Alliance Flight"] = "얼라이언스 와이번 조련사"	-- Is this one used?
-L["Horde Flight"] = "호드 와이번 조련사"				-- Is this one used?
-L["Neutral Flight"] = "중립 와이번 조련사"			-- Is this one used?
 L["Acherus: The Ebon Hold"] = "아케루스: 칠흑의 요새"
 L["Aerie Peak, The Hinterlands"] = "맹금의 봉우리 - 동부 내륙지"
 L["Agmar's Hammer, Dragonblight"] = "아그마르의 망치 - 용의 안식처"
@@ -329,3 +326,79 @@ L["Zim'Torga, Zul'Drak"] = "짐토르가 - 줄드락"
 L["Zoram'gar Outpost, Ashenvale"] = "조람가르 전초기지 - 잿빛 골짜기"
 L["Zouchin Village, Kun-Lai Summit"] = "조우친 마을 - 쿤라이 봉우리"
 L["Zul'Aman, Ghostlands"] = "줄아만 - 유령의 땅"
+-- WOD Flightmasters
+-- Ashran
+L["Stormshield, Ashran"] = true
+L["Warspear, Ashran"] = true
+--Frostfire Ridge
+L["Bloodmaul Slag Mines, Frostfire Ridge"] = true
+L["Iron Siegeworks, Frostfire Ridge"] = true
+L["Bladespire Fortress, Frostfire Ridge"] = true
+L["Darkspear's Edge, Frostfire Ridge"] = true
+L["Frostwall Garrison, Frostfire Ridge"] = true -- Garrison subzone
+L["Stonefang Outpost, Frostfire Ridge"] = true
+L["Throm'Var, Frostfire Ridge"] = true
+L["Thunder Pass, Frostfire Ridge"] = true
+L["Wolf's Stand, Frostfire Ridge"] = true
+L["Wor'gol, Frostfire Ridge"] = true
+--Gorgrond
+L["Breaker's Crown, Gorgrond"] = true
+L["Everbloom Overlook, Gorgrond"] = true
+L["Everbloom Wilds, Gorgrond"] = true
+L["Iron Docks, Gorgrond"] = true
+L["Skysea Point, Gorgrond"] = true
+L["Bastion Rise, Gorgrond"] = true
+L["Deeproot, Gorgrond"] = true
+L["Highpass, Gorgrond"] = true
+L["Wildwood Wash, Gorgrond"] = true
+L["Bastion Rise, Gorgrond"] = true
+L["Beastwatch, Gorgrond"] = true
+L["Evermorn Springs, Gorgrond"] = true
+	--Nagrand (WOD)
+L["Joz's Rylaks, Nagrand"] = true
+L["Nivek's Overlook, Nagrand"] = true
+L["Rilzit's Holdfast, Nagrand"] = true
+L["The Ring of Trials, Nagrand"] = true
+L["Throne of the Elements, Nagrand"] = true
+L["Telaari Station, Nagrand"] = true
+L["Yrel's Watch, Nagrand"] = true
+L["Riverside Post, Nagrand"] = true
+L["Wor'var, Nagrand"] = true
+--Shadowmoon Valley
+L["Darktide Roost, Shadowmoon Valley"] = true
+L["Exil's Rise, Shadowmoon Valley"] = true
+L["Socrethar's Rise, Shadowmoon Valley"] = true
+L["Elodor, Shadowmoon Valley"] = true
+L["Embaari Village, Shadowmoon Valley"] = true
+L["Lunarfall, Shadowmoon Valley"] = true --Garrison Subzone
+L["Path of Light, Shadowmoon Valley"] = true
+L["The Draakorium, Shadowmoon Valley"] = true
+L["Tranquil Court, Shadowmoon Valley"] = true
+L["Twilight Glade, Shadowmoon Valley"] = true
+--Spires of Arak
+L["Akeeta's Hovel, Shadowmoon Valley"] = true  -- is in Spires of Arak but Shadowmoon Valley named
+L["Apexis Excavation, Spires of Arak"] = true
+L["Crow's Cook, Spires of Arak"] = true
+L["Pinchwhitsle Gearworks, Spires of Arak"] = true
+L["Talon Watch, Spires of Arak"] = true
+L["Veil Terrok, Spires of Arak"] = true
+L["Southport, Spires of Arak"] = true
+L["Axefall, Spires of Arak"] = true
+--Talador
+L["Retrebution Point, Talador"] = true
+L["Shattrath City, Talador"] = true
+L["Terrokar Refuge, Talador"] = true
+L["Zangarra, Talador"] = true
+L["Anchorite's Sojourn, Talador"] = true
+L["Exarch's Refuge, Talador"] = true
+L["Fort Wrynn, Talador"] = true
+L["Redemption Rise, Talador"] = true
+L["Durotan's Grasp, Talador"] = true
+L["Exarch's Refuge, Talador"] = true
+L["Frostwolf Overlook, Talador"] = true
+L["Vol'jin's Pride, Talador"] = true
+
+-- Translation for Flight_LOC
+L["Alliance Flight"] = "얼라이언스 와이번 조련사"
+L["Horde Flight"] = "호드 와이번 조련사"
+L["Neutral Flight"] = "중립 와이번 조련사"
