@@ -354,7 +354,7 @@ L["Wildwood Wash, Gorgrond"] = true
 L["Bastion Rise, Gorgrond"] = true
 L["Beastwatch, Gorgrond"] = true
 L["Evermorn Springs, Gorgrond"] = true
-	--Nagrand (WOD)
+--Nagrand (WOD)
 L["Joz's Rylaks, Nagrand"] = true
 L["Nivek's Overlook, Nagrand"] = true
 L["Rilzit's Holdfast, Nagrand"] = true
@@ -397,7 +397,6 @@ L["Durotan's Grasp, Talador"] = true
 L["Exarch's Refuge, Talador"] = true
 L["Frostwolf Overlook, Talador"] = true
 L["Vol'jin's Pride, Talador"] = true
-
 -- Translation for Flight_LOC
 L["Alliance Flight"] = true
 L["Horde Flight"] = true

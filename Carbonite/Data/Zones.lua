@@ -16,6 +16,16 @@ Nx.BuggedAreas = {
 	[4] = 382,
 }
 
+	-- Can anyone expand/corect this ("stolen" from dratr)
+	-- Fields: name, minLvl, maxLvl, faction, cont, entryId, ex, ey, ??
+	-- entryId, ex, ey only for instances.
+	-- entryId is map id of zone that has dungeon entrance; ex, ey is loc in zone
+	-- Faction:
+	-- 0 Alliance
+	-- 1 Horde
+	-- 2 Contested
+	-- 3 Instance
+	-- 4 Unknown
 Nx.Zones = {
 	[0] = L["Unknown Zone"] .. "|0|0|4|0||",
 	[4] = L["Durotar"] .. "|1|10|1|1||",
