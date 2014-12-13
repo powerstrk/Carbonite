@@ -378,16 +378,16 @@ L["Twilight Glade, Shadowmoon Valley"] = "暮光林地, 影月谷"
 --Spires of Arak
 L["Akeeta's Hovel, Shadowmoon Valley"] = "阿基塔的小屋, 影月谷"  -- is in Spires of Arak but Shadowmoon Valley named
 L["Apexis Excavation, Spires of Arak"] = "埃匹希斯挖掘场, 阿兰卡峰林"
-L["Crow's Cook, Spires of Arak"] = "乌鸦小屋, 阿兰卡峰林"	-- "Cook"? Not "Crook"? -Raka
-L["Pinchwhitsle Gearworks, Spires of Arak"] = "宾奇维斯零件工厂, 阿兰卡峰林"	-- "whitsle"? "whistle"?
+L["Crow's Crook, Spires of Arak"] = "乌鸦小屋, 阿兰卡峰林"	
+L["Pinchwhistle Gearworks, Spires of Arak"] = "宾奇维斯零件工厂, 阿兰卡峰林"	
 L["Talon Watch, Spires of Arak"] = "鸦爪岗哨, 阿兰卡峰林"
-L["Veil Terrok, Spires of Arak"] = "泰罗克鸦巢, 阿兰卡峰林"	-- "Terrok"? "Terokk"?
+L["Veil Terokk, Spires of Arak"] = "泰罗克鸦巢, 阿兰卡峰林"	
 L["Southport, Spires of Arak"] = "南港, 阿兰卡峰林"
 L["Axefall, Spires of Arak"] = "坠斧营地, 阿兰卡峰林"
 --Talador
-L["Retrebution Point, Talador"] = "惩戒岗哨, 塔拉多"	-- "Retrebution" or "Retribution"?
+L["Retribution Point, Talador"] = "惩戒岗哨, 塔拉多"	
 L["Shattrath City, Talador"] = "沙塔斯城, 塔拉多"
-L["Terrokar Refuge, Talador"] = "泰罗卡避难所, 塔拉多"	-- "Terokkar".
+L["Terokkar Refuge, Talador"] = "泰罗卡避难所, 塔拉多"	
 L["Zangarra, Talador"] = "赞加拉, 塔拉多"
 L["Anchorite's Sojourn, Talador"] = "学者之家, 塔拉多"
 L["Exarch's Refuge, Talador"] = "大主教的避难所, 塔拉多"

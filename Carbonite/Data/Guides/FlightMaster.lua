@@ -389,16 +389,16 @@ local FLIGHT_DATA = {
 	--Spires of Arak
 	["0,948,65.6,17.6"]=L["Akeeta's Hovel, Shadowmoon Valley"], -- is in Spires of Arak but Shadowmoon Valley named
 	["0,948,37.0,24.6"]=L["Apexis Excavation, Spires of Arak"],
-	["0,948,51.8,31.0"]=L["Crow's Cook, Spires of Arak"],
-	["0,948,60.8,73.2"]=L["Pinchwhitsle Gearworks, Spires of Arak"],
+	["0,948,51.8,31.0"]=L["Crow's Crook, Spires of Arak"],
+	["0,948,60.8,73.2"]=L["Pinchwhistle Gearworks, Spires of Arak"],
 	["0,948,61.8,42.6"]=L["Talon Watch, Spires of Arak"],
-	["0,948,46.2,44.0"]=L["Veil Terrok, Spires of Arak"],
+	["0,948,46.2,44.0"]=L["Veil Terokk, Spires of Arak"],
 	["1,948,39.0,61.8"]=L["Southport, Spires of Arak"],
 	["2,948,39.4,43.2"]=L["Axefall, Spires of Arak"],
 	--Talador
-	["0,946,42.0,76.8"]=L["Retrebution Point, Talador"],
+	["0,946,42.0,76.8"]=L["Retribution Point, Talador"],
 	["0,946,51.2,42.6"]=L["Shattrath City, Talador"],
-	["0,946,70.4,57.0"]=L["Terrokar Refuge, Talador"],
+	["0,946,70.4,57.0"]=L["Terokkar Refuge, Talador"],
 	["0,946,80.4,25.4"]=L["Zangarra, Talador"],
 	["1,946,80.0,56.6"]=L["Anchorite's Sojourn, Talador"],
 	["1,946,54.8,68.8"]=L["Exarch's Refuge, Talador"],
