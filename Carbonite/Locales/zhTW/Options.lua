@@ -23,7 +23,7 @@ L["Delete a Profile"] = "刪除配置文件"
 L["Deletes a profile from the database."] = "從數據庫刪除配置文件。"
 
 -- Main Menu
-L["Main Options"] = "主要設定" -- This won't even show up in the window - Raka
+L["Main Options"] = "主要設定"
 L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = "\nCarbonite 是一個多功能地圖插件，可以讓你使用谷歌地圖方式操作遊戲地圖，並可以和玻璃渣自帶遊戲地圖協同工作。\n\n通過不同的功能模塊可以讓你的遊戲生活變得更加輕鬆愜意。"
 L["Release Version"] = "版本"
 L["Maintained by"] = "維護"
