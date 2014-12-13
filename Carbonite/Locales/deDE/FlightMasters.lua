@@ -354,7 +354,7 @@ L["Wildwood Wash, Gorgrond"] = "Wildwuchsbett, Gorgrond"
 L["Bastion Rise, Gorgrond"] = "Bastionsklippe, Gorgrond"
 L["Beastwatch, Gorgrond"] = "Wildwacht, Gorgrond"
 L["Evermorn Springs, Gorgrond"] = "Immermornquellen, Gorgrond"
-	--Nagrand (WOD)
+--Nagrand (WOD)
 L["Joz's Rylaks, Nagrand"] = "Joz's Rylaks, Nagrand"
 L["Nivek's Overlook, Nagrand"] = "Niveks Aussichtspunkt, Nagrand"
 L["Rilzit's Holdfast, Nagrand"] = "Rizlits St\195\188tzpunkt, Nagrand"

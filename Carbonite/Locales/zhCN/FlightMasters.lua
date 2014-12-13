@@ -397,7 +397,6 @@ L["Durotan's Grasp, Talador"] = "杜隆坦之握, 塔拉多"
 L["Exarch's Refuge, Talador"] = "大主教的避难所, 塔拉多"
 L["Frostwolf Overlook, Talador"] = "霜狼岗哨, 塔拉多"
 L["Vol'jin's Pride, Talador"] = "沃金之傲, 塔拉多"
-
 -- Translation for Flight_LOC
 L["Alliance Flight"] = "联盟飞行点"
 L["Horde Flight"] = "部落飞行点"
