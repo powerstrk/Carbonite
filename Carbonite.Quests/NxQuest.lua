@@ -114,6 +114,7 @@ local defaults = {
 			AddChanged = true,
 			BGColor = "0|0|0|.4",
 			BlizzModify = true,
+			BonusBar = false,
 			BonusTask = true,
 			ChalTrack = true,
 			FadeAll = false,
@@ -1125,7 +1126,7 @@ local function QuestOptions ()
 								Nx.Quest.Watch:Update()
 							end,
 						},
-						qwwatchtask = {						
+						qwwatchtask = {
 							order = 22,
 							type = "toggle",
 							width = "full",
@@ -1138,9 +1139,23 @@ local function QuestOptions ()
 								Nx.qdb.profile.QuestWatch.BonusTask = not Nx.qdb.profile.QuestWatch.BonusTask
 								Nx.Quest.Watch:Update()
 							end,
-						},												
-						qwwatchchal = {
+						},
+						qwwatchpbar = {
 							order = 23,
+							type = "toggle",
+							width = "full",
+							name = L["Show Progress Bar instead of Text"],
+							desc = L["If active, instead of a text, the percentage of progress will be shown with a bar."],
+							get = function()
+								return Nx.qdb.profile.QuestWatch.BonusBar
+							end,
+							set = function()
+								Nx.qdb.profile.QuestWatch.BonusBar = not Nx.qdb.profile.QuestWatch.BonusBar
+								Nx.Quest.Watch:Update()
+							end,
+						},
+						qwwatchchal = {
+							order = 24,
 							type = "toggle",
 							width = "full",
 							name = L["Watch Challenge Modes"],
@@ -1154,7 +1169,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwwatchzone = {
-							order = 24,
+							order = 25,
 							type = "toggle",
 							width = "full",
 							name = L["Show Zone Achievement if Known"],
@@ -1168,13 +1183,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer3 = {
-							order = 25,
+							order = 26,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						qwshowclose = {
-							order = 26,
+							order = 27,
 							type = "toggle",
 							width = "full",
 							name = L["Show Close Button"],
@@ -1188,7 +1203,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwfadeall = {
-							order = 27,
+							order = 28,
 							type = "toggle",
 							width = "full",
 							name = L["Fade Entire Window"],
@@ -1202,7 +1217,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwbgcol = {
-							order = 28,
+							order = 29,
 							type = "color",
 							width = "full",
 							name = L["Quest Watch Background Color"],
@@ -1222,7 +1237,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwcompletecol = {
-							order = 29,
+							order = 30,
 							type = "color",
 							width = "full",
 							name = L["Quest Complete Color"],
@@ -1242,7 +1257,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwicompletecol = {
-							order = 30,
+							order = 31,
 							type = "color",
 							width = "full",
 							name = L["Quest Incomplete Color"],
@@ -1262,7 +1277,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwocompletecol = {
-							order = 31,
+							order = 32,
 							type = "color",
 							width = "full",
 							name = L["Objective Complete Color"],
@@ -1282,7 +1297,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwoincompletecol = {
-							order = 32,
+							order = 33,
 							type = "color",
 							width = "full",
 							name = L["Objective Incomplete Color"],
@@ -1302,7 +1317,7 @@ local function QuestOptions ()
 							end,
 						},
 						qwobjshade = {
-							order = 33,
+							order = 34,
 							type = "toggle",
 							width = "full",
 							name = L["Color Objective Based on Progress"],
@@ -1316,13 +1331,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer4 = {
-							order = 34,
+							order = 35,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						qwiconsize = {
-							order = 35,
+							order = 36,
 							type = "range",
 							name = L["Clickable Icon Size (0 disables)"],
 							desc = L["If a quest has an item to be used, will draw it beside the quest at the size defined here"],
@@ -1339,13 +1354,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer5 = {
-							order = 36,
+							order = 37,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						qwitemalpha = {
-							order = 37,
+							order = 38,
 							type = "color",
 							width = "full",
 							name = L["Item Transparency"],
@@ -1365,13 +1380,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer6 = {
-							order = 38,
+							order = 39,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						QuestWatchFont = {
-							order = 39,
+							order = 40,
 							type = "select",
 							name = L["Quest Watch Font"],
 							desc = L["Sets the font to be used on the quest watch window"],
@@ -1394,7 +1409,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestWatchFontSize = {
-							order = 40,
+							order = 41,
 							type = "range",
 							name = L["Watch Font Size"],
 							desc = L["Sets the size of the quest watch font"],
@@ -1411,7 +1426,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestWatchFontSpacing = {
-							order = 41,
+							order = 42,
 							type = "range",
 							name = L["Watch Font Spacing"],
 							desc = L["Sets the spacing of the quest watch font"],
@@ -2557,7 +2572,7 @@ function Nx.Quest:Init()
 			auto = not auto
 		end
 		if auto and not QuestGetAutoAccept() then
-			AcceptQuest()			
+			AcceptQuest()
 		end
 	end
 
@@ -3147,7 +3162,6 @@ function Nx.Quest:RecordQuestsLog()
 			if qi > 0 then
 
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
-				
 				title = self:ExtractTitle (title)
 
 --				Nx.prt ("QD %s %s %s %s", title, qi, isHeader and "H1" or "H0", isComplete and "C1" or "C0")
@@ -7336,7 +7350,7 @@ function Nx.Quest:UpdateIcons (map)
 				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj[n])
 
 				if objZone and objZone ~= 9000 then
-					
+
 					local mapId = objZone
 
 					if not mapId then
@@ -7357,7 +7371,7 @@ function Nx.Quest:UpdateIcons (map)
 
 						local oname = cur and cur[n] or objName
 
-						if typ == 32 then  -- Points							
+						if typ == 32 then  -- Points
 --							Nx.prt ("%s, pt %s", objName, strsub (obj, loc + 1))
 							local cnt = 1
 							local sz = navscale
@@ -8628,7 +8642,7 @@ function Nx.Quest.Watch:UpdateList()
 						list:ItemAdd(0)
 						list:ItemSet(2,s)
 						for criteria = 1, numCriteria do
-							local text, _, finished, quantity, totalquantity = C_Scenario.GetCriteriaInfo(criteria)							
+							local text, _, finished, quantity, totalquantity = C_Scenario.GetCriteriaInfo(criteria)
 							if finished then
 								s = format("|cffffffff%d/%d %s |cffff0000[|cffffffffComplete|cffff0000]",quantity, totalquantity, text)
 							else
@@ -8642,9 +8656,9 @@ function Nx.Quest.Watch:UpdateList()
 					end
 				end
 				if Nx.qdb.profile.QuestWatch.BonusTask then
-					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);					
+					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
 					if taskInfo then
-						for i=1,#taskInfo do						
+						for i=1,#taskInfo do
 							local inArea, onMap, numObjectives = GetTaskInfo(taskInfo[i].questId)
 							if inArea then
 								list:ItemAdd(0)
@@ -8655,7 +8669,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											list:ItemSet(2,format("|cff00ff00Progress: %.2f",GetQuestProgressBarPercent(questId)))
+											local percent = GetQuestProgressBarPercent(questId)
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8680,7 +8695,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											list:ItemSet(2,format("|cff00ff00Progress: %.2f" ,GetQuestProgressBarPercent(questId)))
+											local percent = GetQuestProgressBarPercent(questId)
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8769,7 +8785,7 @@ function Nx.Quest.Watch:UpdateList()
 							local quest = cur.Q
 							local qi = cur.QI
 							local lbNum = cur.LBCnt
-	--						local link, item, charges = GetQuestLogSpecialItemInfo (questIndex)
+--							local link, item, charges = GetQuestLogSpecialItemInfo (questIndex)
 							list:ItemAdd (qId * 0x10000 + qi)
 							local trackMode = Quest.Tracking[qId] or 0
 							local obj = quest and (quest["End"] or quest["Start"])
@@ -8796,7 +8812,7 @@ function Nx.Quest.Watch:UpdateList()
 								end
 								list:ItemSetButton (butType, pressed)
 							else
-								list:ItemSetButton ("QuestWatchTip", false)
+								list:ItemSetButton ("QuestWatchTip", false)		-- QuestWatchTip  >  QuestWatch?
 							end
 							if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
@@ -10006,7 +10022,7 @@ function Nx.Quest:CalcDistances (n1, n2)
 					if zone then
 
 						local mId = zone
-						if mId and mId ~= 9000 then							
+						if mId and mId ~= 9000 then
 							local x, y = self:GetClosestObjectivePos (questObj, loc, mId, px, py)
 							if not x or not y then
 								return

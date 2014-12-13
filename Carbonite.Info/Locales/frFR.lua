@@ -5,7 +5,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "frFR")
 if not L then return end
 
-L["Info Options"] = "Options Info"
+L["Info Options"] = "Options fen\195\170tre Info"
 L["Lock Info Windows"] = "Verrouiller Fen\195\170tre Info"
 L["Locks the location of your info windows"] = "Verrouiller l'emplacement de la fen\195\170tre Info"
 L["Info Window Background Color"] = "Couleur de fond de la fen\195\170tre Info"
@@ -23,8 +23,8 @@ L["Edit Item"] = "Editer Objet"
 L["Show"] = "Afficher"
 L["New Info Window"] = "Nouvelle fen\195\170tre Info"
 L["Delete This Window"] = "Effacer cette fen\195\170tre"
-L["Options"] = true
-L["Info"] = true
+L["Options"] = "Options"
+L["Info"] = "Info"
 L["Edit View"] = "Editer la Vue"
 L["Stop Edit"] = "Stopper l'\195\169dition"
 L["Change Text"] = "Changer le Texte"

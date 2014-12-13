@@ -842,7 +842,7 @@ function Nx.Warehouse:Update()
 
 	local ware = Nx.wdb.profile.WarehouseData
 	local rn = GetRealmName()
-	
+
 	for name, guilds in pairs (ware) do
 		if name == rn then
 			for gName, guild in pairs (guilds) do
@@ -851,7 +851,7 @@ function Nx.Warehouse:Update()
 				list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
 				list:ItemSetDataEx (nil, gName, 1)
 			end
-		end		
+		end
 		local connectedrealms = GetAutoCompleteRealms()
 		if connectedrealms then
 			for i=1,#connectedrealms do
@@ -899,7 +899,7 @@ function Nx.Warehouse:Update()
 			if not hide then
 
 				if cname == myName then		-- Me?
-					
+
 					local secs = difftime (time(), ch["LTime"])
 					local mins = secs / 60 % 60
 					local hours = secs / 3600
