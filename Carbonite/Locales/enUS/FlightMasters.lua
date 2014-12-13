@@ -374,16 +374,16 @@ L["Twilight Glade, Shadowmoon Valley"] = true
 --Spires of Arak
 L["Akeeta's Hovel, Shadowmoon Valley"] = true  -- is in Spires of Arak but Shadowmoon Valley named
 L["Apexis Excavation, Spires of Arak"] = true
-L["Crow's Cook, Spires of Arak"] = true
-L["Pinchwhitsle Gearworks, Spires of Arak"] = true
+L["Crow's Crook, Spires of Arak"] = true
+L["Pinchwhistle Gearworks, Spires of Arak"] = true
 L["Talon Watch, Spires of Arak"] = true
-L["Veil Terrok, Spires of Arak"] = true
+L["Veil Terokk, Spires of Arak"] = true
 L["Southport, Spires of Arak"] = true
 L["Axefall, Spires of Arak"] = true
 --Talador
-L["Retrebution Point, Talador"] = true
+L["Retribution Point, Talador"] = true
 L["Shattrath City, Talador"] = true
-L["Terrokar Refuge, Talador"] = true
+L["Terokkar Refuge, Talador"] = true
 L["Zangarra, Talador"] = true
 L["Anchorite's Sojourn, Talador"] = true
 L["Exarch's Refuge, Talador"] = true
