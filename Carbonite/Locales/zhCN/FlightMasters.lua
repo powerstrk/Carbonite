@@ -366,7 +366,7 @@ L["Riverside Post, Nagrand"] = "河畔岗哨, 纳格兰"
 L["Wor'var, Nagrand"] = "沃尔瓦, 纳格兰"
 --Shadowmoon Valley
 L["Darktide Roost, Shadowmoon Valley"] = "黑潮栖木, 影月谷"
-L["Exil's Rise, Shadowmoon Valley"] = "流亡者高地, 影月谷"	--You guys sure about this? "Exil's" not "Exile's"? -Raka
+L["Exile's Rise, Shadowmoon Valley"] = "流亡者高地, 影月谷"	
 L["Socrethar's Rise, Shadowmoon Valley"] = "索克雷萨高地, 影月谷"
 L["Elodor, Shadowmoon Valley"] = "艾洛多尔, 影月谷"
 L["Embaari Village, Shadowmoon Valley"] = "安波里村, 影月谷"

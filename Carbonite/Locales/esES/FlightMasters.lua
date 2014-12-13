@@ -366,7 +366,7 @@ L["Riverside Post, Nagrand"] = true
 L["Wor'var, Nagrand"] = true
 --Shadowmoon Valley
 L["Darktide Roost, Shadowmoon Valley"] = true
-L["Exil's Rise, Shadowmoon Valley"] = true
+L["Exile's Rise, Shadowmoon Valley"] = true
 L["Socrethar's Rise, Shadowmoon Valley"] = true
 L["Elodor, Shadowmoon Valley"] = true
 L["Embaari Village, Shadowmoon Valley"] = true

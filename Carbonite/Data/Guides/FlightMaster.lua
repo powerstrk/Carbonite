@@ -377,7 +377,7 @@ local FLIGHT_DATA = {
 	["2,950,83.2,44.6"]=L["Wor'var, Nagrand"],
 	--Shadowmoon Valley
     ["0,947,59.8,81.4"]=L["Darktide Roost, Shadowmoon Valley"],
-	["0,947,45.6,25.4"]=L["Exil's Rise, Shadowmoon Valley"],
+	["0,947,45.6,25.4"]=L["Exile's Rise, Shadowmoon Valley"],
 	["0,947,43.8,77.4"]=L["Socrethar's Rise, Shadowmoon Valley"],
 	["1,947,58.6,31.8"]=L["Elodor, Shadowmoon Valley"],
 	["1,947,45.6,38.8"]=L["Embaari Village, Shadowmoon Valley"],

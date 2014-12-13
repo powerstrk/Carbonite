@@ -366,7 +366,7 @@ L["Riverside Post, Nagrand"] = "Uferposten, Nagrand"
 L["Wor'var, Nagrand"] = "Wor'var, Nagrand"
 --Shadowmoon Valley
 L["Darktide Roost, Shadowmoon Valley"] = "Nachtflutnest, Schattenmondtal"
-L["Exil's Rise, Shadowmoon Valley"] = "Anh\195\182he der Exilanten, Schattenmondtal"
+L["Exile's Rise, Shadowmoon Valley"] = "Anh\195\182he der Exilanten, Schattenmondtal"
 L["Socrethar's Rise, Shadowmoon Valley"] = "Socrethars Klippe, Schattenmondtal"
 L["Elodor, Shadowmoon Valley"] = "Elodor, Schattenmondtal"
 L["Embaari Village, Shadowmoon Valley"] = "Embaari, Schattenmondtal"
