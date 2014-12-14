@@ -30680,13 +30680,13 @@ local ModQuests={
 	},
 }
 
-function Nx.ModQuests:Load10 ()
+function Nx.ModQuests:Load11 ()
 	for key,val in pairs(ModQuests) do
 		Nx.Quests[key] = val
 	end
-	Nx.ModQuests:Clear10()
+	Nx.ModQuests:Clear11()
 end
 
-function Nx.ModQuests:Clear10 ()
+function Nx.ModQuests:Clear11 ()
 	ModQuests = {}
 end

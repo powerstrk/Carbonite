@@ -158,6 +158,7 @@ L["Load Quests for Levels 61-70"] = true
 L["Load Quests for Levels 71-80"] = true
 L["Load Quests for Levels 81-85"] = true
 L["Load Quests for Levels 86-90"] = true
+L["Load Quests for Levels 91-100"] = true
 L["Reload UI"] = true
 L["Toggle Quest Watch"] = true
 L["Daily"] = true

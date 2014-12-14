@@ -1748,13 +1748,26 @@ local function QuestOptions ()
 								Nx.qdb.profile.Quest.Load10 = not Nx.qdb.profile.Quest.Load10
 							end,
 						},
-						spacer2 = {
+						q11 = {
 							order = 14,
+							type = "toggle",
+							width = "full",
+							name = L["Load Quests for Levels 91-100"],
+							desc = L["Loads all the carbonite quest data in this range on reload"],
+							get = function()
+								return Nx.qdb.profile.Quest.Load11
+							end,
+							set = function()
+								Nx.qdb.profile.Quest.Load11 = not Nx.qdb.profile.Quest.Load11
+							end,						
+						},
+						spacer2 = {
+							order = 15,
 							type = "description",
 							name = " ",
 						},
 						reboot = {
-							order = 15,
+							order = 16,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -2671,6 +2684,7 @@ function Nx.Quest:LoadQuestDB()
 	if Nx.qdb.profile.Quest.Load8 then Nx.ModQuests:Load8 () else Nx.ModQuests:Clear8 () end
 	if Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
 	if Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
+	if Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
 	self.Map = Map:GetMap (1)
 
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
