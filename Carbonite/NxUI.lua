@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Carbonite UI code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -797,35 +797,26 @@ function Nx.Font:AddonLoaded()
 		return
 	end
 
-	local ace = _G["AceLibrary"]
+	local found
 
-	if ace then
---		ace ("AceAddon-2.0")
+	found = self:FontScan ("LibSharedMedia-3.0")
 
-		local found
-
-		found = self:FontScan (ace, "LibSharedMedia-2.0")
-		found = found or self:FontScan (ace, "LibSharedMedia-3.0")
-
-		if found then
-			self:Update()
-		end
+	if found then
+		self:Update()
 	end
 end
 
-function Nx.Font:FontScan (ace, libName)
+function Nx.Font:FontScan (libName)
 
 	local sm
 
-	if ace["HasInstance"] (ace, libName) then
-		sm = ace (libName)
-	end
+	sm = LibStub(libName)
 
 	if sm then
 
 		local found
 
-		local fonts = sm["List"](sm, "font")
+		local fonts = sm.List(sm, "font")
 
 --		Nx.prtVar ("SM", fonts)
 
@@ -835,7 +826,7 @@ function Nx.Font:FontScan (ace, libName)
 				found = true
 --				Nx.prtVar ("Font", name)
 --				Nx.prtVar ("Fetch", sm["Fetch"] (sm, "font", name))
-				self.AddonFonts[name] = sm["Fetch"] (sm, "font", name)
+				self.AddonFonts[name] = sm.Fetch(sm, "font", name)
 				tinsert (self.Faces, { name, self.AddonFonts[name] })
 			end
 		end
@@ -7679,5 +7670,4 @@ function NxWatchListItem_OnUpdate(self, elapsed)
 	end
 end
 
------------------------------------------------------------------------------
---EOF
+-------------------------------------------------------------------------------EOF

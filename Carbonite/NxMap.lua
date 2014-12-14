@@ -1096,7 +1096,7 @@ function Nx.Map:Create (index)
 
 	self.RMapId = 9000		-- Safe default
 	self.UpdateMapID = 9000
-	
+
 	m:SwitchOptions (-1, true)
 
 	m:UpdateAll()
@@ -4223,19 +4223,18 @@ function Nx.Map:Update (elapsed)
 				self:SwitchOptions (rid, true)
 			end
 			if not Nx.Menu:IsAnyOpened() then
-				self.RMapId = rid				
+				self.RMapId = rid
 				self:SwitchOptions (rid)
 				self:SwitchRealMap (rid)
 			end
-			
 		end
 		self.Scale = self.RealScale
-	end	
+	end
 	SetMapToCurrentZone()
 	local plZX, plZY = GetPlayerMapPosition ("player")
 	self.UpdateMapID = GetCurrentMapAreaID()
 	SetMapByID(rid)
-	self.InstanceId = false	
+	self.InstanceId = false
 	if self:IsInstanceMap (rid) then
 
 		self.InstanceId = rid
@@ -4560,13 +4559,13 @@ function Nx.Map:Update (elapsed)
 	end
 
 	local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(self.UpdateMapID);
-	if taskInfo then		
+	if taskInfo then
 		for i=1,#taskInfo do
-			local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100			
+			local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
 			local f = self:GetIcon (3)
 			f.NxTip = "Bonus Task"
-			f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")			
-			self:ClipFrameZ (f, x, y, 16, 16, 0)			
+			f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")
+			self:ClipFrameZ (f, x, y, 16, 16, 0)
 			f.texture:SetTexCoord (0.125, 0.25, 0.75, 0.875)
 		end
 	end
@@ -4582,10 +4581,10 @@ function Nx.Map:Update (elapsed)
 
 	local name, description, txIndex, pX, pY
 	local txX1, txX2, txY1, txY2
-	
+
 	local poiNum = GetNumMapLandmarks()
-	for i = 1, poiNum do		
-		name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)			
+	for i = 1, poiNum do
+		name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
 		if txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
@@ -4730,7 +4729,7 @@ function Nx.Map:Update (elapsed)
 			f.texture:SetVertexColor (1, 1, 1, 1)
 		end
 	end
-	
+
 	self.Level = oldLev + 4
 
 	-- Update misc icons (herbs, ore, ...)
@@ -7558,10 +7557,10 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 
 				else
 					for n = 1, v.Num do
-						local icon = v[n]																															
+						local icon = v[n]
 						local f = self:GetIconStatic(v.Lvl)
 						local actuallyIcon = false
-						if type(icon.Tex) == "table" then							
+						if type(icon.Tex) == "table" then
 							actuallyIcon = true
 							f = icon.Tex
 						end
@@ -8666,7 +8665,7 @@ function Nx.Map:GetInstanceID(id)
   return 9000
 end
 
-function Nx.Map:GetRealMapId()	
+function Nx.Map:GetRealMapId()
 	return GetCurrentMapAreaID()
 end
 
@@ -8674,10 +8673,10 @@ end
 -- Get the current selected map id
 -- Do not call SetMapToCurrentZone() here or crash
 
-function Nx.Map:GetCurrentMapId()		
+function Nx.Map:GetCurrentMapId()
 	if self.RMapId == 9000 then
 		return GetCurrentMapAreaID()
-	end	
+	end
 	return self.RMapId
 end
 
