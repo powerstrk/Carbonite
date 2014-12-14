@@ -54,7 +54,7 @@ L["Celestial Tournament"] = "Torneo Celestial"						-- http://es.wowhead.com/zon
 L["Coldridge Valley"] = "Valle de Crestanevada"
 L["Crypt of Forgotten Kings"] = "Cripta de los Reyes Olvidados"		-- http://es.wowhead.com/zone=6208
 L["Crystalsong Forest"] = "Bosque Canto de Cristal"
-L["Dagger in the Dark"] = Una Daga en la Oscuridad					-- http://es.wowhead.com/zone=6565
+L["Dagger in the Dark"] = "Una Daga en la Oscuridad"					-- http://es.wowhead.com/zone=6565
 L["Dalaran Underbelly"] = true
 L["Dalaran"] = "Dalaran"											-- http://es.wowhead.com/zone=4395
 L["Dark Heart of Pandaria"] = "Valle de la Flor Eterna"				-- http://es.wowhead.com/zone=6733
@@ -75,7 +75,7 @@ L["Dragonblight"] = "Cementerio de Dragones"
 L["Drak'Tharon Keep"] = "Fortaleza de Drak'Tharon"
 L["Dread Wastes"] = "Desierto del Pavor"
 L["Dun Morogh"] = "Dun Morogh"										-- http://es.wowhead.com/zone=1
-L["Durotar"] = Durotar												-- http://es.wowhead.com/zone=14
+L["Durotar"] = "Durotar"												-- http://es.wowhead.com/zone=14
 L["Duskwood"] = "Bosque del Ocaso"
 L["Dustwallow Marsh"] = "Marjal Revolcafango"
 L["Eastern Kingdoms"] = "Reinos del Este"							-- please verify
