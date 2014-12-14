@@ -207,6 +207,7 @@ L["Swamp of Sorrows"] = "Pântano das Mágoas"
 L["Talador"] = true
 L["Tanaan Jungle"] = true
 L["Tanaris"] = true
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = true
 L["The Eye"] = true				--	Replaces Tempest Keep (Bastilha da Tormenta)
 L["Temple of Kotmogu"] = "Templo de Kotmogu"

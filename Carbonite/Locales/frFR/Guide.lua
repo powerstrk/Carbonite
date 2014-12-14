@@ -8,7 +8,7 @@ if not L then return end
 -- Main Guide
 L["All"] = "tout"
 L["Quest Givers"] = "Donneurs de Qu\195\170tes"
-L["Stable Master"] = "Maitre des Ecuries" 
+L["Stable Master"] = "Maitre des Ecuries"
 L["Flight Master"] = "Maitre de Vol"
 L["Common Place"] = "Lieu Commun"
 L["Auctioneer"] = "Commissaire Priseur"

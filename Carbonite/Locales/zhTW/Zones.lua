@@ -207,6 +207,7 @@ L["Swamp of Sorrows"] = "悲傷沼澤"
 L["Talador"] = true
 L["Tanaan Jungle"] = true
 L["Tanaris"] = "塔納利斯"
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = "泰達希爾"
 L["The Eye"] = true				--	Replaces Tempest Keep (風暴要塞)
 L["Temple of Kotmogu"] = true

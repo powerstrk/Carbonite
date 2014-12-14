@@ -3151,7 +3151,7 @@ function Nx:MineNameToId (name)
 	name = gsub (name, L["Ooze Covered"] .. " ", "")
 	if name == L["Thorium Vein"] then				-- Created when Ooze Covered removed
 		name = L["Small Thorium Vein"]
-	end	
+	end
 	for k, v in ipairs (Nx.GatherInfo["M"]) do
 		if v[3] == name then
 			return k

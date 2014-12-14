@@ -2828,7 +2828,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[64] = not Nx.db.profile.Guide.ShowHerbs[64]
 							end,
-						},						
+						},
 						gorgrondflytrap = {
 							order = 65,
 							type = "toggle",
@@ -2841,7 +2841,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[65] = not Nx.db.profile.Guide.ShowHerbs[65]
 							end,
-						},						
+						},
 						starflower = {
 							order = 66,
 							type = "toggle",
@@ -2854,7 +2854,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[66] = not Nx.db.profile.Guide.ShowHerbs[66]
 							end,
-						},						
+						},
 						nagrandarrow = {
 							order = 67,
 							type = "toggle",
@@ -2867,7 +2867,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[67] = not Nx.db.profile.Guide.ShowHerbs[67]
 							end,
-						},						
+						},
 						taladororch = {
 							order = 68,
 							type = "toggle",
@@ -2880,7 +2880,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[68] = not Nx.db.profile.Guide.ShowHerbs[68]
 							end,
-						},						
+						},
 						fireweed = {
 							order = 69,
 							type = "toggle",
@@ -2893,7 +2893,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowHerbs[69] = not Nx.db.profile.Guide.ShowHerbs[69]
 							end,
-						},												
+						},
 					},
 				},
 				MinesDisp = {
@@ -3459,7 +3459,7 @@ local function guidegatherConfig ()
 							set = function()
 								Nx.db.profile.Guide.ShowMines[43] = not Nx.db.profile.Guide.ShowMines[43]
 							end,
-						},						
+						},
 					},
 				},
 			},

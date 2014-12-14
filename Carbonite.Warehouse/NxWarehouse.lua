@@ -1468,7 +1468,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 					break
 				end
 			end
-		end		
+		end
 
 		local inv = ch["WareInv"]
 
@@ -1527,10 +1527,10 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 				end
 				if invCnt > 0 then
 					s = format ("%s|cFFFF0000[|cFF00FF00Worn:%d|cFFFF0000]",s,invCnt)
-				end				
+				end
 				if mailCnt > 0 then
 					s = format ("%s|cFFFF0000[|cFF00FF00Mail:%d|cFFFF0000]",s,mailCnt)
-				end				
+				end
 				if bankCnt > 0 then
 					s = format ("%s|cFFFF0000[|cFF00FF00Bank:%d|cFFFF0000]",s,bankCnt)
 				end

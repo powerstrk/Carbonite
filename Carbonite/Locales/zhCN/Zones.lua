@@ -207,6 +207,7 @@ L["Swamp of Sorrows"] = "悲伤沼泽"
 L["Talador"] = "塔拉多"
 L["Tanaan Jungle"] = "塔纳安丛林"
 L["Tanaris"] = "塔纳利斯"
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = "泰达希尔"
 L["The Eye"] = "风暴要塞"
 L["Temple of Kotmogu"] = "寇魔古寺"
