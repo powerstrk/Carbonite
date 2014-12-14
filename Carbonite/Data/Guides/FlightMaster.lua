@@ -337,7 +337,7 @@ local FLIGHT_DATA = {
 	["0,858,55.82,34.86"]=L["Klaxxi'vess, Dread Wastes"],
 	["0,858,56.12,70.13"]=L["Soggy's Gamble, Dread Wastes"],
 	["0,873,56.65,75.65"]=L["Tavern in the Mists, The Veiled Stair"],
--- Flightmasters WOD cords from wowhead.com Testing before sorting 
+-- Flightmasters WOD cords from wowhead.com Testing before sorting
 	-- Ashran
 	["1,1009,30.8,48.8"]=L["Stormshield, Ashran"],
 	["2,1011,44.2,34.2"]=L["Warspear, Ashran"],

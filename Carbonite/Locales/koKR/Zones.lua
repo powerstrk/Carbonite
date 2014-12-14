@@ -10,7 +10,7 @@ L["A Brewing Storm"] = "양조 폭풍"
 L["A Little Patience"] = "약간의 참을성"
 L["Abyssal Depths"] = "심연의 나락"
 L["Ahn'kahet: The Old Kingdom"] = "안카헤트: 고대 왕국"
-L["Temple of Ahn'Qiraj"] = true		--	need retranslation (Ahn'Qiraj = 안퀴라즈)
+L["Temple of Ahn'Qiraj"] = true				-- need retranslation (Ahn'Qiraj = 안퀴라즈)
 L["Ahn'Qiraj: The Fallen Kingdom"] = "안퀴라즈: 무너진 왕국"
 L["Alterac Mountains"] = "알터랙 산맥"
 L["Alterac Valley"] = "알터랙 계곡"
@@ -28,8 +28,8 @@ L["Azshara"] = "아즈샤라"
 L["Azuremyst Isle"] = "하늘안개 섬"
 L["Badlands"] = "황야의 땅"
 L["Baradin Hold"] = "바라딘 요새"
-L["Theramore's Fall (A)"] = true		--	Replaces Battle of Theramore (테라모어 침공)
-L["Theramore's Fall (H)"] = true		--	Replaces Battle of Theramore (테라모어 침공)
+L["Theramore's Fall (A)"] = true			-- Replaces Battle of Theramore (테라모어 침공)
+L["Theramore's Fall (H)"] = true			-- Replaces Battle of Theramore (테라모어 침공)
 L["Battle on the High Seas"] = true
 L["Black Temple Scenario"] = true
 L["Black Temple"] = "검은 사원"
@@ -208,6 +208,7 @@ L["Swamp of Sorrows"] = "슬픔의 늪"
 L["Talador"] = true
 L["Tanaan Jungle"] = "타나안 밀림"
 L["Tanaris"] = "타나리스"
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = "텔드랏실"
 L["The Eye"] = true				--	Replaces Tempest Keep (폭풍우 요새)
 L["Temple of Kotmogu"] = "코트모구의 사원"

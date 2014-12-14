@@ -1225,20 +1225,20 @@ function Nx.Map.Guide:UpdateMapIcons()
 		local tx = "Interface\\Icons\\" .. (folder.Tx or "")
 		if mode == 36 then
 			local typ = strsub (showType, 2, 2)
-			local longType = typ == "H" and "Herb" or typ == "M" and "Mine"			
-			local fid = folder.Id			
+			local longType = typ == "H" and "Herb" or typ == "M" and "Mine"
+			local fid = folder.Id
 			local data = longType and Nx:GetData (longType) or Nx.db.profile.GatherData["Misc"]
-			local carbMapId = mapId			
+			local carbMapId = mapId
 			local zoneT = data[carbMapId]
-			if zoneT then					
+			if zoneT then
 				if (typ == "M" and Nx.db.profile.Guide.ShowMines[fid]) or (typ == "H" and Nx.db.profile.Guide.ShowHerbs[fid]) then
-				local nodeT = zoneT[fid]				
-				if nodeT then					
+				local nodeT = zoneT[fid]
+				if nodeT then
 					local iconType = fid == "Art" and "!G" or "!Ga"
 					for k, node in pairs (nodeT) do
 						local x, y = Nx:GatherUnpack (node)
-						local name, tex, skill = Nx:GetGather (typ, fid)						
-						local wx, wy = Map:GetWorldPos (mapId, x, y)						
+						local name, tex, skill = Nx:GetGather (typ, fid)
+						local wx, wy = Map:GetWorldPos (mapId, x, y)
 						icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
 						if skill > 0 then
 							name = name .. " [" .. L["Skill"] .. ": " .. skill .. "]"

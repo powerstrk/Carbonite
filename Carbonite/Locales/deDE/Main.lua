@@ -121,7 +121,7 @@ L["Transparency"] = "Transparenz"
 L["Reset Layout"] = "Layout zur\195\188cksetzen"
 
 -- UI Tooltips
-L["Close/Menu"] = "Schlie\195\159en/Men\195\188" 
+L["Close/Menu"] = "Schlie\195\159en/Men\195\188"
 L["Close/Unlock"] = "Schlie\195\159en/Entsperren"
 L["Pick Color"] = "Farbe ausw\195\164hlen"
 L["Unlock"] = "Entsperren"

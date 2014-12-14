@@ -9,7 +9,7 @@ L["A Brewing Storm"] = "Хмельная буря"
 L["A Little Patience"] = "Немного терпения"
 L["Abyssal Depths"] = "Бездонные глубины"
 L["Ahn'kahet: The Old Kingdom"] = "Ан'кахет: Старое Королевство"
-L["Temple of Ahn'Qiraj"] = "Храм Ан'Кираж"		--	please verify (Ahn'Qiraj = Ан'Кираж)
+L["Temple of Ahn'Qiraj"] = "Ан'Кираж"							-- http://ru.wowhead.com/zone=3428
 L["Ahn'Qiraj: The Fallen Kingdom"] = "Ан'Кираж: Павшее Королевство"
 L["Alterac Mountains"] = "Альтеракские горы"
 L["Alterac Valley"] = "Альтеракская долина"
@@ -18,24 +18,24 @@ L["Arathi Basin"] = "Низина Арати"
 L["Arathi Highlands"] = "Нагорье Арати"
 L["Arena of Annihilation"] = "Арена Истребления"
 L["Ashenvale"] = "Ясеневый лес"
-L["Ashran"] = true
+L["Ashran"] = "Ашран"											-- http://ru.wowhead.com/zone=6941
 L["Assault on Zan'vess"] = "Атака на Зан'весс"
 L["Auchenai Crypts"] = "Аукенайские гробницы"
-L["Auchindoun"] = true
+L["Auchindoun"] = "Аукиндон"									-- http://ru.wowhead.com/zone=6912
 L["Azjol-Nerub"] = "Азжол-Неруб"
 L["Azshara"] = "Азшара"
 L["Azuremyst Isle"] = "Остров Лазурной Дымки"
 L["Badlands"] = "Бесплодные земли"
 L["Baradin Hold"] = "Крепость Барадин"
-L["Theramore's Fall (A)"] = true		--	Replaces Battle of Theramore
-L["Theramore's Fall (H)"] = true		--	Replaces Battle of Theramore
+L["Theramore's Fall (A)"] = "Пылевые топи"						-- Replaces Battle of Theramore http://ru.wowhead.com/zone=6500
+L["Theramore's Fall (H)"] = "Пылевые топи"						-- Replaces Battle of Theramore http://ru.wowhead.com/zone=6040
 L["Battle on the High Seas"] = "Битва в открытом море"
 L["Black Temple Scenario"] = "Черный храм"
 L["Black Temple"] = "Черный храм"
 L["Blackfathom Deeps"] = "Непроглядная Пучина"
 L["Blackrock Caverns"] = "Пещеры Черной горы"
 L["Blackrock Depths"] = "Глубины Черной горы"
-L["Blackrock Foundry"] = true
+L["Blackrock Foundry"] = "Литейная клана Черной горы"			-- http://ru.wowhead.com/zone=6967
 L["Blackrock Spire"] = "Пик Черной горы"
 L["Blackwing Descent"] = "Гнездовье Крыла Тьмы"
 L["Blackwing Lair"] = "Логово Крыла Тьмы"
@@ -43,7 +43,7 @@ L["Blade's Edge Arena"] = "Арена Острогорья"
 L["Blade's Edge Mountains"] = "Острогорье"
 L["Blasted Lands"] = "Выжженные земли"
 L["Blood in the Snow"] = "Кровь на снегу"
-L["Bloodmaul Slag Mines"] = true
+L["Bloodmaul Slag Mines"] = "Шлаковые шахты Кровавого Молота"	-- http://ru.wowhead.com/zone=6874
 L["Bloodmyst Isle"] = "Остров Кровавой Дымки"
 L["Borean Tundra"] = "Борейская тундра"
 L["Brewmoon Festival"] = "Фестиваль Хмельнолуния"
@@ -54,7 +54,7 @@ L["Coldridge Valley"] = "Холодная долина"
 L["Crypt of Forgotten Kings"] = "Гробница Забытых Королей"
 L["Crystalsong Forest"] = "Лес Хрустальной Песни"
 L["Dagger in the Dark"] = "Кинжал во тьме"
-L["Dalaran Underbelly"] = true
+L["Dalaran Underbelly"] = "Клоака"								-- please verify
 L["Dalaran"] = "Даларан"
 L["Dark Heart of Pandaria"] = "Темное сердце Пандарии"
 L["Darkmoon Island"] = "Остров Новолуния"
@@ -68,7 +68,7 @@ L["Deepwind Gorge"] = "Каньон Суровых Ветров"
 L["Desolace"] = "Пустоши"
 L["Dire Maul"] = "Забытый Город"
 L["Domination Point"] = "Крепость Покорителей"
-L["Draenor"] = true
+L["Draenor"] = "Дренор"
 L["Dragon Soul"] = "Душа Дракона"
 L["Dragonblight"] = "Драконий Погост"
 L["Drak'Tharon Keep"] = "Крепость Драк'Тарон"
@@ -87,17 +87,17 @@ L["Eye of the Storm"] = "Око Бури"
 L["Felwood"] = "Оскверненный лес"
 L["Feralas"] = "Фералас"
 L["Firelands"] = "Огненные Просторы"
-L["Frostfire Ridge"] = true
-L["Frostwall"] = true
+L["Frostfire Ridge"] = "Хребет Ледяного Огня					-- http://ru.wowhead.com/zone=6720"
+L["Frostwall"] = "Ледяные скалы"								-- http://ru.wowhead.com/zone=7004
 L["Gate of the Setting Sun"] = "Врата Заходящего Солнца"
 L["Ghostlands"] = "Призрачные земли"
 L["Gilneas City"] = "Гилнеас2"
 L["Gilneas"] = "Гилнеас"
 L["Gnomeregan"] = "Гномреган"
-L["Gorgrond"] = true
+L["Gorgrond"] = "Горгронд"										-- http://ru.wowhead.com/zone=6721
 L["Greenstone Village"] = "Деревня Зеленой Скалы"
 L["Grim Batol"] = "Грим Батол"
-L["Grimrail Depot"] = true
+L["Grimrail Depot"] = "Депо Мрачных Путей"						-- http://ru.wowhead.com/zone=6984
 L["Grizzly Hills"] = "Седые холмы"
 L["Gruul's Lair"] = "Логово Груула"
 L["Gundrak"] = "Гундрак"
@@ -108,7 +108,7 @@ L["Halls of Stone"] = "Чертоги Камня"
 L["Heart of Fear"] = "Сердце Страха"
 L["Hellfire Peninsula"] = "Полуостров Адского Пламени"
 L["Hellfire Ramparts"] = "Бастионы Адского Пламени"
-L["Highmaul"] = true
+L["Highmaul"] = "Верховный Молот"								-- http://ru.wowhead.com/zone=6996
 L["Hillsbrad Foothills"] = "Предгорья Хилсбрада"
 L["Hour of Twilight"] = "Время Сумерек"
 L["Howling Fjord"] = "Ревущий фьорд"
@@ -116,7 +116,7 @@ L["Hrothgar's Landing"] = "Лагерь Хротгара"
 L["Hyjal Summit"] = "Вершина Хиджала"
 L["Icecrown Citadel"] = "Цитадель Ледяной Короны"
 L["Icecrown"] = "Ледяная Корона"
-L["Iron Docks"] = true
+L["Iron Docks"] = "Железные доки"								-- http://ru.wowhead.com/zone=6951
 L["Ironforge"] = "Стальгорн"
 L["Isle of Conquest"] = "Остров Завоеваний"
 L["Isle of Giants"] = "Остров Великанов"
@@ -132,7 +132,7 @@ L["Kun-Lai Summit"] = "Вершина Кунь-Лай"
 L["Lion's Landing"] = "Львиный лагерь"
 L["Loch Modan"] = "Лок Модан"
 L["Lost City of the Tol'vir"] = "Затерянный город Тол'вир"
-L["Lunarfall"] = true
+L["Lunarfall"] = "Зашедшая Луна"								-- http://ru.wowhead.com/zone=7078
 L["Magisters' Terrace"] = "Терраса Магистров"
 L["Magtheridon's Lair"] = "Логово Магтеридона"
 L["Mana-Tombs"] = "Гробницы Маны"
@@ -177,7 +177,7 @@ L["Shado-Pan Monastery"] = "Монастырь Шадо-Пан"
 L["Shadow Labyrinth"] = "Темный лабиринт"
 L["Shadowfang Keep"] = "Крепость Темного Клыка"
 L["Shadowglen"] = "Тенистая долина"
-L["Shadowmoon Burial Grounds"] = true
+L["Shadowmoon Burial Grounds"] = "Некрополь Призрачной Луны"	-- http://ru.wowhead.com/zone=6932
 L["Shadowmoon Valley"] = "Долина Призрачной Луны"
 L["Shattrath City"] = "Шаттрат"
 L["Shimmering Expanse"] = "Мерцающий простор"
@@ -190,25 +190,26 @@ L["Silithus"] = "Силитус"
 L["Silvermoon City"] = "Луносвет"
 L["Silverpine Forest"] = "Серебряный бор"
 L["Silvershard Mines"] = "Сверкающие копи"
-L["Skyreach"] = true
+L["Skyreach"] = "Небесный Путь"									-- http://ru.wowhead.com/zone=6988
 L["Southern Barrens"] = "Южные Степи"
-L["Spires of Arak"] = true
+L["Spires of Arak"] = "Пики Арака"								-- http://ru.wowhead.com/zone=6722
 L["Stonetalon Mountains"] = "Когтистые горы"
-L["Stormshield"] = true
+L["Stormshield"] = "Преграда Ветров"							-- http://ru.wowhead.com/zone=7332
 L["Stormstout Brewery"] = "Хмелеварня Буйных Портеров"
 L["Stormwind City"] = "Штормград"
-L["The Stockade"] = true		--	Replaces Stormwind Stockade (Тюрьма Штормграда)
+L["The Stockade"] = "Тюрьма"									-- Replaces Stormwind Stockade http://ru.wowhead.com/zone=717
 L["Strand of the Ancients"] = "Берег Древних"
 L["Stranglethorn Vale"] = "Тернистая долина"
 L["Stratholme"] = "Стратхольм"
 L["Sunstrider Isle"] = "Остров Солнечного Скитальца"
 L["Sunwell Plateau"] = "Плато Солнечного Колодца"
 L["Swamp of Sorrows"] = "Болото Печали"
-L["Talador"] = true
-L["Tanaan Jungle"] = true
+L["Talador"] = "Таладор"										-- http://ru.wowhead.com/zone=6662
+L["Tanaan Jungle"] = "Танаанские джунгли"						-- http://ru.wowhead.com/zone=7025
 L["Tanaris"] = "Танарис"
+L["Tarren Mill vs Southshore"] = "Предгорья Хилсбрада"			-- http://ru.wowhead.com/zone=7107
 L["Teldrassil"] = "Тельдрассил"
-L["The Eye"] = true				--	Replaces Tempest Keep (Крепость Бурь)
+L["The Eye"] = "Крепость Бурь"									-- Replaces Tempest Keep http://ru.wowhead.com/zone=3845
 L["Temple of Kotmogu"] = "Храм Котмогу"
 L["Temple of the Jade Serpent"] = "Храм Нефритовой Змеи"
 L["Terokkar Forest"] = "Лес Тероккар"
@@ -222,7 +223,7 @@ L["The Botanica"] = "Ботаника"
 L["The Cape of Stranglethorn"] = "Мыс Тернистой долины"
 L["The Culling of Stratholme"] = "Очищение Стратхольма"
 L["The Deadmines"] = "Мертвые копи"
-L["The Everbloom"] = true
+L["The Everbloom"] = "Вечное Цветение"							-- http://ru.wowhead.com/zone=7109
 L["The Exodar"] = "Экзодар"
 L["The Eye of Eternity"] = "Око Вечности"
 L["The Forge of Souls"] = "Кузня Душ"
@@ -272,7 +273,7 @@ L["Undercity"] = "Подгород"
 L["Unga Ingoo"] = "Унга-Ингу"
 L["Un'Goro Crater"] = "Кратер Ун'Горо"
 L["Unknown Zone"] = true
-L["Upper Blackrock Spire"] = true
+L["Upper Blackrock Spire"] = "Верхняя часть пика Черной горы"	-- http://ru.wowhead.com/zone=7307
 L["Utgarde Keep"] = "Крепость Утгард"
 L["Utgarde Pinnacle"] = "Вершина Утгард"
 L["Vale of Eternal Blossoms"] = "Вечноцветущий дол"
@@ -282,7 +283,7 @@ L["Vashj'ir"] = "Вайш'ир"
 L["Vault of Archavon"] = "Склеп Аркавона"
 L["Wailing Caverns"] = "Пещеры Стенаний"
 L["Warsong Gulch"] = "Ущелье Песни Войны"
-L["Warspear"] = true
+L["Warspear"] = "Копье Войны"									-- http://ru.wowhead.com/zone=7333
 L["Well of Eternity"] = "Источник Вечности"
 L["Western Plaguelands"] = "Западные Чумные земли"
 L["Westfall"] = "Западный Край"

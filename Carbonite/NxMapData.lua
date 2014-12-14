@@ -1339,7 +1339,7 @@ Map.MapWorldInfo = {
 		X = -13000,
 		Y = 1000,
 		MapBaseName = "HillsbradFoothillsBG",
-		Short = "TvS",		
+		Short = "TvS",
 	},
 	[1011] = {
 		 Scale = 1.6,

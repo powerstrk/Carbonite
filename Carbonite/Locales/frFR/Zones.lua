@@ -207,6 +207,7 @@ L["Swamp of Sorrows"] = "Marais des Chagrins"
 L["Talador"] = true
 L["Tanaan Jungle"] = "Jungle de Tanaan"
 L["Tanaris"] = true
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = true
 L["The Eye"] = true				--	Replaces Tempest Keep (Donjon de la Temp\195\170te)
 L["Temple of Kotmogu"] = "Temple de Kotmogu"

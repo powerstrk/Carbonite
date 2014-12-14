@@ -20,11 +20,11 @@ You can look at the shortcut (right click and select properties) you use to laun
 So if the shortcut says ```"C:\Program Files\World of Warcraft\Launcher.exe"```, then your addon path is ```"C:\Program Files\World of Warcraft\Interface\AddOns"```.
 
 Default paths:
- 
+
  * Windows XP: ```"C:\Program Files\World of Warcraft\Interface\AddOns"```
  * Vista: ```"C:\Users\Public\Games\World of Warcraft\Interface\AddOns"```
  * Macintosh: ```"Macintosh HD/Applications/World of Warcraft/Interface/AddOns"```
- 
+
 Delete any existing Carbonite folders in the AddOns folder before you unzip a new version.
 
 If you have Warcraft installed at ```"C:\Program Files"```, then you would put the Carbonite folder in:
@@ -46,7 +46,7 @@ Which contains:
   * Localizations.lua
   * \Gfx\ (a folder)
   * \Snd\ (a folder)
-  
+
 A common error is to create a Carbonite folder in AddOns and unzip to the folder.
 This would leave you with
 
@@ -55,7 +55,7 @@ This would leave you with
 This will not work!
 
 Some users have found two AddOns directories on their computers. This may be caused by having installed both a downloaded and CD version of Warcraft or if Vista's Virtual Store is enabled.
- 
+
 When properly installed, the Carbonite logo will appear on login. If the Carbonite logo does not appear, then the AddOns folder you are using is the wrong one. You would then use your computer's "file search" to find the actual folder.
 
 
@@ -68,15 +68,15 @@ When you click the "Download" button a dialog box should ask to "Open" or "Save"
 If you don't know the addon folder location, then look at the shortcut(right click and select properties) you use to launch Warcraft to get the path to where it is installed.
 
 Use the "Select a destination" window that opened to left click on "Computer" then (C:) or whatever drive it is installed on. Continue to click until you are at the game's "Interface\AddOns" folder.
- 
+
  ```"C:\Program Files\World of Warcraft\Interface\AddOns"``` or ```"C:\Users\Public\Games\World of Warcraft\Interface\AddOns"``` are common locations for the game using Vista.
- 
+
 Now left click "OK" at the bottom of the window and you should see ```"(the game path)\Interface\AddOns"``` in the *"Files will be extracted to this folder:"* line. Now click the *"Extract"* button at the bottom of the window. If it asks to overwrite files, which it will the next time you install another version of Carbonite and you did not delete the existing Carbonite folders first, then click *"Yes"*.
 
  You would now have a ```"(the game path)\Interface\AddOns\Carbonite"``` folder.
 
  Installation is now complete and you can run World of Warcraft*(tm)*.
- 
+
 ###Macintosh installation:
 
 1 Sign in to the Carbonite website using the email address and password you entered when signing up.
@@ -150,7 +150,7 @@ Left Click and drag to move the map around inside the window
 Roll your mouse wheel to zoom in/out at the current mouse position on the map.
 Pressing M will toggle the map between normal mode and full-screen mode.
 
-The size, position and settings for the map are saved.  These settings are also saved independently for each battleground. 
+The size, position and settings for the map are saved.  These settings are also saved independently for each battleground.
 
 The *"Follow You"* option is on by default for the normal map.  As you move about, the map will adjust to keep you in the center of the screen.  Various battleground maps have this setting off by default as you will typically want to view the entire map and not have it scrolling as you move.
 
@@ -258,9 +258,9 @@ The guide is your in-game GPS with the location of various points of interest.  
 
 You can Right Click any POI icon to GOTO it or paste the name & coordinates into a chat message.
 
-Clicking any guide button will display the POI on the map and activate the GOTO mode where appropriate.  
+Clicking any guide button will display the POI on the map and activate the GOTO mode where appropriate.
 
-Some guide categories have subcategories ( >>> after the text).  If you Click the text it will open up the subcategory.  Pressing the back button will move back up one level. 
+Some guide categories have subcategories ( >>> after the text).  If you Click the text it will open up the subcategory.  Pressing the back button will move back up one level.
 
 We plan to add new categories based on user feedback, such as browsing honor/arena rewards.
 
@@ -273,7 +273,7 @@ The Warehouse window has a list of your characters on the left side and items on
 
 You can link items from the warehouse by clicking the item icon.
 
-There is a search field at the top right of the window.  You can type any text into this field and it will display matching items below. 
+There is a search field at the top right of the window.  You can type any text into this field and it will display matching items below.
 
 You can click on *"All Characters"* and it will display all the items of all your characters at once. This is a useful feature when you are trying to track down specific items.
 
@@ -292,7 +292,7 @@ The only requirement is that the *"Remember Account Name"* setting at the accoun
 ###Transfering settings to other characters
 
 You can move the window layouts and other settings from a character to all your other characters. You would login with the character that is setup the way you like. Open the Warehouse. Right click the list on the right half of the window. Select *"Export current settings to all characters"* and click *"Export"* on the message box.
- 
+
 You can also do it the opposite way using *"Import settings"* from the same menu, but you would have to do that on each character.
 
 
@@ -449,7 +449,7 @@ Round solid icons are players:
   * Map icon with x in center: in combat
   * Map icon with a red center: health low
   * Map icon with a black center: dead
-  
+
 Round icons with black centers are for quests. A white icon is a quest ender if quest is simply to get to the end location.
 
 By default there are 12 quest colors. Each quest starting at the top of the quest log has a different color. Once the 12 colors are used it repeats.
@@ -553,7 +553,7 @@ World of Warcraft(tm) and "WOW" are trademarks owned by Blizzard Entertainment, 
 The CARBONITE addon is not endorsed by or affiliated with Blizzard Entertainment, Inc.
 
 Website: carboniteaddon.com
- 
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or

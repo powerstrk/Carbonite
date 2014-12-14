@@ -207,6 +207,7 @@ L["Swamp of Sorrows"] = "Pantano de las Penas"
 L["Talador"] = true
 L["Tanaan Jungle"] = true
 L["Tanaris"] = true
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = true
 L["The Eye"] = true				--	Replaces Tempest Keep (El Castillo de la Tempestad)
 L["Temple of Kotmogu"] = true
