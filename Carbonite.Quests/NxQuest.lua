@@ -106,6 +106,7 @@ local defaults = {
 			Load8 = true,    -- 71 - 80
 			Load9 = true,    -- 81 - 85
 			Load10 = true,   -- 86 - 90
+			Load11 = true,
 		},
 		QuestWatch = {
 			AchTrack = true,
