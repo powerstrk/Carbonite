@@ -1030,7 +1030,7 @@ function Nx.Social.List:Create()
 
 	list:ColumnAdd ("", 1, 80)
 	list:ColumnAdd ("Character", 2, 110)
-	list:ColumnAdd ("Lvl", 3, 20)
+	list:ColumnAdd ("Lvl", 3, 30)
 	list:ColumnAdd ("Class", 4, 65)
 	list:ColumnAdd ("Zone", 5, 150)
 	list:ColumnAdd ("Note", 6, 500)
