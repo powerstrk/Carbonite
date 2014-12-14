@@ -295,6 +295,7 @@ Nx.Zones = {
 	[995] = L["Upper Blackrock Spire"] .. "|100|100|3|5|29|15.70|35.33|5",
 	[1008] = L["The Everbloom"] .. "|100|100|3|5|949|59.8|45.2|5",
 	[1009] = L["Stormshield"] .. "|90|90|0|7||",
+	[1010] = L["Tarren Mill vs Southshore"] .. "|90|100|3|4||",
 	[1011] = L["Warspear"] .. "|90|90|1|7||",
 }
 

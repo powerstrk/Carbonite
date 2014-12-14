@@ -202,6 +202,7 @@ L["Swamp of Sorrows"] = true
 L["Talador"] = true
 L["Tanaan Jungle"] = true
 L["Tanaris"] = true
+L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = true
 L["Tempest Keep"] = true
 L["Temple of Kotmogu"] = true

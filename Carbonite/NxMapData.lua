@@ -1333,6 +1333,14 @@ Map.MapWorldInfo = {
 		Y = -781.6666015625,
 		Overlay = "ashranalliancefactionhub",
 	},
+	[1010] = {
+		Name = L["Deepwind Gorge"],
+		Scale = 4.337498046875,
+		X = -13000,
+		Y = 1000,
+		MapBaseName = "HillsbradFoothillsBG",
+		Short = "TvS",		
+	},
 	[1011] = {
 		 Scale = 1.6,
 		 X = 717.916796875,

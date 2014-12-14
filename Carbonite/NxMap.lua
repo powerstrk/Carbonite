@@ -110,6 +110,10 @@ NXMapOptsMapsDefault = 	{
 		NXPlyrFollow = true,
 		NXWorldShow = false,
 	},
+	[1010] = {
+		NXPlyrFollow = true,
+		NXWorldShow = false,
+	},
 }
 
 --------
@@ -569,6 +573,7 @@ function Nx.Map:Create (index)
 	win:InitLayoutData ("736", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("626", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("443", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("1010", -.0001, -.4, -.19, -.3, 1)
 
 	win:SetUser (m, self.OnWin)
 	win.UserUpdateFade = m.WinUpdateFade
@@ -9106,7 +9111,7 @@ function Nx.Map:GetWorldZoneScale (mapId)
 --		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
 --	end
 	local winfo = self.MapWorldInfo[mapId]
-	if winfo.BaseMap then
+	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]
 	end
 	return (not winfo and 10.02) or winfo.Scale

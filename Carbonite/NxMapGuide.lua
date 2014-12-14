@@ -826,32 +826,32 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 		end
 		sort (folder, function (a, b) return a.Name < b.Name end)
 	elseif folder.Name == L["Herb"] then
-		for n = 1, 499 do
-			local name, tx, skill = Nx:GetGather ("H", n)
+		for a,b in pairs(Nx.GatherInfo["H"]) do
+			local name, tx, skill = Nx:GetGather ("H", a)
 			if not name then
 				break
 			end
 			local f = {}
 			f.Name = name
 			f.Column2 = format ("%3d", skill)
-			f.T = "$H" .. n
+			f.T = "$H" .. a
 			f.Tx = tx
-			f.Id = n
-			folder[n] = f
+			f.Id = a
+			folder[a] = f
 		end
 	elseif folder.Name == L["Ore"] then
-		for n = 1, 499 do
-			local name, tx, skill = Nx:GetGather ("M", n)
+		for a,b in pairs(Nx.GatherInfo["M"]) do
+			local name, tx, skill = Nx:GetGather ("M", a)
 			if not name then
 				break
 			end
 			local f = {}
 			f.Name = name
 			f.Column2 = format ("%3d", skill)
-			f.T = "$M" .. (n + 500)
+			f.T = "$M" .. (a + 500)
 			f.Tx = tx
-			f.Id = n
-			folder[n] = f
+			f.Id = a
+			folder[a] = f
 		end
 	elseif folder.Map then
 		if folder.Map == 4 and not Nx.V30 then
@@ -1224,25 +1224,20 @@ function Nx.Map.Guide:UpdateMapIcons()
 		local mode = strbyte (showType)
 		local tx = "Interface\\Icons\\" .. (folder.Tx or "")
 		if mode == 36 then
-			local type = strsub (showType, 2, 2)
-			local longType = type == "H" and "Herb" or type == "M" and "Mine"
-			local fid = folder.Id
+			local typ = strsub (showType, 2, 2)
+			local longType = typ == "H" and "Herb" or typ == "M" and "Mine"			
+			local fid = folder.Id			
 			local data = longType and Nx:GetData (longType) or Nx.db.profile.GatherData["Misc"]
 			local carbMapId = mapId			
 			local zoneT = data[carbMapId]
-			if zoneT then
-				if type == "M" and not Nx.db.profile.Guide.ShowMines[fid] then
-					return
-				end
-				if type == "H" and not Nx.db.profile.Guide.ShowHerbs[fid] then
-					return
-				end
-				local nodeT = zoneT[fid]
-				if nodeT then
+			if zoneT then					
+				if (typ == "M" and Nx.db.profile.Guide.ShowMines[fid]) or (typ == "H" and Nx.db.profile.Guide.ShowHerbs[fid]) then
+				local nodeT = zoneT[fid]				
+				if nodeT then					
 					local iconType = fid == "Art" and "!G" or "!Ga"
-					for k, node in ipairs (nodeT) do
+					for k, node in pairs (nodeT) do
 						local x, y = Nx:GatherUnpack (node)
-						local name, tex, skill = Nx:GetGather (type, fid)						
+						local name, tex, skill = Nx:GetGather (typ, fid)						
 						local wx, wy = Map:GetWorldPos (mapId, x, y)						
 						icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
 						if skill > 0 then
@@ -1250,6 +1245,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 						end
 						map:SetIconTip (icon, name)
 					end
+				end
 				end
 			end
 		elseif mode == 35 then

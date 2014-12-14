@@ -3836,7 +3836,7 @@ function Nx.Quest:QuestQueryTimer()
 	end
 
 	if cnt > 0 then
-		Nx.prt ("Set %d quests as done", cnt)
+		Nx.prt ("Set %d previous quests as done", cnt)
 		Nx.Quest.List:Update()
 	end
 end
@@ -5218,10 +5218,8 @@ function Nx.Quest.List:Open()
 	local item = menu:AddItem (0, L["Remove All"], self.Menu_OnHistoryRemoveAll, self)
 	tinsert (menui2, item)
 
-	local function func()
-		Nx.CurCharacter["QHAskedGet"] = true
+	local function func()		
 		QHistLogin = Nx:ScheduleTimer(Nx.Quest.QuestQueryTimer,.1,Nx.Quest)
---		QueryQuestsCompleted()
 	end
 	local item = menu:AddItem (0, L["Get Completed From Server"], func, self)
 	tinsert (menui2, item)
@@ -5422,96 +5420,63 @@ function Nx.Quest:ShowUIPanel (frame)
 		return
 	end
 	self.InShowUIPanel = true
-
-	frame:Hide()
-
 	local detailFrm = QuestLogDetailFrame
-	if detailFrm then
-		detailFrm:Hide()
-	end
 	local orig = IsAltKeyDown() and not self.IgnoreAlt
 	local opts = self.GOpts
 	if Nx.qdb.profile.Quest.UseAltLKey then
 		orig = not orig
 	end
-	if orig then	-- Show original quest log?
+	if orig then	-- Show original quest log?		
 		self.IsOrigOpen = true
 		frame:SetScale (1)
-
 		QuestMapFrame:SetAttribute ("UIPanelLayout-enabled", true)
 		Nx.Quest.OldWindow()
 		if detailFrm then
 			detailFrm:SetScale (1)
 		end
-
 		self:LightHeadedAttach (frame)
 	else
 		self.IsOpen = true
 		local win = self.List.Win
-
 		if win and not GameMenuFrame:IsShown() then
-
 			self:ExpandQuests()
-
 			local wf	= win.Frm
-
---			local ff = frame
---			Nx.prt ("LevS1 "..wf:GetFrameLevel().." "..ff:GetFrameLevel())
-
 			win:Show()
 			self.List:Update()
 			wf:Raise()
-
---			Nx.prt ("LevS2 "..wf:GetFrameLevel().." "..ff:GetFrameLevel())
-
 			frame:Show()
-			frame:SetScale (.1)
-			frame:SetPoint ("TOPLEFT", -999, 999)
-
 			if detailFrm then
-				detailFrm:SetScale (.1)
-				detailFrm:SetPoint ("TOPLEFT", -999, 999)
+				detailFrm:SetScale (.1)			
 			end
-
---			Nx.prt ("LevS3 "..wf:GetFrameLevel().." "..ff:GetFrameLevel())
-
 			self:LightHeadedAttach (wf, true)
 		end
 	end
-
 	self.InShowUIPanel = false
 end
 
 --------
 
 function Nx.Quest:HideUIPanel (frame)
-
 	local orig = IsAltKeyDown() and not self.IgnoreAlt
 	if Nx.qdb.profile.Quest.UseAltLKey then
 		orig = not orig
 	end
 	if orig then
+		QuestMapFrame:SetAttribute ("UIPanelLayout-enabled", true)
 		Nx.Quest.OldWindow()
 		Nx.Quest.OldWindow()
-		self.IsOrigOpen = false
-		QuestMapFrame:SetAttribute ("UIPanelLayout-enabled", false)
+		self.IsOrigOpen = false		
 	else
 		self.IsOpen = false
 		local detailFrm = QuestLogDetailFrame
 		if detailFrm then
-			detailFrm:Hide()
+			detailFrm:SetScale (1)
 		end
-
---	self.List:DetailsSetWidth (285)
-
 		self.List.Win:Show (false)
-
 		if self.List.List:ItemGetNum() > 0 then
 			self.List.List:Empty()
 		end
-
 		self:RestoreExpandQuests()		-- Hide window first, then restore
-
 		self.LHAttached = nil
 	end
 end
@@ -6378,8 +6343,8 @@ function Nx.Quest.List:LogUpdate()
 	if self.LoggingIn then
 		QWatchLogin = Nx:ScheduleTimer(Quest.WatchAtLogin,.7,Quest)
 		QSetPDLogin = Nx:ScheduleTimer(Quest.CurQSetPreviousDone,2,Quest)
-		if Nx.qdb.profile.Quest.CheckCompleted  then
-			QHistLogin = Nx:ScheduleTimer(Quest.GetHistoryTimer,60,Quest)
+		if Nx.qdb.profile.Quest.HCheckCompleted  then
+			QHistLogin = Nx:ScheduleTimer(Quest.QuestQueryTimer, 1, Quest)
 		end
 	end
 	if qn then

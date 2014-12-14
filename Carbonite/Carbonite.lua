@@ -213,6 +213,11 @@ local defaults = {
 				[36] = true,
 				[37] = true,
 				[38] = true,
+				[39] = true,
+				[40] = true,
+				[41] = true,
+				[42] = true,
+				[43] = true,
 			},
 			ShowHerbs = {
 				[1] = true,
@@ -277,6 +282,13 @@ local defaults = {
 				[60] = true,
 				[61] = true,
 				[62] = true,
+				[63] = true,
+				[64] = true,
+				[65] = true,
+				[66] = true,
+				[67] = true,
+				[68] = true,
+				[69] = true,
 			},
 
 		},
@@ -3107,33 +3119,24 @@ Nx.GatherRemap = {
 -- Init. Call after map init
 
 function Nx:GatherInit()
-
-	self.GatherLocaleI = 3
-
 	if self.DoGatherUpgrade then
 		self.DoGatherUpgrade = nil
 		Nx:GatherVerUpgrade()
 	end
-
 	Nx.GatherVerUpgrade = nil			-- Kill it
 	Nx.GatherVerUpgradeType = nil		-- Kill it
 end
 
 function Nx:GetGather (typ, id)
-
 	local v = Nx.GatherInfo[typ][id]
-
 	if v then
-		return v[self.GatherLocaleI], v[2], v[1]
+		return v[3], v[2], v[1]
 	end
 end
 
 function Nx:HerbNameToId (name)
-
-	local i = self.GatherLocaleI
-
-	for k, v in ipairs (Nx.GatherInfo["H"]) do
-		if v[i] == name then
+		for k, v in ipairs (Nx.GatherInfo["H"]) do
+		if v[3] == name then
 			return k
 		end
 	end
@@ -3148,12 +3151,9 @@ function Nx:MineNameToId (name)
 	name = gsub (name, L["Ooze Covered"] .. " ", "")
 	if name == L["Thorium Vein"] then				-- Created when Ooze Covered removed
 		name = L["Small Thorium Vein"]
-	end
-
-	local i = self.GatherLocaleI
-
+	end	
 	for k, v in ipairs (Nx.GatherInfo["M"]) do
-		if v[i] == name then
+		if v[3] == name then
 			return k
 		end
 	end
@@ -3202,21 +3202,15 @@ function Nx:Gather (nodeType, id, mapId, x, y)
 	end
 
 	local data = Nx.db.profile.GatherData[nodeType]
-
 	local zoneT = data[mapId]
-	local carbMapId = Nx.AIdToId[mapId]
-	if not carbMapId then
-		return
-	end
-	if not zoneT then
 
+	if not zoneT or not Nx.Map.MapWorldInfo[mapId] then
 --		Nx.prt ("Gather new %d", mapId)
-
 		zoneT = {}
 		data[mapId] = zoneT
 	end
 
-	local maxDist = (5 / Nx.Map:GetWorldZoneScale (carbMapId)) ^ 2
+	local maxDist = (5 / Nx.Map:GetWorldZoneScale (mapId)) ^ 2
 
 	local index
 	local nodeT = zoneT[id] or {}
