@@ -207,7 +207,7 @@ L["Swamp of Sorrows"] = "S\195\188mpfe des Elends"
 L["Talador"] = "Talandor"
 L["Tanaan Jungle"] = "Tanaandschungel"
 L["Tanaris"] = "Tanaris"
-L["Tarren Mill vs Southshore"] = "Vorgebirge des Hügellands"	-- http://de.wowhead.com/zone=7107
+L["Tarren Mill vs Southshore"] = "Tarrens M\195\188hle vs S\195\188derstade"	-- http://de.wowhead.com/zone=7107 failure on wowhead
 L["Teldrassil"] = "Teldrassil"
 L["The Eye"] = "Festung der St\195\188rme"
 L["Temple of Kotmogu"] = "Tempel von Katmogu"
