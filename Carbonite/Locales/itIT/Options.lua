@@ -6,32 +6,32 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "itIT")
 if not L then return end
 
 -- Profiles Menu
-L["Profiles"] = true
-L["New"] = true
-L["You can change the active database profile, so you can have different settings for every character."] = true
-L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = true
-L["Reset Profile"] = true
-L["Reset the current profile to the defaults"] = true
-L["Current Profile"] = true
-L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = true
-L["Create a new empty profile"] = true
-L["Select one of your currently available profiles"] = true
-L["Existing Profiles"] = true
-L["Copy the settings from one existing profile into the currently active profile."] = true
-L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = true
-L["Delete a Profile"] = true
-L["Deletes a profile from the database."] = true
+L["Profiles"] = "Profili"
+L["New"] = "Nuovo"
+L["You can change the active database profile, so you can have different settings for every character."] = "Puoi cambiare il profilo attivo del database, così puoi avere differenti impostazioni a seconda dei personaggi in gioco"
+L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = "Ripristina/Resetta l'attuale profilo ai suoi valori di base, nel caso la configurazione attuale risulti sballata, oppure, più semplicemente, perchè si desidera rifarla da capo"
+L["Reset Profile"] = "Resetta Profilo"
+L["Reset the current profile to the defaults"] = "Resetta l'attuale profilo ai valori di base (default)"
+L["Current Profile"] = "Profilo Corrente"
+L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = "Puoi creare un nuovo profilo inserendo il nome nel box di edit, oppure puoi sceglierne uno di quelli già presenti"
+L["Create a new empty profile"] = "Crea un nuovo profilo vuoto"
+L["Select one of your currently available profiles"] = "Seleziona uno dei profili esistenti"
+L["Existing Profiles"] = "Profili Esistenti"
+L["Copy the settings from one existing profile into the currently active profile."] = "Copia le impostazioni di uno dei profili esistenti sovrascrivendo il profilo attualmente attivo"
+L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = "Cancella dal database i profili esistenti, e non utilizzati, per salvare spazio e pulisci il file SavedVariables"
+L["Delete a Profile"] = "Cancella un Profilo"
+L["Deletes a profile from the database."] = "Cancella un Profilo dal Database"
 
 -- Main Menu
-L["Main Options"] = true
-L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = true
-L["Release Version"] = true
-L["Maintained by"] = true
-L["Website"] = true
-L["For support, please visit the forums for Carbonite on WoW Interface."] = true
-L["Special thanks to"] = true
-L["Cirax for Carbonite2 Logo"] = true
-L["JimboBlue for guide location updates and checking"] = true
+L["Main Options"] = "Opzioni Principali"
+L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = "\nCarbonite è un potente e completo addon che mette a disposizione un semplice e versatile strumento in stile GOOGLE-MAPS, il quale può rimpiazzare e/o lavorare in collaborazione con la mappa di base di Blizzard. \n\nCon diversi moduli a disposizione è possibile espandere Carbonite ed ottenere uno strumento estremamente potente che ti permette di rendere un po' più semplice la tua esperienza di gioco"
+L["Release Version"] = "Versione Rilasciata"
+L["Maintained by"] = "Mantenuta da"
+L["Website"] = "Sito Web"
+L["For support, please visit the forums for Carbonite on WoW Interface."] = "Per aiuto e supporto, visita il Forum di Carbonite su WoW Interface (solo in lingua inglese)"
+L["Special thanks to"] = "Ringraziamenti Speciali a"
+L["Cirax for Carbonite2 Logo"] = "Cirax per il logo di Carbonite2"
+L["JimboBlue for guide location updates and checking"] = "JimboBlue le locazioni delle guide e loro mantenimento"
 
 -- Battlegrounds Menu
 L["Battlegrounds"] = true
