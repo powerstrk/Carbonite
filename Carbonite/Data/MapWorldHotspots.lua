@@ -115,6 +115,22 @@ Nx.MapWorldHotspots2 = {
 		[873] = "6fd1333b32266fac053d335f6fc3583338b8a2b9802972af",
 		[903] = "000000fffffe",
 		[905] = "31418da47e71",
+-- Draenor (wod hotspots by dratr: https://github.com/dratr/Carbonite/commits/map-wodhotspots)
+-- Any info on the values would be welcomed so we can help update them
+		[941] = "10a0c45fcbe470117516e8498681d7412c32c755861f0784",
+		[945] = "000000fffffe",
+		[946] = "3ea187483e3b85b0a1281eb2ad61cb143cf8bef2ba2b83b9c0865115648e",
+		[947] = "26a0ff8a65234025fb714225b0a4ae33655e4b081865a5c1881c952e6356",
+		[948] = "5c22143d60cc3ad35b6b730a4513ff7323845479c1666614a65428b3263d",
+		[949] = "5e23106755bb6630443fc2dd63e8aa4900f76b99873fc25563ebbb22f33385bbbb0e3190",
+		[950] = "05c06e4e88e45250fe948ec4e492da13350b",
+		[970] = "000000fffffe",
+		[971] = "000000fffffe",
+		[976] = "000000fffffe",
+-- Alli and horde cities - need? what about ashran?
+		[978] = "000000fffffe",
+		[1009] = "000000fffffe",
+		[1011] = "000000fffffe",
 }
 
 -------------------------------------------------------------------------------
