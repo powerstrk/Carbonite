@@ -45,3 +45,6 @@ L["Looted"] = "Ramass\195\169"
 L["Not Looted"] = "Pas Ramass\195\169"
 L["Completed"] = "Termin\195\169"
 L["Not Completed"] = "Pas Termin\195\169"
+L["The Crumbled Chamberlain Quest"] = true
+L["Warforged Seals Quest"] = true
+L["Palace Key"] =true

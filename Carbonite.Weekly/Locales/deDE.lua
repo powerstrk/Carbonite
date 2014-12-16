@@ -45,3 +45,6 @@ L["Looted"] = "Gepl\195\188ndert"
 L["Not Looted"] = "Noch nicht gepl\195\188ndert"
 L["Completed"] = "Abgeschlossen"
 L["Not Completed"] = "Nicht abgeschlossen"
+L["The Crumbled Chamberlain Quest"] = true
+L["Warforged Seals Quest"] = true
+L["Palace Key"] =true

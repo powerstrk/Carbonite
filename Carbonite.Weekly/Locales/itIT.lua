@@ -45,3 +45,6 @@ L["Looted"] = true
 L["Not Looted"] = true
 L["Completed"] = true
 L["Not Completed"] = true
+L["The Crumbled Chamberlain Quest"] = true
+L["Warforged Seals Quest"] = true
+L["Palace Key"] =true

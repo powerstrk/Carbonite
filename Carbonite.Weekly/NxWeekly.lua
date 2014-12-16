@@ -550,7 +550,7 @@ function Nx.Weekly:DisplayWeekly()
 	local ch = Nx.db.global.Characters[rc]
 	if Nx.wkdb.profile.Track.Mob.Sha then
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Sha Of Anger"])
+		list:ItemSet(1, "|cffffff00  " .. L["Sha of Anger"])
 		if ch.Weekly and ch.Weekly.Sha then
 			strng = "|cff00ff00" .. L["Killed"]
 		elseif ch.Weekly and not ch.Weekly.Sha then
