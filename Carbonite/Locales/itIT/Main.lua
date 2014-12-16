@@ -133,7 +133,7 @@ L["Minimize"] = "Minimizza"
 L["Auto Scale"] = "Autodimensiona"
 
 -- Stuff from old localization
-L["Searching for Artifacts"] = "Ricerca per Artefatti"		        -- NXlARTIFACTS
+L["Searching for Artifacts"] = "Ricerca per Artefatti"				-- NXlARTIFACTS
 L["Extract Gas"] = "Estrazione di Gas"								-- NXlEXTRACTGAS
 L["Herb Gathering"] = "Raccolta Erbe"								-- NXlHERBGATHERING
 L["In Conflict"] = "Territorio Conteso"								-- NXlINCONFLICT

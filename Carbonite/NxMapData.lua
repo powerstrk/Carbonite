@@ -23,6 +23,8 @@
 local Map = Nx.Map
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
+-- X and Y are the absolute position (lower-left corner) on the overall
+-- super-zoomed-out continent image (https://github.com/dratr/Carbonite/commits/map-zonesdocs)
 Map.MapInfo = {
 	[0] = {	-- Dummy
 		Name = "Instance",

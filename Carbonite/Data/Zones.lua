@@ -16,7 +16,7 @@ Nx.BuggedAreas = {
 	[4] = 382,
 }
 
-	-- Can anyone expand/corect this ("stolen" from dratr)
+	-- Can anyone expand/corect this (from dratr https://github.com/dratr/Carbonite/commits/map-zonesdocs)
 	-- Fields: name, minLvl, maxLvl, faction, cont, entryId, ex, ey, ??
 	-- entryId, ex, ey only for instances.
 	-- entryId is map id of zone that has dungeon entrance; ex, ey is loc in zone
