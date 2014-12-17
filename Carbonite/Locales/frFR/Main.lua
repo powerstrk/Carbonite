@@ -102,7 +102,7 @@ L["Show Combat Graph"] = "Afficher Graphique de Combat"
 L["Show Events"] = "Afficher Evenements"
 L["Show Auction Buyout Per Item"] = "Afficher ench\195\168re par Objet"
 L["Show Com Window"] = "Afficher la fen\195\170tre de Com"
-L["Toggle Profiling"] = true
+L["Toggle Profiling"] = "Basculement profil"
 L["Left click toggle Map"] = "Clic gauche affiche la MiniMap Carbonite" --option displayed icon on the minimap carbonite
 L["Shift left click toggle minimize"] = "Maj+clic gauche bascule minimis\195\169"
 L["Alt left click toggle Watch List"] = "Alt+clic gauche affiche la liste de surveillance des Qu\195\170tes" --option displayed icon on the minimap carbonite
@@ -119,14 +119,14 @@ L["Transparency"] = "Transparence"
 L["Reset Layout"] = "R\195\169initialiser mise en page"
 
 -- UI Tooltips
-L["Close/Menu"] = true
-L["Close/Unlock"] = true
-L["Pick Color"] = true
-L["Unlock"] = true
-L["Maximize"] = true
-L["Restore"] = true
-L["Minimize"] = true
-L["Auto Scale"] = true
+L["Close/Menu"] = "Fermer/Menu"
+L["Close/Unlock"] = "Fermer/D\195\169verrouiller"
+L["Pick Color"] = "Choisir la couleur"
+L["Unlock"] = "D\195\169verrouiller"
+L["Maximize"] = "Maximiser"
+L["Restore"] = "Restaurer"
+L["Minimize"] = "Minimiser"
+L["Auto Scale"] = "Echelle automatique"
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "Recherche d'art\195\169facts"		-- NXlARTIFACTS
