@@ -23,7 +23,7 @@ L["Delete a Profile"] = "Effacer un Profil"
 L["Deletes a profile from the database."] = "Effacer un profil de la database"
 
 -- Main Menu
-L["Main Options"] = true
+L["Main Options"] = "Options Principales"
 L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = "\nCarbonite est tr\195\168s complet, puissant addon facile \195\160 utiliser qui peut employer des map de style google, il peut remplacer les map courantes blizzard ou simplement travailler avec celle-ci. \n\nThrough il peut \195\169galement \195\170tre agrandi pour faire plus et rendre votre jeu plus facile"
 L["Release Version"] = "Version du Logiciel"
 L["Maintained by"] = "Maintenu Par"
