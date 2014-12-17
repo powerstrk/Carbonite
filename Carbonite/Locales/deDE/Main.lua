@@ -102,7 +102,7 @@ L["Item retrieval from server complete"] = "Gegenstands-Erfassung vom Server vol
 L["Show Map"] = "Karte zeigen"
 L["Show Combat Graph"] = "Kampfverlauf zeigen"
 L["Show Events"] = "Ereignisse zeigen"
-L["Show Auction Buyout Per Item"] = "Zeige Auktionskauf pro Gegenstand"
+L["Show Auction Buyout Per Item"] = "Zeige Auktionskauf/Gegenstand"
 L["Show Com Window"] = "Kommunikations-Fenster zeigen"
 L["Toggle Profiling"] = "Profilerstellung an-/ausschalten"
 L["Left click toggle Map"] = "Linksklick blendet die Karte ein/aus"
@@ -119,6 +119,16 @@ L["Layer"] = "Ebene"
 L["Scale"] = "Skalierung"
 L["Transparency"] = "Transparenz"
 L["Reset Layout"] = "Layout zur\195\188cksetzen"
+
+-- UI Tooltips
+L["Close/Menu"] = "Schlie\195\159en/Men\195\188"
+L["Close/Unlock"] = "Schlie\195\159en/Entsperren"
+L["Pick Color"] = "Farbe ausw\195\164hlen"
+L["Unlock"] = "Entsperren"
+L["Maximize"] = "Maximieren"
+L["Restore"] = "Wiederherstellen"
+L["Minimize"] = "Minimieren"
+L["Auto Scale"] = "Auto-Skalierung"
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "Suche nach Artefakten" 		-- NXlARTIFACTS

@@ -36,7 +36,7 @@ L["JimboBlue for guide location updates and checking"] = "JimboBlue pour mise \1
 -- Battlegrounds Menu
 L["Battlegrounds"] = "Champs de Bataille"
 L["Show Battleground Stats"] = "Afficher statistiques champ de bataille"
-L["Turns on or off displaying your battleground k/d and honor gained in chat during a match."] = "Active ou d\195\169sactive l'affichage du gain k/d et l'honneur dans le chat durant un match." 
+L["Turns on or off displaying your battleground k/d and honor gained in chat during a match."] = "Active ou d\195\169sactive l'affichage du gain k/d et l'honneur dans le chat durant un match."
 
 -- General Menu
 L["General Options"] = "Options G\195\169n\195\169rales"
@@ -45,7 +45,7 @@ L["When Enabled, displays the Carbonite loading messages in chat."] = "Quand act
 L["Show Login Graphic"] = "Afficher Login Graphique"
 L["When Enabled, displays the Carbonite graphic during initialization."] = "Quand activ\195\169, affiche le logo graphique Carbonite durant l'initialisation."
 L["Play Login Sound"] = "Joue le son au Login"
-L["When Enabled, plays a sound when Carbonite is loaded."] = "Quand activ\195\169, joue le son quand Carbonite est charg\195\169" 
+L["When Enabled, plays a sound when Carbonite is loaded."] = "Quand activ\195\169, joue le son quand Carbonite est charg\195\169"
 L["Default Chat Channel"] = "Canal de discussion par d\195\169faut"
 L["Allows selection of which chat window to display Carbonite messages"] = "Permet de s\195\169lectionner la fen\195\170tre active du chat pour afficher les messages Carbonite"
 L["Force Max Camera Distance"] = "Forcer la distance maximale de la caméra"
@@ -102,7 +102,7 @@ L["When enabled, Shows your current coordinates in the titlebar."] = "Quand acti
 L["Show Speed"] = "Afficher Vitesse"
 L["When enabled, Shows your current movement speed in the titlebar."] = "Quand activ\195\169, affiche vos mouvements courants dans la barre de titre"
 L["Show Second Title Line"] = "Afficher deuxi\195\168me ligne de titre"
-L["When enabled, Shows a second line of info in the titlebar with PVP & subzone info. (REQUIRES RELOAD)"] = "Quand activ\195\169, affiche une seconde ligne d'infos dans la barre de titre avec PVP & sous-zone (s). (NECESSITE REDEMARRAGE)" 
+L["When enabled, Shows a second line of info in the titlebar with PVP & subzone info. (REQUIRES RELOAD)"] = "Quand activ\195\169, affiche une seconde ligne d'infos dans la barre de titre avec PVP & sous-zone (s). (NECESSITE REDEMARRAGE)"
 L["Show Map POI"] = "Afficher POI sur la map"
 L["When enabled, shows Points of Interest on the map."] = "Quand activ\195\169, affiche les points d'int\195\169r\195\170ts (POI) sur la map"
 L["Player Arrow Size"] = "Taille de la fl\195\168che directionnelle"
@@ -144,7 +144,7 @@ L["MiniMap Options"] = "Options MiniMap"
 L["Combine Blizzard Minimap with Carbonite Minimap"] = "Combine la MiniMap blizzard avec la MiniMap de Carbonite"
 L["When enabled, Carbonite will combine the minimap into itself to create a more functional minimap for you (RELOAD REQUIRED)"] = "Quand activ\195\169, Carbonite combinera la MiniMap de lui-m\195\170me pour cr\195\169er pour vous une plus fonctionnelle (NECESSITE REDEMARRAGE)"
 L["Minimap Shape is Square"] = "La forme de la Minimap est carr\195\169e"
-L["When enabled, Carbonite will change the minimap shape from circle to square"] = "Quand activ\195\169, Carbonite va changer la forme de la MiniMap du cercle au carr\195\169" 
+L["When enabled, Carbonite will change the minimap shape from circle to square"] = "Quand activ\195\169, Carbonite va changer la forme de la MiniMap du cercle au carr\195\169"
 L["Minimap is drawn above icons"] = "La MiniMap est dessin\195\169e au dessus des ic\195\180nes"
 L["When enabled, Carbonite will draw the minimap above your map icons, you can use the CTRL key on your keyboard to toggle which layer is top"] = "Quand activ\195\169, Carbonite va dessiner la MiniMap au dessus des ic\195\180nes de la map, vous pouvez utiliser la touche CTRL pour changer le mode"
 L["Minimap Icon Scale"] = "Echelle des ic\195\180nes de la MiniMap"
@@ -186,10 +186,9 @@ L["When enabled, The minimap will display the old nameplates above the map."] = 
 
 -- Minimap Button Options
 L["Minimap Button Options"] = "Options boutons MiniMap"
-L["Move Minimap Buttons into Carbonite Minimap Frame"] = "D\195\169placer les boutons dans le cadre de la MiniMap"
--- Line below need retranslation since original text changed
-L["When enabled, Carbonite will pull all minimap icons into it's own button frame which can be moved around and minimized as needed (RELOAD REQUIRED)"] = "Quand activ\195\169, Carbonite place toutes les ic\195\180nes de la MiniMap dans son propre cadre qui peut \195\170tre d\195\169plac\195\169 et r\195\169duit au minimum en cas de besoin (NECESSITE REDEMARRAGE)"
-L["Hide Minimap Button Window"] = "Cacher MiniMap fen\195\170tre/bouton" 
+L["Move Minimap Buttons into Carbonite Minimap Frame"] = "D\195\169place les boutons de la MiniMap dans le cadre \195\160 boutons de Carbonite" -- please check length old :"D\195\169placer les boutons dans le cadre de la MiniMap"
+L["When enabled, Carbonite will pull all minimap icons into it's own button frame which can be moved around and minimized as needed (RELOAD REQUIRED)"] = "Quand activ\195\169, Carbonite place toutes les ic\195\180nes de la MiniMap dans son propre cadre de boutons qui peut \195\170tre d\195\169plac\195\169 et minimis\195\169 en cas de besoin (NECESSITE REDEMARRAGE)"
+L["Hide Minimap Button Window"] = "Cacher MiniMap fen\195\170tre/bouton"
 L["Hides the button frame holding minimap icons"] = "Cacher les boutons et le cadre des ic\195\180nes de la MiniMap"
 L["Lock Minimap Button Window"] = "Verrouille les boutons et fen\195\170tres de la MiniMap"
 L["Locks the button frame holding minimap icons"] = "Verrouille les boutons et le cadre de maintien de la MiniMap"
@@ -248,7 +247,7 @@ L["Sets the number of vendors you visit that will be held in memory for recall i
 L["Gather Options"] = "Options de R\195\169colte"
 L["Enable Saving Gathered Nodes"] = "Activer la sauvegarde des noeuds (herbes, gisements)"
 L["When enabled, will record all the resource nodes you gather"] = "Si activ\195\169, ceci enregistre les noeuds de ressources que vous avez r\195\169colt\195\169s"
-L["Delete Herbalism Gather Locations"] = "Effacer l'emplacement des noeuds de r\195\169colte des herbes (Herboristerie)" 
+L["Delete Herbalism Gather Locations"] = "Effacer l'emplacement des noeuds de r\195\169colte des herbes (Herboristerie)"
 L["Delete Mining Gather Locations"] = "Effacer l'emplacement des noeuds de r\195\169colte des gisements (Minage)"
 L["Delete Misc Gather Locations "] = "Effacer l'emplacement des noeuds de r\195\169colte MISC (divers)"
 L["Import Herbs From GatherMate2_Data"] = "Importer les donn\195\169es des Herbes depuis GatherMate2_Data"
@@ -320,7 +319,7 @@ L["When Enabled, Will automatically track your taxi destination"] = "Quand activ
 L["Auto Track Corpse"] = "recherche automatique de votre corps (mort)"
 L["When Enabled, Will automatically track your corpse upon death"] = "Quand activ\195\169, recherche automatiquement la position de votre corps (mort)"
 L["Enable TomTom Emulation"] = "Activer l'\195\169mulation TomTom"
-L["When Enabled, Attempts to emulate tomtom's features (requires reload)"] = "Quand activ\195\169, essaie d'\195\169muler les fonctions de tomTom (NECESSITE REDEMARRAGE)" 
+L["When Enabled, Attempts to emulate tomtom's features (requires reload)"] = "Quand activ\195\169, essaie d'\195\169muler les fonctions de tomTom (NECESSITE REDEMARRAGE)"
 
 -- Configuration Headers
 L["General"] = "G\195\169n\195\169ral"

@@ -5,6 +5,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Weekly", "itIT")
 if not L then return end
 
+L["Weekly Status Module"] = true
 L["Weekly Status Options"] = true
 L["General"] = true
 L["Day Reset Occurs"] = true
@@ -44,3 +45,6 @@ L["Looted"] = true
 L["Not Looted"] = true
 L["Completed"] = true
 L["Not Completed"] = true
+L["The Crumbled Chamberlain Quest"] = true
+L["Warforged Seals Quest"] = true
+L["Palace Key"] =true

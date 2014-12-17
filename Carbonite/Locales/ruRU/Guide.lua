@@ -6,12 +6,6 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "ruRU")
 if not L then return end
 
 -- Main Guide
-L["Kalimdor"] = "Калимдор"
-L["Eastern Kingdoms"] = "Восточные королевства"
-L["Outlands"] = "Запределье"
-L["Northrend"] = "Нордскол"
-L["The Maelstrom"] = "Водоворот"
-L["Pandaria"] = "Пандария"
 L["All"] = "Все"
 L["Quest Givers"] = "Задания"
 L["Stable Master"] = "Смотритель Стойл"

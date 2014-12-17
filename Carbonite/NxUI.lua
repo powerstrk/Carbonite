@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Carbonite UI code
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -797,35 +797,26 @@ function Nx.Font:AddonLoaded()
 		return
 	end
 
-	local ace = _G["AceLibrary"]
+	local found
 
-	if ace then
---		ace ("AceAddon-2.0")
+	found = self:FontScan ("LibSharedMedia-3.0")
 
-		local found
-
-		found = self:FontScan (ace, "LibSharedMedia-2.0")
-		found = found or self:FontScan (ace, "LibSharedMedia-3.0")
-
-		if found then
-			self:Update()
-		end
+	if found then
+		self:Update()
 	end
 end
 
-function Nx.Font:FontScan (ace, libName)
+function Nx.Font:FontScan (libName)
 
 	local sm
 
-	if ace["HasInstance"] (ace, libName) then
-		sm = ace (libName)
-	end
+	sm = LibStub(libName)
 
 	if sm then
 
 		local found
 
-		local fonts = sm["List"](sm, "font")
+		local fonts = sm.List(sm, "font")
 
 --		Nx.prtVar ("SM", fonts)
 
@@ -835,7 +826,7 @@ function Nx.Font:FontScan (ace, libName)
 				found = true
 --				Nx.prtVar ("Font", name)
 --				Nx.prtVar ("Fetch", sm["Fetch"] (sm, "font", name))
-				self.AddonFonts[name] = sm["Fetch"] (sm, "font", name)
+				self.AddonFonts[name] = sm.Fetch(sm, "font", name)
 				tinsert (self.Faces, { name, self.AddonFonts[name] })
 			end
 		end
@@ -2191,7 +2182,9 @@ end
 -- Set win width and height (client size)
 
 function Nx.Window:SetSize (width, height, skipChildren)
-
+	if InCombatLockdown() then
+		return
+	end
 	self.Frm:SetWidth (width + self.BorderW * 2)
 	self.Frm:SetHeight (height + self.TitleH + self.BorderH * 2)
 
@@ -3154,16 +3147,16 @@ Nx.Button.TypeData = {
 		Skin = true,
 		Up = "ButClose",
 		Dn = "ButClose",
-		Tip = "Close/Menu"
+		Tip = L["Close/Menu"]
 	},
 	["CloseLock"] = {
 		Skin = true,
 		Up = "ButLock",
 		Dn = "ButLock",
-		Tip = "Close/Unlock"
+		Tip = L["Close/Unlock"]
 	},
 	["Color"] = {
-		Tip = "Pick Color",
+		Tip = L["Pick Color"],
 		SizeUp = 22,			-- Temp. Make opts version?
 		SizeDn = 22,
 	},
@@ -3171,7 +3164,7 @@ Nx.Button.TypeData = {
 		Skin = true,
 		Up = "ButLock",
 		Dn = "ButLock",
-		Tip = "Unlock"
+		Tip = L["Unlock"]
 	},
 	["Guide"] = {
 		Bool = true,
@@ -3183,21 +3176,21 @@ Nx.Button.TypeData = {
 		AlphaDn = 1,
 	},
 	["Max"] = {
-		Tip = "Maximize",
+		Tip = L["Maximize"],
 		Skin = true,
 		Up = "ButMax",
 		Dn = "ButMax",
 		VRGBAUp = "1|1|1|1",
 	},
 	["MaxOn"] = {
-		Tip = "Restore",
+		Tip = L["Restore"],
 		Skin = true,
 		Up = "ButMax",
 		Dn = "ButMax",
 		VRGBAUp = ".5|.5|1|1",
 	},
 	["Min"] = {
-		Tip = "Minimize",
+		Tip = L["Minimize"],
 		Bool = true,
 		Skin = true,
 		Up = "ButWatchShow",
@@ -3206,7 +3199,7 @@ Nx.Button.TypeData = {
 		VRGBADn = ".62|.62|1|1",
 	},
 	["MapAutoScale"] = {
-		Tip = "Auto Scale",
+		Tip = L["Auto Scale"],
 		Bool = true,
 		Skin = true,
 		Up = "But",
@@ -4894,15 +4887,13 @@ end
 -- Free list frames by adding back to global list
 
 function Nx.List:FreeFrames (list)
-
 	local frms = self.Frms
-
 	for n, f in ipairs (list.UsedFrms) do
-
-		f:Hide()
+		if not InCombatLockdown() then
+			f:Hide()
+		end
 		tinsert (frms[f.NXListFType], n, f)		-- Insert at top in same order, so we don't have flipping
 	end
-
 	list.UsedFrms = wipe (list.UsedFrms or {})
 end
 
@@ -4925,7 +4916,6 @@ end
 -- Get a list frame from the global list
 
 function Nx.List:GetFrame (list, typ)
-
 	local frms = self.Frms[typ]
 	local f = tremove (frms, 1)
 	if not f then
@@ -5249,7 +5239,9 @@ end
 -- self = instance
 
 function Nx.List:Resize (width, height)
-
+	if InCombatLockdown() then
+		return
+	end
 --	Nx.prt ("List resize %s %s", width, height)
 
 	local f = self.Frm
@@ -5658,7 +5650,9 @@ function Nx.List:Update (showLast)
 					end
 
 				elseif typ == "WatchItem" then
-
+					if InCombatLockdown() then
+						return
+					end
 					local f = Nx.List:GetFrame (self, typ)
 					f:ClearAllPoints()
 
@@ -7676,5 +7670,4 @@ function NxWatchListItem_OnUpdate(self, elapsed)
 	end
 end
 
------------------------------------------------------------------------------
---EOF
+-------------------------------------------------------------------------------EOF

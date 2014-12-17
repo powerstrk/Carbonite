@@ -16,6 +16,16 @@ Nx.BuggedAreas = {
 	[4] = 382,
 }
 
+	-- Can anyone expand/corect this (from dratr https://github.com/dratr/Carbonite/commits/map-zonesdocs)
+	-- Fields: name, minLvl, maxLvl, faction, cont, entryId, ex, ey, ??
+	-- entryId, ex, ey only for instances.
+	-- entryId is map id of zone that has dungeon entrance; ex, ey is loc in zone
+	-- Faction:
+	-- 0 Alliance
+	-- 1 Horde
+	-- 2 Contested
+	-- 3 Instance
+	-- 4 Unknown
 Nx.Zones = {
 	[0] = L["Unknown Zone"] .. "|0|0|4|0||",
 	[4] = L["Durotar"] .. "|1|10|1|1||",
@@ -75,7 +85,7 @@ Nx.Zones = {
 	[473] = L["Shadowmoon Valley"] .. "|67|70|2|3||",
 	[475] = L["Blade's Edge Mountains"] .. "|65|70|2|3||",
 	[476] = L["Bloodmyst Isle"] .. "|10|20|0|1||",
-	[477] = L["Nagrand"] .. "|64|70|2|3||",
+	[477] = L["Nagrand"] .. "|64|70|2|3||", -- Burning Crussade
 	[478] = L["Terokkar Forest"] .. "|62|70|2|3||",
 	[479] = L["Netherstorm"] .. "|66|70|2|3||",
 	[480] = L["Silvermoon City"] .. "|0|0|1|2||",
@@ -141,11 +151,11 @@ Nx.Zones = {
 	[687] = L["The Temple of Atal'Hakkar"] .. "|52|55|3|5|38|69.83|54.14|5",
 	[688] = L["Blackfathom Deeps"] .. "|22|25|3|5|43|14.15|13.9|5",
 	[689] = L["Stranglethorn Vale"] .. "|30|50|2|2||",
-	[690] = L["Stormwind Stockade"] .. "|22|25|3|5|301|51.4|68.3|5",
+	[690] = L["The Stockade"] .. "|22|25|3|5|301|51.4|68.3|5",		-- http://www.wowhead.com/zone=717
 	[691] = L["Gnomeregan"] .. "|26|29|3|5|27|24.38|39.8|5",
 	[692] = L["Uldaman"] .. "|37|40|3|5|17|44.44|12.19|5",
-	[696] = L["The Molten Core"] .. "|60|63|3|5|29|20.70|33.33|40",
-	[697] = L["Zul'Gurub"] .. "|85|85|3|5|37|67.2|32.8|5",
+	[696] = L["Molten Core"] .. "|60|63|3|5|29|20.70|33.33|40",		-- http://www.wowhead.com/zone=2717
+	[697] = L["Zul'Gurub"] .. "|85|85|3|5|37|67.2|32.8|5",			-- Asuming this is the pre Cataclysm ID
 	[699] = L["Dire Maul"] .. "|44|47|3|5|121|59.1|45.4|5",
 	[700] = L["Twilight Highlands"] .. "|84|85|2|2||",
 	[704] = L["Blackrock Depths"] .. "|53|56|3|5|29|15.70|28.33|5",
@@ -170,7 +180,7 @@ Nx.Zones = {
 	[733] = L["The Black Morass"] .. "|68|75|3|5|161|65.34|50|5",
 	[734] = L["Old Hillsbrad Foothills"] .. "|66|68|3|5|161|65.34|50|5",
 	[736] = L["The Battle for Gilneas"] .. "|0|0|3|4||",
-	[737] = L["The Maelstrom"] .. "|1|85|2|8||",
+	[737] = L["The Maelstrom"] .. "|1|85|2|5||",
 	[747] = L["Lost City of the Tol'vir"] .. "|85|85|3|5|720|60.5|64.1|5",
 	[749] = L["Wailing Caverns"] .. "|17|20|3|5|11|39|69.4|5",
 	[750] = L["Maraudon"] .. "|36|39|3|5|101|29.48|62.53|5",
@@ -184,10 +194,10 @@ Nx.Zones = {
 	[759] = L["Halls of Origination"] .. "|84|85|3|5|720|71.8|52.2|5",
 	[760] = L["Razorfen Downs"] .. "|42|45|3|5|61|43.2|26.1|5",
 	[761] = L["Razorfen Kraul"] .. "|32|35|3|5|607|42.5|94.8|5",
-	[763] = L["Scholomance"] .. "|40|43|3|5|22|69.77|73.51|5",
+	[763] = L["Scholomance"] .. "|40|43|3|5|22|69.77|73.51|5",			-- Asuming this is the pre Pandaria ID
 	[764] = L["Shadowfang Keep"] .. "|18|21|3|5|21|44.86|67.86|5",
 	[765] = L["Stratholme"] .. "|48|51|3|5|23|27.09|12.6|5",
-	[766] = L["Ahn'Qiraj"] .. "|60|63|3|5|772|47|7.8|40",
+	[766] = L["Temple of Ahn'Qiraj"] .. "|60|63|3|5|772|47|7.8|40",		-- http://www.wowhead.com/zone=3428
 	[767] = L["Throne of the Tides"] .. "|80|83|3|5|614|70.7|29|5",
 	[768] = L["The Stonecore"] .. "|81|85|3|5|640|47|52.2|5",
 	[769] = L["The Vortex Pinnacle"] .. "|81|85|3|5|720|76.7|84.4|5",
@@ -198,8 +208,9 @@ Nx.Zones = {
 	[779] = L["Magtheridon's Lair"] .. "|70|73|3|5|465|46.63|52.78|25",
 	[780] = L["Serpentshrine Cavern"] .. "|70|73|3|5|467|50.41|40.9|25",
 	[781] = L["Zul'Aman"] .. "|85|85|3|5|463|81.51|64.34|5",
-	[782] = L["Tempest Keep"] .. "|70|73|3|5|479|73.62|63.73|25",
+	[782] = L["The Eye"] .. "|70|73|3|5|479|73.62|63.73|25",			-- http://www.wowhead.com/zone=3845
 	[789] = L["Sunwell Plateau"] .. "|70|73|3|5|499|44.27|45.65|25",
+	[793] = L["Zul'Gurub"] .. "|85|85|3|5|37|67.2|32.8|5",				-- Cataclysm ID for Zul'Gurub
 	[795] = L["Molten Front"] .. "|85|85|2|5||",
 	[796] = L["Black Temple"] .. "|70|73|3|5|473|71.03|46.33|25",
 	[797] = L["Hellfire Ramparts"] .. "|59|62|3|5|465|47.64|53.57|5",
@@ -217,7 +228,7 @@ Nx.Zones = {
 	[820] = L["End Time"] .. "|85|85|3|5|161|65.34|50|5",
 	[823] = L["Darkmoon Island"] .. "|0|0|2|5||",
 	[824] = L["Dragon Soul"] .. "|85|85|3|5|161|65.34|50|1025",
-	[851] = L["Battle of Theramore"] .. "|90|90|3|5|141|55.9|49.5|3",
+	[851] = L["Theramore's Fall (H)"] .. "|90|90|3|5|141|55.9|49.5|3",	-- http://www.wowhead.com/zone=6040
 	[856] = L["Temple of Kotmogu"] .. "|0|0|3|4||",
 	[857] = L["Krasarang Wilds"] .. "|86|90|2|6||",
 	[858] = L["Dread Wastes"] .. "|89|90|2|6||",
@@ -249,11 +260,12 @@ Nx.Zones = {
 	[895] = L["New Tinkertown"] .. "|1|10|2|2||",
 	[896] = L["Mogu'shan Vaults"] .. "|90|90|3|5|809|74.53|205.71|1025",
 	[897] = L["Heart of Fear"] .. "|90|90|3|5|858|34.74|342.73|1025",
+	[898] = L["Scholomance"] .. "|90|90|3|5|22|69.77|73.51|5",			-- Pandaria ID for Scholomance (check values)
 	[899] = L["Arena of Annihilation"] .. "|90|90|3|5|809|68.59|48.01|3",
 	[900] = L["Crypt of Forgotten Kings"] .. "|90|90|3|5|811|25.1|25.91|3",
 	[903] = L["Shrine of Two Moons"] .. "|0|0|1|6||",
 	[905] = L["Shrine of Seven Stars"] .. "|0|0|0|6||",
-	[906] = L["Battle of Theramore"] .. "|90|90|3|5|141|55.9|49.5|3",
+	[906] = L["Theramore's Fall (A)"] .. "|90|90|3|5|141|55.9|49.5|3",	-- http://www.wowhead.com/zone=6500
 	[911] = L["Lion's Landing"] .. "|90|90|3|5|857|55.93|153.37|3",
 	[912] = L["A Little Patience"] .. "|90|90|3|5|857|55.9|49.5|3",
 	[914] = L["Dagger in the Dark"] .. "|90|90|3|5|857|55.91|148.95|3",
@@ -276,7 +288,7 @@ Nx.Zones = {
 	[947] = L["Shadowmoon Valley"] .. "|90|92|2|7||",
 	[948] = L["Spires of Arak"] .. "|96|98|2|7||",
 	[949] = L["Gorgrond"] .. "|92|94|2|7||",
-	[950] = L["Nagrand"] .. "|98|100|2|7||",
+	[950] = L["Nagrand"] .. "|98|100|2|7||", -- Worlds of Dreanor
 	[951] = L["Timeless Isle"] .. "|90|90|2|6||",
 	[953] = L["Siege of Orgrimmar"] .. "|90|90|3|5|811|73.9|42.2|1025",
 	[955] = L["Celestial Tournament"] .. "|90|90|3|4|951|25|25|3",
@@ -292,9 +304,10 @@ Nx.Zones = {
 	[989] = L["Skyreach"] .. "|97|99|3|5|948|36.0|33.9|5",
 	[993] = L["Grimrail Depot"] .. "|100|100|3|5|949|55.1|30.4|5",
 	[994] = L["Highmaul"] .. "|100|100|3|5|950|30.0|37.0|1025", -- Location only estimate based on overlay maps
-	[995] = L["Upper Blackrock Spire"] .. "100|100|3|5|29|15.70|35.33|5",
+	[995] = L["Upper Blackrock Spire"] .. "|100|100|3|5|29|15.70|35.33|5",
 	[1008] = L["The Everbloom"] .. "|100|100|3|5|949|59.8|45.2|5",
 	[1009] = L["Stormshield"] .. "|90|90|0|7||",
+	[1010] = L["Tarren Mill vs Southshore"] .. "|90|100|3|4||",
 	[1011] = L["Warspear"] .. "|90|90|1|7||",
 }
 

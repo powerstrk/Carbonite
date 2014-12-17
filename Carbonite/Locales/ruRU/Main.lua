@@ -103,7 +103,7 @@ L["Show Events"] = "Показать События"
 L["Show Auction Buyout Per Item"] = "Показать цену выкупа на аукционе для ед."
 L["Show Com Window"] = "Delete"
 L["Toggle Profiling"] = "Вкл/Выкл Профилирование"
-L["Left click toggle Map"] = "Левый клик чтобы Вкл/Выкл Карту" 
+L["Left click toggle Map"] = "Левый клик чтобы Вкл/Выкл Карту"
 L["Shift left click toggle minimize"] = "Шифт Левый клик чтобы Вкл/Выкл Минимизацию"
 L["Alt left click toggle Watch List"] = "Альт Левый клик чтобы Вкл/Выкл Журнал Заданий"
 L["Middle click toggle Guide"] = "Шифт Левый клик чтобы Вкл/Выкл Слежение"
@@ -117,6 +117,16 @@ L["Layer"] = "Слой"
 L["Scale"] = "Маштаб"
 L["Transparency"] = "Прозрачность"
 L["Reset Layout"] = "Сбросить "
+
+-- UI Tooltips
+L["Close/Menu"] = true
+L["Close/Unlock"] = true
+L["Pick Color"] = true
+L["Unlock"] = true
+L["Maximize"] = true
+L["Restore"] = true
+L["Minimize"] = true
+L["Auto Scale"] = true
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "Поиск артефактов"		-- NXlARTIFACTS

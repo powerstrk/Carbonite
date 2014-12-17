@@ -5,6 +5,23 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Warehouse", "itIT")
 if not L then return end
 
+L["ItemTypes"] = {
+	ARMOR,
+	"Consommable",
+	"Conteneur",
+	"Gemme",
+	"Glyphe",
+	"Cl\195\169",
+	"Divers",
+	"Qu\195\170te",
+	"Carquois",
+	"Composant",
+	"Recette",
+	"Artisanat",
+	"Arme",
+}
+
+L["Warehouse Module"] = true
 L["Warehouse Options"] = true
 L["Add Warehouse Tooltip"] = true
 L["When enabled, will show warehouse information in hover tooltips of items"] = true

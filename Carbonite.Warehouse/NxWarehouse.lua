@@ -42,7 +42,7 @@ local defaults = {
 			WarehouseFontSpacing = 6,
 			Enable = true,
 			AddTooltip = true,
-		},
+					},
 	},
 }
 
@@ -148,6 +148,7 @@ function CarboniteWarehouse:OnInitialize()
 	Nx.NXMiniMapBut.Menu:AddItem(0, "Show Warehouse", func, Nx.NXMiniMapBut)
 	CarboniteWarehouse:RegisterEvent("BAG_UPDATE","EventHandler")
 	CarboniteWarehouse:RegisterEvent("PLAYERBANKSLOTS_CHANGED", "EventHandler")
+	CarboniteWarehouse:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("PLAYERBANKBAGSLOTS_CHANGED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("BANKFRAME_OPENED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("BANKFRAME_CLOSED", "EventHandler")
@@ -208,7 +209,7 @@ function CarboniteWarehouse:OnInitialize()
 			hooksecurefunc (ItemRefTooltip, name, Nx.Warehouse.ReftipProcess)
 	end
 
-	Nx:AddToConfig("Warehouse Module",WarehouseOptions(),"Warehouse Module")
+	Nx:AddToConfig("Warehouse Module",WarehouseOptions(),L["Warehouse Module"])
 	tinsert(Nx.BrokerMenuTemplate,{ text = L["Toggle Warehouse"], func = function() Nx.Warehouse:ToggleShow() end })
 	if Nx.RequestTime then
 		RequestTimePlayed()
@@ -219,6 +220,8 @@ function CarboniteWarehouse:EventHandler(event, arg1, arg2, arg3)
 	if event == "BAG_UPDATE" then
 		Nx.Warehouse:OnBag_update()
 	elseif event == "PLAYERBANKSLOTS_CHANGED" then
+		Nx.Warehouse:OnBag_update()
+	elseif event == "PLAYERREAGENTBANKSLOTS_CHANGED" then
 		Nx.Warehouse:OnBag_update()
 	elseif event == "PLAYERBANKBAGSLOTS_CHANGED" then
 		Nx.Warehouse:OnBag_update()
@@ -345,7 +348,7 @@ function Nx.Warehouse:Init()
 --	self.LProfessions = TRADE_SKILLS
 --	self.LSecondarySkills = gsub (SECONDARY_SKILLS, ":", "")
 
-	self.ItemTypes = NXlItemTypes
+	self.ItemTypes = L["ItemTypes"]
 
 	-- Create durability scanner tooltip
 
@@ -534,7 +537,7 @@ function Nx.Warehouse:Menu_OnImport (item)
 	local rc = Nx.RealmChars[cn]
 	if cn > 1 and rc then
 
-		local rname, sname = strsplit (".", rc)
+		local rname, sname = Nx.Split (".", rc)
 		self.ImportChar = sname
 
 		local s = format (L["Import %s's character data and reload?"], sname)
@@ -842,14 +845,24 @@ function Nx.Warehouse:Update()
 
 	for name, guilds in pairs (ware) do
 		if name == rn then
-
 			for gName, guild in pairs (guilds) do
-
 				local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
-
 				list:ItemAdd (100)
 				list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
 				list:ItemSetDataEx (nil, gName, 1)
+			end
+		end
+		local connectedrealms = GetAutoCompleteRealms()
+		if connectedrealms then
+			for i=1,#connectedrealms do
+				if connectedrealms[i] ~= rn and name == connectedrealms[i] then
+					for gName, guild in pairs (guilds) do
+						local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
+						list:ItemAdd (100)
+						list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
+						list:ItemSetDataEx (nil, gName, 1)
+					end
+				end
 			end
 		end
 	end
@@ -858,31 +871,21 @@ function Nx.Warehouse:Update()
 	list:ItemSet (2, "-------------------------")
 
 	for cnum, rc in ipairs (Nx.RealmChars) do
-
-		local rname, cname = strsplit (".", rc)
-
+		local rname, cname = Nx.Split (".", rc)
 		local cnameCol = "|cffafdfaf"
-
 		if cname == myName then		-- Me?
 			cnameCol = "|cffdfffdf"
 		end
-
 		local ch = Nx.db.global.Characters[rc]
 		if ch then
-
 			totalChars = totalChars + 1
 			totalPlayed = totalPlayed + ch["TimePlayed"]
-
 			local lvl = tonumber (ch["Level"] or 0)
-
 --			ch["Class"] = "Deathknight"	-- TEST
-
 			local cls = ch["Class"] or "?"
-
 			local money = ch["Money"]
 			totalMoney = totalMoney + (money or 0)
 			local moneyStr = Nx.Util_GetMoneyStr (money)
-
 			list:ItemAdd (cnum)
 			local s = ch["Account"] and format ("%s (%s)", cname, ch["Account"]) or cname
 			list:ItemSet (2, format ("%s%s %s %s  %s", cnameCol, s, lvl, cls, moneyStr))
@@ -902,16 +905,16 @@ function Nx.Warehouse:Update()
 					local hours = secs / 3600
 					local lvlHours = difftime (time(), ch["LvlTime"]) / 3600
 					local played = Nx.Util_GetTimeElapsedStr (ch["TimePlayed"])
-
+					list:ItemAdd (cnum)
+					list:ItemSet (2, format (" Realm:%s %s",hicol,rname))
 					list:ItemAdd (cnum)
 					list:ItemSet (2, format (" Time On: %s%2d:%02d:%02d|r, Played: %s%s", hicol, hours, mins, secs % 60, hicol, played))
-
 					local money = (ch["Money"] or 0) - ch["LMoney"]
 					local moneyStr = Nx.Util_GetMoneyStr (money)
 					local moneyHStr = Nx.Util_GetMoneyStr (money / hours)
 
 					list:ItemAdd (cnum)
-					list:ItemSet (2, format (" Session Money: %s|r, Per Hour: %s", moneyStr, moneyHStr))
+					list:ItemSet (2, format (" Session Money:%s %s|r, Per Hour:%s %s", hicol, moneyStr, hicol, moneyHStr))
 
 					if ch["DurPercent"] then
 
@@ -925,8 +928,7 @@ function Nx.Warehouse:Update()
 						local rest = ch["LXPRest"] / ch["LXPMax"] * 100		-- Sometimes over 150%?
 						local xp = ch["XP"] - ch["LXP"]
 						list:ItemAdd (cnum)
-						list:ItemSet (2, format (" Session XP: %s, Per Hour: %.0f", xp, xp / lvlHours))
-
+						list:ItemSet (2, format (" Session XP:%s %s|r, Per Hour:%s %.0f", hicol, xp, hicol, xp / lvlHours))
 						xp = max (1, xp)
 						local lvlTime = (ch["XPMax"] - ch["XP"]) / (xp / lvlHours)
 
@@ -936,7 +938,8 @@ function Nx.Warehouse:Update()
 						end
 					end
 				else
-
+					list:ItemAdd (cnum)
+					list:ItemSet (2, format (" Realm:%s %s",hicol,rname))
 					if ch["Time"] then
 
 						local secs = difftime (time(), ch["Time"])
@@ -949,7 +952,7 @@ function Nx.Warehouse:Update()
 
 					if ch["Pos"] then
 
-						local mid, x, y = strsplit ("^", ch["Pos"])
+						local mid, x, y = Nx.Split ("^", ch["Pos"])
 
 						local map = Nx.Map:GetMap (1)
 						local name = map:IdToName (tonumber (mid))
@@ -988,7 +991,7 @@ function Nx.Warehouse:Update()
 --[[
 				if ch["Professions"] then
 					for n, data in ipairs (ch["Professions"]) do
-						local name, rank = strsplit ("^", data)
+						local name, rank = Nx.Split ("^", data)
 						list:ItemAdd (cnum)
 						list:ItemSetDataEx (nil, name, 1)
 						list:ItemSet (2, format (" %s %s%s", name, hicol, rank))
@@ -1058,7 +1061,7 @@ function Nx.Warehouse:UpdateItems()
 
 		local rc = Nx.RealmChars[cn1]
 
-		local rname, cname = strsplit (".", rc)
+		local rname, cname = Nx.Split (".", rc)
 		list:ColumnSetName (3, format ("%s's Items", cname))
 
 		local ch = Nx.db.global.Characters[rc]
@@ -1067,6 +1070,12 @@ function Nx.Warehouse:UpdateItems()
 		if not bank then
 			list:ItemAdd (0)
 			list:ItemSet (3, "|cffff1010No bank data - visit your bank")
+		end
+
+		local rbank = ch["WareRBank"]
+		if not rbank then
+			list:ItemAdd (0)
+			list:ItemSet (3, "|cffff1010No reagent bank data - visit your bank")
 		end
 
 		local inv = ch["WareInv"]
@@ -1078,7 +1087,7 @@ function Nx.Warehouse:UpdateItems()
 
 			for _, data in ipairs (inv) do
 
-				local slot, link = strsplit ("^", data)
+				local slot, link = Nx.Split ("^", data)
 				Nx.Item:Load (link)
 
 				slot = gsub (slot, "Slot", "")
@@ -1104,7 +1113,7 @@ function Nx.Warehouse:UpdateItems()
 
 				for _, data in ipairs (inv) do
 
-					local slot, link = strsplit ("^", data)
+					local slot, link = Nx.Split ("^", data)
 					Nx.Item:Load (link)
 
 					slot = gsub (slot, "Slot", "")
@@ -1116,7 +1125,7 @@ function Nx.Warehouse:UpdateItems()
 						if not hdr then
 							hdr = true
 							list:ItemAdd (0)
-							local rname, cname = strsplit (".", rc)
+							local rname, cname = Nx.Split (".", rc)
 							local s = format ("---- %s Equipped ----", cname)
 							list:ItemSet (3, s)
 						end
@@ -1158,6 +1167,13 @@ function Nx.Warehouse:UpdateItems()
 			end
 		end
 
+		local rbank = ch["WareRBank"]
+		if rbank then
+			for name, data in pairs (rbank) do
+				self:AddItem (items, 3, name, data)
+			end
+		end
+
 		local mail = ch["WareMail"]
 
 		if mail then
@@ -1173,7 +1189,7 @@ function Nx.Warehouse:UpdateItems()
 
 	for name, data in pairs (items) do
 
-		local bagCnt, bankCnt, mailCnt, link = strsplit ("^", data)
+		local bagCnt, bankCnt, mailCnt, link = Nx.Split ("^", data)
 		Nx.Item:Load (link)
 
 		if self.SortByRarity or self.SortBySlot then
@@ -1205,7 +1221,7 @@ function Nx.Warehouse:UpdateItems()
 
 		for _, v in ipairs (isorted) do
 
-			local _, name, bagCnt, bankCnt, mailCnt, link = strsplit ("^", v)
+			local _, name, bagCnt, bankCnt, mailCnt, link = Nx.Split ("^", v)
 			local _, iLink, iRarity = GetItemInfo (link)
 
 			iRarity = iRarity or 0	-- Happens if item not in cache
@@ -1224,7 +1240,7 @@ function Nx.Warehouse:UpdateItems()
 
 			for n = 1, #isorted do
 
-				local _, name, bagCnt, bankCnt, mailCnt, link = strsplit ("^", isorted[n])
+				local _, name, bagCnt, bankCnt, mailCnt, link = Nx.Split ("^", isorted[n])
 				local _, iLink, iRarity, lvl, minLvl, itype = GetItemInfo (link)
 
 				if itype == typ then	-- Found one of type?
@@ -1234,7 +1250,7 @@ function Nx.Warehouse:UpdateItems()
 
 					for n2 = n, #isorted do
 
-						local _, name, bagCnt, bankCnt, mailCnt, link = strsplit ("^", isorted[n2])
+						local _, name, bagCnt, bankCnt, mailCnt, link = Nx.Split ("^", isorted[n2])
 						local _, iLink, iRarity, lvl, minLvl, itype = GetItemInfo (link)
 
 						if itype == typ then
@@ -1261,10 +1277,10 @@ function Nx.Warehouse:AddItem (items, typ, name, data)
 	local totalMail = 0
 
 	if items[name] then
-		totalBag, totalBank, totalMail = strsplit ("^", items[name])
+		totalBag, totalBank, totalMail = Nx.Split ("^", items[name])
 	end
 
-	local count, iLink = strsplit ("^", data)
+	local count, iLink = Nx.Split ("^", data)
 
 	if typ == 2 then
 		totalBag = totalBag + count
@@ -1405,10 +1421,11 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 
 		local bagCnt = 0
 		local bankCnt = 0
+		local rbankCnt = 0
 		local invCnt = 0
 		local mailCnt = 0
 
-		local rname, cname = strsplit (".", rc)
+		local rname, cname = Nx.Split (".", rc)
 		if not Nx.db.global.Characters[rc] then
 			return "", 0, 0
 		end
@@ -1418,7 +1435,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 
 		if bags then
 			for name, data in pairs (bags) do
-				local iCount, iLink = strsplit ("^", data)
+				local iCount, iLink = Nx.Split ("^", data)
 				local s1, s2, iLink = strfind (iLink, "item:(%d+)")
 				if iLink == link then
 					bagCnt = bagCnt + iCount
@@ -1431,10 +1448,23 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 
 		if bank then
 			for name, data in pairs (bank) do
-				local iCount, iLink = strsplit ("^", data)
+				local iCount, iLink = Nx.Split ("^", data)
 				local s1, s2, iLink = strfind (iLink, "item:(%d+)")
 				if iLink == link then
 					bankCnt = bankCnt + iCount
+					break
+				end
+			end
+		end
+
+		local rbank = ch["WareRBank"]
+
+		if rbank then
+			for name, data in pairs (rbank) do
+				local iCount, iLink = Nx.Split ("^", data)
+				local s1, s2, iLink = strfind (iLink, "item:(%d+)")
+				if iLink == link then
+					rbankCnt = rbankCnt + iCount
 					break
 				end
 			end
@@ -1444,20 +1474,19 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 
 		if inv then
 			for name, data in pairs (inv) do
-				local slot, iLink = strsplit ("^", data)
+				local slot, iLink = Nx.Split ("^", data)
 				local s1, s2, iLink = strfind (iLink, "item:(%d+)")
 				if iLink == link then
 					invCnt = invCnt + 1
 				end
 			end
-			bagCnt = bagCnt + invCnt	-- Just add to bag cnt
 		end
 
 		local mail = ch["WareMail"]
 
 		if mail then
 			for name, data in pairs (mail) do
-				local iCount, iLink = strsplit ("^", data)
+				local iCount, iLink = Nx.Split ("^", data)
 				local s1, s2, iLink = strfind (iLink, "item:(%d+)")
 				if iLink == link then
 					mailCnt = mailCnt + iCount
@@ -1465,8 +1494,7 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 				end
 			end
 		end
-
-		local cnt = bagCnt + bankCnt + mailCnt
+		local cnt = bagCnt + invCnt + bankCnt + rbankCnt + mailCnt
 
 		if cnt > 0 then
 
@@ -1474,20 +1502,40 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 			totalCnt = totalCnt + cnt
 
 			local s
-			if bankCnt > 0 then
-				s = format ("%s %d (%d Bank)", cname, bagCnt, bankCnt)
+
+			if invCnt > 0 then
+				s = format ("%s %d (%d Worn)", cname, bagCnt, invCnt)
 			else
 				s = format ("%s %d", cname, bagCnt)
+			end
+
+			if bankCnt > 0 then
+				s = format ("%s (%d Bank)", s, bankCnt)
+			end
+
+			if rbankCnt > 0 then
+				s = format ("%s (%d RBank)", s, rbankCnt)
 			end
 
 			if mailCnt > 0 then
 				s = format ("%s (%s Mail)", s, mailCnt)
 			end
 			if specific == "tooltip" then
+				s = format ("|cFFFFFF00%s#",cname)
+				if bagCnt > 0 then
+					s = format ("%s|cFFFF0000[|cFF00FF00Bags:%d|cFFFF0000]",s,bagCnt)
+				end
+				if invCnt > 0 then
+					s = format ("%s|cFFFF0000[|cFF00FF00Worn:%d|cFFFF0000]",s,invCnt)
+				end
+				if mailCnt > 0 then
+					s = format ("%s|cFFFF0000[|cFF00FF00Mail:%d|cFFFF0000]",s,mailCnt)
+				end
 				if bankCnt > 0 then
-					s = format ("|cFFFFFF00%s#|cFFFFFF00%d |cFFFF0000[|cFF00FF00Bags:%d|cFFFF0000]|cFFFF0000[|cFF00FF00Bank:%d|cFFFF0000]",cname,bagCnt+bankCnt,bagCnt,bankCnt)
-				else
-					s = format ("|cFFFFFF00%s#|cFFFF0000[|cFF00FF00Bags:%d|cFFFF0000]",cname,bagCnt)
+					s = format ("%s|cFFFF0000[|cFF00FF00Bank:%d|cFFFF0000]",s,bankCnt)
+				end
+				if rbankCnt > 0 then
+					s = format ("%s|cFFFF0000[|cFF00FF00RBank:%d|cFFFF0000]",s,rbankCnt)
 				end
 			end
 			if not str then
@@ -1516,7 +1564,7 @@ function Nx.Warehouse:UpdateProfessions()
 	local rc = Nx.RealmChars[cn1]
 	local ch = Nx.db.global.Characters[rc]
 
-	local rname, cname = strsplit (".", rc)
+	local rname, cname = Nx.Split (".", rc)
 	local pname = self.SelectedProf
 
 	list:ColumnSetName (3, format ("%s's %s Skills", cname, pname))
@@ -1562,7 +1610,7 @@ function Nx.Warehouse:UpdateProfessions()
 
 		for _, str in ipairs (items) do
 
-			local cat, _, name, id = strsplit ("^", str)
+			local cat, _, name, id = Nx.Split ("^", str)
 			local id = tonumber (id)
 
 			local link = GetSpellLink (id)
@@ -1651,9 +1699,9 @@ function Nx.Warehouse:ReftipProcess()
 		end
 
 		local str, count, total = Nx.Warehouse:FindCharsWithItem (link,"tooltip")
-		if total > 1 then
+		if total > 0 then
 			str = gsub (str, "\n", "\n ")
-			local temparray = { strsplit("#",str) }
+			local temparray = { Nx.Split("#",str) }
 			local a = false
 			local char
 			tip:AddLine(titleStr)
@@ -1694,9 +1742,9 @@ function Nx.Warehouse:TooltipProcess()
 		end
 
 		local str, count, total = Nx.Warehouse:FindCharsWithItem (link,"tooltip")
-		if total > 1 then
+		if total > 0 then
 			str = gsub (str, "\n", "\n ")
-			local temparray = { strsplit("#",str) }
+			local temparray = { Nx.Split("#",str) }
 			local a = false
 			local char
 			tip:AddLine(titleStr)
@@ -1862,11 +1910,11 @@ function Nx.Warehouse.OnItem_lock_changed()
 	end
 
 	if arg1 == KEYRING_CONTAINER or arg1 == BACKPACK_CONTAINER or (arg1 >= 1 and arg1 <= NUM_BAG_SLOTS) or
-			arg1 == BANK_CONTAINER or (arg1 >= NUM_BAG_SLOTS + 1 and arg1 <= NUM_BAG_SLOTS + NUM_BANKBAGSLOTS) then
+			arg1 == BANK_CONTAINER or arg1 == REAGENTBANK_CONTAINER or (arg1 >= NUM_BAG_SLOTS + 1 and arg1 <= NUM_BAG_SLOTS + NUM_BANKBAGSLOTS) then
 
 		self.LockBank = nil
 
-		if arg1 == BANK_CONTAINER or (arg1 >= NUM_BAG_SLOTS + 1 and arg1 <= NUM_BAG_SLOTS + NUM_BANKBAGSLOTS) then
+		if arg1 == BANK_CONTAINER or arg1 == REAGENTBANK_CONTAINER or (arg1 >= NUM_BAG_SLOTS + 1 and arg1 <= NUM_BAG_SLOTS + NUM_BANKBAGSLOTS) then
 			self.LockBank = true
 		end
 
@@ -1963,7 +2011,11 @@ function Nx.Warehouse:CaptureItems()
 
 --			self:prtdb ("Bank %d", Nx.Util_tcount (inv))
 		end
-
+		inv = {}
+		self:AddBag (REAGENTBANK_CONTAINER, true, inv)
+		if next (inv) then		-- Get any bank items?
+			ch["WareRBank"] = inv
+		end
 	else
 
 		if self.LockBank and self.LockBag and not self.Locked then
@@ -2000,7 +2052,7 @@ function Nx.Warehouse:AddLink (link, count, inv)
 		local total = 0
 
 		if inv[name] then
-			total = strsplit ("^", inv[name])
+			total = Nx.Split ("^", inv[name])
 		end
 
 		total = total + count
@@ -2145,10 +2197,10 @@ function Nx.Warehouse:DiffBags (oldBags)
 
 	for name, v in pairs (ch["WareBags"]) do
 
-		local newCnt, link = strsplit ("^", v)
+		local newCnt, link = Nx.Split ("^", v)
 
 		if oldBags[name] then
-			local oldCnt = strsplit ("^", oldBags[name])
+			local oldCnt = Nx.Split ("^", oldBags[name])
 			if newCnt > oldCnt then
 
 				local name, iLink, iRarity, lvl, minLvl, itype = GetItemInfo (link)

@@ -1,6 +1,7 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Social", "enUS", true)
 if not L then return end
 
+L["Social & Punks Module"] = true
 L["Social Options"] = true
 L["Enable the enhanced social window"] = true
 L["When enabled, Carbonite will use the enhanced social window instead of blizzards (REQUIRES RELOAD)"] = true

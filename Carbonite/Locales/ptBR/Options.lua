@@ -6,32 +6,32 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "ptBR")
 if not L then return end
 
 -- Profiles Menu
-L["Profiles"] = true
-L["New"] = true
-L["You can change the active database profile, so you can have different settings for every character."] = true
-L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = true
-L["Reset Profile"] = true
-L["Reset the current profile to the defaults"] = true
-L["Current Profile"] = true
-L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = true
-L["Create a new empty profile"] = true
-L["Select one of your currently available profiles"] = true
-L["Existing Profiles"] = true
-L["Copy the settings from one existing profile into the currently active profile."] = true
-L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = true
-L["Delete a Profile"] = true
-L["Deletes a profile from the database."] = true
+L["Profiles"] = "Perfil"
+L["New"] = "Novo"
+L["You can change the active database profile, so you can have different settings for every character."] = "Você pode mudar a database de perfil ativa, para que tenha configurações diferentes pra cada personagem."
+L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."] = "Reseta o teu perfil pra o normal, em caso a configuração esteja com problemas."
+L["Reset Profile"] = "Reseta perfil"
+L["Reset the current profile to the defaults"] = "Reseta o perfil atual para o normal"
+L["Current Profile"] = "Perfil Atual"
+L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."] = "Você pode criar um novo Perfil colocando um nome na caixinha, ou escolher um que já pronto."
+L["Create a new empty profile"] = "Crie um novo perfil vazio"
+L["Select one of your currently available profiles"] = "Selecione um dos perfis pronto"
+L["Existing Profiles"] = "Perfil existente"
+L["Copy the settings from one existing profile into the currently active profile."] = "Copie as configurações de um perfil existente para o perfil ativo."
+L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."] = "Apague um perfil da database para liberar espaço e limpar a pasta SavedVariables."
+L["Delete a Profile"] = "Apague um perfil"
+L["Deletes a profile from the database."] = "Apague um perfil da database."
 
 -- Main Menu
 L["Main Options"] = true
-L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = true
-L["Release Version"] = true
-L["Maintained by"] = true
+L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] = "Carbonite é um addon de mapa que facilita e melhora a interface do jogo modificando o mapa para um estilo GoogleMaps."
+L["Release Version"] = "Versão"
+L["Maintained by"] = "Modificado por"
 L["Website"] = true
-L["For support, please visit the forums for Carbonite on WoW Interface."] = true
-L["Special thanks to"] = true
-L["Cirax for Carbonite2 Logo"] = true
-L["JimboBlue for guide location updates and checking"] = true
+L["For support, please visit the forums for Carbonite on WoW Interface."] = "Carbonite ainda esta em fase Beta"
+L["Special thanks to"] = "Agradecimento Especiais"
+L["Cirax for Carbonite2 Logo"] = "Cridador do Logo - Cirax"
+L["JimboBlue for guide location updates and checking"] = "JimboBlue pelo Localizador de Guias"
 
 -- Battlegrounds Menu
 L["Battlegrounds"] = true
