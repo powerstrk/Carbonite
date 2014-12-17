@@ -5,7 +5,7 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Social", "frFR")
 if not L then return end
 
-L["Social & Punks Module"] = true
+L["Social & Punks Module"] = "Module social & Punks"
 L["Social Options"] = "Options Sociales"
 L["Enable the enhanced social window"] = "Activer la fen\195\170tre sociale am\195\169lior\195\169e"
 L["When enabled, Carbonite will use the enhanced social window instead of blizzards (REQUIRES RELOAD)"] = "Quand activ\195\169, Carbonite utilisera la fen\195\170tre am\195\169lior\195\169e \195\160 la place de celle de blizzard (REDEMARRAGE REQUIS)"
@@ -58,7 +58,7 @@ L["Set Note"] = "D\195\169fini Note"
 L["Set Person"] = "D\195\169fini la personne"
 L["Make Pal (Red) Into Friend"] = "Ajouter alli\195\169 (rouge) dans ma liste d'amis"
 L["Make All Pals Into Friends"] = "Ajouter tous les alli\195\169s dans ma liste d'amis"
-L["Options..."] = true
+L["Options..."] = "Options..."
 L["Goto"] = "Destination..."
 L["Add Character"] = "Ajouter Personnage"
 L["Remove Character"] = "Enlever Personnage"
