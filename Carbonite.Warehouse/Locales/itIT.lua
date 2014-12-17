@@ -14,7 +14,7 @@ L["ItemTypes"] = {
 	"Chiavi",
 	"Varie",
 	"Proiettili",
-	"Missioni"
+	"Missioni",
 	"Faretre",
 	"Reagenti",
 	"Ricette",
