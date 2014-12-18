@@ -84,7 +84,7 @@ L["Wild Steelbloom"] = "野鋼花"
 
 -- Mines
 L["Adamantite Deposit"] = "堅鋼礦床"
-L["Ancient Gem Vein"] = true
+L["Ancient Gem Vein"] = "遠古寶石礦脈"
 L["Blackrock Deposit"] = "黑石礦床"
 L["Cobalt Deposit"] = "鈷藍礦床"
 L["Copper Vein"] = "銅礦脈"
@@ -120,7 +120,7 @@ L["Saronite Deposit"] = "薩鋼礦床"
 L["Silver Vein"] = "銀礦脈"
 L["Small Obsidian Chunk"] = "小黑曜石塊"
 L["Small Thorium Vein"] = "瑟銀礦脈"
-L["Smoldering True Iron Deposit"] = true
+L["Smoldering True Iron Deposit"] = "陰燃的真鐵礦脈"
 L["Thorium Vein"] = "瑟銀礦脈" -- Used for Ooze covered even tho it's not a real node
 L["Tin Vein"] = "錫礦脈"
 L["Titanium Vein"] = "泰坦鋼礦脈"
