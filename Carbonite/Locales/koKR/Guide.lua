@@ -87,5 +87,5 @@ L["Tram to"] = "지하철: "
 
 L["Name"] = "이름"		-- Is this one used?
 L["Info"] = "정보"		-- Is this one used?
-L["Info2"] = "정보2"	-- Is this one used?
-L["Info3"] = "정보3"	-- Is this one used?
+L["Info2"] = "정보2"		-- Is this one used?
+L["Info3"] = "정보3"		-- Is this one used?

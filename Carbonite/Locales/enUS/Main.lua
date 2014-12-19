@@ -119,10 +119,10 @@ L["Minimize"] = true
 L["Auto Scale"] = true
 
 -- Stuff from old localization
-L["Searching for Artifacts"] = true			-- NXlARTIFACTS
-L["Extract Gas"] = true						-- NXlEXTRACTGAS
-L["Herb Gathering"] = true					-- NXlHERBGATHERING
-L["In Conflict"] = true						-- NXlINCONFLICT
-L["Opening"] = true							-- NXlOpening
-L["Opening - No Text"] = true				-- NXlOpeningNoText
-L["Everfrost Chip"] = true					-- NXlEverfrost
+L["Searching for Artifacts"] = true		-- NXlARTIFACTS
+L["Extract Gas"] = true				-- NXlEXTRACTGAS
+L["Herb Gathering"] = true			-- NXlHERBGATHERING
+L["In Conflict"] = true				-- NXlINCONFLICT
+L["Opening"] = true				-- NXlOpening
+L["Opening - No Text"] = true			-- NXlOpeningNoText
+L["Everfrost Chip"] = true			-- NXlEverfrost

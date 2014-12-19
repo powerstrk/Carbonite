@@ -146,11 +146,11 @@ L["Auto Scale"] = "자동 크기조절"
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "유물 수색"		-- NXlARTIFACTS
-L["Extract Gas"] = "가스 추출"					-- NXlEXTRACTGAS
-L["Herb Gathering"] = "약초채집"				-- NXlHERBGATHERING
-L["In Conflict"] = "분쟁 지역"					-- NXlINCONFLICT
-L["Opening"] = true								-- NXlOpening
-L["Opening - No Text"] = true					-- NXlOpeningNoText
+L["Extract Gas"] = "가스 추출"				-- NXlEXTRACTGAS
+L["Herb Gathering"] = "약초채집"			-- NXlHERBGATHERING
+L["In Conflict"] = "분쟁 지역"				-- NXlINCONFLICT
+L["Opening"] = true					-- NXlOpening
+L["Opening - No Text"] = true				-- NXlOpeningNoText
 L["Everfrost Chip"] = "영원의 서리 파편"			-- NXlEverfrost
 
 -- Are the ones below used?

@@ -434,10 +434,10 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 	if cont1 == cont2 then
 
 --		if srcMapId == 4003 or dstMapId == 4003 then		-- Dalaran?
---			return													-- Do a straight line
+--			return						-- Do a straight line
 --		end
 
-		if riding >= 300 and self.FlyingMount then	-- Epic flyer in flying area, don't route
+		if riding >= 300 and self.FlyingMount then		-- Epic flyer in flying area, don't route
 			return
 		end
 
@@ -495,7 +495,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 --								Nx.prt ("Ang %s %s = %s", ang1, ang2, ang)
 
-								if con.StartMapId ~= node1.MapId then	-- Open connection caused us to switch zones? No split
+								if con.StartMapId ~= node1.MapId then		-- Open connection caused us to switch zones? No split
 									node1.NoSplit = true
 								end
 
@@ -731,7 +731,7 @@ end
 
 function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, skipIndirect)
 
-	if self.FlyingMount then		-- Can fly?
+	if self.FlyingMount then					-- Can fly?
 		return ((srcX - dstX) ^ 2 + (srcY - dstY) ^ 2) ^ .5	-- Use straight line distance
 	end
 
@@ -769,7 +769,7 @@ function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, s
 
 		return closeDist, closeCon
 
-	elseif not skipIndirect then	-- No direct connection
+	elseif not skipIndirect then		-- No direct connection
 
 		local closeCon
 		local closeDist = 9000111222333444
@@ -796,7 +796,7 @@ function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, s
 
 						local penalty = winfo[mapId].Connections[dstMapId] and 1 or 2
 
-						local d = dist1 + con.Dist + dist2 * penalty	-- Penalty for no direct connection
+						local d = dist1 + con.Dist + dist2 * penalty		-- Penalty for no direct connection
 
 						if d < closeDist then
 							closeDist = d
@@ -900,5 +900,5 @@ function Nx.Travel:GetRidingSkill()
 	end
 	return SkillRiding
 end
--------------------------------------------------------------------------------
--- EOF
+
+--------------------------------------------------------------------------------- EOF
