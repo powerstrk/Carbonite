@@ -5,7 +5,6 @@ end
 local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "koKR")
 if not L then return end
 
-
 L["A Brewing Storm"] = "양조 폭풍"
 L["A Little Patience"] = "약간의 참을성"
 L["Abyssal Depths"] = "심연의 나락"
@@ -46,6 +45,7 @@ L["Blasted Lands"] = "저주받은 땅"
 L["Blood in the Snow"] = "피로 얼룩진 설원"
 L["Bloodmaul Slag Mines"] = "피망치 잿가루 광산"
 L["Bloodmyst Isle"] = "핏빛안개 섬"
+L["Bonetown Scenario"] = true				-- is this needed (from zhTW)
 L["Borean Tundra"] = "북풍의 땅"
 L["Brewmoon Festival"] = "맥주달 축제"
 L["Burning Steppes"] = "불타는 평원"
@@ -198,7 +198,7 @@ L["Stonetalon Mountains"] = "돌발톱 산맥"
 L["Stormshield"] = "폭풍방패"
 L["Stormstout Brewery"] = "스톰스타우트 양조장"
 L["Stormwind City"] = "스톰윈드"
-L["The Stockade"] = true		--	Replaces Stormwind Stockade (스톰윈드 지하감옥)
+L["The Stockade"] = true				-- Replaces Stormwind Stockade (스톰윈드 지하감옥)
 L["Strand of the Ancients"] = "고대의 해안"
 L["Stranglethorn Vale"] = "가시덤불 골짜기"
 L["Stratholme"] = "스트라솔름"
@@ -210,7 +210,7 @@ L["Tanaan Jungle"] = "타나안 밀림"
 L["Tanaris"] = "타나리스"
 L["Tarren Mill vs Southshore"] = true
 L["Teldrassil"] = "텔드랏실"
-L["The Eye"] = true				--	Replaces Tempest Keep (폭풍우 요새)
+L["The Eye"] = true					-- Replaces Tempest Keep (폭풍우 요새)
 L["Temple of Kotmogu"] = "코트모구의 사원"
 L["Temple of the Jade Serpent"] = "옥룡사"
 L["Terokkar Forest"] = "테로카르 숲"

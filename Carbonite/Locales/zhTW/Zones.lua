@@ -9,7 +9,7 @@ L["A Brewing Storm"] = "雷電佳釀"
 L["A Little Patience"] = "耐心試煉"
 L["Abyssal Depths"] = "地獄深淵"
 L["Ahn'kahet: The Old Kingdom"] = "安卡罕特:古王國"
-L["Temple of Ahn'Qiraj"] = "安其拉神廟"				-- Replaces (Ahn'Qiraj = 安其拉)
+L["Temple of Ahn'Qiraj"] = "安其拉神廟"
 L["Ahn'Qiraj: The Fallen Kingdom"] = "安其拉: 沒落的王朝"
 L["Alterac Mountains"] = "奧特蘭克山脈"
 L["Alterac Valley"] = "奧特蘭克山谷"
@@ -45,7 +45,7 @@ L["Blasted Lands"] = "詛咒之地"
 L["Blood in the Snow"] = "血染滄雪"
 L["Bloodmaul Slag Mines"] = "血槌熔渣礦場"
 L["Bloodmyst Isle"] = "血謎島"
-L["Bonetown Scenario"] = "骸骨鎮事件"				-- is this needed (from zhTW)
+L["Bonetown Scenario"] = "骸骨鎮事件"				-- is this needed
 L["Borean Tundra"] = "北風凍原"
 L["Brewmoon Festival"] = "酒月節"
 L["Burning Steppes"] = "燃燒平原"
