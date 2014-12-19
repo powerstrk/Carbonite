@@ -26,7 +26,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 -- X and Y are the absolute position (lower-left corner) on the overall
 -- super-zoomed-out continent image (https://github.com/dratr/Carbonite/commits/map-zonesdocs)
 Map.MapInfo = {
-	[0] = {	-- Dummy
+	[0] = {		-- Dummy
 		Name = "Instance",
 		X = 0,
 		Y = 0,
@@ -100,7 +100,7 @@ Map.MapWorldInfo = {
 	[0] = {
 		10,
 		0, 0,
-		0, 0,  -- Index 4,5 XY world position created for zones in continents 1-5, 9
+		0, 0,		-- Index 4,5 XY world position created for zones in continents 1-5, 9
 		Overlay = "barrens",
 	},
 	[4] = {
@@ -707,7 +707,7 @@ Map.MapWorldInfo = {
 		X = 120,
 		Y = -1533.7499023437,
 		Overlay = "zuldrak",
-		Name = L["Zul'Drak"], -- [11]
+		Name = L["Zul'Drak"],	-- [11]
 		QAchievementId = 36,
 	},
 	[499] = {
@@ -1389,7 +1389,7 @@ Map.MapWorldInfo = {
 
 --------
 
-Map.InstanceInfo = {			-- Blizzard instance maps (SetInstanceMap uses size of 3 for table entries)
+Map.InstanceInfo = {		-- Blizzard instance maps (SetInstanceMap uses size of 3 for table entries)
 }
 
 Map.ZoneOverlays = {
@@ -2471,7 +2471,7 @@ Map.ZoneOverlays = {
 		["lakewintergrasp"] = "0,0,1024,768",
 	},
 	["dalaran"] = {
-		["dalaran1_"] = "0,0,1024,768",	-- FIX!!
+		["dalaran1_"] = "0,0,1024,768",		-- FIX!!
 	},
 
 	["boreantundra"] = {
@@ -2640,14 +2640,14 @@ Map.ZoneOverlays = {
 
 	-- Cataclysm
 	["tolbarad"] = {
-		["tolbarad"] = "0,0,1024,768",	-- Manual
+		["tolbarad"] = "0,0,1024,768",			-- Manual
 	},
 	["tolbaraddailyarea"] = {
-		["tolbaraddailyarea"] = "0,0,1024,768",	-- Manual
+		["tolbaraddailyarea"] = "0,0,1024,768",		-- Manual
 	},
 
 	["themaelstrom"] = {
-		["themaelstrom"] = "0,0,1024,768",	-- Manual
+		["themaelstrom"] = "0,0,1024,768",		-- Manual
 	},
 	["thelostisles_terrain2"] = {
 		["gallywixdocks"] = "351,21,173,180",
@@ -2696,7 +2696,7 @@ Map.ZoneOverlays = {
 	},
 
 	["moltenfront"] = {
-		["moltenfront"] = "0,0,1024,768",	-- Manual
+		["moltenfront"] = "0,0,1024,768",		-- Manual
 	},
 	-- Pandaria
 	["thejadeforest"] = {
@@ -2855,7 +2855,7 @@ Map.ZoneOverlays = {
 	},
 
 	["isleofgiants"] = {
-		["isleofgiants"] = "0,0,1024,768",	-- Manual
+		["isleofgiants"] = "0,0,1024,768",		-- Manual
 	},
 	["timelessisle"] = {
 		["timelessisle"] = "0,0,1024,768",
@@ -2865,18 +2865,18 @@ Map.ZoneOverlays = {
 		["dynamic"] = "0,0,0,0",
 	},
 
--- Draenor
+	-- Draenor
 
-	["ashranhordefactionhub"] = {  --1011
+	["ashranhordefactionhub"] = {		-- 1011
 		["ashranhordefactionhub"] = "0,0,1024,768",
 	},
-	["ashranalliancefactionhub"] = { -- 1009
+	["ashranalliancefactionhub"] = {	-- 1009
 		["ashranalliancefactionhub"] = "0,0,1024,768",
 	},
-	["ashran"] = { -- 978
+	["ashran"] = {				-- 978
 		["ashran"] = "0,0,1024,768",
 	},
-	["frostfireridge"] = { -- 941
+	["frostfireridge"] = {			-- 941
 		["bladespirefortress"] = "38,117,356,303",
 		["bloodmaulstronghold"] = "311,4,258,217",
 		["bonesofagurak"] = "729,319,273,349",
@@ -2895,13 +2895,13 @@ Map.ZoneOverlays = {
 		["thecracklingplains"] = "439,137,266,293",
 		["worgol"] = "72,292,317,233",
 	},
-	["garrisonffhorde_tier1"] = { -- 976
+	["garrisonffhorde_tier1"] = {		-- 976
 		["garrisonffhorde_tier1"] = "0,0,1024,768",
 	},
-	["garrisonsmvalliance_tier1"] = { -- 971
+	["garrisonsmvalliance_tier1"] = {	-- 971
 		["garrisonsmvalliance_tier1"] = "0,0,1024,768",
 	},
-	["gorgrond"] = { -- 949
+	["gorgrond"] = {			-- 949
 		["bastionrise"] = "283,507,324,161",
 		["beastwatch"] = "383,371,166,161",
 		["easternruin"] = "525,260,210,193",
@@ -2918,7 +2918,7 @@ Map.ZoneOverlays = {
 		["stripmine"] = "312,77,250,232",
 		["tangleheart"] = "451,372,262,221",
 	},
-	["nagranddraenor"] = { -- 950
+	["nagranddraenor"] = {			-- 950
 		["ancestral"] = "239,259,234,191",
 		["brokenprecipice"] = "256,12,305,227",
 		["elementals"] = "588,0,286,274",
@@ -2935,7 +2935,7 @@ Map.ZoneOverlays = {
 		["sunspringwatch"] = "312,98,274,254",
 		["telaar"] = "461,353,296,272",
 	},
-	["spiresofarak"] = { -- 948
+	["spiresofarak"] = {			-- 948
 		["bloodbladeredoubt"] = "334,210,209,154",
 		["bloodmanevalley"] = "410,350,229,246",
 		["centerravennest"] = "444,255,188,190",
@@ -2954,7 +2954,7 @@ Map.ZoneOverlays = {
 		["venturecove"] = "465,475,226,193",
 		["writhingmire"] = "197,198,229,213",
 	},
-	["shadowmoonvalleydr"] = { -- 947
+	["shadowmoonvalleydr"] = {		-- 947
 		["anguishfortress"] = "140,160,309,264",
 		["darktideroost"] = "468,467,282,201",
 		["elodor"] = "426,0,291,266",
@@ -2969,7 +2969,7 @@ Map.ZoneOverlays = {
 		["socrethar"] = "383,411,202,201",
 		["swisland"] = "309,460,173,160",
 	},
-	["talador"] = { -- 946
+	["talador"] = {				-- 946
 		["aruuna"] = "597,178,389,234",
 		["auchindoun"] = "338,356,309,262",
 		["centerisles"] = "546,228,252,280",
@@ -2986,10 +2986,10 @@ Map.ZoneOverlays = {
 		["tuurem"] = "472,148,225,224",
 		["zangarra"] = "713,35,287,277",
 	},
-	["tanaanjungle"] = { -- 945
+	["tanaanjungle"] = {			-- 945
 		["tanaanjungle"] = "0,0,1024,768",
 	},
-	["tanaanjungleintro"] = {	-- 970
+	["tanaanjungleintro"] = {		-- 970
 		["tanaanjungleintro"] = "0,0,1024,768",
 	},
 }
@@ -7503,7 +7503,7 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[795].X + Map.MapInfo[1].X + 3152.92266259766, Map.MapWorldInfo[795].Y + Map.MapInfo[1].Y + -2105.97034960937,
 		"World\\Minimaps\\FirelandsDailies"
 	},
-	[640] = {	-- 2625 to 3534
+	[640] = {		-- 2625 to 3534
 		Map.DeepholmMapBlks,
 		2625,
 		26, 25,
@@ -7551,7 +7551,7 @@ function Nx.Map:GetMiniInfo (mapId)
 			return
 		end
 
-		if id == 9 then	-- BGs?
+		if id == 9 then		-- BGs?
 			return
 		end
 
@@ -7563,7 +7563,7 @@ function Nx.Map:GetMiniInfo (mapId)
 
 	local t = self.MiniMapBlks[id]
 
-	if not t then		-- "Isle of Quel'Danas"??
+	if not t then			-- "Isle of Quel'Danas"??
 
 --		if NxData.DebugMap then
 --			Nx.prt ("GetMiniInfo: missing %s", id)
@@ -7652,7 +7652,7 @@ function Nx.Map:ConvertMapData()
 
 --			local name, minLvl, maxLvl, faction, cont = strsplit ("|", Nx.Zones[nxid])
 
---			if faction ~= "3" then	-- Not instance
+--			if faction ~= "3" then		-- Not instance
 
 				ay1 = tonumber (ay1)
 				ay2 = tonumber (ay2)
@@ -7665,8 +7665,8 @@ function Nx.Map:ConvertMapData()
 					local t = {}
 					areas[nxid] = t
 					t[1] = scale
-					t[2] = -ay1 / 5						-- X
-					t[3] = -ax1 / 5						-- Y
+					t[2] = -ay1 / 5		-- X
+					t[3] = -ax1 / 5		-- Y
 					t[4] = aname
 					Nx.prt("%s %s %s %s",t[4],t[2],t[3],t[1])
 				end
@@ -7674,8 +7674,8 @@ function Nx.Map:ConvertMapData()
 		end
 
 --		if map == 0 or map == 1 then
---		if map == 648 or map == 646 or map == 730 then			-- Maelstrom
---		if map == 654 then	-- Gilneas
+--		if map == 648 or map == 646 or map == 730 then		-- Maelstrom
+--		if map == 654 then					-- Gilneas
 --		if map == 571 or map == 609 then			-- Northrend, DK start
 		if map == 1064 or map == 870 then
 --			Nx.prt ("%s %s %s", aid, map, aname)
@@ -7696,12 +7696,11 @@ function Nx.Map:ConvertMapData()
 				end
 			end
 
-			if next (area) then	-- Not empty?
+			if next (area) then				-- Not empty?
 				data[aname] = area
 			end
 		end
 	end
 end
 ]]--
--------------------------------------------------------------------------------
---EOF
+---------------------------------------------------------------------------------EOF

@@ -124,9 +124,9 @@ L["Auto Scale"] = "自动缩放"
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "寻找考古点"		-- NXlARTIFACTS
-L["Extract Gas"] = "精炼气体"					-- NXlEXTRACTGAS
-L["Herb Gathering"] = "草药采集"				-- NXlHERBGATHERING
-L["In Conflict"] = "争夺中"						-- NXlINCONFLICT
-L["Opening"] = "打开"							-- NXlOpening
-L["Opening - No Text"] = true					-- NXlOpeningNoText
-L["Everfrost Chip"] = "永冻薄片"				-- NXlEverfrost
+L["Extract Gas"] = "精炼气体"				-- NXlEXTRACTGAS
+L["Herb Gathering"] = "草药采集"			-- NXlHERBGATHERING
+L["In Conflict"] = "争夺中"				-- NXlINCONFLICT
+L["Opening"] = "打开"					-- NXlOpening
+L["Opening - No Text"] = true				-- NXlOpeningNoText
+L["Everfrost Chip"] = "永冻薄片"			-- NXlEverfrost

@@ -155,7 +155,7 @@ function Nx.Map:Init()
 	hist.Cnt = Nx.db.profile.Map.TrailCnt
 
 	for n = 1, hist.Cnt * 4, 4 do
-		hist[n] = 0				-- Secs
+		hist[n] = 0		-- Secs
 		hist[n + 1] = 0		-- World X
 		hist[n + 2] = 0		-- World Y
 		hist[n + 3] = 0		-- Direction
@@ -188,14 +188,14 @@ function Nx.Map:Init()
 	self.WorldMapHideNames = {
 		"WorldMapCorpse", "WorldMapDeathRelease", "WorldMapPing", "OutlandButton", "AzerothButton"
 	}
-	self.AddonMinimapNames = {		-- # is stripped
+	self.AddonMinimapNames = {			-- # is stripped
 		["GatherNote"] = true,
 		["GatherMatePin"] = true,
 		["MobMapMinimapDot_"] = true,
 		["CartographerNotesPOI"] = true,
 		["RecipeRadarMinimapIcon"] = true,
 		["NauticusMiniIcon"] = true,
-		["ZGVMarkerMini"] = true,			-- Zygor ZGVMarker1Mini
+		["ZGVMarkerMini"] = true,		-- Zygor ZGVMarker1Mini
 	}
 	-- Emulate TomTom
 	if Nx.db.profile.Track.EmuTomTom and not Nx.RealTom then
@@ -459,10 +459,10 @@ function Nx.Map:Create (index)
 	setmetatable (m, self)
 	self.__index = self
 
-	m.Tick = 0												-- Debug tick
-	m.Debug = nil											-- Debug on
+	m.Tick = 0						-- Debug tick
+	m.Debug = nil						-- Debug on
 	m.DebugTime = nil
-	m.DebugFullCoords = nil								-- Debug high precision map coords
+	m.DebugFullCoords = nil					-- Debug high precision map coords
 	m.DebugAdjustScale = .1
 
 	m.MapIndex = index
@@ -476,7 +476,7 @@ function Nx.Map:Create (index)
 	m.PadX = 0
 	m.Scale = .025
 	m.RealScale = .025
-	m.ScaleDraw = .025									-- Actual draw scale
+	m.ScaleDraw = .025					-- Actual draw scale
 	m.MapScale = opts.NXMapScale or 1
 	m.MapW = 150
 	m.MapH = 140
@@ -487,7 +487,7 @@ function Nx.Map:Create (index)
 	m.Scrolling = false
 	m.StepTime = 0
 	m.MapId = 0
-	m.BaseScale = 1										-- Scale values, because instances are smaller
+	m.BaseScale = 1						-- Scale values, because instances are smaller
 	m.PlyrX = 0
 	m.PlyrY = 0
 	m.PlyrRZX = 0
@@ -502,18 +502,18 @@ function Nx.Map:Create (index)
 	m.MoveLastX = 0
 	m.MoveLastY = 0
 	m.ViewSavedData = {}
-	m.MapPosX = 2200											-- World position of map
+	m.MapPosX = 2200					-- World position of map
 	m.MapPosY = -100
-	m.MapPosXDraw = m.MapPosX								-- Actual draw position
+	m.MapPosXDraw = m.MapPosX				-- Actual draw position
 	m.MapPosYDraw = m.MapPosY
-	m.MapsDrawnOrder = {}									-- [index (1st is newest)] = map id
-	m.MapsDrawnFade = {}										-- [map id] = fade
+	m.MapsDrawnOrder = {}					-- [index (1st is newest)] = map id
+	m.MapsDrawnFade = {}					-- [map id] = fade
 	m.MiniBlks = Nx.db.profile.Map.DetailSize
 	m.ArchAlpha = opts.NXArchAlpha
 	m.QuestAlpha = opts.NXQuestAlpha
 	m.BackgndAlphaFade = opts.NXBackgndAlphaFade
 	m.BackgndAlphaFull = opts.NXBackgndAlphaFull
-	m.BackgndAlpha = 0									-- Current value
+	m.BackgndAlpha = 0					-- Current value
 	m.BackgndAlphaTarget = m.BackgndAlphaFade		-- Target value
 	m.WorldAlpha = 0
 	m.DotZoneScale = opts.NXDotZoneScale
@@ -536,7 +536,7 @@ function Nx.Map:Create (index)
 	m.Data = {}
 	m.IconFrms = {}
 	m.IconFrms.Next = 1
-	m.IconNIFrms = {}				-- Non interactive
+	m.IconNIFrms = {}					-- Non interactive
 	m.IconNIFrms.Next = 1
 	m.IconStaticFrms = {}
 	m.IconStaticFrms.Next = 1

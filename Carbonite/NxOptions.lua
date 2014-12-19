@@ -4547,7 +4547,7 @@ function Nx.Opts:Update()
 
 						list:ItemSetColorButton (opts, item.V, false)
 
-					elseif typ == "CH" then	-- Choice
+					elseif typ == "CH" then		-- Choice
 
 						local i = self:GetVar (item.V)
 						istr = format ("%s  |cffffff80%s", istr, i)
@@ -4891,5 +4891,4 @@ function Nx.Opts:SetVar (varName, val)
 	end
 end
 
--------------------------------------------------------------------------------
--- EOF
+--------------------------------------------------------------------------------- EOF

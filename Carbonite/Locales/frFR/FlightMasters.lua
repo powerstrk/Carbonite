@@ -394,6 +394,7 @@ L["Exarch's Refuge, Talador"] = "Refuge de L'Exarque, Talador"
 L["Fort Wrynn, Talador"] = "Fort Wyrnn, Talador"
 L["Redemption Rise, Talador"] = "Cime de la R\195\169demption, Talador"
 L["Durotan's Grasp, Talador"] = "Emprise de Durotan, Talador"
+L["Exarch's Refuge, Talador"] = true
 L["Frostwolf Overlook, Talador"] = "Surplomb Loup-de-Givre, Talador"
 L["Vol'jin's Pride, Talador"] = "Fiert\195\169 de Vol'jin, Talador"
 -- Translation for Flight_LOC

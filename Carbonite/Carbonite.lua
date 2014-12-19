@@ -7,7 +7,7 @@
 -- the Free Software Foundation, either version 3 of the License, or
 -- (at your option) any later version.
 --
--- This program is distributed in the hope that it will be useful,f
+-- This program is distributed in the hope that it will be useful,
 -- but WITHOUT ANY WARRANTY; without even the implied warranty of
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
@@ -25,11 +25,11 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR				= 6.0
-Nx.VERMINOR				= .0				-- Not 0 is a test version
-Nx.BUILD				= 118
+Nx.VERMAJOR			= 6.0
+Nx.VERMINOR			= .0				-- Not 0 is a test version
+Nx.BUILD			= 118
 
-Nx.VERSION				= Nx.VERMAJOR + Nx.VERMINOR / 100
+Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
 
 Nx.VERSIONDATA			= .02				-- Main data
 Nx.VERSIONCHAR			= .02				-- Character data
@@ -44,8 +44,8 @@ Nx.VERSIONWin			= .31				-- Window layouts
 Nx.VERSIONTOOLBAR		= .1				-- Tool Bar data
 Nx.VERSIONCAP			= .75				-- Captured data (quest recording)
 Nx.VERSIONVENDORV		= .56				-- Visited vendor data
-Nx.VERSIONTransferData	= .1				-- Transfer data
-Nx.TXTBLUE				= "|cffc0c0ff"
+Nx.VERSIONTransferData		= .1				-- Transfer data
+Nx.TXTBLUE			= "|cffc0c0ff"
 
 Nx.Tick = 0
 
@@ -636,7 +636,7 @@ function Nx.slashCommand (txt)
 		Nx.Com:Test (a1, a2)
 
 	elseif cmd == "comver" then
-		if Nx.db.profile.Debug.VerDebug then			-- Stop casual use
+		if Nx.db.profile.Debug.VerDebug then		-- Stop casual use
 			Nx.Com:GetUserVer()
 		end
 
@@ -881,7 +881,7 @@ function Nx:OnPlayer_login (event, ...)
 	Nx.BlizzChatFrame_DisplayTimePlayed = ChatFrame_DisplayTimePlayed		-- Save func
 	ChatFrame_DisplayTimePlayed = function() end
 
---	RequestTimePlayed()	-- Blizz does not do anymore on login???
+--	RequestTimePlayed()		-- Blizz does not do anymore on login???
 	Nx.RequestTime = true;
 end
 
@@ -993,10 +993,10 @@ function Nx:UnitDTip()
 			dist = tonumber (dist)
 
 			local dcur = 9
-			if CheckInteractDistance ("mouseover", 1) then	-- 28 yards
+			if CheckInteractDistance ("mouseover", 1) then		-- 28 yards
 				dcur = 2
 			end
-			if CheckInteractDistance ("mouseover", 3) then	-- 9.9 yards
+			if CheckInteractDistance ("mouseover", 3) then		-- 9.9 yards
 				dcur = 1
 			end
 
@@ -1437,7 +1437,7 @@ function Nx:InitGlobal()
 
 		Nx.db:ResetDB("Default")
 		Nx.db.profile.Version.OptionsVersion = Nx.VERSIONDATA
-		Nx.db.global.Characters = {}  -- Indexed by "Server.Name"
+		Nx.db.global.Characters = {}		-- Indexed by "Server.Name"
 	end
 
 	if not Nx.db.profile.Version.NXVer1 then
@@ -1759,14 +1759,14 @@ function Nx:InitCharacter()
 
 	ch["Opts"] = ch["Opts"] or {}		-- Character options
 
-	ch["L"] = ch["L"] or {}	-- List
+	ch["L"] = ch["L"] or {}			-- List
 
 	if not ch["TBar"] then
-		ch["TBar"] = {}	-- Tool Bar layouts
+		ch["TBar"] = {}			-- Tool Bar layouts
 	end
 
-	ch["Profs"] = ch["Profs"] or {}	-- Professions
-	ch["Professions"] = nil				-- Old
+	ch["Profs"] = ch["Profs"] or {}		-- Professions
+	ch["Professions"] = nil			-- Old
 
 	self:DeleteOldEvents()
 
@@ -1812,7 +1812,7 @@ function Nx:CalcRealmChars()
 			end
 		end
 	end
-	sort (t)		-- Alphabetical
+	sort (t)			-- Alphabetical
 	tinsert (t, 1, fullName)	-- Put me at top
 	self.RealmChars = t
 	-- Fix char data
@@ -3108,10 +3108,10 @@ Nx.GatherRemap = {
 	},
 	["NXMine"] = {
 		[6] = 9,		-- Gold
-		[17] = 20,	-- Silver
-		[23] = 22,	-- Rich Cobalt Deposit
-		[25] = 24,	-- Rich Saronite Deposit
-		[26] = 24,	-- Titanium
+		[17] = 20,		-- Silver
+		[23] = 22,		-- Rich Cobalt Deposit
+		[25] = 24,		-- Rich Saronite Deposit
+		[26] = 24,		-- Titanium
 	}
 }
 
@@ -3123,7 +3123,7 @@ function Nx:GatherInit()
 		self.DoGatherUpgrade = nil
 		Nx:GatherVerUpgrade()
 	end
-	Nx.GatherVerUpgrade = nil			-- Kill it
+	Nx.GatherVerUpgrade = nil		-- Kill it
 	Nx.GatherVerUpgradeType = nil		-- Kill it
 end
 
@@ -3284,7 +3284,7 @@ end
 function Nx:GatherNodeToCarb (id)
 
 	local gatherIDs = {
-		-- Mining Node Conversions
+	-- Mining Node Conversions
 		[201] = 3,
 		[202] = 20,
 		[203] = 9,
@@ -3333,7 +3333,7 @@ function Nx:GatherNodeToCarb (id)
 		[246] = 36,
 		[247] = 37,
 		[248] = 38,
--- Herbalism Nodes
+	-- Herbalism Nodes
 		[401] = 30,
 		[402] = 34,
 		[403] = 10,
@@ -3458,7 +3458,7 @@ end
 
 function Nx.Item:Load (id)
 
-	if self.Asked[id] then	-- Ask once
+	if self.Asked[id] then			-- Ask once
 
 --		Nx.prt ("Asked %s", id)
 
@@ -3778,7 +3778,7 @@ function Nx.NXMiniMapBut:Move (x, y)
 
 	local mm = _G["Minimap"]
 
-	local l = mm:GetLeft() + 70				-- Minimap is 140x140
+	local l = mm:GetLeft() + 70		-- Minimap is 140x140
 	local b = mm:GetBottom() + 70
 --[[
 	if not x then
@@ -3877,9 +3877,9 @@ function Nx.Proc:OnUpdate (elapsed)
 			if d <= 0 then
 				d = p.Func (p.User, p) or 1
 
-				if d < 0 then						-- No time?
+				if d < 0 then				-- No time?
 					tremove (self.Procs, n)		-- Kill proc
-					n = n - 1						-- Same index again
+					n = n - 1			-- Same index again
 				end
 			end
 			p.Delay = d
@@ -3892,5 +3892,4 @@ function Nx.Proc:OnUpdate (elapsed)
 	self.TimeLeft = elapsed
 end
 
--------------------------------------------------------------------------------
---EOF
+---------------------------------------------------------------------------------EOF
