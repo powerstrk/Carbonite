@@ -3705,6 +3705,10 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		map.Scrolling = false
 	end
 
+	if map.InstanceId then
+		winx = nil
+	end
+	
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
 		winx = nil
 	end
@@ -3843,7 +3847,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 			map.BackgndAlphaTarget = map.BackgndAlphaFade
 
-			local rid = map:GetRealMapId()
+			local rid = map.UpdateMapID
 			if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
 				local mapId = map:GetCurrentMapId()
@@ -4233,11 +4237,14 @@ function Nx.Map:Update (elapsed)
 	SetMapToCurrentZone()
 	local plZX, plZY = GetPlayerMapPosition ("player")
 	self.UpdateMapID = GetCurrentMapAreaID()
-	SetMapByID(rid)
+	local dungeontest = GetCurrentMapDungeonLevel()
+	if dungeontest == 0 or rid ~= self.UpdateMapID then
+		SetMapByID(rid)
+	end
 	self.InstanceId = false
-	if self:IsInstanceMap (rid) then
+	if self:IsInstanceMap (self.UpdateMapID) then
 
-		self.InstanceId = rid
+		self.InstanceId = self.UpdateMapID
 
 		plZX = plZX * 100
 		plZY = plZY * 100
@@ -4250,7 +4257,7 @@ function Nx.Map:Update (elapsed)
 		self.PlyrRZX = plZX
 		self.PlyrRZY = plZY
 
-		local x, y = self:GetWorldPos (rid, 0, 0)
+		local x, y = self:GetWorldPos (self.UpdateMapID, 0, 0)
 
 		local lvl = max (GetCurrentMapDungeonLevel(), 1)		-- 0 if no level
 
@@ -6002,7 +6009,7 @@ function Nx.Map:MoveCurZoneTiles (clear)
 	end
 	if not clear and
 			(not wzone or wzone.City or (wzone.StartZone and self.RMapId == mapId) or
-			self:IsBattleGroundMap (mapId)) or self:IsMicroDungeon(mapId) then
+			self:IsBattleGroundMap (self.RMapId)) or self:IsMicroDungeon(self.RMapId) then
 
 --		Nx.prt ("MoveCurZoneTiles %d", mapId)
 		local alpha = self.BackgndAlpha * (wzone.Alpha or 1)
@@ -6189,13 +6196,12 @@ function Nx.Map:UpdateZones()
 	if freeOrScale or
 		winfo.City or
 		(winfo.StartZone and self.UpdateMapID == mapId) or
-		self:IsBattleGroundMap (mapId) or
-		self:IsMicroDungeon(mapId) then
+		self:IsBattleGroundMap (self.UpdateMapID) or
+		self:IsMicroDungeon(self.UpdateMapID) then
 
 --		if freeOrScale and self.MapIdOld and self.MapIdOld ~= mapId then
 --			self:UpdateOverlay (id, .8, true)
---		end
-
+--		end		
 		for n, id in ipairs (self.MapsDrawnOrder) do
 			self:UpdateOverlay (id, .8, true)
 		end
@@ -6568,7 +6574,7 @@ function Nx.Map:UpdateMiniFrames()
 
 --	or winfo.City
 
-	if self.ScaleDraw <= s or opts.NXDetailAlpha <= 0 or self:IsBattleGroundMap (mapId) or self:IsMicroDungeon(mapId) then
+	if self.ScaleDraw <= s or opts.NXDetailAlpha <= 0 or self:IsBattleGroundMap (self.UpdateMapID) or self:IsMicroDungeon(self.UpdateMapID) then
 		self:HideMiniFrames()
 		return
 	end
@@ -9016,7 +9022,7 @@ function Nx.Map:IsBattleGroundMap (mapId)
 	end
 end
 
-function Nx.Map:IsMicroDungeon(mapId)
+function Nx.Map:IsMicroDungeon(mapId)	
 	return select(4, GetMapInfo()) and Nx.Map:GetCurrentMapId() == mapId
 	--and Nx.Map:GetCurrentMapId()==mapId and Nx.IdToAId[mapId] and not Nx.Map.MapLevels[Nx.IdToAId[mapId]] then
 end
