@@ -8633,6 +8633,29 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSet(2,s)
 							list:ItemSetButton("QuestWatch",false)
 						end
+						local bonusSteps = C_Scenario.GetBonusSteps()
+						if bonusSteps then							
+							local title, task, _, completed = C_Scenario.GetStepInfo(1)
+							task = " |cffff0000Bonus |cff00ff00" .. task
+							if completed then
+								task = task .. " |cffff0000[|cffffffffComplete|cffff0000]"
+							end
+							list:ItemAdd(0)							
+							list:ItemSet(2,task)																
+							for criteria = 1, #bonusSteps do								
+								local index = bonusSteps[criteria]								
+								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)								
+								if completed then 
+									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffffComplete|cffff0000]",quantity, totalquantity, task)
+								else
+									task = format("|cffffffff%d/%d %s",quantity, totalquantity, task)
+								end
+								list:ItemAdd(0)
+								list:ItemSetOffset (16, -1)
+								list:ItemSet(2,task)
+								list:ItemSetButton("QuestWatch",false)								
+							end
+						end
 					end
 				end
 				if Nx.qdb.profile.QuestWatch.BonusTask then

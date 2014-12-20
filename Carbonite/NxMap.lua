@@ -961,9 +961,10 @@ function Nx.Map:Create (index)
 
 		local item = dbmenu:AddItem (0, L["Map Full Coords"], self.Menu_OnMapDebugFullCoords, m)
 		item:SetChecked (m.DebugFullCoords)
-
-		local item = dbmenu:AddItem (0, L["Quest Debug"], self.Menu_OnQuestDebug, m)
-		item:SetChecked (Nx.Quest.Debug)
+		if Nx.Quest then
+			local item = dbmenu:AddItem (0, L["Quest Debug"], self.Menu_OnQuestDebug, m)
+			item:SetChecked (Nx.Quest.Debug)
+		end
 
 		local function func (self, item)
 			self.DebugScale = item:GetSlider()
