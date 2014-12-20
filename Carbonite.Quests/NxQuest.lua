@@ -3611,7 +3611,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 
 	IS_BACKGROUND_WORLD_CACHING = true
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
-
+	WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
 --	local tm = GetTime()
 
 	local Map = Nx.Map
@@ -3621,6 +3621,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
 				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+				WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
 				Nx.Quest.WorldUpdate = false
 				return
 			end
@@ -3632,6 +3633,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			end
 		end
 	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+	WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
 	Map:SetCurrentMap (curMapId)
 	IS_BACKGROUND_WORLD_CACHING = false
 	self:RecordQuestsLog()
