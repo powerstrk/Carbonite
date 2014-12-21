@@ -1060,6 +1060,10 @@ Map.MapWorldInfo = {
 		Overlay = "valeofeternalblossoms",
 		Name=L["Vale of Eternal Blossoms"],
 	},
+	[813] = {
+		BaseMap = 482,
+		Short = "EOS",
+	},
     [823] = {
 		Scale = 3.716666015625,
 		X = -1453.7499023437,
