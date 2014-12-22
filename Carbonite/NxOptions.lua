@@ -509,19 +509,6 @@ local function mapConfig ()
 								Nx.db.profile.Map.RouteUse = not Nx.db.profile.Map.RouteUse
 							end,
 						},
-						restoreScale = {
-							order = 14,
-							type = "toggle",
-							name = L["Restore map scale after track"],
-							width = "full",
-							desc = L["When enabled, restores your previous map scale when tracking is cleared."],
-							get = function()
-								return Nx.db.profile.Map.RestoreScaleAfterTrack
-							end,
-							set = function()
-								Nx.db.profile.Map.RestoreScaleAfterTrack = not Nx.db.profile.Map.RestoreScaleAfterTrack
-							end,
-						},
 						spacer3 = {
 							order = 15,
 							type = "description",
