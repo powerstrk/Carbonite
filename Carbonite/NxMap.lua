@@ -8200,7 +8200,7 @@ function Nx.Map:GetMap (mapIndex)
 	if self.Maps then
 		return self.Maps[mapIndex]
 	end
-	assert(0, "Erroneous Map Index requested (probably by some other addon): mapIndex = " .. mapIndex)
+	assert(0, "Erroneous Map Index requested (probably by some other addon): mapIndex = " .. (mapIndex or 'missing'))
 end
 
 --------
