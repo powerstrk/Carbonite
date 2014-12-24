@@ -8822,7 +8822,7 @@ function Nx.Quest.Watch:UpdateList()
 							if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
 							end
-							list:ItemSetButtonTip (cur.ObjText .. (cur.PartyDesc or ""))
+							list:ItemSetButtonTip ((cur.ObjText or "?") .. (cur.PartyDesc or ""))
 							local color = isComplete and compColor or incompColor
 							local lvlStr = ""
 							if level > 0 then
@@ -9583,7 +9583,9 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 			name, zone, loc = Quest:UnpackSE (questObj)
 		else
 			questObj = quest["Objectives"][qObj]
-			name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
+			if questObj and questObj[1] then
+				name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
+			end
 		end
 
 --		Nx.prt ("TrackOnMap %s %s %s %s %s", qId, qObj, track, name, zone)
