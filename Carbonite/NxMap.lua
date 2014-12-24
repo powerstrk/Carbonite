@@ -202,10 +202,54 @@ function Nx.Map:Init()
 		TomTom = {}
 		Nx.EmulateTomTom()
 	end
+	Nx.Map.UpdateMapID = WorldMapFrame.mapID
+	SetMapByID(Nx.Map.UpdateMapID)
 end
 
 --------
 -- Open and init
+
+local blizSetMapToCurrentZone = SetMapToCurrentZone
+local blizSetMapByID = SetMapByID
+
+function SetMapToCurrentZone(carbcalled) 
+	if carbcalled then
+		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
+			Nx.CurrentDetectedZone = GetRealZoneText()			
+			blizSetMapToCurrentZone()
+			Nx.Map.UpdateMapID = WorldMapFrame.mapID
+		end
+	else
+		if not Nx.Map.MouseOver then
+			blizSetMapToCurrentZone()
+			Nx.Map.UpdateMapID = WorldMapFrame.mapID					
+		end
+	end
+end
+
+function SetMapByID(zone,level)
+	if Nx.Map.MouseOver then		
+		if Nx.Map.MouseIsOverMap then			
+			zone = Nx.Map.MouseIsOverMap			
+			Nx.Map.RMapId = zone
+		else
+			Nx.Map.RMapId = Nx.Map.UpdateMapID
+			return
+		end
+	else
+		Nx.Map.RMapId = Nx.Map.UpdateMapID
+	end
+	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then		
+		if zone then						
+			Nx.CurrentSetZone = zone
+			if level then
+				blizSetMapByID(zone,level)
+			else
+				blizSetMapByID(zone)
+			end		
+		end
+	end
+end
 
 function Nx.Map:Open()
 
@@ -599,6 +643,7 @@ function Nx.Map:Create (index)
 	win:RegisterEvent ("PLAYER_REGEN_ENABLED", self.OnEvent)
 	win:RegisterEvent ("ZONE_CHANGED", self.OnEvent)
 	win:RegisterEvent ("ZONE_CHANGED_INDOORS", self.OnEvent)
+	
 	f:SetScript ("OnMouseDown", self.OnMouseDown)
 	f:SetScript ("OnMouseUp", self.OnMouseUp)
 	f:SetScript ("OnMouseWheel", self.OnMouseWheel)
@@ -3680,9 +3725,9 @@ local ttl = 0
 function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
---	if ttl < .2 then
---		return
---	end
+	if ttl < .05 then
+		return
+	end
 	ttl = 0
 --	if IsControlKeyDown() then		return	end
 
@@ -3715,7 +3760,13 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	end
 
 	map.MouseIsOver = winx
-
+	
+	if winx then
+		Nx.Map.MouseOver = true
+	else
+		Nx.Map.MouseOver = false
+	end
+	
 	-- Scroll map with mouse
 
 	if map.Scrolling then
@@ -3848,7 +3899,8 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 			map.BackgndAlphaTarget = map.BackgndAlphaFade
 
-			local rid = map.UpdateMapID
+			local rid = map.RMapId
+
 			if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
 				local mapId = map:GetCurrentMapId()
@@ -3869,7 +3921,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 					end
 				end
 
-				if mapId ~= rid then
+				if map.UpdateMapID ~= rid then
 					if map:IsBattleGroundMap (rid) then
 						SetMapToCurrentZone()
 					else
@@ -4013,7 +4065,7 @@ function Nx.Map:UpdateWorld()
 
 	self.NeedWorldUpdate = false
 
-	local mapId = self:GetCurrentMapId()
+	local mapId = self:GetCurrentMapId()	
 	local winfo = self.MapWorldInfo[mapId]
 	if not winfo then
 		winfo = {}
@@ -4058,8 +4110,8 @@ function Nx.Map:UpdateWorld()
 		dungeonLevel = dungeonLevel - 1;
 	end
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
-	if winfo.MapBaseName then texName = winfo.MapBaseName end
-	if winfo.Garrison then
+	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
+	if winfo.Garrison and not isMicro then
 		local level, mapname, x, y = C_Garrison.GetGarrisonInfo()
 		if not level then
 			level = "1"
@@ -4219,7 +4271,7 @@ function Nx.Map:Update (elapsed)
 
 	-- Real map switch
 
-	if self.RMapId ~= rid then
+	if self.RMapId ~= rid then		
 		if rid ~= 9000 then
 --			Nx.prt ("Map zone changed %d, %d", rid, mapId)
 
@@ -4228,20 +4280,15 @@ function Nx.Map:Update (elapsed)
 				self:SwitchOptions (rid, true)
 			end
 			if not Nx.Menu:IsAnyOpened() then
-				self.RMapId = rid
+				SetMapByID(rid)
 				self:SwitchOptions (rid)
 				self:SwitchRealMap (rid)
 			end
 		end
 		self.Scale = self.RealScale
 	end
-	SetMapToCurrentZone()
-	local plZX, plZY = GetPlayerMapPosition ("player")
-	self.UpdateMapID = GetCurrentMapAreaID()
+	local plZX, plZY = GetPlayerMapPosition ("player")	
 	local dungeontest = GetCurrentMapDungeonLevel()
-	if dungeontest == 0 or rid ~= self.UpdateMapID then
-		SetMapByID(rid)
-	end
 	self.InstanceId = false
 	if self:IsInstanceMap (self.UpdateMapID) then
 
@@ -4368,7 +4415,7 @@ function Nx.Map:Update (elapsed)
 				local scOn = self.LOpts.NXAutoScaleOn		--self.GOpts["MapFollowChangeScale"]
 				if plZX ~= 0 or plZY ~= 0 then
 					if #self.Tracking == 0 or not scOn then
-						self:Move (plX, plY, nil, 60)
+						self:Move (plX, plY, nil, 30)
 					end
 				end
 
@@ -4423,7 +4470,7 @@ function Nx.Map:Update (elapsed)
 						local scmax = self.InstanceId and 800 or self.LOpts.NXAutoScaleMax
 
 						scale = max (min (scale, scmax), self.LOpts.NXAutoScaleMin)
-						self:Move (mX, mY, scale, 60)
+						self:Move (mX, mY, scale, 30)
 					end
 				end
 
@@ -5882,11 +5929,10 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 
 			if spot.MapId ~= curId then
 
---				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
-
+--				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)				
 				self:SetCurrentMap (spot.MapId)
 			end
-
+			Nx.Map.MouseIsOverMap = spot.MapId
 			self.WorldHotspotTipStr = spot.NxTipBase .. "\n"
 --[[
 			if false then
@@ -6183,7 +6229,7 @@ end
 
 function Nx.Map:UpdateZones()
 
-	local mapId = self.MapId
+	local mapId = self.MapId	
 	local winfo = self.MapWorldInfo[mapId]
 	if not winfo then
 		winfo = {}
@@ -6268,7 +6314,6 @@ function Nx.Map:UpdateZones()
 	else
 		self:MoveCurZoneTiles (true)		-- Clear
 		self:UpdateMiniFrames()
-
 	end
 end
 
@@ -8647,15 +8692,7 @@ end
 -- Get the real player location map id without map level calculation
 
 function Nx.Map:GetRealBaseMapId()
-	local mapID = GetCurrentMapAreaID()
-	if mapID == self.MapId then
-		return mapID
-	else
-		SetMapToCurrentZone()
-		local mapID2 = GetCurrentMapAreaID()
-		SetMapByID(mapID)
-		return mapID2
-	end
+		return self.UpdateMapID
 end
 
 --------
@@ -8877,7 +8914,7 @@ function Nx.Map:GotoCurrentZone()
 --	Nx.prt ("GotoCurrentZone")
 
 	if self.InstanceId then
-		self:Move (self.PlyrX, self.PlyrY, 20, 30)
+		self:Move (self.PlyrX, self.PlyrY, 20, 15)
 	else
 
 		self:SetToCurrentZone()
@@ -8929,7 +8966,7 @@ function Nx.Map:CenterMap (mapId, scale)
 
 	local scale = size / self:GetWorldZoneScale (mapId) * 10.02
 
-	self:Move (x, y, scale, 30)
+	self:Move (x, y, scale, 15)
 
 --	Nx.prt ("Center #%d %f (%f %f) (%d %d)", mapId, self.Scale, self.MapPosX, self.MapPosY, self.MapW, self.MapH)
 end
@@ -9313,7 +9350,7 @@ function Nx.Map:ClearTargets (matchType)
 --		self.Scale = self.ScaleBeforeTarget
 
 		self:GotoPlayer()		-- Map won't move if cursor on it
-		self:Move (self.PlyrX, self.PlyrY, self.ScaleBeforeTarget, 60)
+		self:Move (self.PlyrX, self.PlyrY, self.ScaleBeforeTarget, 30)
 	end
 
 	self.ScaleBeforeTarget = false

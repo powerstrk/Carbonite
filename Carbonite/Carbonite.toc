@@ -1,6 +1,6 @@
 ## Interface: 60000
-## Title: Carbonite 6.0
-## Version: 6.0
+## Title: Carbonite 6.0.1
+## Version: 6.0.1
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

@@ -179,7 +179,17 @@ local function mainConfig()
 								   "|cd700ffff" .. L["For support, please visit the forums for Carbonite on WoW Interface."] .. "\n"..
 								   "|cd700ffff" .. L["Special thanks to"] .. ": \n\n"..
 								   "|cff9999ff" .. L["Cirax for Carbonite2 Logo"] .. "\n" ..
-								   "|cff9999ff" .. L["JimboBlue for guide location updates and checking"] .. "\n",
+								   "|cff9999ff" .. L["ircdirk & atl77 for Quest Database updates"] .. "\n" ..								   
+								   "|cff9999ff" .. L["nelegalno for many cleanups, api fixes"] .. "\n" ..
+								   "|cff9999ff" .. L["Naharis for quest watchlist fixes"] .. "\n" ..
+								   "|cff9999ff" .. L["JimboBlue for guide location updates"] .. "\n" .. 
+								   "|cff9999ff" .. L["Localization Efforts By:"] .. "\n" .. 
+								   "|cff9999ff" .. L["frFR - powerstk"] .. "\n" .. 
+								   "|cff9999ff" .. L["deDE - atl77 & samyonair"] .. "\n" .. 
+								   "|cff9999ff" .. L["itIT - ThorwaldOdin"] .. "\n" .. 
+								   "|cff9999ff" .. L["ruRU - NotDead"] .. "\n" .. 
+								   "|cff9999ff" .. L["zhCN - Raka-loah"] .. "\n" .. 
+								   "|cff9999ff" .. L["zhTW - kc305chen"] .. "\n",								   
 						},
 					},
 				},
@@ -1984,8 +1994,30 @@ local function guidegatherConfig ()
 					name = L["Herbalism"],
 					order = 3,
 					args = {
-						anclich = {
+						enableall = {
 							order = 1,
+							type = "execute",
+							width = "half",
+							name = "Enable All",
+							func = function()
+								for i = 1,69 do
+									Nx.db.profile.Guide.ShowHerbs[i] = true
+								end
+							end,
+						},
+						disableall = {
+							order = 2,
+							type = "execute",
+							width = "half",
+							name = "Disable All",
+							func = function()
+								for i = 1,69 do
+									Nx.db.profile.Guide.ShowHerbs[i] = false
+								end
+							end,						
+						},
+						anclich = {
+							order = 3,
 							type = "toggle",
 							width = "full",
 							name = L["Ancient Lichen"],
@@ -1998,7 +2030,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						arthastear = {
-							order = 2,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Arthas' Tears"],
@@ -2011,7 +2043,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						blacklotus = {
-							order = 3,
+							order = 5,
 							type = "toggle",
 							width = "full",
 							name = L["Black Lotus"],
@@ -2024,7 +2056,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						blindweed = {
-							order = 4,
+							order = 6,
 							type = "toggle",
 							width = "full",
 							name = L["Blindweed"],
@@ -2037,7 +2069,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						bloodthistle = {
-							order = 5,
+							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Bloodthistle"],
@@ -2050,7 +2082,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						briarthorn = {
-							order = 6,
+							order = 8,
 							type = "toggle",
 							width = "full",
 							name = L["Briarthorn"],
@@ -2063,7 +2095,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						bruiseweed = {
-							order = 7,
+							order = 9,
 							type = "toggle",
 							width = "full",
 							name = L["Bruiseweed"],
@@ -2076,7 +2108,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						dreamfoil = {
-							order = 8,
+							order = 10,
 							type = "toggle",
 							width = "full",
 							name = L["Dreamfoil"],
@@ -2089,7 +2121,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						dreamglory = {
-							order = 9,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Dreaming Glory"],
@@ -2102,7 +2134,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						earthroot = {
-							order = 10,
+							order = 12,
 							type = "toggle",
 							width = "full",
 							name = L["Earthroot"],
@@ -2115,7 +2147,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						fadeleaf = {
-							order = 11,
+							order = 13,
 							type = "toggle",
 							width = "full",
 							name = L["Fadeleaf"],
@@ -2128,7 +2160,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						felweed = {
-							order = 12,
+							order = 14,
 							type = "toggle",
 							width = "full",
 							name = L["Felweed"],
@@ -2141,7 +2173,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						firebloom = {
-							order = 13,
+							order = 15,
 							type = "toggle",
 							width = "full",
 							name = L["Firebloom"],
@@ -2154,7 +2186,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						flamecap = {
-							order = 14,
+							order = 16,
 							type = "toggle",
 							width = "full",
 							name = L["Flame Cap"],
@@ -2167,7 +2199,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						ghostmush = {
-							order = 15,
+							order = 17,
 							type = "toggle",
 							width = "full",
 							name = L["Ghost Mushroom"],
@@ -2180,7 +2212,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						goldsansam = {
-							order = 16,
+							order = 18,
 							type = "toggle",
 							width = "full",
 							name = L["Golden Sansam"],
@@ -2193,7 +2225,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						goldthorn = {
-							order = 17,
+							order = 19,
 							type = "toggle",
 							width = "full",
 							name = L["Goldthorn"],
@@ -2206,7 +2238,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						gravemoss = {
-							order = 18,
+							order = 20,
 							type = "toggle",
 							width = "full",
 							name = L["Grave Moss"],
@@ -2219,7 +2251,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						gromsblood = {
-							order = 19,
+							order = 21,
 							type = "toggle",
 							width = "full",
 							name = L["Gromsblood"],
@@ -2232,7 +2264,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						icecap = {
-							order = 20,
+							order = 22,
 							type = "toggle",
 							width = "full",
 							name = L["Icecap"],
@@ -2245,7 +2277,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						khadgar = {
-							order = 21,
+							order = 23,
 							type = "toggle",
 							width = "full",
 							name = L["Khadgar's Whisker"],
@@ -2258,7 +2290,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						kingsblood = {
-							order = 22,
+							order = 24,
 							type = "toggle",
 							width = "full",
 							name = L["Kingsblood"],
@@ -2271,7 +2303,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						liferoot = {
-							order = 23,
+							order = 25,
 							type = "toggle",
 							width = "full",
 							name = L["Liferoot"],
@@ -2284,7 +2316,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						mageroyal = {
-							order = 24,
+							order = 26,
 							type = "toggle",
 							width = "full",
 							name = L["Mageroyal"],
@@ -2297,7 +2329,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						manathistle = {
-							order = 25,
+							order = 27,
 							type = "toggle",
 							width = "full",
 							name = L["Mana Thistle"],
@@ -2310,7 +2342,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						mountainsilver = {
-							order = 26,
+							order = 28,
 							type = "toggle",
 							width = "full",
 							name = L["Mountain Silversage"],
@@ -2323,7 +2355,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						netherbloom = {
-							order = 27,
+							order = 29,
 							type = "toggle",
 							width = "full",
 							name = L["Netherbloom"],
@@ -2336,7 +2368,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						netherdust = {
-							order = 28,
+							order = 30,
 							type = "toggle",
 							width = "full",
 							name = L["Netherdust Bush"],
@@ -2349,7 +2381,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						nightmare = {
-							order = 29,
+							order = 31,
 							type = "toggle",
 							width = "full",
 							name = L["Nightmare Vine"],
@@ -2362,7 +2394,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						peacebloom = {
-							order = 30,
+							order = 32,
 							type = "toggle",
 							width = "full",
 							name = L["Peacebloom"],
@@ -2375,7 +2407,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						sorrowmoss = {
-							order = 31,
+							order = 33,
 							type = "toggle",
 							width = "full",
 							name = L["Sorrowmoss"],
@@ -2388,7 +2420,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						purplelotus = {
-							order = 32,
+							order = 34,
 							type = "toggle",
 							width = "full",
 							name = L["Purple Lotus"],
@@ -2401,7 +2433,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						ragveil = {
-							order = 33,
+							order = 35,
 							type = "toggle",
 							width = "full",
 							name = L["Ragveil"],
@@ -2414,7 +2446,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						silverleaf = {
-							order = 34,
+							order = 36,
 							type = "toggle",
 							width = "full",
 							name = L["Silverleaf"],
@@ -2427,7 +2459,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						stranglekelp = {
-							order = 35,
+							order = 37,
 							type = "toggle",
 							width = "full",
 							name = L["Stranglekelp"],
@@ -2440,7 +2472,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						sungrass = {
-							order = 36,
+							order = 38,
 							type = "toggle",
 							width = "full",
 							name = L["Sungrass"],
@@ -2453,7 +2485,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						terocone = {
-							order = 37,
+							order = 39,
 							type = "toggle",
 							width = "full",
 							name = L["Terocone"],
@@ -2466,7 +2498,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						wildsteel = {
-							order = 38,
+							order = 40,
 							type = "toggle",
 							width = "full",
 							name = L["Wild Steelbloom"],
@@ -2479,7 +2511,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						dragonsteeth = {
-							order = 39,
+							order = 41,
 							type = "toggle",
 							width = "full",
 							name = L["Dragon's Teeth"],
@@ -2492,7 +2524,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						glowcap = {
-							order = 40,
+							order = 42,
 							type = "toggle",
 							width = "full",
 							name = L["Glowcap"],
@@ -2505,7 +2537,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						goldclover = {
-							order = 41,
+							order = 43,
 							type = "toggle",
 							width = "full",
 							name = L["Goldclover"],
@@ -2518,7 +2550,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						talandrarose = {
-							order = 42,
+							order = 44,
 							type = "toggle",
 							width = "full",
 							name = L["Talandra's Rose"],
@@ -2531,7 +2563,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						adderstongue = {
-							order = 43,
+							order = 45,
 							type = "toggle",
 							width = "full",
 							name = L["Adder's Tongue"],
@@ -2544,7 +2576,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						frozenherb = {
-							order = 44,
+							order = 46,
 							type = "toggle",
 							width = "full",
 							name = L["Frozen Herb"],
@@ -2557,7 +2589,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						tigerlily = {
-							order = 45,
+							order = 47,
 							type = "toggle",
 							width = "full",
 							name = L["Tiger Lily"],
@@ -2570,7 +2602,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						lichbloom = {
-							order = 46,
+							order = 48,
 							type = "toggle",
 							width = "full",
 							name = L["Lichbloom"],
@@ -2583,7 +2615,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						icethorn = {
-							order = 47,
+							order = 49,
 							type = "toggle",
 							width = "full",
 							name = L["Icethorn"],
@@ -2596,7 +2628,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						frostlotus = {
-							order = 48,
+							order = 50,
 							type = "toggle",
 							width = "full",
 							name = L["Frost Lotus"],
@@ -2609,7 +2641,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						firethorn = {
-							order = 49,
+							order = 51,
 							type = "toggle",
 							width = "full",
 							name = L["Firethorn"],
@@ -2622,7 +2654,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						azsharaveil = {
-							order = 50,
+							order = 52,
 							type = "toggle",
 							width = "full",
 							name = L["Azshara's Veil"],
@@ -2635,7 +2667,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						cinderbloom = {
-							order = 51,
+							order = 53,
 							type = "toggle",
 							width = "full",
 							name = L["Cinderbloom"],
@@ -2648,7 +2680,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						stormvine = {
-							order = 52,
+							order = 54,
 							type = "toggle",
 							width = "full",
 							name = L["Stormvine"],
@@ -2661,7 +2693,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						heartblossom = {
-							order = 53,
+							order = 55,
 							type = "toggle",
 							width = "full",
 							name = L["Heartblossom"],
@@ -2674,7 +2706,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						whiptail = {
-							order = 54,
+							order = 56,
 							type = "toggle",
 							width = "full",
 							name = L["Whiptail"],
@@ -2687,7 +2719,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						twilightjas = {
-							order = 55,
+							order = 57,
 							type = "toggle",
 							width = "full",
 							name = L["Twilight Jasmine"],
@@ -2700,7 +2732,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						foolscap = {
-							order = 56,
+							order = 58,
 							type = "toggle",
 							width = "full",
 							name = L["Fool's Cap"],
@@ -2713,7 +2745,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						goldenlotus = {
-							order = 57,
+							order = 59,
 							type = "toggle",
 							width = "full",
 							name = L["Golden Lotus"],
@@ -2726,7 +2758,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						greentea = {
-							order = 58,
+							order = 60,
 							type = "toggle",
 							width = "full",
 							name = L["Green Tea Leaf"],
@@ -2739,7 +2771,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						rainpoppy = {
-							order = 59,
+							order = 61,
 							type = "toggle",
 							width = "full",
 							name = L["Rain Poppy"],
@@ -2752,7 +2784,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						shatouched = {
-							order = 60,
+							order = 62,
 							type = "toggle",
 							width = "full",
 							name = L["Sha-Touched Herb"],
@@ -2765,7 +2797,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						silkweed = {
-							order = 61,
+							order = 63,
 							type = "toggle",
 							width = "full",
 							name = L["Silkweed"],
@@ -2778,7 +2810,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						snowlily = {
-							order = 62,
+							order = 64,
 							type = "toggle",
 							width = "full",
 							name = L["Snow Lily"],
@@ -2791,7 +2823,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						chamlotus = {
-							order = 63,
+							order = 65,
 							type = "toggle",
 							width = "full",
 							name = L["Chameleon Lotus"],
@@ -2804,7 +2836,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						frostweed = {
-							order = 64,
+							order = 66,
 							type = "toggle",
 							width = "full",
 							name = L["Frostweed"],
@@ -2817,7 +2849,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						gorgrondflytrap = {
-							order = 65,
+							order = 67,
 							type = "toggle",
 							width = "full",
 							name = L["Gorgrond Flytrap"],
@@ -2830,7 +2862,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						starflower = {
-							order = 66,
+							order = 68,
 							type = "toggle",
 							width = "full",
 							name = L["Starflower"],
@@ -2843,7 +2875,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						nagrandarrow = {
-							order = 67,
+							order = 69,
 							type = "toggle",
 							width = "full",
 							name = L["Nagrand Arrowbloom"],
@@ -2856,7 +2888,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						taladororch = {
-							order = 68,
+							order = 70,
 							type = "toggle",
 							width = "full",
 							name = L["Talador Orchid"],
@@ -2869,7 +2901,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						fireweed = {
-							order = 69,
+							order = 71,
 							type = "toggle",
 							width = "full",
 							name = L["Fireweed"],
@@ -3974,7 +4006,7 @@ function Nx:SetupConfig()
 	Nx:AddToConfig("Maps",mapConfig(),L["Maps"])
 	Nx:AddToConfig("Menus",menuConfig(),L["Menus"])
 	Nx:AddToConfig("Privacy",commConfig(),L["Privacy"])
-	Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
+--	Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
 	Nx:AddToConfig("Skin",skinConfig(),L["Skin"])
 	Nx:AddToConfig("Tracking HUD",trackConfig(),L["Tracking HUD"])
 end

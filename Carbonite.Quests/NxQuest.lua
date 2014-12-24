@@ -10596,7 +10596,7 @@ end
 
 function Nx.Quest:OnPartyMsg (plName, msg)
 
-	if not Nx.qdb.profile.Quest.PartyShare then
+	if Nx.qdb and Nx.qdb.profile and not Nx.qdb.profile.Quest.PartyShare then
 		return
 	end
 
