@@ -179,17 +179,17 @@ local function mainConfig()
 								   "|cd700ffff" .. L["For support, please visit the forums for Carbonite on WoW Interface."] .. "\n"..
 								   "|cd700ffff" .. L["Special thanks to"] .. ": \n\n"..
 								   "|cff9999ff" .. L["Cirax for Carbonite2 Logo"] .. "\n" ..
-								   "|cff9999ff" .. L["ircdirk & atl77 for Quest Database updates"] .. "\n" ..								   
+								   "|cff9999ff" .. L["ircdirk & atl77 for Quest Database updates"] .. "\n" ..
 								   "|cff9999ff" .. L["nelegalno for many cleanups, api fixes"] .. "\n" ..
 								   "|cff9999ff" .. L["Naharis for quest watchlist fixes"] .. "\n" ..
-								   "|cff9999ff" .. L["JimboBlue for guide location updates"] .. "\n" .. 
-								   "|cff9999ff" .. L["Localization Efforts By:"] .. "\n" .. 
-								   "|cff9999ff" .. L["frFR - powerstk"] .. "\n" .. 
-								   "|cff9999ff" .. L["deDE - atl77 & samyonair"] .. "\n" .. 
-								   "|cff9999ff" .. L["itIT - ThorwaldOdin"] .. "\n" .. 
-								   "|cff9999ff" .. L["ruRU - NotDead"] .. "\n" .. 
-								   "|cff9999ff" .. L["zhCN - Raka-loah"] .. "\n" .. 
-								   "|cff9999ff" .. L["zhTW - kc305chen"] .. "\n",								   
+								   "|cff9999ff" .. L["JimboBlue for guide location updates"] .. "\n" ..
+								   "|cff9999ff" .. L["Localization Efforts By:"] .. "\n" ..
+								   "|cff9999ff" .. L["frFR - powerstk"] .. "\n" ..
+								   "|cff9999ff" .. L["deDE - atl77 & samyonair"] .. "\n" ..
+								   "|cff9999ff" .. L["itIT - ThorwaldOdin"] .. "\n" ..
+								   "|cff9999ff" .. L["ruRU - NotDead"] .. "\n" ..
+								   "|cff9999ff" .. L["zhCN - Raka-loah"] .. "\n" ..
+								   "|cff9999ff" .. L["zhTW - kc305chen"] .. "\n",
 						},
 					},
 				},
@@ -2014,7 +2014,7 @@ local function guidegatherConfig ()
 								for i = 1,69 do
 									Nx.db.profile.Guide.ShowHerbs[i] = false
 								end
-							end,						
+							end,
 						},
 						anclich = {
 							order = 3,

@@ -62,7 +62,7 @@ Map.MapInfo = {
 		Y = -1500,
 	},
 	[6] = {
-	    Name = "Pandaria",
+		Name = "Pandaria",
 		FileName = "Pandaria",
 		X = 2500,
 		Y = 2500,
@@ -1013,7 +1013,7 @@ Map.MapWorldInfo = {
 		UseAId = true,
 		Explored = true,
 	},
-    [806] = {
+	[806] = {
 		Scale = 13.966666015625,
 		X = -290.4166015625,
 		Y = -730.4166015625,
@@ -1064,19 +1064,19 @@ Map.MapWorldInfo = {
 		BaseMap = 482,
 		Short = "EOS",
 	},
-    [823] = {
+	[823] = {
 		Scale = 3.716666015625,
 		X = -1453.7499023437,
 		Y = 664.58330078125,
 		Overlay = "darkmoonfaireisland",
-	    Name = L["Darkmoon Island"],
+		Name = L["Darkmoon Island"],
 		Explored = true,
 		City = true,
 		MMOutside = true,
 		UseAId=true,
 		MId=823,
 	},
-    [856] = {
+	[856] = {
 		Name = L["Temple of Kotmogu"],
 		Scale = 1.679166015625,
 		X = -14500,
@@ -1105,7 +1105,7 @@ Map.MapWorldInfo = {
 		Short = "SSM",
 		MapBaseName = "STVDiamondMineBG1_",
 	},
-    [862] = {
+	[862] = {
 		Scale = 31.030600585937,
 		X = -1750.5720703125,
 		Y = -1335.83203125,
@@ -1203,7 +1203,7 @@ Map.MapWorldInfo = {
 		Name = L["New Tinkertown"],
 		StartZone = true,
 	},
-    [903] = {
+	[903] = {
 		Name = L["Shrine of Two Moons"],
 		Scale = 0.5,
 		X = -217.8,
@@ -1321,9 +1321,9 @@ Map.MapWorldInfo = {
 		X = -977.083203125,
 		Y = -1162.9166015625,
 		Garrison = true,
+		City = true,
 		MMOutside = true,
 		Explored = true,
-		City = true,
 		MapBaseName = "garrisonffhorde_tier",
 		Overlay = "garrisonffhorde_tier1",
 	},
@@ -1331,12 +1331,15 @@ Map.MapWorldInfo = {
 		Scale = 6.2458203125,
 		X = 534.583984375,
 		Y = -1115.416015625,
+		Explored = true,
 		Overlay = "ashran",
 	},
 	[1009] = {
 		Scale = 1.375,
 		X = 725,
 		Y = -781.6666015625,
+		Explored = true,
+		City = true,
 		Overlay = "ashranalliancefactionhub",
 	},
 	[1010] = {
@@ -1348,10 +1351,12 @@ Map.MapWorldInfo = {
 		Short = "TvS",
 	},
 	[1011] = {
-		 Scale = 1.6,
-		 X = 717.916796875,
-		 Y = -1108.333203125,
-		 Overlay = "ashranhordefactionhub",
+		Scale = 1.6,
+		X = 717.916796875,
+		Y = -1108.333203125,
+		Explored = true,
+		City = true,
+		Overlay = "ashranhordefactionhub",
 	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
@@ -7521,8 +7526,8 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[751].X + Map.MapInfo[5].X + 297.05, Map.MapWorldInfo[751].Y + Map.MapInfo[5].Y + -1411.53334960937,
 		"World\\Minimaps\\LostIsles"
 	},
-    [808] = {
-	     Map.TheWanderingIsleMapBlks,
+	[808] = {
+		Map.TheWanderingIsleMapBlks,
 		 2328,
 		 23,28,
 		 Map.MapWorldInfo[808].X + Map.MapWorldInfo[808].XOff + Map.MapInfo[6].X  + 35.7, Map.MapWorldInfo[808].Y + Map.MapWorldInfo[808].YOff + Map.MapInfo[6].Y-69.55,
@@ -7624,11 +7629,11 @@ function Nx.Map:GetMiniBlkName (miniT, x, y)
 end
 
 Map.MapLevels={
-    [811] = { [3] = 6010, [4] = 6011, },
-    [903] = { [1] = 6012, [2] = 6013, },
-    [905] = { [3] = 6010, [4] = 6011, },
-    [504] = { [2] = 4014, },
-    [321] = { [2] = 1034, },
+	[811] = { [3] = 6010, [4] = 6011, },
+	[903] = { [1] = 6012, [2] = 6013, },
+	[905] = { [3] = 6010, [4] = 6011, },
+	[504] = { [2] = 4014, },
+	[321] = { [2] = 1034, },
 }
 --[[
 function Nx.Map:ConvertMapData()
