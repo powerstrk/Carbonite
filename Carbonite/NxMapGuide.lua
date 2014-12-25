@@ -3183,5 +3183,4 @@ function Nx.Map.Guide:UnpackObjective (obj)
 	local _,_,desc, zone = Nx.Split("|",obj)
 	return desc, tonumber(zone)
 end
--------------------------------------------------------------------------------
--- EOF
+--------------------------------------------------------------------------------- EOF

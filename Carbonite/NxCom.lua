@@ -66,23 +66,23 @@ function Nx.Com:Init()
 
 	local sq = {}
 	self.SendQ = sq
-	sq[1] = {}						-- Channel
-	sq[2] = {}						-- Guild
-	sq[3] = {}						-- Friends
-	sq[4] = {}						-- Zone
+	sq[1] = {}				-- Channel
+	sq[2] = {}				-- Guild
+	sq[3] = {}				-- Friends
+	sq[4] = {}				-- Zone
 	self.SendQMode = 1
 
 	self.PalsInfo = {}			-- Friends and guildy info (position)
 	self.PalsSendQ = {}
 	self.PalNames = {}
 
-	self.MemberNames = {}		-- Names in party or raid
+	self.MemberNames = {}			-- Names in party or raid
 
 	self.Friends = {}
 	self.Punks = {}
 
-	self.ZPInfo = {}				-- Zone player info (position)
-	self.ZStatus = {}				-- Zones status. Indexed with map id
+	self.ZPInfo = {}			-- Zone player info (position)
+	self.ZStatus = {}			-- Zones status. Indexed with map id
 	self.ZMonitor = {}			-- Zones to monitor
 
 	self.SendChanQ = {}
@@ -230,7 +230,7 @@ end
 
 function Nx.Com:OnLoginTimer()
 	local redeploy = 0
-	if UnitOnTaxi ("player") then		-- Detect login on taxi, which will not join channels until you land
+	if UnitOnTaxi ("player") then			-- Detect login on taxi, which will not join channels until you land
 
 		local id = GetChannelName (1)		-- Detect if reload
 		if id ~= 1 then
@@ -362,7 +362,7 @@ function Nx.Com:OnChatEvent (event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, ar
 
 			self.List:AddInfo ("CN:"..arg9, format ("%s", arg1))
 
-			local nameRoot = Nx.Split ("I", arg9)	-- Drop I and #
+			local nameRoot = Nx.Split ("I", arg9)		-- Drop I and #
 
 			if arg1 == "YOU_JOINED" then
 
@@ -435,7 +435,7 @@ function Nx.Com:OnChat_msg_channel (event, arg1, arg2, arg3, arg4, arg5, arg6, a
 
 			if id == 83 then		-- S (status) Check 1st for performance
 
-				if not self.PalsInfo[name] then	-- Not a pal we have?
+				if not self.PalsInfo[name] then		-- Not a pal we have?
 					if #msg >= 16 then
 
 						local pl = self.ZPInfo[name]
@@ -516,11 +516,11 @@ function Nx.Com:ParsePlyrStatus (name, info, msg)
 
 	-- Player info
 
-	local mapId = tonumber (strsub (msg, 3, 6), 16)	-- Map id
+	local mapId = tonumber (strsub (msg, 3, 6), 16)		-- Map id
 
 	local winfo = Nx.Map.MapWorldInfo[mapId]
 	if not winfo then
-		info.T = 0			-- Cause it to die
+		info.T = 0					-- Cause it to die
 --		Nx.prt ("Die %s", mapId)
 		return
 	end
@@ -593,7 +593,7 @@ function Nx.Com:ParsePlyrStatus (name, info, msg)
 	if bit.band (flags, 4) > 0 then
 		Nx.qTEMPinfo = info
 		Nx.qTEMPmsg = strsub(msg,off)
-        Nx.qTEMPname = name
+	Nx.qTEMPname = name
 		if Nx.qTEMPinfo and Nx.qTEMPmsg and Nx.qTEMPname then
 --			Nx:SendCommMessage("carbmodule","QUEST_DECODE","WHISPER",UnitName("player"),"BULK")
 			Nx.ModQAction = "QUEST_DECODE"
@@ -623,7 +623,7 @@ end
 
 function Nx.Com:ParseLGP (name, msg)
 
-	if strbyte (msg) == 0x50 then	-- P (position)
+	if strbyte (msg) == 0x50 then		-- P (position)
 
 		local x, x2, y, y2, len = strbyte (msg, 2, 6)
 
@@ -744,7 +744,7 @@ end
 
 function Nx.Com:JoinChan (chanId)
 
-	if chanId == "A" then	-- Addon channel (global)
+	if chanId == "A" then		-- Addon channel (global)
 
 		if Nx.db.profile.Comm.Global then
 
@@ -1012,7 +1012,7 @@ function Nx.Com:Send (chanId, msg, plName)
 
 	assert (msg)
 
-	if chanId == "Z" then	-- Zone chat channel
+	if chanId == "Z" then		-- Zone chat channel
 
 		local mapId = Nx.Map:GetRealMapId()
 		local chanName = self.ZStatus[mapId] and self.ZStatus[mapId].ChanName
@@ -1029,7 +1029,7 @@ function Nx.Com:Send (chanId, msg, plName)
 
 		self.SentBytes = self.SentBytes + #msg + 54 + 20	-- Packet overhead + some WOW overhead
 
-		if chanId == "g" then	-- Addon guild
+		if chanId == "g" then		-- Addon guild
 
 			if IsInGuild() then
 				Nx:SendCommMessage (self.Name, msg, "GUILD")
@@ -1302,7 +1302,7 @@ function Nx.Com:OnUpdate (elapsed)
 		delay = 120
 	end
 
-	if next (self.Punks) then	-- Have a punk? Override all times
+	if next (self.Punks) then		-- Have a punk? Override all times
 		delay = min (6, delay)
 	end
 
@@ -1376,7 +1376,7 @@ function Nx.Com:OnUpdate (elapsed)
 
 			local tLvl = min (UnitLevel ("target"), 90)	-- 93 or above makes 0x80+ illegal chat char
 --			Nx.prt ("%s", tLvl)
-			local _, tCls = UnitClass ("target")	-- Non localized uppercase version
+			local _, tCls = UnitClass ("target")		-- Non localized uppercase version
 			tCls = self.ClassNames[tCls] or 0
 
 			local h = UnitHealth ("target")
@@ -1385,7 +1385,7 @@ function Nx.Com:OnUpdate (elapsed)
 			end
 			local hm = max (UnitHealthMax ("target"), 1)
 			local hper = h / hm * 20
-			if hper > 0 then			-- Alive?
+			if hper > 0 then				-- Alive?
 				hper = max (hper, 1)
 			end
 			hper = min (floor (hper + .5), 20)
@@ -1487,7 +1487,7 @@ function Nx.Com:OnUpdate (elapsed)
 
 						if bit.band (self.SendPMask, 4) > 0 then
 
-							local sk = self.SendZSkip - 1		-- Zone skipped to reduce rate
+							local sk = self.SendZSkip - 1			-- Zone skipped to reduce rate
 
 							if sk < 1 then
 								sk = 4
@@ -1682,7 +1682,7 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 					txName = "IconPlyrF"
 				end
 
-				if bit.band (pl.F, 1) > 0 then	-- In combat?
+				if bit.band (pl.F, 1) > 0 then		-- In combat?
 					txName = txName .. "C"
 				end
 
@@ -1833,7 +1833,4 @@ function Nx.Com.List:Sort()
 	sort (self.Sorted, self.SortCmp)
 end
 
-
-
--------------------------------------------------------------------------------
---EOF
+---------------------------------------------------------------------------------EOF

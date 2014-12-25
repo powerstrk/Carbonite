@@ -155,7 +155,7 @@ function Nx.Map:Init()
 	hist.Cnt = Nx.db.profile.Map.TrailCnt
 
 	for n = 1, hist.Cnt * 4, 4 do
-		hist[n] = 0				-- Secs
+		hist[n] = 0		-- Secs
 		hist[n + 1] = 0		-- World X
 		hist[n + 2] = 0		-- World Y
 		hist[n + 3] = 0		-- Direction
@@ -188,24 +188,68 @@ function Nx.Map:Init()
 	self.WorldMapHideNames = {
 		"WorldMapCorpse", "WorldMapDeathRelease", "WorldMapPing", "OutlandButton", "AzerothButton"
 	}
-	self.AddonMinimapNames = {		-- # is stripped
+	self.AddonMinimapNames = {			-- # is stripped
 		["GatherNote"] = true,
 		["GatherMatePin"] = true,
 		["MobMapMinimapDot_"] = true,
 		["CartographerNotesPOI"] = true,
 		["RecipeRadarMinimapIcon"] = true,
 		["NauticusMiniIcon"] = true,
-		["ZGVMarkerMini"] = true,			-- Zygor ZGVMarker1Mini
+		["ZGVMarkerMini"] = true,		-- Zygor ZGVMarker1Mini
 	}
 	-- Emulate TomTom
 	if Nx.db.profile.Track.EmuTomTom and not Nx.RealTom then
 		TomTom = {}
 		Nx.EmulateTomTom()
 	end
+	Nx.Map.UpdateMapID = WorldMapFrame.mapID
+	SetMapByID(Nx.Map.UpdateMapID)
 end
 
 --------
 -- Open and init
+
+local blizSetMapToCurrentZone = SetMapToCurrentZone
+local blizSetMapByID = SetMapByID
+
+function SetMapToCurrentZone(carbcalled) 
+	if carbcalled then
+		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
+			Nx.CurrentDetectedZone = GetRealZoneText()
+			blizSetMapToCurrentZone()
+			Nx.Map.UpdateMapID = WorldMapFrame.mapID
+		end
+	else
+		if not Nx.Map.MouseOver then
+			blizSetMapToCurrentZone()
+			Nx.Map.UpdateMapID = WorldMapFrame.mapID
+		end
+	end
+end
+
+function SetMapByID(zone,level)
+	if Nx.Map.MouseOver then
+		if Nx.Map.MouseIsOverMap then
+			zone = Nx.Map.MouseIsOverMap
+			Nx.Map.RMapId = zone
+		else
+			Nx.Map.RMapId = Nx.Map.UpdateMapID
+			return
+		end
+	else
+		Nx.Map.RMapId = Nx.Map.UpdateMapID
+	end
+	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
+		if zone then
+			Nx.CurrentSetZone = zone
+			if level then
+				blizSetMapByID(zone,level)
+			else
+				blizSetMapByID(zone)
+			end
+		end
+	end
+end
 
 function Nx.Map:Open()
 
@@ -459,10 +503,10 @@ function Nx.Map:Create (index)
 	setmetatable (m, self)
 	self.__index = self
 
-	m.Tick = 0												-- Debug tick
-	m.Debug = nil											-- Debug on
+	m.Tick = 0						-- Debug tick
+	m.Debug = nil						-- Debug on
 	m.DebugTime = nil
-	m.DebugFullCoords = nil								-- Debug high precision map coords
+	m.DebugFullCoords = nil					-- Debug high precision map coords
 	m.DebugAdjustScale = .1
 
 	m.MapIndex = index
@@ -476,7 +520,7 @@ function Nx.Map:Create (index)
 	m.PadX = 0
 	m.Scale = .025
 	m.RealScale = .025
-	m.ScaleDraw = .025									-- Actual draw scale
+	m.ScaleDraw = .025					-- Actual draw scale
 	m.MapScale = opts.NXMapScale or 1
 	m.MapW = 150
 	m.MapH = 140
@@ -487,7 +531,7 @@ function Nx.Map:Create (index)
 	m.Scrolling = false
 	m.StepTime = 0
 	m.MapId = 0
-	m.BaseScale = 1										-- Scale values, because instances are smaller
+	m.BaseScale = 1						-- Scale values, because instances are smaller
 	m.PlyrX = 0
 	m.PlyrY = 0
 	m.PlyrRZX = 0
@@ -502,18 +546,18 @@ function Nx.Map:Create (index)
 	m.MoveLastX = 0
 	m.MoveLastY = 0
 	m.ViewSavedData = {}
-	m.MapPosX = 2200											-- World position of map
+	m.MapPosX = 2200					-- World position of map
 	m.MapPosY = -100
-	m.MapPosXDraw = m.MapPosX								-- Actual draw position
+	m.MapPosXDraw = m.MapPosX				-- Actual draw position
 	m.MapPosYDraw = m.MapPosY
-	m.MapsDrawnOrder = {}									-- [index (1st is newest)] = map id
-	m.MapsDrawnFade = {}										-- [map id] = fade
+	m.MapsDrawnOrder = {}					-- [index (1st is newest)] = map id
+	m.MapsDrawnFade = {}					-- [map id] = fade
 	m.MiniBlks = Nx.db.profile.Map.DetailSize
 	m.ArchAlpha = opts.NXArchAlpha
 	m.QuestAlpha = opts.NXQuestAlpha
 	m.BackgndAlphaFade = opts.NXBackgndAlphaFade
 	m.BackgndAlphaFull = opts.NXBackgndAlphaFull
-	m.BackgndAlpha = 0									-- Current value
+	m.BackgndAlpha = 0					-- Current value
 	m.BackgndAlphaTarget = m.BackgndAlphaFade		-- Target value
 	m.WorldAlpha = 0
 	m.DotZoneScale = opts.NXDotZoneScale
@@ -536,7 +580,7 @@ function Nx.Map:Create (index)
 	m.Data = {}
 	m.IconFrms = {}
 	m.IconFrms.Next = 1
-	m.IconNIFrms = {}				-- Non interactive
+	m.IconNIFrms = {}					-- Non interactive
 	m.IconNIFrms.Next = 1
 	m.IconStaticFrms = {}
 	m.IconStaticFrms.Next = 1
@@ -599,6 +643,7 @@ function Nx.Map:Create (index)
 	win:RegisterEvent ("PLAYER_REGEN_ENABLED", self.OnEvent)
 	win:RegisterEvent ("ZONE_CHANGED", self.OnEvent)
 	win:RegisterEvent ("ZONE_CHANGED_INDOORS", self.OnEvent)
+
 	f:SetScript ("OnMouseDown", self.OnMouseDown)
 	f:SetScript ("OnMouseUp", self.OnMouseUp)
 	f:SetScript ("OnMouseWheel", self.OnMouseWheel)
@@ -961,9 +1006,10 @@ function Nx.Map:Create (index)
 
 		local item = dbmenu:AddItem (0, L["Map Full Coords"], self.Menu_OnMapDebugFullCoords, m)
 		item:SetChecked (m.DebugFullCoords)
-
-		local item = dbmenu:AddItem (0, L["Quest Debug"], self.Menu_OnQuestDebug, m)
-		item:SetChecked (Nx.Quest.Debug)
+		if Nx.Quest then
+			local item = dbmenu:AddItem (0, L["Quest Debug"], self.Menu_OnQuestDebug, m)
+			item:SetChecked (Nx.Quest.Debug)
+		end
 
 		local function func (self, item)
 			self.DebugScale = item:GetSlider()
@@ -3679,9 +3725,9 @@ local ttl = 0
 function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
---	if ttl < .2 then
---		return
---	end
+	if ttl < .05 then
+		return
+	end
 	ttl = 0
 --	if IsControlKeyDown() then		return	end
 
@@ -3705,11 +3751,21 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		map.Scrolling = false
 	end
 
+	if map.InstanceId then
+		winx = nil
+	end
+	
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
 		winx = nil
 	end
 
 	map.MouseIsOver = winx
+
+	if winx then
+		Nx.Map.MouseOver = true
+	else
+		Nx.Map.MouseOver = false
+	end
 
 	-- Scroll map with mouse
 
@@ -3843,7 +3899,8 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 			map.BackgndAlphaTarget = map.BackgndAlphaFade
 
-			local rid = map:GetRealMapId()
+			local rid = map.RMapId
+
 			if rid ~= 9000 and not WorldMapFrame:IsShown() then
 
 				local mapId = map:GetCurrentMapId()
@@ -3864,7 +3921,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 					end
 				end
 
-				if mapId ~= rid then
+				if map.UpdateMapID ~= rid then
 					if map:IsBattleGroundMap (rid) then
 						SetMapToCurrentZone()
 					else
@@ -4053,8 +4110,8 @@ function Nx.Map:UpdateWorld()
 		dungeonLevel = dungeonLevel - 1;
 	end
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
-	if winfo.MapBaseName then texName = winfo.MapBaseName end
-	if winfo.Garrison then
+	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
+	if winfo.Garrison and not isMicro then
 		local level, mapname, x, y = C_Garrison.GetGarrisonInfo()
 		if not level then
 			level = "1"
@@ -4223,21 +4280,19 @@ function Nx.Map:Update (elapsed)
 				self:SwitchOptions (rid, true)
 			end
 			if not Nx.Menu:IsAnyOpened() then
-				self.RMapId = rid
+				SetMapByID(rid)
 				self:SwitchOptions (rid)
 				self:SwitchRealMap (rid)
 			end
 		end
 		self.Scale = self.RealScale
 	end
-	SetMapToCurrentZone()
 	local plZX, plZY = GetPlayerMapPosition ("player")
-	self.UpdateMapID = GetCurrentMapAreaID()
-	SetMapByID(rid)
+	local dungeontest = GetCurrentMapDungeonLevel()
 	self.InstanceId = false
-	if self:IsInstanceMap (rid) then
+	if self:IsInstanceMap (self.UpdateMapID) then
 
-		self.InstanceId = rid
+		self.InstanceId = self.UpdateMapID
 
 		plZX = plZX * 100
 		plZY = plZY * 100
@@ -4250,7 +4305,7 @@ function Nx.Map:Update (elapsed)
 		self.PlyrRZX = plZX
 		self.PlyrRZY = plZY
 
-		local x, y = self:GetWorldPos (rid, 0, 0)
+		local x, y = self:GetWorldPos (self.UpdateMapID, 0, 0)
 
 		local lvl = max (GetCurrentMapDungeonLevel(), 1)		-- 0 if no level
 
@@ -4360,7 +4415,7 @@ function Nx.Map:Update (elapsed)
 				local scOn = self.LOpts.NXAutoScaleOn		--self.GOpts["MapFollowChangeScale"]
 				if plZX ~= 0 or plZY ~= 0 then
 					if #self.Tracking == 0 or not scOn then
-						self:Move (plX, plY, nil, 60)
+						self:Move (plX, plY, nil, 30)
 					end
 				end
 
@@ -4415,7 +4470,7 @@ function Nx.Map:Update (elapsed)
 						local scmax = self.InstanceId and 800 or self.LOpts.NXAutoScaleMax
 
 						scale = max (min (scale, scmax), self.LOpts.NXAutoScaleMin)
-						self:Move (mX, mY, scale, 60)
+						self:Move (mX, mY, scale, 30)
 					end
 				end
 
@@ -5875,10 +5930,9 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 			if spot.MapId ~= curId then
 
 --				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
-
 				self:SetCurrentMap (spot.MapId)
 			end
-
+			Nx.Map.MouseIsOverMap = spot.MapId
 			self.WorldHotspotTipStr = spot.NxTipBase .. "\n"
 --[[
 			if false then
@@ -6002,7 +6056,7 @@ function Nx.Map:MoveCurZoneTiles (clear)
 	end
 	if not clear and
 			(not wzone or wzone.City or (wzone.StartZone and self.RMapId == mapId) or
-			self:IsBattleGroundMap (mapId)) or self:IsMicroDungeon(mapId) then
+			self:IsBattleGroundMap (self.RMapId)) or self:IsMicroDungeon(self.RMapId) then
 
 --		Nx.prt ("MoveCurZoneTiles %d", mapId)
 		local alpha = self.BackgndAlpha * (wzone.Alpha or 1)
@@ -6189,13 +6243,12 @@ function Nx.Map:UpdateZones()
 	if freeOrScale or
 		winfo.City or
 		(winfo.StartZone and self.UpdateMapID == mapId) or
-		self:IsBattleGroundMap (mapId) or
-		self:IsMicroDungeon(mapId) then
+		self:IsBattleGroundMap (self.UpdateMapID) or
+		self:IsMicroDungeon(self.UpdateMapID) then
 
 --		if freeOrScale and self.MapIdOld and self.MapIdOld ~= mapId then
 --			self:UpdateOverlay (id, .8, true)
 --		end
-
 		for n, id in ipairs (self.MapsDrawnOrder) do
 			self:UpdateOverlay (id, .8, true)
 		end
@@ -6261,7 +6314,6 @@ function Nx.Map:UpdateZones()
 	else
 		self:MoveCurZoneTiles (true)		-- Clear
 		self:UpdateMiniFrames()
-
 	end
 end
 
@@ -6568,7 +6620,7 @@ function Nx.Map:UpdateMiniFrames()
 
 --	or winfo.City
 
-	if self.ScaleDraw <= s or opts.NXDetailAlpha <= 0 or self:IsBattleGroundMap (mapId) or self:IsMicroDungeon(mapId) then
+	if self.ScaleDraw <= s or opts.NXDetailAlpha <= 0 or self:IsBattleGroundMap (self.UpdateMapID) or self:IsMicroDungeon(self.UpdateMapID) then
 		self:HideMiniFrames()
 		return
 	end
@@ -8193,6 +8245,7 @@ function Nx.Map:GetMap (mapIndex)
 	if self.Maps then
 		return self.Maps[mapIndex]
 	end
+	assert(0, "Erroneous Map Index requested (probably by some other addon): mapIndex = " .. (mapIndex or 'missing'))
 end
 
 --------
@@ -8640,15 +8693,7 @@ end
 -- Get the real player location map id without map level calculation
 
 function Nx.Map:GetRealBaseMapId()
-	local mapID = GetCurrentMapAreaID()
-	if mapID == self.MapId then
-		return mapID
-	else
-		SetMapToCurrentZone()
-		local mapID2 = GetCurrentMapAreaID()
-		SetMapByID(mapID)
-		return mapID2
-	end
+		return self.UpdateMapID
 end
 
 --------
@@ -8870,7 +8915,7 @@ function Nx.Map:GotoCurrentZone()
 --	Nx.prt ("GotoCurrentZone")
 
 	if self.InstanceId then
-		self:Move (self.PlyrX, self.PlyrY, 20, 30)
+		self:Move (self.PlyrX, self.PlyrY, 20, 15)
 	else
 
 		self:SetToCurrentZone()
@@ -8922,7 +8967,7 @@ function Nx.Map:CenterMap (mapId, scale)
 
 	local scale = size / self:GetWorldZoneScale (mapId) * 10.02
 
-	self:Move (x, y, scale, 30)
+	self:Move (x, y, scale, 15)
 
 --	Nx.prt ("Center #%d %f (%f %f) (%d %d)", mapId, self.Scale, self.MapPosX, self.MapPosY, self.MapW, self.MapH)
 end
@@ -9306,7 +9351,7 @@ function Nx.Map:ClearTargets (matchType)
 --		self.Scale = self.ScaleBeforeTarget
 
 		self:GotoPlayer()		-- Map won't move if cursor on it
-		self:Move (self.PlyrX, self.PlyrY, self.ScaleBeforeTarget, 60)
+		self:Move (self.PlyrX, self.PlyrY, self.ScaleBeforeTarget, 30)
 	end
 
 	self.ScaleBeforeTarget = false
@@ -10552,5 +10597,4 @@ function Nx.Map:VehicleDumpPos()
 	end
 end
 
--------------------------------------------------------------------------------
--- EOF
+--------------------------------------------------------------------------------- EOF

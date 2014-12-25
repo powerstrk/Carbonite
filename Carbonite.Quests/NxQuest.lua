@@ -56,7 +56,7 @@ local defaults = {
 			DetailBC = ".75|.75|.44|1",
 			DetailTC = ".125|.06|.03|1",
 			DetailScale = .95,
-			HCheckCompleted = true,
+			HCheckCompleted = false,
 			LevelsToLoad = 90,
 			MapQuestGiversHighLevel = 90,
 			MapQuestGiversLowLevel = 90,
@@ -3611,7 +3611,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 
 	IS_BACKGROUND_WORLD_CACHING = true
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
-
+	WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
 --	local tm = GetTime()
 
 	local Map = Nx.Map
@@ -3621,6 +3621,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
 				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+				WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
 				Nx.Quest.WorldUpdate = false
 				return
 			end
@@ -3632,6 +3633,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			end
 		end
 	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+	WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
 	Map:SetCurrentMap (curMapId)
 	IS_BACKGROUND_WORLD_CACHING = false
 	self:RecordQuestsLog()
@@ -8633,6 +8635,29 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSet(2,s)
 							list:ItemSetButton("QuestWatch",false)
 						end
+						local bonusSteps = C_Scenario.GetBonusSteps()
+						if bonusSteps then
+							local title, task, _, completed = C_Scenario.GetStepInfo(1)
+							task = " |cffff0000Bonus |cff00ff00" .. task
+							if completed then
+								task = task .. " |cffff0000[|cffffffffComplete|cffff0000]"
+							end
+							list:ItemAdd(0)
+							list:ItemSet(2,task)
+							for criteria = 1, #bonusSteps do
+								local index = bonusSteps[criteria]
+								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)
+								if completed then 
+									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffffComplete|cffff0000]",quantity, totalquantity, task)
+								else
+									task = format("|cffffffff%d/%d %s",quantity, totalquantity, task)
+								end
+								list:ItemAdd(0)
+								list:ItemSetOffset (16, -1)
+								list:ItemSet(2,task)
+								list:ItemSetButton("QuestWatch",false)
+							end
+						end
 					end
 				end
 				if Nx.qdb.profile.QuestWatch.BonusTask then
@@ -8797,7 +8822,7 @@ function Nx.Quest.Watch:UpdateList()
 							if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
 							end
-							list:ItemSetButtonTip (cur.ObjText .. (cur.PartyDesc or ""))
+							list:ItemSetButtonTip ((cur.ObjText or "?") .. (cur.PartyDesc or ""))
 							local color = isComplete and compColor or incompColor
 							local lvlStr = ""
 							if level > 0 then
@@ -9558,7 +9583,9 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 			name, zone, loc = Quest:UnpackSE (questObj)
 		else
 			questObj = quest["Objectives"][qObj]
-			name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
+			if questObj and questObj[1] then
+				name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
+			end
 		end
 
 --		Nx.prt ("TrackOnMap %s %s %s %s %s", qId, qObj, track, name, zone)
@@ -10571,7 +10598,7 @@ end
 
 function Nx.Quest:OnPartyMsg (plName, msg)
 
-	if not Nx.qdb.profile.Quest.PartyShare then
+	if Nx.qdb and Nx.qdb.profile and not Nx.qdb.profile.Quest.PartyShare then
 		return
 	end
 

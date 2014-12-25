@@ -132,9 +132,9 @@ L["Auto Scale"] = "Auto-Skalierung"
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "Suche nach Artefakten" 		-- NXlARTIFACTS
-L["Extract Gas"] = "Gas extrahieren"						-- NXlEXTRACTGAS
-L["Herb Gathering"] = "Kr\195\164utersammeln"				-- NXlHERBGATHERING
-L["In Conflict"] = "Umk\195\164mpft"						-- NXlINCONFLICT
-L["Opening"] = "\195\150ffnen"								-- NXlOpening
+L["Extract Gas"] = "Gas extrahieren"				-- NXlEXTRACTGAS
+L["Herb Gathering"] = "Kr\195\164utersammeln"			-- NXlHERBGATHERING
+L["In Conflict"] = "Umk\195\164mpft"				-- NXlINCONFLICT
+L["Opening"] = "\195\150ffnen"					-- NXlOpening
 L["Opening - No Text"] = "\195\150ffnen - Kein Text"		-- NXlOpeningNoText
-L["Everfrost Chip"] = "Immerfrostsplitter"					-- NXlEverfrost
+L["Everfrost Chip"] = "Immerfrostsplitter"			-- NXlEverfrost

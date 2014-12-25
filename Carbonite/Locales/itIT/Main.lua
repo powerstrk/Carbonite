@@ -133,10 +133,10 @@ L["Minimize"] = "Minimizza"
 L["Auto Scale"] = "Autodimensiona"
 
 -- Stuff from old localization
-L["Searching for Artifacts"] = "Ricerca per Artefatti"				-- NXlARTIFACTS
-L["Extract Gas"] = "Estrazione di Gas"								-- NXlEXTRACTGAS
-L["Herb Gathering"] = "Raccolta Erbe"								-- NXlHERBGATHERING
-L["In Conflict"] = "Territorio Conteso"								-- NXlINCONFLICT
-L["Opening"] = "Apertura"											-- NXlOpening
-L["Opening - No Text"] = "Apertura - Nessun Testo"					-- NXlOpeningNoText
-L["Everfrost Chip"] = "Morceau de permagivre"						-- NXlEverfrost
+L["Searching for Artifacts"] = "Ricerca per Artefatti"		-- NXlARTIFACTS
+L["Extract Gas"] = "Estrazione di Gas"				-- NXlEXTRACTGAS
+L["Herb Gathering"] = "Raccolta Erbe"				-- NXlHERBGATHERING
+L["In Conflict"] = "Territorio Conteso"				-- NXlINCONFLICT
+L["Opening"] = "Apertura"					-- NXlOpening
+L["Opening - No Text"] = "Apertura - Nessun Testo"		-- NXlOpeningNoText
+L["Everfrost Chip"] = "Morceau de permagivre"			-- NXlEverfrost

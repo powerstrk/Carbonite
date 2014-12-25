@@ -45,6 +45,7 @@ L["Blasted Lands"] = "诅咒之地"
 L["Blood in the Snow"] = "雪山血战"
 L["Bloodmaul Slag Mines"] = "血槌炉渣矿井"
 L["Bloodmyst Isle"] = "秘血岛"
+L["Bonetown Scenario"] = true					-- is this needed (from zhTW)
 L["Borean Tundra"] = "北风苔原"
 L["Brewmoon Festival"] = "酿月祭"
 L["Burning Steppes"] = "燃烧平原"

@@ -130,9 +130,9 @@ L["Auto Scale"] = true
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "Поиск артефактов"		-- NXlARTIFACTS
-L["Extract Gas"] = "Извлечение газа"					-- NXlEXTRACTGAS
-L["Herb Gathering"] = "Сбор трав"						-- NXlHERBGATHERING
-L["In Conflict"] = "В конфликте"						-- NXlINCONFLICT
-L["Opening"] = "Открывание"								-- NXlOpening
+L["Extract Gas"] = "Извлечение газа"				-- NXlEXTRACTGAS
+L["Herb Gathering"] = "Сбор трав"				-- NXlHERBGATHERING
+L["In Conflict"] = "В конфликте"				-- NXlINCONFLICT
+L["Opening"] = "Открывание"					-- NXlOpening
 L["Opening - No Text"] = "Открывание - нет текста"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Осколок Вечного льда"			-- NXlEverfrost

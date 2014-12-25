@@ -32,6 +32,17 @@ L["For support, please visit the forums for Carbonite on WoW Interface."] = "Zur
 L["Special thanks to"] = "Besonderen Dank an"
 L["Cirax for Carbonite2 Logo"] = "Cirax f\195\188r das Carbonite2-Logo"
 L["JimboBlue for guide location updates and checking"] = "JimboBlue f\195\188r die Wegweiser-Updates und -Pr\195\188fungen"
+L["ircdirk & atl77 for Quest Database updates"] = "ircdirk & atl77 f\192\188r die Questdatenbank Updates"
+L["Naharis for quest watchlist fixes"] = "Naharis für die Questanzeige-Fehlerbehebungen"
+L["nelegalno for many cleanups, api fixes"] = "nelegalno für viele Aufr\192\164umaktionen, api-Fehlerbehebungen"
+L["JimboBlue for guide location updates"] = "JimboBlue for Wegweiser Updates"
+L["Localization Efforts By:"] = "\195\156bersetzungsbemühungen in den Sprachen von:"
+L["frFR - powerstk"] = "frFR (franz\195\182sisch) - powerstk"
+L["deDE - atl77 & samyonair"] = "deDE (deutsch) - atl77 & samyonair"
+L["itIT - ThorwaldOdin"] = "itIT (italienisch)- ThorwaldOdin"
+L["ruRU - NotDead"] = "ruRU (russisch) - NotDead"
+L["zhCN - Raka-loah"] = "zhCN (chinesisch) - Raka-loah"
+L["zhTW - kc305chen"] = "zhTW (taiwanisch) - kc305chen"
 
 -- Battlegrounds Menu
 L["Battlegrounds"] = "Schlachtfelder"
