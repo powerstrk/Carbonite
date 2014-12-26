@@ -99,6 +99,6 @@ L["Goto"] = true
 L["Punk: %s, %s %s at %s %d %d"] = true
 L["Punk %s added"] = true
 L["hey"] = true
-L["|cffff2020Team:] = true
+L["|cffff2020Team:"] = true
 L["Team:"] = true
 

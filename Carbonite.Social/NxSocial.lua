@@ -2640,7 +2640,7 @@ function Nx.Social.TeamHUD:Update()
 		local win = self.Win
 
 		if lockDown then
-			win:SetTitle (L["|cffff2020Team:]")
+			win:SetTitle (L["|cffff2020Team:"])
 		else
 			win:SetTitle (L["Team:"])
 		end
