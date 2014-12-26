@@ -14,7 +14,6 @@ L["Common Place"] = true
 L["Auctioneer"] = "Banditore"
 L["Banker"] = "Banchiere"
 L["Innkeeper"] = true
-L["Arcane Reforger"] = true
 L["Void Storage"] = true
 L["Transmogrifier"] = true
 L["Battle Pet Trainer"] = "Istruttore Mascotte da Combattimento"

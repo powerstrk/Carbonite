@@ -91,3 +91,4 @@ L["LOOT_SLOT_CLEARED #%s %s (quest)"] = true
 L["%s deleted"] = true
 L["enchant:(%d+)"] = true
 L["item:(%d+)"] = true
+
