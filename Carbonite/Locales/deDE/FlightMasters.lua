@@ -338,7 +338,6 @@ L["Darkspear's Edge, Frostfire Ridge"] = "Dunkelspeerspalte, Frostfeuergrat"
 L["Frostwall Garrison, Frostfire Ridge"] = "Frostwallgarnison, Frostfeuergrat" -- Garrison subzone
 L["Stonefang Outpost, Frostfire Ridge"] = "Steinzahnposten, Frostfeuergrat"
 L["Throm'Var, Frostfire Ridge"] = "Throm'Var, Frostfeuergrat"
-L["Thunder Pass, Frostfire Ridge"] = "Donnerpass, Frostfeuergrat"
 L["Wolf's Stand, Frostfire Ridge"] = "Wolfswehr, Frostfeuergrat"
 L["Wor'gol, Frostfire Ridge"] = "Wor'gol, Frostfeuergrat"
 --Gorgrond
@@ -354,6 +353,7 @@ L["Wildwood Wash, Gorgrond"] = "Wildwuchsbett, Gorgrond"
 L["Bastion Rise, Gorgrond"] = "Bastionsklippe, Gorgrond"
 L["Beastwatch, Gorgrond"] = "Wildwacht, Gorgrond"
 L["Evermorn Springs, Gorgrond"] = "Immermornquellen, Gorgrond"
+L["The Compost Heap, Gorgrond"] = true --This entry replace Thunder Pass in Frostfire Ridge tested Online, NPC Chucklespine, 41,2 87,2
 --Nagrand (WOD)
 L["Joz's Rylaks, Nagrand"] = "Joz's Rylaks, Nagrand"
 L["Nivek's Overlook, Nagrand"] = "Niveks Aussichtspunkt, Nagrand"
@@ -394,7 +394,6 @@ L["Exarch's Refuge, Talador"] = "Zuflucht des Exarchen, Talador"
 L["Fort Wrynn, Talador"] = "Fort Wrynn, Talador"
 L["Redemption Rise, Talador"] = "Erl\195\182sungsanh\195\182he, Talador"
 L["Durotan's Grasp, Talador"] = "Durotans Br\195\188ckenkopf, Talador"
-L["Exarch's Refuge, Talador"] = "Zuflucht des Exarchen, Talador"
 L["Frostwolf Overlook, Talador"] = "Frostwolfwarte, Talador"
 L["Vol'jin's Pride, Talador"] = "Vol'jins Stolz, Talador"
 -- Translation for Flight_LOC
