@@ -338,7 +338,6 @@ L["Darkspear's Edge, Frostfire Ridge"] = true
 L["Frostwall Garrison, Frostfire Ridge"] = true -- Garrison subzone
 L["Stonefang Outpost, Frostfire Ridge"] = true
 L["Throm'Var, Frostfire Ridge"] = true
-L["Thunder Pass, Frostfire Ridge"] = true
 L["Wolf's Stand, Frostfire Ridge"] = true
 L["Wor'gol, Frostfire Ridge"] = true
 --Gorgrond
@@ -354,6 +353,7 @@ L["Wildwood Wash, Gorgrond"] = true
 L["Bastion Rise, Gorgrond"] = true
 L["Beastwatch, Gorgrond"] = true
 L["Evermorn Springs, Gorgrond"] = true
+L["The Compost Heap, Gorgrond"] = true --This entry replace Thunder Pass in Frostfire Ridge tested Online, NPC Chucklespine, 41,2 87,2
 --Nagrand (WOD)
 L["Joz's Rylaks, Nagrand"] = true
 L["Nivek's Overlook, Nagrand"] = true
@@ -394,7 +394,6 @@ L["Exarch's Refuge, Talador"] = true
 L["Fort Wrynn, Talador"] = true
 L["Redemption Rise, Talador"] = true
 L["Durotan's Grasp, Talador"] = true
-L["Exarch's Refuge, Talador"] = true
 L["Frostwolf Overlook, Talador"] = true
 L["Vol'jin's Pride, Talador"] = true
 -- Translation for Flight_LOC
