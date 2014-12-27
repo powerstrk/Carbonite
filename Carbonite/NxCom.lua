@@ -1,10 +1,8 @@
 ﻿---------------------------------------------------------------------------------------
--- NxCom - Communication code
--- Copyright 2007-2012 Carbon Based Creations, LLC
----------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------
 -- Carbonite - Addon for World of Warcraft(tm)
 -- Copyright 2007-2012 Carbon Based Creations, LLC
+--
+-- NxCom - Communication code
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -20,15 +18,17 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
 
+---------------------------------------------------------------------------------------
 -- Warning: "\" in send data can lead to invalid escape codes (ok, since only escaped if in literal string?)
 -- Bytes 35 (#) + 57 == 92 (\)
 --
 -- Byte 124 == |. Must be |c or creates invalid escape code. Not in addon channel, only chat
 -- Byte 128 or higher == invalid UTF-8 error. Not in addon channel, only chat
+---------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Com
+---------------------------------------------------------------------------------------
 
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
@@ -124,7 +124,7 @@ function Nx.Com:Init()
 	Nx:RegisterComm(self.Name,Nx.Com.OnChat_msg_addon)
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Com:Test (a1, a2)
 
