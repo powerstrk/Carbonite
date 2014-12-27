@@ -338,7 +338,7 @@ L["Darkspear's Edge, Frostfire Ridge"] = "Lisi\195\168re de Sombrelance, Cr\195\
 L["Frostwall Garrison, Frostfire Ridge"] = "Mur-de-Givre Fief, Cr\195\170te de Givrefeu" -- Garrison Horde subzone
 L["Stonefang Outpost, Frostfire Ridge"] = true
 L["Throm'Var, Frostfire Ridge"] = "Throm'var, Cr\195\170te de Givrefeu"
-L["Thunder Pass, Frostfire Ridge"] = true --Tested Online doesn't exist ! please check and confirm ! data exist in others local files, Fly is in Gorgrond near the thunder pass
+L["Thunder Pass, Frostfire Ridge"] = "Passage du Tonnerre, Cr\!195\170te de Givrefeu"
 L["Wolf's Stand, Frostfire Ridge"] = "S\195\169jour du Loup, Cr\195\170te de Givrefeu"
 L["Wor'gol, Frostfire Ridge"] = "Wor'gol, Cr\195\170te de Givrefeu"
 --Gorgrond
@@ -353,8 +353,7 @@ L["Highpass, Gorgrond"] = "La Haute-Route, Gorgrond"
 L["Wildwood Wash, Gorgrond"] = "Reflux du Bois sauvage, Gorgrond"
 L["Bastion Rise, Gorgrond"] = "Bastion insoumis, Gorgrond"
 L["Beastwatch, Gorgrond"] = "Guet des b\195\168tes, Gorgrond"
-L["Evermorn Springs, Gorgrond"] = true
-L["The Compost Heap, Gorgrond"] = "Le tas de Compost, Gorgrond" --This entry replace Thunder Pass in Frostfire Ridge tested Online, NPC Chucklespine, 41,2 87,2 check data in others local files please THX
+L["Evermorn Springs, Gorgrond"] = "Sources de l'Aube-\195\137ternelle, Gorgrond"
 --Nagrand (WOD)
 L["Joz's Rylaks, Nagrand"] = "Les Rylaks de Joz, Nagrand"
 L["Nivek's Overlook, Nagrand"] = "Surplomb de Nivek, Nagrand"
@@ -391,11 +390,11 @@ L["Shattrath City, Talador"] = "Ville de Shattrath, Talador"
 L["Terokkar Refuge, Talador"] = "Refuge de Terokkar, Talador"
 L["Zangarra, Talador"] = "Zangarra, Talador"
 L["Anchorite's Sojourn, Talador"] = "S\195\169jour de l'Anachor\195\168te, Talador"
-L["Exarch's Refuge, Talador"] = "Refuge de L'Exarque, Talador"
+L["Exarch's Refuge, Talador"] = "Refuge de L'Exarque, Talador"  --Reminder twice position for Exarch's refuge
 L["Fort Wrynn, Talador"] = "Fort Wyrnn, Talador"
 L["Redemption Rise, Talador"] = "Cime de la R\195\169demption, Talador"
 L["Durotan's Grasp, Talador"] = "Emprise de Durotan, Talador"
-L["Exarch's Refuge, Talador"] = true --WARNING delete this entry, data already exist at line 394, please check data in others locals files THX
+L["Exarch's Refuge, Talador"] = "Refuge de L'Exarque, Talador"    --Reminder twice position for Exarch's refuge
 L["Frostwolf Overlook, Talador"] = "Surplomb Loup-de-Givre, Talador"
 L["Vol'jin's Pride, Talador"] = "Fiert\195\169 de Vol'jin, Talador"
 -- Translation for Flight_LOC
