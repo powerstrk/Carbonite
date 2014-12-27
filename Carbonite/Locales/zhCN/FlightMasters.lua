@@ -338,7 +338,6 @@ L["Darkspear's Edge, Frostfire Ridge"] = "暗矛之刃, 霜火岭"
 L["Frostwall Garrison, Frostfire Ridge"] = "霜壁要塞, 霜火岭" -- Garrison subzone
 L["Stonefang Outpost, Frostfire Ridge"] = "岩牙岗哨, 霜火岭"
 L["Throm'Var, Frostfire Ridge"] = "索姆瓦尔, 霜火岭"
-L["Thunder Pass, Frostfire Ridge"] = "雷霆小径, 霜火岭"
 L["Wolf's Stand, Frostfire Ridge"] = "霜狼阵地, 霜火岭"
 L["Wor'gol, Frostfire Ridge"] = "沃高尔, 霜火岭"
 --Gorgrond
@@ -354,6 +353,7 @@ L["Wildwood Wash, Gorgrond"] = "荒林洼地, 戈尔隆德"
 L["Bastion Rise, Gorgrond"] = "棱堡高地, 戈尔隆德"
 L["Beastwatch, Gorgrond"] = "蛮兽岗哨, 戈尔隆德"
 L["Evermorn Springs, Gorgrond"] = "永晨之泉, 戈尔隆德"
+L["The Compost Heap, Gorgrond"] = true --This entry replace Thunder Pass in Frostfire Ridge tested Online, NPC Chucklespine, 41,2 87,2
 --Nagrand (WOD)
 L["Joz's Rylaks, Nagrand"] = "乔兹的双头飞龙, 纳格兰"
 L["Nivek's Overlook, Nagrand"] = "内维克的岗哨, 纳格兰"
@@ -394,7 +394,6 @@ L["Exarch's Refuge, Talador"] = "大主教的避难所, 塔拉多"
 L["Fort Wrynn, Talador"] = "乌瑞恩堡, 塔拉多"
 L["Redemption Rise, Talador"] = "救赎之地, 塔拉多"
 L["Durotan's Grasp, Talador"] = "杜隆坦之握, 塔拉多"
-L["Exarch's Refuge, Talador"] = "大主教的避难所, 塔拉多"
 L["Frostwolf Overlook, Talador"] = "霜狼岗哨, 塔拉多"
 L["Vol'jin's Pride, Talador"] = "沃金之傲, 塔拉多"
 -- Translation for Flight_LOC
