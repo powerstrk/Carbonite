@@ -67,10 +67,6 @@ Nx.GuideInfo = {
 			Tx = "Spell_Shadow_Twilight",
 		},
 		{
-			T = L["Arcane Reforger"],
-			Tx = "INV_Sword_67",
-		},
-        {
 			T = L["Void Storage"],
 			Tx = "spell_nature_astralrecalgroup",
 		},
@@ -1471,8 +1467,7 @@ Nx.GuidePOI = {
 	L["Flight Master"] .. "~Ability_Mount_Wyvern_01",
 	L["Innkeeper"] .. "~Spell_Shadow_Twilight",
 	L["Mailbox"] .. "~INV_Letter_15",
-    L["Arcane Reforger"] .. "~INV_Sword_67",
-}
+    }
 
 function Nx.Map.Guide:UpdateZonePOIIcons()
 	local Map = Nx.Map

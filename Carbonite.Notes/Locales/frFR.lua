@@ -39,3 +39,5 @@ L["Note"] = "Note"
 L["Notes"] = "Notes"
 L["Note Addons"] = "Notes add-on(s)"
 L["My Notes"] = "Mes Notes"
+
+L["Reset old notes data %f"] = true
