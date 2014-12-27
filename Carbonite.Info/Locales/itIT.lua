@@ -36,7 +36,7 @@ L["One minute until the Arena"] = "1 (Uno) Minuti all'avvio dell'Arena"
 L["Thirty seconds until the Arena"] = "30 (trenta) Secondi all'avvio dell'Arena"
 L["Fifteen seconds until the Arena"] = "15 (quindici) Secondi all'avvio dell'Arena"
 
-L["Reset old info data %f"]
-L[" begins? in (%d+) "]
-L["(%d+) minutes? until the battle"]
+L["Reset old info data %f"] = true
+L[" begins? in (%d+) "] = true
+L["(%d+) minutes? until the battle"] = true
 
