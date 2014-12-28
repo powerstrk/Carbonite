@@ -336,9 +336,9 @@ L["Iron Siegeworks, Frostfire Ridge"] = "Atelier de si\195\168ge de fer, Cr\195\
 L["Bladespire Fortress, Frostfire Ridge"] = "Citadelle de Fl\195\168chelame, Cr\195\170te de Givrefeu"
 L["Darkspear's Edge, Frostfire Ridge"] = "Lisi\195\168re de Sombrelance, Cr\195\170te de Givrefeu"
 L["Frostwall Garrison, Frostfire Ridge"] = "Mur-de-Givre Fief, Cr\195\170te de Givrefeu" -- Garrison Horde subzone
-L["Stonefang Outpost, Frostfire Ridge"] = true
+L["Stonefang Outpost, Frostfire Ridge"] = "Avant-Poste Croc-de-Pierre, C\195\170te de Givrefeu"
 L["Throm'Var, Frostfire Ridge"] = "Throm'var, Cr\195\170te de Givrefeu"
-L["Thunder Pass, Frostfire Ridge"] = "Passage du Tonnerre, Cr\!195\170te de Givrefeu"
+L["Thunder Pass, Frostfire Ridge"] = "Passage du Tonnerre, Cr\195\170te de Givrefeu"
 L["Wolf's Stand, Frostfire Ridge"] = "S\195\169jour du Loup, Cr\195\170te de Givrefeu"
 L["Wor'gol, Frostfire Ridge"] = "Wor'gol, Cr\195\170te de Givrefeu"
 --Gorgrond
