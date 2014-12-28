@@ -8569,15 +8569,20 @@ function Nx.Map:InitTables()
 	Nx.IdToAId = {}
 
 	for aid, zid in pairs (Nx.Zones) do
-			local id = self.NxzoneToMapId[aid]
-			Nx.AIdToId[aid] = id
-			if id then
-				Nx.IdToAId[id] = aid
-			end
---			if not id then
---				Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
---			end
+		local id = self.NxzoneToMapId[aid]
+--		Nx.AIdToId[aid] = id  -- remove old legacy conversion
+		if id then
+			Nx.IdToAId[id] = aid -- keep this for compatibility reasons
+		end
+--		if not id then
+--			Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
+--		end
 	end
+
+	-- compatibility code
+	setmetatable(Nx.AIdToId, { __index = function(id)
+		return id
+	end })
 
 	-- Init instance entries
 
