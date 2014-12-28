@@ -8580,7 +8580,7 @@ function Nx.Map:InitTables()
 	end
 
 	-- compatibility code
-	setmetatable(Nx.AIdToId, { __index = function(id)
+	setmetatable(Nx.AIdToId, { __index = function(_, id)
 		return id
 	end })
 
