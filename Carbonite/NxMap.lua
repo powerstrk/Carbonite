@@ -3879,7 +3879,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 			y = floor (y * 10) / 10
 			local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ .5 * 4.575
 
-			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f yds", x, y, dist)
+			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f " .. L["yds"], x, y, dist)
 			cursorLocStr = cursorLocXY
 
 			local name = UpdateMapHighlight (x / 100, y / 100)
@@ -5721,7 +5721,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 		local s = name or self.TrackName
 
-		f.NxTip = format ("%s\n%d yds", s, dist * 4.575)
+		f.NxTip = format ("%s\n%d " .. L["yds"], s, dist * 4.575)
 
 		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
 	end
@@ -8569,15 +8569,20 @@ function Nx.Map:InitTables()
 	Nx.IdToAId = {}
 
 	for aid, zid in pairs (Nx.Zones) do
-			local id = self.NxzoneToMapId[aid]
-			Nx.AIdToId[aid] = id
-			if id then
-				Nx.IdToAId[id] = aid
-			end
---			if not id then
---				Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
---			end
+		local id = self.NxzoneToMapId[aid]
+--		Nx.AIdToId[aid] = id  -- remove old legacy conversion
+		if id then
+			Nx.IdToAId[id] = aid -- keep this for compatibility reasons
+		end
+--		if not id then
+--			Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
+--		end
 	end
+
+	-- compatibility code
+	setmetatable(Nx.AIdToId, { __index = function(_, id)
+		return id
+	end })
 
 	-- Init instance entries
 

@@ -1,7 +1,7 @@
 ﻿---------------------------------------------------------------------------------------
 -- Carbonite - Addon for World of Warcraft(tm)
 -- NxWeekly - Weekly Objective Tracker
--- Copyright 2013 Rytal
+-- Copyright 2013-2014 Rytal
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -33,21 +33,19 @@ local defaults = {
 		},
 		Track = {
 			Mob = {
-				Sha = true,
-				Galleon = true,
-				Nalak = true,
-				Oondasta = true,
-				Celestials = true,
-				Ordos = true
+				Tarlna = true,
+				Drov = true,
+				Rukhmar = true
 			},
 			Loot = {
-				Ritual = true,
-				LootKey = true,
-				OutdoorChest = true,
 			},
 			Quest = {
-				WarforgedSeals = true,
-				Chamberlain = true,
+				SealOfTemperedFate = true,
+--				ApexDailies = true,
+				GarrisonInvasion = true
+			},
+			Raids = {
+				Highmaul = true
 			},
 		},
 	},
@@ -95,76 +93,40 @@ local function WeeklyOptions()
 							type = "description",
 							name = L["Place check boxes in the mobs you wish to track weekly kills."],
 						},
-						sha = {
+						tarlna = {
 							order = 2,
 							type = "toggle",
 							width = "full",
-							name = L["Sha of Anger"],
+							name = L["Tarlna the Ageless"],
 							get = function()
-								return Nx.wkdb.profile.Track.Mob.Sha
+								return Nx.wkdb.profile.Track.Mob.Tarlna
 							end,
 							set = function()
-								Nx.wkdb.profile.Track.Mob.Sha = not Nx.wkdb.profile.Track.Mob.Sha
+								Nx.wkdb.profile.Track.Mob.Tarlna = not Nx.wkdb.profile.Track.Mob.Tarlna
 							end,
 						},
-						galleon = {
+						drov = {
 							order = 3,
 							type = "toggle",
 							width = "full",
-							name = L["Galleon"],
+							name = L["Drov the Ruiner"],
 							get = function()
-								return Nx.wkdb.profile.Track.Mob.Galleon
+								return Nx.wkdb.profile.Track.Mob.Drov
 							end,
 							set = function()
-								Nx.wkdb.profile.Track.Mob.Galleon = not Nx.wkdb.profile.Track.Mob.Galleon
+								Nx.wkdb.profile.Track.Mob.Drov = not Nx.wkdb.profile.Track.Mob.Drov
 							end,
 						},
-						nalak = {
+						rukhmar = {
 							order = 4,
 							type = "toggle",
 							width = "full",
-							name = L["Nalak"],
+							name = L["Rukhmar"],
 							get = function()
-								return Nx.wkdb.profile.Track.Mob.Nalak
+								return Nx.wkdb.profile.Track.Mob.Rukhmar
 							end,
 							set = function()
-								Nx.wkdb.profile.Track.Mob.Nalak = not Nx.wkdb.profile.Track.Mob.Nalak
-							end,
-						},
-						oondasta = {
-							order = 5,
-							type = "toggle",
-							width = "full",
-							name = L["Oondasta"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Oondasta
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Oondasta = not Nx.wkdb.profile.Track.Mob.Oondasta
-							end,
-						},
-						celestials = {
-							order = 6,
-							type = "toggle",
-							width = "full",
-							name = L["Celestials"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Celestials
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Celestials = not Nx.wkdb.profile.Track.Mob.Celestials
-							end,
-						},
-						ordos = {
-							order = 7,
-							type = "toggle",
-							width = "full",
-							name = L["Ordos"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Ordos
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Ordos = not Nx.wkdb.profile.Track.Mob.Ordos
+								Nx.wkdb.profile.Track.Mob.Rukhmar = not Nx.wkdb.profile.Track.Mob.Rukhmar
 							end,
 						},
 					},
@@ -179,42 +141,6 @@ local function WeeklyOptions()
 							type = "description",
 							name = L["Place check boxes in the weekly drops you wish to track."],
 						},
-						ritual = {
-							order = 2,
-							type = "toggle",
-							width = "full",
-							name = L["Shan'ze Ritual Stone"],
-							get = function()
-								return Nx.wkdb.profile.Track.Loot.Ritual
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Loot.Ritual = not Nx.wkdb.profile.Track.Loot.Ritual
-							end,
-						},
-						lootkey = {
-							order = 3,
-							type = "toggle",
-							width = "full",
-							name = L["Lei Shen Palace Key"],
-							get = function()
-								return Nx.wkdb.profile.Track.Loot.LootKey
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Loot.LootKey = not Nx.wkdb.profile.Track.Loot.LootKey
-							end,
-						},
-						ochest = {
-							order = 4,
-							type = "toggle",
-							width = "full",
-							name = L["Thunder King Trove"],
-							get = function()
-								return Nx.wkdb.profile.Track.Loot.OutdoorChest
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Loot.OutdoorChest = not Nx.wkdb.profile.Track.Loot.OutdoorChest
-							end,
-						},
 					},
 				},
 				Quests = {
@@ -227,28 +153,40 @@ local function WeeklyOptions()
 							type = "description",
 							name = L["Place check boxes in the weekly quests you want to track."],
 						},
-						warforgedseals = {
+						sealoftemperedfate = {
 							order = 2,
 							type = "toggle",
 							width = "full",
-							name = L["Warforged Seals"],
+							name = L["Seal of Tempered Fate"],
 							get = function()
-								return Nx.wkdb.profile.Track.Quest.WarforgedSeals
+								return Nx.wkdb.profile.Track.Quest.SealOfTemperedFate
 							end,
 							set = function()
-								Nx.wkdb.profile.Track.Quest.WarforgedSeals = not Nx.wkdb.profile.Track.Quest.WarforgedSeals
+								Nx.wkdb.profile.Track.Quest.SealOfTemperedFate = not Nx.wkdb.profile.Track.Quest.SealOfTemperedFate
 							end,
 						},
-						chamberlain = {
+--[[						apexdailies = { -- no idea how to track them yet
 							order = 3,
 							type = "toggle",
 							width = "full",
-							name = L["The Crumbled Chamberlain"],
+							name = L["Apex Dailies"],
 							get = function()
-								return Nx.wkdb.profile.Track.Quest.Chamberlain
+								return Nx.wkdb.profile.Track.Quest.ApexDailies
 							end,
 							set = function()
-								Nx.wkdb.profile.Track.Quest.Chamberlain = not Nx.wkdb.profile.Track.Quest.Chamberlain
+								Nx.wkdb.profile.Track.Quest.ApexDailies = not Nx.wkdb.profile.Track.Quest.ApexDailies
+							end,
+						},]]
+						garrisoninvasion = {
+							order = 3,
+							type = "toggle",
+							width = "full",
+							name = L["Garrison Invasion"],
+							get = function()
+								return Nx.wkdb.profile.Track.Quest.GarrisonInvasion
+							end,
+							set = function()
+								Nx.wkdb.profile.Track.Quest.GarrisonInvasion = not Nx.wkdb.profile.Track.Quest.GarrisonInvasion
 							end,
 						},
 					},
@@ -262,6 +200,18 @@ local function WeeklyOptions()
 							order = 1,
 							type = "description",
 							name = L["Place check boxes in the raid progress you want to track."],
+						},
+						highmaul = {
+							order = 2,
+							type = "toggle",
+							width = "full",
+							name = L["Highmaul"],
+							get = function()
+								return Nx.wkdb.profile.Track.Raids.Highmaul
+							end,
+							set = function()
+								Nx.wkdb.profile.Track.Raids.Highmaul = not Nx.wkdb.profile.Track.Raids.Highmaul
+							end,
 						},
 					},
 				},
@@ -354,17 +304,13 @@ function Nx.Weekly:Reset()
 			return
 		end
 		if ch.Weekly then
-			ch.Weekly.Sha = false
-			ch.Weekly.Galleon = false
-			ch.Weekly.Nalak = false
-			ch.Weekly.Oondasta = false
-			ch.Weekly.Ritual = false
-			ch.Weekly.LootKey = false
-			ch.Weekly.OutdoorChest = false
-			ch.Weekly.Chamberlain = false
-			ch.Weekly.Celestials = false
-			ch.Weekly.Ordos = false
-			ch.Weekly.WarforgedSeals = false
+			ch.Weekly.Tarlna = false
+			ch.Weekly.Drov = false
+			ch.Weekly.Rukhmar = false
+			ch.Weekly.SealOfTemperedFate = 0
+			ch.Weekly.Highmaul = false
+--			ch.Weekly.ApexDailies = 0 -- no idea how to track them yet
+			ch.Weekly.GarrisonInvasion = false
 		end
 	end
 end
@@ -373,60 +319,28 @@ function Nx.Weekly:CharRecord(ch)
   if not ch.Weekly then
     ch.Weekly = {}
   end
-  if IsQuestFlaggedCompleted(32099) then
-	ch.Weekly.Sha = true
-  else
-	ch.Weekly.Sha = false
+  local mobs = {
+  	Tarlna = 37462,
+  	Drov = 37460,
+  	Rukhmar = 37474,
+  }
+  for name, id in pairs(mobs) do
+  	ch.Weekly[name] = IsQuestFlaggedCompleted(id)
   end
-  if IsQuestFlaggedCompleted(32098) then
-	ch.Weekly.Galleon = true
-  else
-	ch.Weekly.Galleon = false
+  local sealquests = { 36054, 36055, 36056, 36057, 36058, 36060, 37453, 37452, 37454, 37455, 37456, 37457, 37458, 37459 }
+  ch.Weekly.SealOfTemperedFate = 0
+  for i, quest in ipairs(sealquests) do
+  	if (IsQuestFlaggedCompleted(quest)) then
+  	  ch.Weekly.SealOfTemperedFate = ch.Weekly.SealOfTemperedFate + 1
+  	end
   end
-  if IsQuestFlaggedCompleted(32518) then
-	ch.Weekly.Nalak = true
-  else
-	ch.Weekly.Nalak = false
-  end
-  if IsQuestFlaggedCompleted(32519) then
-	ch.Weekly.Oondasta = true
-  else
-	ch.Weekly.Oondasta = false
-  end
-  if IsQuestFlaggedCompleted(32610) then
-	ch.Weekly.Ritual = true
-  else
-	ch.Weekly.Ritual = false
-  end
-  if IsQuestFlaggedCompleted(32626) then
-	ch.Weekly.LootKey = true
-  else
-	ch.Weekly.LootKey = false
-  end
-  if IsQuestFlaggedCompleted(32609) then
-	ch.Weekly.OutdoorChest = true
-  else
-	ch.Weekly.OutdoorChest = false
-  end
-  if IsQuestFlaggedCompleted(32505) then
-	ch.Weekly.Chamberlain = true
-  else
-	ch.Weekly.Chamberlain = false
-  end
-  if IsQuestFlaggedCompleted(33117) then
-	ch.Weekly.Celestials = true
-  else
-	ch.Weekly.Celestials = false
-  end
-  if IsQuestFlaggedCompleted(33118) then
-	ch.Weekly.Ordos = true
-  else
-	ch.Weekly.Ordos = false
-  end
-  if IsQuestFlaggedCompleted(33134) then
-	ch.Weekly.WarforgedSeals = true
-  else
-	ch.Weekly.WarforgedSeals = false
+  -- TODO: track apex dailies
+  local invasions = { Bronze = 37638, Silver = 37639, Gold = 37640 }
+  ch.Weekly.GarrisonInvasion = false
+  for reward, id in pairs(invasions) do
+  	if (IsQuestFlaggedCompleted(id)) then
+  	  ch.Weekly.GarrisonInvasion = reward
+  	end
   end
 end
 
@@ -492,7 +406,6 @@ function Nx.Weekly:ToggleShow()
 		self:Update()
 	end
 
---PAIDE!
 end
 
 ---------------------------------------------------------------------------------------
@@ -512,7 +425,7 @@ function Nx.Weekly:OnListEvent (eventName, sel, val2, click)
 end
 
 ---------------------------------------------------------------------------------------
--- Update Warehouse
+-- Update Weeklies
 ---------------------------------------------------------------------------------------
 
 function Nx.Weekly:Update()
@@ -524,7 +437,7 @@ function Nx.Weekly:Update()
 		return
 	end
 	Nx.Weekly:CharRecord(Nx.CurCharacter)
-	self.Win:SetTitle (format (L["Weekly Tracker: %d characters - Reset In %s"], #Nx.RealmChars,SecondsToTime(Nx.Weekly:CalcReset(), false, true,3)))
+	self.Win:SetTitle (format (L["Weekly Tracker: %d characters - Reset In %s"], #Nx.RealmChars,SecondsToTime(Nx.Weekly:CalcReset(), false, true, 3)))
 	local myName = UnitName ("player")
 	local totalChars = 0
 	local hicol = "|cffcfcfcf"
@@ -567,89 +480,47 @@ function Nx.Weekly:DisplayWeekly()
 	local spacer = false
 	list:ColumnSetName (1, format ("  %s's Weekly Status", cname))
 	local ch = Nx.db.global.Characters[rc]
-	if Nx.wkdb.profile.Track.Mob.Sha then
+	if Nx.wkdb.profile.Track.Mob.Tarlna then
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Sha of Anger"])
-		if ch.Weekly and ch.Weekly.Sha then
+		list:ItemSet(1, "|cffffff00  " .. L["Tarlna the Ageless"])
+		if ch.Weekly and ch.Weekly.Tarlna then
 			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Sha then
+		elseif ch.Weekly and not ch.Weekly.Tarlna then
 			strng = "|cffff0000" .. L["Not Killed"]
 		else
 			strng = "|cffffffff" .. L["Unknown"]
 		end
 		list:ItemSet(2, strng)
 		curline = curline + 1
-		spacer = true
+		spacer = true		
 	end
-	if Nx.wkdb.profile.Track.Mob.Galleon then
+	if Nx.wkdb.profile.Track.Mob.Drov then
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Galleon"])
-		if ch.Weekly and ch.Weekly.Galleon then
+		list:ItemSet(1, "|cffffff00  " .. L["Drov the Ruiner"])
+		if ch.Weekly and ch.Weekly.Drov then
 			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Galleon then
+		elseif ch.Weekly and not ch.Weekly.Drov then
 			strng = "|cffff0000" .. L["Not Killed"]
 		else
 			strng = "|cffffffff" .. L["Unknown"]
 		end
 		list:ItemSet(2, strng)
 		curline = curline + 1
-		spacer = true
+		spacer = true		
 	end
-	if Nx.wkdb.profile.Track.Mob.Nalak then
+	if Nx.wkdb.profile.Track.Mob.Rukhmar then
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Nalak"])
-		if ch.Weekly and ch.Weekly.Nalak then
+		list:ItemSet(1, "|cffffff00  " .. L["Rukhmar"])
+		if ch.Weekly and ch.Weekly.Rukhmar then
 			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Nalak then
+		elseif ch.Weekly and not ch.Weekly.Rukhmar then
 			strng = "|cffff0000" .. L["Not Killed"]
 		else
 			strng = "|cffffffff" .. L["Unknown"]
 		end
 		list:ItemSet(2, strng)
 		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Oondasta then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Oondasta"])
-		if ch.Weekly and ch.Weekly.Oondasta then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Oondasta then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
-		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Celestials then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Celestials"])
-		if ch.Weekly and ch.Weekly.Celestials then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Celestials then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
-		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Ordos then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Ordos"])
-		if ch.Weekly and ch.Weekly.Ordos then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Ordos then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
-		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
+		spacer = true		
 	end
 	if spacer then
 		list:ItemAdd(curline)
@@ -657,13 +528,12 @@ function Nx.Weekly:DisplayWeekly()
 		curline = curline + 1
 	end
 	spacer = false
-	if Nx.wkdb.profile.Track.Loot.Ritual then
+	if Nx.wkdb.profile.Track.Quest.SealOfTemperedFate then
+		local sealColors = { "|cff808080", "|cffff0000", "|cffffff00", "|cff00ff00", "|cff33ff33", "|cff66ff66" }
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Shan'ze Ritual Stone"])
-		if ch.Weekly and ch.Weekly.Ritual then
-			strng = "|cff00ff00" .. L["Looted"]
-		elseif ch.Weekly and not ch.Weekly.Ritual then
-			strng = "|cffff0000" .. L["Not Looted"]
+		list:ItemSet(1, "|cffffff00  " .. L["Seals of Tempered Fate"])
+		if ch.Weekly and type(ch.Weekly.SealOfTemperedFate) == 'number' then
+			strng = format("%s%d", sealColors[ch.Weekly.SealOfTemperedFate + 1] or sealColors[0], ch.Weekly.SealOfTemperedFate)
 		else
 			strng = "|cffffffff" .. L["Unknown"]
 		end
@@ -671,59 +541,13 @@ function Nx.Weekly:DisplayWeekly()
 		curline = curline + 1
 		spacer = true
 	end
-	if Nx.wkdb.profile.Track.Loot.LootKey then
+	if Nx.wkdb.profile.Track.Quest.GarrisonInvasion then
+		local rewardColors = { Bronze = "|cffcd7f32", Silver = "|cffc0c0c0", Gold = "|cffd7af00" }
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Palace Key"])
-		if ch.Weekly and ch.Weekly.LootKey then
-			strng = "|cff00ff00" .. L["Looted"]
-		elseif ch.Weekly and not ch.Weekly.LootKey then
-			strng = "|cffff0000" .. L["Not Looted"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
-		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Loot.OutdoorChest then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Thunder King Trove"])
-		if ch.Weekly and ch.Weekly.OutdoorChest then
-			strng = "|cff00ff00" .. L["Looted"]
-		elseif ch.Weekly and not ch.Weekly.OutdoorChest then
-			strng = "|cffff0000" .. L["Not Looted"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
-		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if spacer then
-		list:ItemAdd(curline)
-		list:ItemSet(1,"|cff00ffff  -----------------------------")
-	end
-	spacer = false
-	if Nx.wkdb.profile.Track.Quest.WarforgedSeals then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Warforged Seals Quest"])
-		if ch.Weekly and ch.Weekly.WarforgedSeals then
-			strng = "|cff00ff00" .. L["Completed"]
-		elseif ch.Weekly and not ch.Weekly.WarforgedSeals then
-			strng = "|cffff0000" .. L["Not Completed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
-		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Quest.Chamberlain then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["The Crumbled Chamberlain Quest"])
-		if ch.Weekly and ch.Weekly.Chamberlain then
-			strng = "|cff00ff00" .. L["Completed"]
-		elseif ch.Weekly and not ch.Weekly.Chamberlain then
+		list:ItemSet(1, "|cffffff00  " .. L["Garrison Invasion"])
+		if ch.Weekly and ch.Weekly.GarrisonInvasion and rewardColors[ch.Weekly.GarrisonInvasion] then
+			strgn = rewardColors[ch.Weekly.GarrisonInvasion] .. ch.Weekly.GarrisonInvasion
+		elseif ch.Weekly and not ch.Weekly.GarrisonInvasion then
 			strng = "|cffff0000" .. L["Not Completed"]
 		else
 			strng = "|cffffffff" .. L["Unknown"]

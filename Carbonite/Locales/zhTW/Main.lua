@@ -130,3 +130,5 @@ L["In Conflict"] = "戰鬥中"				-- NXlINCONFLICT
 L["Opening"] = "開啟"					-- NXlOpening
 L["Opening - No Text"] = "開啟 - 無文字"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "永霜屑片"			-- NXlEverfrost
+
+L["yds"] = "碼"

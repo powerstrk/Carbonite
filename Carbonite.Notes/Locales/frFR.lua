@@ -14,8 +14,8 @@ L["Add Note"] = "Ajouter Note"
 L["Notes Module"] = "Module Notes"
 L["Toggle Notes"] = "Basculer Notes"
 L["Record"] = "Enregistrer"
-L["Up"] = "Haut" --"Au Dessus" change by Powerstk patch10
-L["Down"] = "En Bas"
+L["Up"] = "Haut"
+L["Down"] = "Bas"
 L["Delete Item"] = "Effacer Objet"
 L["Name"] = "Nom"
 L["Type"] = "Type"
@@ -40,4 +40,4 @@ L["Notes"] = "Notes"
 L["Note Addons"] = "Notes add-on(s)"
 L["My Notes"] = "Mes Notes"
 
-L["Reset old notes data %f"] = true
+L["Reset old notes data %f"] = "R\195\169initialiser anciennes donn\195\169s de vos Notes %f"

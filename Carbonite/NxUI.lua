@@ -91,10 +91,28 @@ function Nx:prtSetChatFrame()
 	end
 end
 
-function Nx.prt (msg, ...)
+function Nx.prt (...)
+	local args = {...}
+	local i = 1
+	-- replace missing/erroneous placeholders
+	function replace_placeholders(placeholder, item) 		
+		i = i + 1
+		if (args[i] == nil) then
+			return '[missing argument]'
+		end
+		if item ~= 's' and item ~= 'q' then
+			if type(args[i]) == 'string' and string.match(args[i], '^[.0-9]+$') then
+				return placeholder
+			elseif type(args[i]) ~= 'number' then
+				return '[not a number]'
+			end
+		end
+		return placeholder
+	end
+	args[1] = string.gsub((args[1] or 'nil'), '(%%[0-9.]*([cdeEfgGioqsuxX]))', replace_placeholders)
+
 	local f = Nx.prtChatFrm or DEFAULT_CHAT_FRAME
---    msg = debugstack(2,3,2)
-	f:AddMessage (Nx.TXTBLUE..L["Carbonite"].." |cffffffff".. (format (msg, ...) or "nil"), 1, 1, 1)
+	f:AddMessage (Nx.TXTBLUE..L["Carbonite"].." |cffffffff".. format (unpack(args)), 1, 1, 1)
 end
 
 function Nx.prtraw (msg)
