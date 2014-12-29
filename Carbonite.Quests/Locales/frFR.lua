@@ -287,3 +287,5 @@ L["Player"] = "Joueur"
 L["Daily Quests Completed: |cffffffff"] = "Qu\195\170tes journali\195\168res termin\195\169es: |cffffffff"
 L["|r  Daily reset: |cffffffff"] = "|r  Reset Journalier: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "Qu\195\170tes: |cffffffff%d/%d|r  %s"
+
+L["yds"] = true

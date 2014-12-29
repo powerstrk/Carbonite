@@ -283,3 +283,5 @@ L["Player"] = true
 L["Daily Quests Completed: |cffffffff"] = true
 L["|r  Daily reset: |cffffffff"] = true
 L["Quests: |cffffffff%d/%d|r  %s"] = true
+
+L["yds"] = true

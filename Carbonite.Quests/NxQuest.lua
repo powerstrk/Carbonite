@@ -8895,9 +8895,9 @@ function Nx.Quest.Watch:UpdateList()
 							if showDist then
 								local d = cur.Distance * 4.575
 								if d < 1000 then
-									nameStr = format ("%s |cff808080%d yds", nameStr, d)
+									nameStr = format ("%s |cff808080%d " .. L["yds"], nameStr, d)
 								elseif cur.Distance < 99999 then
-									nameStr = format ("%s |cff808080%.1fK yds", nameStr, d / 1000)
+									nameStr = format ("%s |cff808080%.1fK " .. L["yds"], nameStr, d / 1000)
 								end
 							end
 							if cur.PartyCnt then

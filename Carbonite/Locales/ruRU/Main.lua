@@ -136,3 +136,5 @@ L["In Conflict"] = "В конфликте"				-- NXlINCONFLICT
 L["Opening"] = "Открывание"					-- NXlOpening
 L["Opening - No Text"] = "Открывание - нет текста"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Осколок Вечного льда"			-- NXlEverfrost
+
+L["yds"] = true

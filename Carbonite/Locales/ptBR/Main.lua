@@ -140,3 +140,5 @@ L["In Conflict"] = "Em Conflito"			-- NXlINCONFLICT
 L["Opening"] = "Abrindo"				-- NXlOpening
 L["Opening - No Text"] = "Abrindo - Sem texto"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Chip de Everfrost"		-- NXlEverfrost
+
+L["yds"] = true

@@ -140,3 +140,5 @@ L["In Conflict"] = "Territorio Conteso"				-- NXlINCONFLICT
 L["Opening"] = "Apertura"					-- NXlOpening
 L["Opening - No Text"] = "Apertura - Nessun Testo"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Morceau de permagivre"			-- NXlEverfrost
+
+L["yds"] = true

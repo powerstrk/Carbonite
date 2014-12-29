@@ -126,3 +126,5 @@ L["In Conflict"] = true				-- NXlINCONFLICT
 L["Opening"] = true				-- NXlOpening
 L["Opening - No Text"] = true			-- NXlOpeningNoText
 L["Everfrost Chip"] = true			-- NXlEverfrost
+
+L["yds"] = true

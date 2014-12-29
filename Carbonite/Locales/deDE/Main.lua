@@ -138,3 +138,5 @@ L["In Conflict"] = "Umk\195\164mpft"				-- NXlINCONFLICT
 L["Opening"] = "\195\150ffnen"					-- NXlOpening
 L["Opening - No Text"] = "\195\150ffnen - Kein Text"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Immerfrostsplitter"			-- NXlEverfrost
+
+L["yds"] = true

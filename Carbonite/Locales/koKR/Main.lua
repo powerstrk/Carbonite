@@ -178,3 +178,5 @@ L["Align Bottom"] = "아래 정렬"
 L["Align Right"] = "오른쪽 정렬"
 L["Vertical"] = "수직"
 L["Put the game minimap into the Carbonite map?\n\nThis will make one unified map. The minimap buttons will go into the Carbonite button window. This can also be changed using the Map Minimap options page."] = ""
+
+L["yds"] = true
