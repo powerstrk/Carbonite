@@ -32,7 +32,7 @@ L["One minute until the Arena"] = "一分钟后进入竞技场"
 L["Thirty seconds until the Arena"] = "半分钟后进入竞技场"
 L["Fifteen seconds until the Arena"] = "十五秒后进入竞技场"
 
-L["Reset old info data %f"] = true
-L[" begins? in (%d+) "] = true
-L["(%d+) minutes? until the battle"] = true
+L["Reset old info data %f"] = "重置旧信息数据 %f"
+L[" begins? in (%d+) "] = " 将于 (%d+) 后开始"
+L["(%d+) minutes? until the battle"] = "(%d+) 分钟后开始战斗"
 
