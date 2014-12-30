@@ -3626,7 +3626,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 				return
 			end
 			if mapId ~= curMapId then
-				Map:SetCurrentMap (mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
+				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged				
 			end
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
@@ -3677,7 +3677,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()
+		local mapId = Nx.Map:GetCurrentMapId()		
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end

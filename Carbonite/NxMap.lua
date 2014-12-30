@@ -233,11 +233,11 @@ function SetMapByID(zone,level)
 			zone = Nx.Map.MouseIsOverMap			
 			Nx.Map.RMapId = zone
 		else
-			Nx.Map.RMapId = Nx.Map.UpdateMapID
+			Nx.Map.RMapId = zone
 			return
 		end
 	else
-		Nx.Map.RMapId = Nx.Map.UpdateMapID
+		Nx.Map.RMapId = zone
 	end
 	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then		
 		if zone then						
