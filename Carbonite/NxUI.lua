@@ -49,7 +49,7 @@ function Nx:UIInit()
 --	Nx.GList:Init()
 end
 
----------------------------
+---------------------------------------------------------------------------------------
 
 function Nx.prtStack (str)
 	local s = debugstack (2, 3, 2)
@@ -57,8 +57,9 @@ function Nx.prtStack (str)
 	Nx.prt ("%s: %s", str, s)
 end
 
----------------------------
+---------------------------------------------------------------------------------------
 -- Chat printing
+---------------------------------------------------------------------------------------
 
 function Nx:prtGetChatFrames()
 
@@ -199,11 +200,11 @@ function Nx.prtFrame (msg, frm)
 
 --	prt (msg.." Frame: %s", frm:GetName() or "nil")
 
-	prt (msg.." Frame: %s Shown%d Vis%d P>%s", frm:GetName() or "nil",
+	prt (msg..L[" Frame: %s Shown%d Vis%d P>%s"], frm:GetName() or "nil",
 			frm:IsShown() or 0, frm:IsVisible() or 0, parent and parent:GetName() or "nil")
-	prt (" EScale %f, Lvl %f", frm:GetEffectiveScale(), frm:GetFrameLevel())
-	prt (" LR %f, %f", frm:GetLeft() or -999, frm:GetRight() or -999)
-	prt (" BT %f, %f", frm:GetBottom() or -999, frm:GetTop() or -999)
+	prt (L[" EScale %f, Lvl %f"], frm:GetEffectiveScale(), frm:GetFrameLevel())
+	prt (L[" LR %f, %f"], frm:GetLeft() or -999, frm:GetRight() or -999)
+	prt (L[" BT %f, %f"], frm:GetBottom() or -999, frm:GetTop() or -999)
 
 	local reg = { frm:GetRegions() }
 	for n, o in ipairs (reg) do
@@ -240,7 +241,7 @@ function Nx.prtFrameChildren (msg, frm, lvl)
 
 		if c:IsObjectType ("Frame") then
 
-			prt ("%s#%d %s ID%s (%s) show%d l%d x%d y%d", pad, n, c:GetName() or "nil",
+			prt (L["%s#%d %s ID%s (%s) show%d l%d x%d y%d"], pad, n, c:GetName() or "nil",
 				c:GetID() or "nil", c:GetObjectType(),
 				c:IsShown() or 0, frm:GetFrameLevel(),
 				c:GetLeft() or -99999, c:GetTop() or -99999
@@ -252,10 +253,11 @@ function Nx.prtFrameChildren (msg, frm, lvl)
 	end
 end
 
-----------------------------------
+---------------------------------------------------------------------------------------
 
---------
+---------------------------------------------------------------------------------------
 -- Make the first letter a cap and the rest lower case
+---------------------------------------------------------------------------------------
 
 function Nx.Util_CapStr (str)
 	return strupper (strsub (str, 1, 1)) .. strlower (strsub (str, 2))
@@ -267,8 +269,9 @@ function Nx.Util_CleanName (name)
 	return name
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Count table entries
+---------------------------------------------------------------------------------------
 
 function Nx.Util_tcount (t)
 
@@ -297,8 +300,9 @@ function Nx.Util_tcountrecurse (t)
 	return n
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Copy table entries recursively
+---------------------------------------------------------------------------------------
 
 function Nx.Util_TCopyRecurse (t)
 
@@ -315,9 +319,10 @@ function Nx.Util_TCopyRecurse (t)
 	return tc
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find item index in table
 -- (table, search item)
+---------------------------------------------------------------------------------------
 
 function Nx.Util_TFindItemI (t, item)
 
@@ -328,9 +333,10 @@ function Nx.Util_TFindItemI (t, item)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Move a indexed table index lower or higher
 -- (table, index, not nil to move to lower index)
+---------------------------------------------------------------------------------------
 
 function Nx.Util_TMoveI (t, i, low)
 
@@ -347,9 +353,10 @@ function Nx.Util_TMoveI (t, i, low)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Move a indexed table item lower or higher
 -- (table, match item, not nil to move to lower index)
+---------------------------------------------------------------------------------------
 
 function Nx.Util_TMoveItem (t, item, low)
 
@@ -371,8 +378,9 @@ function Nx.Util_TMoveItem (t, item, low)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Serialize a table to a string
+---------------------------------------------------------------------------------------
 
 function Nx.Util_t2strRecurse (t)
 
@@ -407,9 +415,10 @@ function Nx.Util_t2strRecurse (t)
 	return str
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Convert hex color number to R G B A floats (0-1)
 -- (RRGGBBAA number)
+---------------------------------------------------------------------------------------
 
 function Nx.Util_str2rgba (colors)
 	local arr = { Nx.Split("|",colors) }
@@ -421,26 +430,29 @@ function Nx.Util_str2rgb (colors)
 	return arr[1], arr[2], arr[3]
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Convert hex color number to alpha float (0-1)
 -- (RRGGBBAA number)
+---------------------------------------------------------------------------------------
 
 function Nx.Util_str2a (colors)
 	local arr = { Nx.Split("|",colors) }
 	return arr[4]
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Convert hex color number to color string
 -- (RGBA number)
+---------------------------------------------------------------------------------------
 
 function Nx.Util_str2colstr (colors)
 	local arr = { Nx.Split("|",colors) }
 	return format ("|c%02x%02x%02x%02x",arr[4]*255,arr[1]*255,arr[2]*255,arr[3]*255)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Convert color table
+---------------------------------------------------------------------------------------
 
 function Nx.Util_coltrgb2colstr (colors)
 
@@ -453,9 +465,10 @@ function Nx.Util_coltrgb2colstr (colors)
 	return t
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Step a value to the target value by a step
 -- ret new value
+---------------------------------------------------------------------------------------
 
 function Nx.Util_StepValue (value, target, step)
 
@@ -475,10 +488,11 @@ function Nx.Util_StepValue (value, target, step)
 	return value
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check if mouse is over a frame
 -- (frame)
 -- ret XY offsets from bottom left corner or nil if not over
+---------------------------------------------------------------------------------------
 
 function Nx.Util_IsMouseOver (frm)
 
@@ -501,10 +515,11 @@ function Nx.Util_IsMouseOver (frm)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get mouse position relative to a frame
 -- (frame)
 -- ret XY offsets from bottom left corner
+---------------------------------------------------------------------------------------
 
 function Nx.Util_GetMouseClampedXY (frm)
 
@@ -528,10 +543,11 @@ function Nx.Util_GetMouseClampedXY (frm)
 	return x - left, y - bottom
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Clamp frame to screen
 -- (frame)
 -- ret XY offsets from bottom left corner
+---------------------------------------------------------------------------------------
 
 function Nx.Util_SnapToScreen (frm)
 
@@ -587,8 +603,9 @@ function Nx.Util_SnapToScreen (frm)
 	return nil
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Recursively set child levels
+---------------------------------------------------------------------------------------
 
 function Nx.Util_SetChildLevels (frm, lvl)
 
@@ -607,8 +624,9 @@ function Nx.Util_SetChildLevels (frm, lvl)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get a string from a money value
+---------------------------------------------------------------------------------------
 
 function Nx.Util_GetMoneyStr (money)
 
@@ -644,8 +662,9 @@ function Nx.Util_GetMoneyStr (money)
 	return pre .. strtrim (str)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get a string from a seconds
+---------------------------------------------------------------------------------------
 
 function Nx.Util_GetTimeElapsedStr (seconds)
 
@@ -654,13 +673,13 @@ function Nx.Util_GetTimeElapsedStr (seconds)
 	local hours = secs / 3600
 
 	if hours > 24 then
-		return format ("%.1f days", hours / 24)
+		return format (L["%.1f days"], hours / 24)
 
 	elseif hours >= 1 then
-		return format ("%.1f hours", hours)
+		return format (L["%.1f hours"], hours)
 	end
 
-	return format ("%d mins", mins)
+	return format (L["%d mins"], mins)
 end
 
 function Nx.Util_SecondsToDays (seconds)
@@ -672,15 +691,17 @@ function Nx.Util_SecondsToDays (seconds)
 end
 
 
---------
+---------------------------------------------------------------------------------------
 -- Get a string from a seconds in 00:00 minute:second format
+---------------------------------------------------------------------------------------
 
 function Nx.Util_GetTimeElapsedMinSecStr (seconds)
 	return format ("%d:%02d", seconds / 60 % 60, seconds % 60)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Parse text and set for tooltip
+---------------------------------------------------------------------------------------
 
 function Nx:SetTooltipText (str)
 
@@ -746,8 +767,9 @@ function Nx:SetTooltipText (str)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Play a sound file if sounds enabled
+---------------------------------------------------------------------------------------
 
 function Nx:PlaySoundFile (file)
 
@@ -757,8 +779,9 @@ function Nx:PlaySoundFile (file)
 end
 
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Font stuff
+---------------------------------------------------------------------------------------
 
 function Nx.Font:Init()
 
@@ -907,8 +930,9 @@ function Nx.Font:Update()
 	Nx.Window:AdjustAll()
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Skin stuff
+---------------------------------------------------------------------------------------
 
 function Nx.Skin:Init()
 
@@ -1091,8 +1115,9 @@ function Nx.Skin:GetTex (txName)
 	return self.Path .. txName
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Window - A frame with a title and borders that can be moved and resized
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Init()
 
@@ -1101,7 +1126,7 @@ function Nx.Window:Init()
 	if not wd.Version or wd.Version < Nx.VERSIONWin then
 
 		if wd.Version then
-			Nx.prt ("Reset old layout data")
+			Nx.prt (L["Reset old layout data"])
 		end
 		wd.Version = Nx.VERSIONWin
 
@@ -1153,7 +1178,7 @@ function Nx.Window:Init()
 	menu:AddItem (0, L["Reset Layout"], func, self)
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Menu_OnHideInCombat (item)
 	self.MenuWin.SaveData["HideC"] = item:GetChecked()
@@ -1215,8 +1240,9 @@ function Nx.Window:Menu_OnTrans (item)
 	f:SetAlpha (trans)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Reset layouts of all created windows
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ResetLayouts()
 
@@ -1225,13 +1251,14 @@ function Nx.Window:ResetLayouts()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check if ok to copy all window saved data from one character to another
+---------------------------------------------------------------------------------------
 
 function Nx.Window:CopyLayoutsCheck (swd, dwd)
 
 	if dwd.Version and (not swd.Version or swd.Version < dwd.Version) then
-		Nx.prt ("Window version mismatch!")
+		Nx.prt (L["Window version mismatch!"])
 		return
 	end
 
@@ -1240,8 +1267,9 @@ function Nx.Window:CopyLayoutsCheck (swd, dwd)
 	return true
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Clear a window's saved data
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ClrSaveData (name)
 
@@ -1249,8 +1277,9 @@ function Nx.Window:ClrSaveData (name)
 	wd[name] = nil
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Force adjust of all created windows
+---------------------------------------------------------------------------------------
 
 function Nx.Window:AdjustAll()
 
@@ -1261,8 +1290,9 @@ function Nx.Window:AdjustAll()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update hide status for combat
+---------------------------------------------------------------------------------------
 
 function Nx.Window:UpdateCombat()
 
@@ -1287,14 +1317,15 @@ function Nx.Window:UpdateCombat()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Position
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ConsolePos (str)
 
 	local name, x, y = self:ParseConsole (str)
 	if not (x and y) then
-		Nx.prt ("XY missing (%s)", str)
+		Nx.prt (L["XY missing (%s)"], str)
 		return
 	end
 
@@ -1304,11 +1335,12 @@ function Nx.Window:ConsolePos (str)
 		return
 	end
 
-	Nx.prt ("Window not found (%s)", str)
+	Nx.prt (L["Window not found (%s)"], str)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ConsoleShow (str)
 
@@ -1326,17 +1358,18 @@ function Nx.Window:ConsoleShow (str)
 		return
 	end
 
-	Nx.prt ("Window not found (%s)", str)
+	Nx.prt (L["Window not found (%s)"], str)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Size
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ConsoleSize (str)
 
 	local name, x, y = self:ParseConsole (str)
 	if not (x and y) then
-		Nx.prt ("XY missing (%s)", str)
+		Nx.prt (L["XY missing (%s)"], str)
 		return
 	end
 
@@ -1346,11 +1379,12 @@ function Nx.Window:ConsoleSize (str)
 		return
 	end
 
-	Nx.prt ("Window not found (%s)", str)
+	Nx.prt (L["Window not found (%s)"], str)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Parse
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ParseConsole (str)
 
@@ -1384,8 +1418,9 @@ function Nx.Window:ParseConsole (str)
 	return names[name] or name, x, y
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find a window by name. Case insensitive
+---------------------------------------------------------------------------------------
 
 function Nx.Window:FindNoCase (name)
 
@@ -1399,8 +1434,9 @@ function Nx.Window:FindNoCase (name)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find a window by name
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Find (name)
 
@@ -1415,8 +1451,9 @@ function Nx.Window:Find (name)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set fade values used for next window create
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetCreateFade (fadein, fadeout)
 
@@ -1424,10 +1461,11 @@ function Nx.Window:SetCreateFade (fadein, fadeout)
 	self.CFadeOut = fadeout
 end
 
-----------------------------------
+---------------------------------------------------------------------------------------
 -- Create a Window
 -- ()
 -- ret: window table
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Create (name, minResizeW, minResizeH, secure, titleLines, borderType, hide, noButs)
 
@@ -1591,8 +1629,9 @@ function Nx.Window:Create (name, minResizeW, minResizeH, secure, titleLines, bor
 	return win
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create buttons
+---------------------------------------------------------------------------------------
 
 function Nx.InitWins()
 	for a,b in pairs(NotInitializedWins) do
@@ -1634,8 +1673,9 @@ function Nx.Window:CreateButtons (closer, maxer, miner)
 	self:Lock (self:IsLocked())	-- Force button update
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create border frames
+---------------------------------------------------------------------------------------
 
 function Nx.Window:CreateBorders()
 
@@ -1691,8 +1731,9 @@ function Nx.Window:SetBordersFade (fade)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set backdrops of all created windows
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ResetBackdrops()
 
@@ -1711,8 +1752,9 @@ function Nx.Window:ResetBackdrops()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Attach a child frame
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Attach (childFrm, posX1, posX2, posY1, posY2, width, height)
 
@@ -1759,24 +1801,26 @@ function Nx.Window:Attach (childFrm, posX1, posX2, posY1, posY2, width, height)
 	self:Adjust()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Detach a child frame
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Detach (childFrm)
 
-	Nx.prt ("Detach %s", #self.ChildFrms)
+	Nx.prt (L["Detach %s"], #self.ChildFrms)
 
 	for i, ch in ipairs (self.ChildFrms) do
 		if ch.Frm == childFrm then
 			tremove (self.ChildFrms, i)
-			Nx.prt ("Detach found %s", #self.ChildFrms)
+			Nx.prt (L["Detach found %s"], #self.ChildFrms)
 			break
 		end
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Adjust title width and child frames to fit our client area
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Adjust (skipChildren)
 	if InCombatLockdown() and Nx.db.profile.Map.Compatability then
@@ -1867,8 +1911,9 @@ function Nx.Window:Adjust (skipChildren)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get a window attribute
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetAttribute (winName, atName)
 
@@ -1884,8 +1929,9 @@ function Nx.Window:GetAttribute (winName, atName)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set a window attribute
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetAttribute (winName, atName, value)
 
@@ -1901,8 +1947,9 @@ function Nx.Window:SetAttribute (winName, atName, value)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show or hide window
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Show (show)
 
@@ -1921,8 +1968,9 @@ function Nx.Window:Show (show)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check if shown
+---------------------------------------------------------------------------------------
 
 function Nx.Window:IsShown()
 
@@ -1936,8 +1984,9 @@ function Nx.Window:IsShown()
 	return vis, not svdata["Hide"]
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Restore saved show or hide state
+---------------------------------------------------------------------------------------
 
 --[[
 function Nx.Window:ShowRestore()
@@ -1950,15 +1999,17 @@ function Nx.Window:ShowRestore()
 end
 --]]
 
---------
+---------------------------------------------------------------------------------------
 -- Check if visible (parent must also be visible)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:IsVisible()
 	return self.Frm:IsVisible()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check if hidden from combat
+
 
 function Nx.Window:IsCombatHidden()
 
@@ -1967,9 +2018,9 @@ function Nx.Window:IsCombatHidden()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Lock or unlock window. Cannot move, resize or scale if locked
-
+---------------------------------------------------------------------------------------
 function Nx.Window:Lock (lock, fullLockout)
 
 --	Nx.prtVar ("Win:Lock", lock)
@@ -2010,15 +2061,17 @@ function Nx.Window:Lock (lock, fullLockout)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get lock status of window
+---------------------------------------------------------------------------------------
 
 function Nx.Window:IsLocked()
 	return self.Locked
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set if mouse enabled for window
+---------------------------------------------------------------------------------------
 
 function Nx.Window:EnableMouse (on)
 
@@ -2045,15 +2098,17 @@ function Nx.Window:EnableMouse (on)
 
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set if we have a window menu
+---------------------------------------------------------------------------------------
 
 function Nx.Window:EnableMenu (on)
 	self.MenuDisable = not on
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get title text width
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetTitleTextWidth()
 
@@ -2070,8 +2125,9 @@ function Nx.Window:GetTitleTextWidth()
 	return w
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set title text line height
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetTitleLineH (height)
 
@@ -2089,8 +2145,9 @@ function Nx.Window:SetTitleLineH (height)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set the title text x offset (also y. rename!)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetTitleXOff (x, yo)
 
@@ -2105,8 +2162,9 @@ function Nx.Window:SetTitleXOff (x, yo)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set our title text
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetTitle (text, line)
 
@@ -2116,8 +2174,9 @@ function Nx.Window:SetTitle (text, line)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set all title colors
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetTitleColors (r, g, b, a)
 
@@ -2128,8 +2187,9 @@ function Nx.Window:SetTitleColors (r, g, b, a)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set our title text
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetTitleJustify (mode, line)
 
@@ -2137,8 +2197,9 @@ function Nx.Window:SetTitleJustify (mode, line)
 	self.TitleFStr[line]:SetJustifyH (mode)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get our background min max alpha
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetBGAlpha()
 
@@ -2146,8 +2207,9 @@ function Nx.Window:GetBGAlpha()
 	return m, m + self.BackgndAlphaDiff
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set our background min max alpha
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetBGAlpha (min, max)
 
@@ -2157,15 +2219,17 @@ function Nx.Window:SetBGAlpha (min, max)
 	self.BackgndFade = self.BackgndFadeTarget + .0001	-- Cause refresh
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get our current fade
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetFade()
 	return self.BackgndFade
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set our background color
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetBGColor (r, g, b, a)
 	if self.Frm.texture then
@@ -2173,22 +2237,25 @@ function Nx.Window:SetBGColor (r, g, b, a)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get win width and height
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetClientOffset()
 	return self.BorderW, self.TitleH + self.BorderH
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set if win is sizeable
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetSizeable (on)
 	self.Sizeable = on
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get win width and height (client size)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetSize()
 
@@ -2196,8 +2263,9 @@ function Nx.Window:GetSize()
 			 self.Frm:GetHeight() - self.TitleH + self.BorderH * 2
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set win width and height (client size)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetSize (width, height, skipChildren)
 	if InCombatLockdown() then
@@ -2209,8 +2277,9 @@ function Nx.Window:SetSize (width, height, skipChildren)
 	self:Adjust (skipChildren)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set win width and height (win size)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetTotalSize (width, height, skipChildren)
 
@@ -2221,8 +2290,9 @@ function Nx.Window:SetTotalSize (width, height, skipChildren)
 	self:RecordLayoutData()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set win pos
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetPos (x, y)
 
@@ -2233,8 +2303,9 @@ function Nx.Window:SetPos (x, y)
 	self:RecordLayoutData()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Offset win pos
+---------------------------------------------------------------------------------------
 
 function Nx.Window:OffsetPos (xo, yo)
 
@@ -2246,15 +2317,17 @@ function Nx.Window:OffsetPos (xo, yo)
 	self:RecordLayoutData()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get size of borders
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetBorderSize()
 	return self.BorderW, self.BorderH
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set size of borders
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetBorderSize (w, h)
 
@@ -2263,9 +2336,10 @@ function Nx.Window:SetBorderSize (w, h)
 	self.TopH = self.TitleH + h
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Reset layout to default
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ResetLayout()
 
@@ -2302,9 +2376,10 @@ function Nx.Window:ResetLayout()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set max size to default
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetMaxSizeDefault()
 
@@ -2313,17 +2388,19 @@ function Nx.Window:SetMaxSizeDefault()
 	self:SetLayoutData ("Max", sw * .1, sh * .1, sw * .8, sh * .8, 2, "TOPLEFT")
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get current layout mode name
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:GetLayoutMode()
 	return self.LayoutMode
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Switch our layout mode if different and not maximized
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SwitchLayoutMode (mode)
 
@@ -2339,10 +2416,11 @@ function Nx.Window:SwitchLayoutMode (mode)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set our layout mode and change to size/position
 -- (mode or 1 if first time (login))
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetLayoutMode (mode)
 	if InCombatLockdown() and Nx.db.profile.Map.Compatability then
@@ -2507,9 +2585,10 @@ function Nx.Window:SetLayoutMode (mode)
 	self:Adjust()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set strata
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetFrmStrata (layer)
 
@@ -2519,7 +2598,7 @@ function Nx.Window:SetFrmStrata (layer)
 	self.Frm:SetFrameStrata (self.StrataNames[layer] or "MEDIUM")
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Init default data for a layout mode
 -- self = Win
 
@@ -2563,9 +2642,10 @@ function Nx.Window:InitLayoutData (mode, x, y, w, h, layer, scale)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set data for a layout mode
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetLayoutData (mode, x, y, w, h, layer, attachPt, scale)
 
@@ -2596,9 +2676,10 @@ function Nx.Window:SetLayoutData (mode, x, y, w, h, layer, attachPt, scale)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Record current layout
 -- self = Win
+---------------------------------------------------------------------------------------
 
 function Nx.Window:RecordLayoutData()
 
@@ -2646,9 +2727,10 @@ function Nx.Window:RecordLayoutData()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set user of the window (for event handlers) and generic callback function
 -- (user table, function)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetUser (user, func)
 
@@ -2656,9 +2738,10 @@ function Nx.Window:SetUser (user, func)
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Register for event and set event handler
 -- (event name, handler to call)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:RegisterEvent (event, handler)
 	self.Frm:RegisterEvent (event)
@@ -2670,8 +2753,9 @@ function Nx.Window:RegisterEvent (event, handler)
 	self.Events[event] = handler
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Register for hide notify
+---------------------------------------------------------------------------------------
 
 function Nx.Window:RegisterHide()
 
@@ -2682,9 +2766,10 @@ function Nx.Window:RegisterHide()
 	self.Frm:SetScript ("OnHide", func)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Notfiy user of the window
 -- (name)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:Notify (name, ...)
 
@@ -2693,8 +2778,9 @@ function Nx.Window:Notify (name, ...)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Toggle window size
+---------------------------------------------------------------------------------------
 
 function Nx.Window:ToggleSize()
 
@@ -2721,8 +2807,9 @@ function Nx.Window:ToggleMinimize()
 	self:SetMinimize (not self.ButMiner:GetPressed())
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Toggle window minimize
+---------------------------------------------------------------------------------------
 
 function Nx.Window:SetMinimize (minOn)
 
@@ -2749,16 +2836,18 @@ function Nx.Window:IsSizeMin()
 	return self.ButMiner and self.ButMiner:GetPressed()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check for moving or sizing
+---------------------------------------------------------------------------------------
 
 function Nx.Window:IsMovingOrSizing()
 	return self.MovSizing
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle events
 -- self is frame
+---------------------------------------------------------------------------------------
 
 function Nx.FixWin (frm)
 	local win = frm.NxWin
@@ -2838,9 +2927,10 @@ function Nx.Window:OnMouseDown (button)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check if xy on window UI elements
 -- (x, y)
+---------------------------------------------------------------------------------------
 
 function Nx.Window:IsOnWinUI (x, y)
 
@@ -2898,9 +2988,10 @@ function Nx.Window:IsOnWinUI (x, y)
 	return -1					-- None
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Mouse up message. Enable mouse also calls!
 -- self = frame
+---------------------------------------------------------------------------------------
 
 function Nx.Window:OnMouseUp (button)
 
@@ -2929,7 +3020,7 @@ function Nx.Window:OnMouseUp (button)
 	win:Adjust()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Window:OnMouseWheel (value)
 
@@ -2976,9 +3067,10 @@ function Nx.Window:OnMouseWheel (value)
 	win:RecordLayoutData()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Win update
 -- self = frame
+---------------------------------------------------------------------------------------
 
 function Nx.Window:OnUpdate (elapsed)
 
@@ -3145,8 +3237,9 @@ function Nx.Window:OpenMenu (noLock)
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Button - A frame that acts like a button
+---------------------------------------------------------------------------------------
 
 Nx.Button.TypeData = {
 	["AAItem"] = {
@@ -3303,8 +3396,9 @@ Nx.Button.TypeData = {
 	},
 }
 
---------
+---------------------------------------------------------------------------------------
 --
+---------------------------------------------------------------------------------------
 
 function Nx.Button:Init()
 
@@ -3321,10 +3415,11 @@ function Nx.Button:Init()
 	f.texture = t
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create a Button
 -- ()
 -- ret: button table
+---------------------------------------------------------------------------------------
 
 function Nx.Button:Create (parentFrm, typ, text, tip, bx, by, side, width, height, func, user, template)
 
@@ -3388,11 +3483,11 @@ function Nx.Button:Create (parentFrm, typ, text, tip, bx, by, side, width, heigh
 		fstr:Show()
 	end
 
-	--
+	---------------------------------------------------------------------------------------
 
 	but:Update()
 
-	--
+	---------------------------------------------------------------------------------------
 
 	if template then	-- Social frame template?
 
@@ -3411,8 +3506,9 @@ function Nx.Button:Create (parentFrm, typ, text, tip, bx, by, side, width, heigh
 	return but
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set handler to notify user
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetUser (user, func)
 
@@ -3420,16 +3516,18 @@ function Nx.Button:SetUser (user, func)
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get type
+---------------------------------------------------------------------------------------
 
 function Nx.Button:GetType()
 	return self.Type
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set type
 -- (Type string or nil)
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetType (typ)
 
@@ -3437,23 +3535,26 @@ function Nx.Button:SetType (typ)
 	self.Type = self.TypeData[typ]
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set Id
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetId (id)
 	self.Id = id
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get pressed state
+---------------------------------------------------------------------------------------
 
 function Nx.Button:GetPressed()
 
 	return self.Pressed
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set pressed state
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetPressed (down)
 
@@ -3461,16 +3562,18 @@ function Nx.Button:SetPressed (down)
 	self:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get state
+---------------------------------------------------------------------------------------
 
 function Nx.Button:GetState()
 
 	return self.State
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set state
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetState (state)
 
@@ -3478,8 +3581,9 @@ function Nx.Button:SetState (state)
 	self:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set button text and text position
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetText (text, x, y)
 
@@ -3496,31 +3600,35 @@ function Nx.Button:SetText (text, x, y)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set button texture
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetAlpha (a)
 	self.Frm:SetAlpha (a)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set button texture
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetTexture (tex)
 
 	self.Tx = tex
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set button position
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetPos (side, x, y)
 
 	self.Frm:SetPoint (side, x, y)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set button size
+---------------------------------------------------------------------------------------
 
 function Nx.Button:SetSize (w, h)
 
@@ -3528,7 +3636,7 @@ function Nx.Button:SetSize (w, h)
 	self.Frm:SetHeight (h)
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Button:OnMouseDown (button)
 
@@ -3584,7 +3692,7 @@ function Nx.Button:OnMouseDown (button)
 	but:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Button:OnMouseUp (button)
 
@@ -3617,8 +3725,9 @@ function Nx.Button:OnMouseUp (button)
 	but:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle mouse on button
+---------------------------------------------------------------------------------------
 
 function Nx.Button:OnEnter (motion)
 
@@ -3652,8 +3761,9 @@ function Nx.Button:OnEnter (motion)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle mouse leaving icon
+---------------------------------------------------------------------------------------
 
 function Nx.Button:OnLeave (motion)
 
@@ -3674,7 +3784,7 @@ function Nx.Button:OnLeave (motion)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Button:OnUpdate (elapsed)
 
@@ -3708,7 +3818,7 @@ function Nx.Button:OnUpdate (elapsed)
 
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Button:Update()
 
@@ -3891,13 +4001,15 @@ function Nx.Button:Update()
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Edit box
+---------------------------------------------------------------------------------------
 
---------
+---------------------------------------------------------------------------------------
 -- Create a edit box
 -- ()
 -- ret: edit box table
+---------------------------------------------------------------------------------------
 
 function Nx.EditBox:Create (parentFrm, user, func, maxLetters)
 
@@ -3929,8 +4041,8 @@ function Nx.EditBox:Create (parentFrm, user, func, maxLetters)
 	f:SetAutoFocus (false)
 	f:ClearFocus()
 
-	box.FilterDesc = "Search: [click]"
-	box.FilterDescEsc = "Search: %[click%]"
+	box.FilterDesc = L["Search: [click]"]
+	box.FilterDescEsc = L["Search: %[click%]"]
 
 --	if Nx.Free then
 --		box.FilterDesc = "Search: " .. Nx.FreeMsg
@@ -3943,8 +4055,9 @@ function Nx.EditBox:Create (parentFrm, user, func, maxLetters)
 	return box
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set handler to notify user
+---------------------------------------------------------------------------------------
 
 function Nx.EditBox:SetUser (user, func)
 
@@ -3952,14 +4065,15 @@ function Nx.EditBox:SetUser (user, func)
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get text
+---------------------------------------------------------------------------------------
 
 function Nx.EditBox:GetText()
 	return self.FilterStr
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.EditBox:OnEditFocusGained()
 
@@ -4009,13 +4123,15 @@ function Nx.EditBox:OnEscapePressed()
 	this:ClearFocus()
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Scroll bar
+---------------------------------------------------------------------------------------
 
-----------------------------------
+---------------------------------------------------------------------------------------
 -- Create a Scroll Bar
 -- ()
 -- ret: table
+---------------------------------------------------------------------------------------
 
 --[[
 
@@ -4080,7 +4196,7 @@ function ScrollBar:Create (parentFrm, typ, bx, by, width, height, func, user)
 	return sbar
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function ScrollBar:OnMouseDown (button)
 
@@ -4099,7 +4215,7 @@ function ScrollBar:OnMouseDown (button)
 	sb:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function ScrollBar:OnMouseUp (button)
 
@@ -4112,7 +4228,7 @@ function ScrollBar:OnMouseUp (button)
 	sb:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function ScrollBar:Update()
 
@@ -4140,8 +4256,9 @@ function Nx.Menu:Init()
 	Nx.MenuI.__index = Nx.MenuI
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Check if any menus are opened
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:IsAnyOpened()
 
@@ -4162,8 +4279,9 @@ function Nx.Menu:IsAnyOpened()
 --]]
 end
 
-----------------------------------
+---------------------------------------------------------------------------------------
 -- Create a menu
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:Create (parentFrm, width)
 
@@ -4273,8 +4391,9 @@ function Nx.Menu:OnUpdate (elapsed)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Add sub menu
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:AddSubMenu (menu, text)
 
@@ -4291,8 +4410,9 @@ function Nx.Menu:AddSubMenu (menu, text)
 	return item
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Add menu item
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:AddItem (id, text, func, user)
 
@@ -4347,15 +4467,17 @@ function Nx.MenuI:SetChecked (checked, varName)
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Get slider position
+---------------------------------------------------------------------------------------
 
 function Nx.MenuI:GetSlider()
 	return self.SliderPos
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Set slider position and optionally min and max values
+---------------------------------------------------------------------------------------
 
 function Nx.MenuI:SetSlider (pos, min, max, step, varName)
 	if type (pos) == "table" then
@@ -4392,9 +4514,10 @@ function Nx.MenuI:SetSlider (pos, min, max, step, varName)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set menu item show state
 -- (false hides. -1 shows as disabled)
+---------------------------------------------------------------------------------------
 
 function Nx.MenuI:Show (show)
 
@@ -4407,8 +4530,9 @@ function Nx.MenuI:Show (show)
 --	Nx.prtVar ("show", self.ShowState)
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Not used?
+---------------------------------------------------------------------------------------
 
 --[[
 function Nx.Menu:Item_GetUser (item)
@@ -4420,9 +4544,10 @@ function Nx.Menu:Item_SetUser (item, user)
 end
 --]]
 
-------
+---------------------------------------------------------------------------------------
 -- Open a menu
 -- self = menu instance
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:Open()
 
@@ -4626,7 +4751,7 @@ function Nx.Menu:Update()
 	return menuY
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:Close()
 
@@ -4638,9 +4763,10 @@ function Nx.Menu:Close()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set all menu items show state
 -- (false hides. -1 shows as disabled)
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:Show (show)
 
@@ -4649,7 +4775,7 @@ function Nx.Menu:Show (show)
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Update all items check mark
 
 --function Nx.Menu:CheckUpdateAll()
@@ -4657,10 +4783,11 @@ end
 --		self:CheckUpdate (item)
 --	end
 --end
-
-------
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Update check mark
 -- self = invalid
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:CheckUpdate (item)
 
@@ -4683,9 +4810,10 @@ function Nx.Menu:CheckUpdate (item)
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Update slider
 -- self = invalid
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:SliderUpdate (item)
 
@@ -4705,7 +4833,7 @@ function Nx.Menu:SliderUpdate (item)
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 
 function Nx.Menu:Item_OnEnter (motion)
 
@@ -4852,8 +4980,9 @@ function Nx.Menu:Item_SetUpdateSlider (item, x)
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- List
+---------------------------------------------------------------------------------------
 
 --[[
 Nx.List.FontSizeConvert = {
@@ -4875,7 +5004,7 @@ function Nx.List:Init()
 	if not ldata.Version or ldata.Version < Nx.VERSIONList then
 
 		if ldata.Version then
-			Nx.prt ("Reset old list data")
+			Nx.prt (L["Reset old list data"])
 		end
 		ldata.Version = Nx.VERSIONList
 
@@ -4901,8 +5030,9 @@ function Nx.List:Init()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Free list frames by adding back to global list
+---------------------------------------------------------------------------------------
 
 function Nx.List:FreeFrames (list)
 	local frms = self.Frms
@@ -4915,8 +5045,9 @@ function Nx.List:FreeFrames (list)
 	list.UsedFrms = wipe (list.UsedFrms or {})
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Reset list frames by adding back to global list
+---------------------------------------------------------------------------------------
 
 --[[
 function Nx.List:FreeFrame (list, frm)
@@ -4930,8 +5061,9 @@ function Nx.List:FreeFrame (list, frm)
 end
 --]]
 
---------
+---------------------------------------------------------------------------------------
 -- Get a list frame from the global list
+---------------------------------------------------------------------------------------
 
 function Nx.List:GetFrame (list, typ)
 	local frms = self.Frms[typ]
@@ -4954,8 +5086,9 @@ function Nx.List:GetFrame (list, typ)
 	return f
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Flag next update of all lists for a full update
+---------------------------------------------------------------------------------------
 
 function Nx.List:NextUpdateFull()
 
@@ -4966,8 +5099,9 @@ function Nx.List:NextUpdateFull()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Setup creation font
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetCreateFont (font, baseLineH)
 --[[
@@ -4985,8 +5119,9 @@ function Nx.List:SetCreateFont (font, baseLineH)
 	self.CBaseLineH = baseLineH
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create
+---------------------------------------------------------------------------------------
 
 function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll, noHeader)
 
@@ -5106,19 +5241,21 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 	return inst
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set user of the list (for event handlers) and generic callback function
 -- (instance)
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetUser (user, func)
 	self.User = user
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set list fade
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetFade (fade)
 
@@ -5141,9 +5278,10 @@ function Nx.List:SetFade (fade)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set list background color
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetBGColor (r, g, b, a, noFade)
 	if self.Frm.texture then
@@ -5153,9 +5291,10 @@ function Nx.List:SetBGColor (r, g, b, a, noFade)
 	self.NoBGFade = noFade
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set list font size
 -- self = instance
+---------------------------------------------------------------------------------------
 
 --[[
 function Nx.List:SetFont (fontSize)
@@ -5170,9 +5309,10 @@ function Nx.List:SetFont (fontSize)
 end
 --]]
 
---------
+---------------------------------------------------------------------------------------
 -- Set list line height
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetLineHeight (height, hdrH)
 
@@ -5191,16 +5331,18 @@ function Nx.List:GetLineH()
 	return Nx.Font:GetH (self.Font) + self.LineHPad
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set list item frame info
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetItemFrameScaleAlpha (scale, alpha)
 	self.ItemFrameScale = scale
 	self.ItemFrameAlpha = alpha
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Lock or unlock list
+---------------------------------------------------------------------------------------
 
 function Nx.List:Lock (lock)
 
@@ -5208,8 +5350,9 @@ function Nx.List:Lock (lock)
 	self.Frm:EnableMouseWheel (not lock)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Force a full list update
+---------------------------------------------------------------------------------------
 
 function Nx.List:FullUpdate()
 	local w = self.SSW
@@ -5217,17 +5360,19 @@ function Nx.List:FullUpdate()
 	self:SetSize (w, self.SSH)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set minimum list size (width or height can be nil)
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetMinSize (width, height)
 	self.MinW = width or 2
 	self.MinH = height or 1
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update list size
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:SetSize (width, height)
 
@@ -5252,9 +5397,10 @@ function Nx.List:GetSize()
 	return self.SSW, self.SSH
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update list size
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:Resize (width, height)
 	if InCombatLockdown() then
@@ -5359,9 +5505,10 @@ function Nx.List:Resize (width, height)
 	self:CreateButtons()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create any needed list strings
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:CreateStrings()
 
@@ -5424,9 +5571,10 @@ function Nx.List:CreateStrings()
 
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create any needed list buttons
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.List:CreateButtons()
 
@@ -5577,7 +5725,7 @@ function Nx.List:Update (showLast)
 			if butType then
 
 				if not but then
-					Nx.prt ("!BUT %s", #self.Buts)
+					Nx.prt (L["!BUT %s"], #self.Buts)
 				end
 				assert (but)
 
@@ -5713,17 +5861,17 @@ function Nx.List:Update (showLast)
 						local key = GetBindingKey ("NxWATCHUSEITEM")
 						if key then
 							Nx.qdb.profile.QuestWatch.KeyUseItem = key
-							Nx.prt ("Key %s transfered to Watch List Item", key)
+							Nx.prt (L["Key %s transfered to Watch List Item"], key)
 						end
 
 						if #Nx.qdb.profile.QuestWatch.KeyUseItem > 0 and not InCombatLockdown() then
 
 							local s = GetBindingAction (Nx.qdb.profile.QuestWatch.KeyUseItem)
-							s = strmatch (s, "CLICK (.+):")
+							s = strmatch (s, L["CLICK (.+):"])
 --							Nx.prt ("Key's frm %s", s or "nil")
 							if s ~= f:GetName() then
 								local ok = SetBindingClick (Nx.qdb.profile.QuestWatch.KeyUseItem, f:GetName())
-								Nx.prt ("Key %s %s #%s %s", Nx.qdb.profile.QuestWatch.KeyUseItem, f:GetName(), line, ok or "nil")
+								Nx.prt (L["Key %s %s #%s %s"], Nx.qdb.profile.QuestWatch.KeyUseItem, f:GetName(), line, ok or "nil")
 								Nx.qdb.profile.QuestWatch.KeyUseItem = ""
 							end
 						end
@@ -5752,7 +5900,7 @@ function Nx.List:Update (showLast)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.List:SaveColumns()
 
@@ -5848,8 +5996,9 @@ function Nx.List:ColumnHitTest (x)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Empty the list
+---------------------------------------------------------------------------------------
 
 function Nx.List:Empty()
 
@@ -5881,7 +6030,7 @@ function Nx.List:Empty()
 	self.Sorted = false
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.List:ColumnSort (columnId)
 
@@ -5898,8 +6047,9 @@ function Nx.List:ColumnSort (columnId)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Sort list by a columns contents
+---------------------------------------------------------------------------------------
 
 function Nx.List:Sort()
 
@@ -5979,7 +6129,7 @@ function Nx.List:Sort()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.List:ItemAdd (userData)
 
@@ -6071,9 +6221,10 @@ function Nx.List:ItemGetFunc (index)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set a solid colored button used to pick colors
 -- Table[key] is a "rrggbbaa" hex number
+---------------------------------------------------------------------------------------
 
 function Nx.List:ItemSetColorButton (table, key, hasAlpha)
 
@@ -6123,9 +6274,10 @@ function Nx.List:ItemSetData (index, data)
 	self.Data[index] = data
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get extended data
 -- (num >= 1)
+---------------------------------------------------------------------------------------
 
 function Nx.List:ItemGetDataEx (index, num)
 
@@ -6133,17 +6285,19 @@ function Nx.List:ItemGetDataEx (index, num)
 	return index and self.Data[index + num * 10000000]
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set extended data
+---------------------------------------------------------------------------------------
 
 function Nx.List:ItemSetDataEx (index, data, num)
 
 	self.Data[(index or self.Num) + num * 10000000] = data
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Select list line
 -- (index or 0)
+---------------------------------------------------------------------------------------
 
 function Nx.List:Select (index)
 
@@ -6159,16 +6313,18 @@ function Nx.List:Select (index)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get selected list line
+---------------------------------------------------------------------------------------
 
 function Nx.List:GetSelected()
 
 	return self.Selected
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Send select to user
+---------------------------------------------------------------------------------------
 
 function Nx.List:SendUserSelect()
 
@@ -6177,8 +6333,9 @@ function Nx.List:SendUserSelect()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show last item at bottom of list view
+---------------------------------------------------------------------------------------
 
 function Nx.List:ShowLast()
 
@@ -6186,8 +6343,9 @@ function Nx.List:ShowLast()
 	self.Top = max (self.Top, 1)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Is the last item shown?
+---------------------------------------------------------------------------------------
 
 function Nx.List:IsShowLast()
 
@@ -6224,7 +6382,7 @@ function Nx.List:OnHdrMouseDown (click)
 						self.UserFunc (self.User, "sort", 0, id)
 					end
 				else
-					Nx.prt ("shift left/right click to change size")
+					Nx.prt (L["shift left/right click to change size"])
 				end
 			end
 		end
@@ -6358,8 +6516,9 @@ function Nx.List:OnSlider (slider, pos)
 	self:Update()
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Drop down
+---------------------------------------------------------------------------------------
 
 function Nx.DropDown:Init()
 
@@ -6448,8 +6607,9 @@ function Nx.DropDown:Show (parent, x, y)
 	list:FullUpdate()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On list control updates
+---------------------------------------------------------------------------------------
 
 function Nx.DropDown:OnListEvent (eventName, sel, val2, click)
 
@@ -6474,10 +6634,11 @@ function Nx.TabBar:GetHeight()
 	return 22
 end
 
-----------------------------------
+---------------------------------------------------------------------------------------
 -- Create a Tab Bar
 -- ()
 -- ret: tab bar table
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:Create (name, parentFrm, width, height)
 
@@ -6554,8 +6715,9 @@ function Nx.TabBar:CreateBorders()
 
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set user for notify
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:SetUser (user, func)
 
@@ -6563,8 +6725,9 @@ function Nx.TabBar:SetUser (user, func)
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Add a tab to bar
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:AddTab (name, index, width, press, template, butId)
 
@@ -6598,8 +6761,9 @@ function Nx.TabBar:AddTab (name, index, width, press, template, butId)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Select tab button
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:Select (index, force)
 
@@ -6637,8 +6801,9 @@ function Nx.TabBar:Select (index, force)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Enable tab button
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:Enable (index, enable)
 
@@ -6646,8 +6811,9 @@ function Nx.TabBar:Enable (index, enable)
 	tab.But.Frm:EnableMouse (enable ~= false)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set our fade
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:SetFade (fade)
 
@@ -6663,8 +6829,9 @@ function Nx.TabBar:SetFade (fade)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle tab button press
+---------------------------------------------------------------------------------------
 
 function Nx.TabBar:OnBut (but, id, click)
 
@@ -6684,8 +6851,9 @@ function Nx.TabBar:OnBut (but, id, click)
 	self:Select (id, true)
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Tool Bar
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:Init()
 
@@ -6694,7 +6862,7 @@ function Nx.ToolBar:Init()
 	if not data.Version or data.Version < Nx.VERSIONTOOLBAR then
 
 		if data.Version then
-			Nx.prt ("Reset old tool bar data")
+			Nx.prt (L["Reset old tool bar data"])
 		end
 
 		data.Version = Nx.VERSIONTOOLBAR
@@ -6801,10 +6969,11 @@ end
 --	return 22
 --end
 
-----------------------------------
+---------------------------------------------------------------------------------------
 -- Create a Tool Bar
 -- ()
 -- ret: tool bar table
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:Create (name, parentFrm, size, alignR, alignB)
 
@@ -6882,8 +7051,9 @@ function Nx.ToolBar:Create (name, parentFrm, size, alignR, alignB)
 	return bar
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set user for notify
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:SetUser (user, func)
 
@@ -6891,8 +7061,10 @@ function Nx.ToolBar:SetUser (user, func)
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Add a button to bar
+---------------------------------------------------------------------------------------
+
 function Nx.ToolBar:AddCustomButton (typ, name, index, func, press)
 	tinsert (Nx.BarData,{typ, name, func, press})
 	local map = Nx.Map:GetMap (1)
@@ -6917,8 +7089,9 @@ function Nx.ToolBar:AddButton (typ, name, index, func, press)
 	but:SetPressed (press)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle toolbar button press
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:OnBut (but, id, click, x, y)
 
@@ -6937,8 +7110,9 @@ function Nx.ToolBar:OnBut (but, id, click, x, y)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update toolbar
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:Update()
 
@@ -7008,9 +7182,10 @@ function Nx.ToolBar:Update()
 	f:SetScale (scale)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set fade level of toolbar and tools
 -- (0-1)
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:SetFade (fade)
 
@@ -7019,8 +7194,9 @@ function Nx.ToolBar:SetFade (fade)
 	self.Frm:SetAlpha (fade)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set level of toolbar and tools
+---------------------------------------------------------------------------------------
 
 function Nx.ToolBar:SetLevels (level)
 
@@ -7035,12 +7211,14 @@ function Nx.ToolBar:SetLevels (level)
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Sliders
+---------------------------------------------------------------------------------------
 
---------
+---------------------------------------------------------------------------------------
 -- Create
 -- (parent, "H" or "V", bar size, top or left offset of bar)
+---------------------------------------------------------------------------------------
 
 function Nx.Slider:Create (parentFrm, typ, size, tlOff)
 
@@ -7107,9 +7285,10 @@ function Nx.Slider:Create (parentFrm, typ, size, tlOff)
 	return inst
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set user of the slider for callback function
 -- (user table, function)
+---------------------------------------------------------------------------------------
 
 function Nx.Slider:SetUser (user, func)
 
@@ -7117,8 +7296,9 @@ function Nx.Slider:SetUser (user, func)
 	self.UserFunc = func
 end
 
---------
+---------------------------------------------------------------------------------------
 --
+---------------------------------------------------------------------------------------
 
 function Nx.Slider:SetTLOff (tlOff)
 
@@ -7126,17 +7306,19 @@ function Nx.Slider:SetTLOff (tlOff)
 	self.Frm:SetPoint ("TOPRIGHT", par, "TOPRIGHT", 0, -tlOff)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get slider position
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.Slider:Get()
 	return self.Pos
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Set slider position and optionally min and max values
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.Slider:Set (pos, min, max, visSize)
 
@@ -7295,9 +7477,10 @@ function Nx.Slider:Update()
 	self.NeedUpdate = true
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update slider
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.Slider:DoUpdate()
 
@@ -7348,10 +7531,10 @@ function Nx.Slider:DoUpdate()
 	end
 end
 
--------------------------------------------------------------------------------
-
-----------------------------------
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Create graph
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:Create (width, height, parentFrm)
 
@@ -7477,9 +7660,10 @@ function Nx.Graph:SetLine (time, value, colorStr, infoStr)
 
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Set a graph line
 -- self = graph
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:UpdateLine (pos)
 
@@ -7520,9 +7704,10 @@ function Nx.Graph:UpdateLine (pos)
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Set peak value of graph
 -- self = graph
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:SetPeak (peak)
 
@@ -7539,9 +7724,10 @@ function Nx.Graph:SetPeak (peak)
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Update all graph frames
 -- self = graph
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:UpdateFrames()
 
@@ -7552,9 +7738,10 @@ function Nx.Graph:UpdateFrames()
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Reset frames
 -- self = graph
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:ResetFrames()
 
@@ -7574,9 +7761,10 @@ function Nx.Graph:ResetFrames()
 
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Get next available frame or create one
 -- self = graph
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:GetFrame()
 
@@ -7610,8 +7798,9 @@ function Nx.Graph:GetFrame()
 	return f
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Called when frame size changes
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:OnSetSize (w, h)
 
@@ -7626,8 +7815,9 @@ function Nx.Graph:OnSetSize (w, h)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle mouse on graph line
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:OnEnter (motion)
 
@@ -7648,8 +7838,9 @@ function Nx.Graph:OnEnter (motion)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle mouse leaving graph line
+---------------------------------------------------------------------------------------
 
 function Nx.Graph:OnLeave (motion)
 
@@ -7688,4 +7879,6 @@ function NxWatchListItem_OnUpdate(self, elapsed)
 	end
 end
 
--------------------------------------------------------------------------------EOF
+---------------------------------------------------------------------------------------
+--EOF
+---------------------------------------------------------------------------------------
