@@ -215,22 +215,22 @@ local blizSetMapByID = SetMapByID
 function SetMapToCurrentZone(carbcalled) 
 	if carbcalled then
 		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
-			Nx.CurrentDetectedZone = GetRealZoneText()			
+			Nx.CurrentDetectedZone = GetRealZoneText()
 			blizSetMapToCurrentZone()
 			Nx.Map.UpdateMapID = WorldMapFrame.mapID
 		end
 	else
 		if not Nx.Map.MouseOver then
 			blizSetMapToCurrentZone()
-			Nx.Map.UpdateMapID = WorldMapFrame.mapID					
+			Nx.Map.UpdateMapID = WorldMapFrame.mapID
 		end
 	end
 end
 
 function SetMapByID(zone,level)
-	if Nx.Map.MouseOver then		
-		if Nx.Map.MouseIsOverMap then			
-			zone = Nx.Map.MouseIsOverMap			
+	if Nx.Map.MouseOver then
+		if Nx.Map.MouseIsOverMap then
+			zone = Nx.Map.MouseIsOverMap
 			Nx.Map.RMapId = zone
 		else
 			Nx.Map.RMapId = zone
@@ -239,14 +239,14 @@ function SetMapByID(zone,level)
 	else
 		Nx.Map.RMapId = zone
 	end
-	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then		
-		if zone then						
+	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
+		if zone then
 			Nx.CurrentSetZone = zone
 			if level then
 				blizSetMapByID(zone,level)
 			else
 				blizSetMapByID(zone)
-			end		
+			end
 		end
 	end
 end
@@ -643,7 +643,7 @@ function Nx.Map:Create (index)
 	win:RegisterEvent ("PLAYER_REGEN_ENABLED", self.OnEvent)
 	win:RegisterEvent ("ZONE_CHANGED", self.OnEvent)
 	win:RegisterEvent ("ZONE_CHANGED_INDOORS", self.OnEvent)
-	
+
 	f:SetScript ("OnMouseDown", self.OnMouseDown)
 	f:SetScript ("OnMouseUp", self.OnMouseUp)
 	f:SetScript ("OnMouseWheel", self.OnMouseWheel)
@@ -3760,13 +3760,13 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	end
 
 	map.MouseIsOver = winx
-	
+
 	if winx then
 		Nx.Map.MouseOver = true
 	else
 		Nx.Map.MouseOver = false
 	end
-	
+
 	-- Scroll map with mouse
 
 	if map.Scrolling then
@@ -3879,7 +3879,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 			y = floor (y * 10) / 10
 			local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ .5 * 4.575
 
-			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f yds", x, y, dist)
+			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f " .. L["yds"], x, y, dist)
 			cursorLocStr = cursorLocXY
 
 			local name = UpdateMapHighlight (x / 100, y / 100)
@@ -4065,7 +4065,7 @@ function Nx.Map:UpdateWorld()
 
 	self.NeedWorldUpdate = false
 
-	local mapId = self:GetCurrentMapId()	
+	local mapId = self:GetCurrentMapId()
 	local winfo = self.MapWorldInfo[mapId]
 	if not winfo then
 		winfo = {}
@@ -4271,7 +4271,7 @@ function Nx.Map:Update (elapsed)
 
 	-- Real map switch
 
-	if self.RMapId ~= rid then		
+	if self.RMapId ~= rid then
 		if rid ~= 9000 then
 --			Nx.prt ("Map zone changed %d, %d", rid, mapId)
 
@@ -4287,7 +4287,7 @@ function Nx.Map:Update (elapsed)
 		end
 		self.Scale = self.RealScale
 	end
-	local plZX, plZY = GetPlayerMapPosition ("player")	
+	local plZX, plZY = GetPlayerMapPosition ("player")
 	local dungeontest = GetCurrentMapDungeonLevel()
 	self.InstanceId = false
 	if self:IsInstanceMap (self.UpdateMapID) then
@@ -5721,7 +5721,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 		local s = name or self.TrackName
 
-		f.NxTip = format ("%s\n%d yds", s, dist * 4.575)
+		f.NxTip = format ("%s\n%d " .. L["yds"], s, dist * 4.575)
 
 		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
 	end
@@ -5929,7 +5929,7 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 
 			if spot.MapId ~= curId then
 
---				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)				
+--				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
 				self:SetCurrentMap (spot.MapId)
 			end
 			Nx.Map.MouseIsOverMap = spot.MapId
@@ -6229,7 +6229,7 @@ end
 
 function Nx.Map:UpdateZones()
 
-	local mapId = self.MapId	
+	local mapId = self.MapId
 	local winfo = self.MapWorldInfo[mapId]
 	if not winfo then
 		winfo = {}
@@ -6248,7 +6248,7 @@ function Nx.Map:UpdateZones()
 
 --		if freeOrScale and self.MapIdOld and self.MapIdOld ~= mapId then
 --			self:UpdateOverlay (id, .8, true)
---		end		
+--		end
 		for n, id in ipairs (self.MapsDrawnOrder) do
 			self:UpdateOverlay (id, .8, true)
 		end
@@ -8569,15 +8569,20 @@ function Nx.Map:InitTables()
 	Nx.IdToAId = {}
 
 	for aid, zid in pairs (Nx.Zones) do
-			local id = self.NxzoneToMapId[aid]
-			Nx.AIdToId[aid] = id
-			if id then
-				Nx.IdToAId[id] = aid
-			end
---			if not id then
---				Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
---			end
+		local id = self.NxzoneToMapId[aid]
+--		Nx.AIdToId[aid] = id  -- remove old legacy conversion
+		if id then
+			Nx.IdToAId[id] = aid -- keep this for compatibility reasons
+		end
+--		if not id then
+--			Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
+--		end
 	end
+
+	-- compatibility code
+	setmetatable(Nx.AIdToId, { __index = function(_, id)
+		return id
+	end })
 
 	-- Init instance entries
 
@@ -9061,7 +9066,7 @@ function Nx.Map:IsBattleGroundMap (mapId)
 	end
 end
 
-function Nx.Map:IsMicroDungeon(mapId)	
+function Nx.Map:IsMicroDungeon(mapId)
 	return select(4, GetMapInfo()) and Nx.Map:GetCurrentMapId() == mapId
 	--and Nx.Map:GetCurrentMapId()==mapId and Nx.IdToAId[mapId] and not Nx.Map.MapLevels[Nx.IdToAId[mapId]] then
 end
@@ -10597,5 +10602,4 @@ function Nx.Map:VehicleDumpPos()
 	end
 end
 
--------------------------------------------------------------------------------
--- EOF
+--------------------------------------------------------------------------------- EOF

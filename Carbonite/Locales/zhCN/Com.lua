@@ -23,3 +23,11 @@ L["Warlock"] = "术士"
 L["Warrior"] = "战士"
 L["Deathknight"] = "死亡骑士"
 L["Monk"] = "武僧"
+                                      
+L["Com options reset (%f, %f)"] = true
+L["ComTest"] = true                   
+L["Disabling com functions!"] = true  
+L["JoinChan Err %s"] = true           
+L["SendSecG Error: %s"] = true        
+L[" %s (pending)"] = true             
+L["Com %d Bytes sec %d"] = true       

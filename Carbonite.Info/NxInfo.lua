@@ -20,7 +20,7 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
 
---------
+---------------------------------------------------------------------------------------
 
 CarboniteInfo = LibStub("AceAddon-3.0"):NewAddon("Carbonite.Info","AceEvent-3.0", "AceComm-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Info", true)
@@ -177,7 +177,7 @@ function Nx.Info:Init()
 
 	if not info or info.Version < Nx.VERSIONINFO then
 		if info then
-			Nx.prt ("Reset old info data %f", info.Version)
+			Nx.prt (L["Reset old info data %f"], info.Version)
 		end
 		info = {}
 		Nx.idb.profile.InfoData = info
@@ -263,8 +263,9 @@ function Nx.Info:Init()
 	self:OptionsUpdate()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update all info windows
+---------------------------------------------------------------------------------------
 
 function Nx.Info:OnTimer()
 
@@ -318,7 +319,7 @@ function Nx.Info:OnTimer()
 	return .1
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Info:OptionsUpdate()
 	local lock = Nx.idb.profile.Info.Lock
@@ -345,7 +346,7 @@ function Nx.Info:OptionsUpdate()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Info:New()
 
@@ -363,8 +364,9 @@ function Nx.Info:New()
 	self:OptionsUpdate()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Delete the info window
+---------------------------------------------------------------------------------------
 
 function Nx.Info:Delete (index)
 
@@ -380,8 +382,9 @@ function Nx.Info:Delete (index)
 	Nx.Window:ClrSaveData ("NxInfo" .. index)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create shared menu
+---------------------------------------------------------------------------------------
 
 function Nx.Info:CreateMenu()
 
@@ -428,8 +431,9 @@ function Nx.Info:CreateMenu()
 
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create menu
+---------------------------------------------------------------------------------------
 
 function Nx.Info:OpenMenu (info)
 
@@ -447,7 +451,7 @@ function Nx.Info:OpenMenu (info)
 	self.Menu:Open()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Info:Menu_OnClose()
 	self.CurMenuInfo.Win:Show (false)
@@ -491,8 +495,9 @@ function Nx.Info:Menu_OnDelete (item)
 	Nx:ShowMessage (L["Delete Info Window"] .. " #" .. self.CurMenuInfo.Index .. "?", L["Delete"], func, L["Cancel"])
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create info window
+---------------------------------------------------------------------------------------
 
 function Nx.Info:Create (index)
 
@@ -508,9 +513,10 @@ function Nx.Info:Create (index)
 	info:Create2 (index)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create info window
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.Info:Create2 (index)
 
@@ -646,15 +652,17 @@ function Nx.Info:Create2 (index)
 --PAIDE!
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show or hide
+---------------------------------------------------------------------------------------
 
 --function Nx:NXInfoKeyToggleShow()
 --	Nx.Info:ToggleShow()
 --end
 
---------
+---------------------------------------------------------------------------------------
 -- Show or hide window
+---------------------------------------------------------------------------------------
 
 function Nx.Info:ToggleShow()
 
@@ -670,8 +678,9 @@ function Nx.Info:ToggleShow()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On list events
+---------------------------------------------------------------------------------------
 
 function Nx.Info:OnListEvent (eventName, sel, val2, click)
 
@@ -820,7 +829,7 @@ end
 
 --PAIDE!
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Info:CalcBarHPercent (color, perName, w, h)
 
@@ -1212,7 +1221,7 @@ function Nx.Info:CalcTime (str)
 	return "|cffa0a0a0", ok and s or "?"
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Info:SetBGStartTime (secs)
 
@@ -1220,7 +1229,7 @@ function Nx.Info:SetBGStartTime (secs)
 	self.BGStartTime = GetTime()
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
 function Nx.Info:CreateFrame (parent)
 
@@ -1240,8 +1249,9 @@ function Nx.Info:ResetFrames()
 	frms.Next = 1
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Hide extra frames
+---------------------------------------------------------------------------------------
 
 function Nx.Map:HideExtraFrames()
 
@@ -1252,9 +1262,10 @@ function Nx.Map:HideExtraFrames()
 	end
 end
 
-------
+---------------------------------------------------------------------------------------
 -- Get next available frame or create one
 -- ret: frame
+---------------------------------------------------------------------------------------
 
 function Nx.Info:GetFrame()
 
@@ -1279,11 +1290,10 @@ function Nx.Info:GetFrame()
 	return f
 end
 
--------------------------------------------------------------------------------
-
---------
+---------------------------------------------------------------------------------------
 -- Create info editor window
 -- self = instance
+---------------------------------------------------------------------------------------
 
 function Nx.Info:EditorCreate (index)
 
@@ -1343,8 +1353,9 @@ function Nx.Info:EditorCreate (index)
 --PAIDE!
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On list events
+---------------------------------------------------------------------------------------
 
 function Nx.Info:EditorOnListEvent (eventName, sel, val2, click)
 
@@ -1391,9 +1402,9 @@ function Nx:OnChat_msg_bg_system_neutral (event, arg1, arg2, arg3)
 		end
 
 		if not secs then
-			s1, s2, secs = strfind (arg1, " begins? in (%d+) ")
+			s1, s2, secs = strfind (arg1, L[" begins? in (%d+) "])
 			if not secs then
-				s1, s2, secs = strfind (arg1, "(%d+) minutes? until the battle")
+				s1, s2, secs = strfind (arg1, L["(%d+) minutes? until the battle"])
 			end
 		end
 
@@ -1410,5 +1421,7 @@ function Nx:OnChat_msg_bg_system_neutral (event, arg1, arg2, arg3)
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- EOF
+---------------------------------------------------------------------------------------
+

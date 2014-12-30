@@ -164,6 +164,8 @@ L["Load Quests for Levels 71-80"] = "Lade Quests f\195\188r Stufe 71-80"
 L["Load Quests for Levels 81-85"] = "Lade Quests f\195\188r Stufe 81-85"
 L["Load Quests for Levels 86-90"] = "Lade Quests f\195\188r Stufe 86-90"
 L["Load Quests for Levels 91-100"] = "Lade Quests f\195\188r Stufe 91-100"
+L["Quests Data Gathering"] = true
+L["Gathers quests data"] = true
 L["Reload UI"] = "Oberfl\195\164che neu laden"
 L["Toggle Quest Watch"] = "Questfenster an-/ausschalten"
 L["Daily"] = "T\195\164glich"
@@ -290,3 +292,5 @@ L["Player"] = "Spieler"
 L["Daily Quests Completed: |cffffffff"] = "Tagesquests abgeschlossen: |cffffffff"
 L["|r  Daily reset: |cffffffff"] = "|r  Tagesquests zur\195\188ckgesetzt: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "Quests: |cffffffff%d/%d|r  %s"
+
+L["yds"] = true

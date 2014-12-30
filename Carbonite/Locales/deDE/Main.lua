@@ -138,3 +138,30 @@ L["In Conflict"] = "Umk\195\164mpft"				-- NXlINCONFLICT
 L["Opening"] = "\195\150ffnen"					-- NXlOpening
 L["Opening - No Text"] = "\195\150ffnen - Kein Text"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Immerfrostsplitter"			-- NXlEverfrost
+
+L["yds"] = true
+
+--NxUI.lua
+L[" Frame: %s Shown%d Vis%d P>%s"] = true
+L[" EScale %f, Lvl %f"] = true
+L[" LR %f, %f"] = true
+L[" BT %f, %f"] = true
+L["%s#%d %s ID%s (%s) show%d l%d x%d y%d"] = true
+L["%.1f days"] = true
+L["%.1f hours"] = true
+L["%d mins"] = true
+L["Reset old layout data"] = true
+L["Window version mismatch!"] = true
+L["XY missing (%s)"] = true
+L["Window not found (%s)"] = true
+L["Detach %s"] = true
+L["Detach found %s"] = true
+L["Search: [click]"] = true
+L["Search: %[click%]"] = true
+L["Reset old list data"] = true
+L["!BUT %s"] = true
+L["Key %s transfered to Watch List Item"] = true
+L["CLICK (.+):"] = true
+L["Key %s %s #%s %s"] = true
+L["shift left/right click to change size"] = true
+L["Reset old tool bar data"] = true

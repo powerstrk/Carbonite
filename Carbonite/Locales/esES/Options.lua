@@ -32,6 +32,17 @@ L["For support, please visit the forums for Carbonite on WoW Interface."] = true
 L["Special thanks to"] = true
 L["Cirax for Carbonite2 Logo"] = true
 L["JimboBlue for guide location updates and checking"] = true
+L["ircdirk & atl77 for Quest Database updates"] = true
+L["Naharis for quest watchlist fixes"] = true
+L["nelegalno for many cleanups, api fixes"] = true
+L["JimboBlue for guide location updates"] = true
+L["Localization Efforts By:"] = true
+L["frFR - powerstrk"] = true
+L["deDE - atl77 & samyonair"] = true
+L["itIT - ThorwaldOdin"] = true
+L["ruRU - NotDead"] = true
+L["zhCN - Raka-loah"] = true
+L["zhTW - kc305chen"] = true
 
 -- Battlegrounds Menu
 L["Battlegrounds"] = true

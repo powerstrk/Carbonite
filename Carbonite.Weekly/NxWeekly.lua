@@ -1,7 +1,21 @@
 ﻿---------------------------------------------------------------------------------------
+-- Carbonite - Addon for World of Warcraft(tm)
 -- NxWeekly - Weekly Objective Tracker
--- Copyright 2013 Rythal
---------
+-- Copyright 2013-2014 Rytal
+--
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+---------------------------------------------------------------------------------------
 
 local _G = getfenv(0)
 
@@ -28,12 +42,8 @@ local defaults = {
 				Tarlna = true,
 				Drov = true,
 				Rukmar = true,
-				
 			},
 			Loot = {
-				Ritual = true,
-				LootKey = true,
-				OutdoorChest = true,
 			},
 			Quest = {				
 				Chamberlain = true,
@@ -474,8 +484,9 @@ function Nx.Weekly:Init()
 	}
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Debug print
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:Login(event, arg1)
 	local ch = Nx.CurCharacter
@@ -746,6 +757,7 @@ function Nx.Weekly:But_OnMoP()
 end
 --------
 -- Show or hide window
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:ToggleShow()
 
@@ -759,11 +771,11 @@ function Nx.Weekly:ToggleShow()
 		self:Update()
 	end
 
---PAIDE!
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On list events
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:OnListEvent (eventName, sel, val2, click)
 	local data = self.List:ItemGetData (sel) or 0
@@ -777,8 +789,9 @@ function Nx.Weekly:OnListEvent (eventName, sel, val2, click)
 	end
 end
 
---------
--- Update Warehouse
+---------------------------------------------------------------------------------------
+-- Update Weeklies
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:Update()
 	local Nx = Nx
@@ -789,7 +802,7 @@ function Nx.Weekly:Update()
 		return
 	end
 	Nx.Weekly:CharRecord(Nx.CurCharacter)
-	self.Win:SetTitle (format (L["Weekly Tracker: %d characters - Reset In %s"], #Nx.RealmChars,SecondsToTime(Nx.Weekly:CalcReset(), false, true,3)))
+	self.Win:SetTitle (format (L["Weekly Tracker: %d characters - Reset In %s"], #Nx.RealmChars,SecondsToTime(Nx.Weekly:CalcReset(), false, true, 3)))
 	local myName = UnitName ("player")
 	local totalChars = 0
 	local hicol = "|cffcfcfcf"

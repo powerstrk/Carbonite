@@ -35,3 +35,8 @@ L["Cancel"] = "Отменить"
 L["One minute until the Arena"] = "Одна минута до боя на Арене"
 L["Thirty seconds until the Arena"] = "Тридцать секунд до боя на Арене"
 L["Fifteen seconds until the Arena"] = "Пятнадцать до боя на Арене"
+
+L["Reset old info data %f"] = true
+L[" begins? in (%d+) "] = true
+L["(%d+) minutes? until the battle"] = true
+

@@ -159,6 +159,8 @@ L["Load Quests for Levels 71-80"] = true
 L["Load Quests for Levels 81-85"] = true
 L["Load Quests for Levels 86-90"] = true
 L["Load Quests for Levels 91-100"] = true
+L["Quests Data Gathering"] = true
+L["Gathers quests data"] = true
 L["Reload UI"] = true
 L["Toggle Quest Watch"] = true
 L["Daily"] = true
@@ -283,3 +285,5 @@ L["Player"] = true
 L["Daily Quests Completed: |cffffffff"] = true
 L["|r  Daily reset: |cffffffff"] = true
 L["Quests: |cffffffff%d/%d|r  %s"] = true
+
+L["yds"] = true

@@ -32,6 +32,17 @@ L["For support, please visit the forums for Carbonite on WoW Interface."] = "如
 L["Special thanks to"] = "特别感谢"
 L["Cirax for Carbonite2 Logo"] = "Cirax 制作 Carbonite2 Logo"
 L["JimboBlue for guide location updates and checking"] = "JimboBlue 对百科指南兴趣点位置的升级与确认"
+L["ircdirk & atl77 for Quest Database updates"] = "ircdirk & atl77 对任务数据库的升级"
+L["Naharis for quest watchlist fixes"] = "Naharis 对任务监视列表的修复"
+L["nelegalno for many cleanups, api fixes"] = "nelegalno 对api改动的修复与文件清理"
+L["JimboBlue for guide location updates"] = "JimboBlue 对百科指南兴趣点位置的升级"
+L["Localization Efforts By:"] = "插件本地化贡献者:"
+L["frFR - powerstrk"] = true
+L["deDE - atl77 & samyonair"] = true
+L["itIT - ThorwaldOdin"] = true
+L["ruRU - NotDead"] = true
+L["zhCN - Raka-loah"] = true
+L["zhTW - kc305chen"] = true
 
 -- Battlegrounds Menu
 L["Battlegrounds"] = "战场"

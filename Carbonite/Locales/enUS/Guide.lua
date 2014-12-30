@@ -10,7 +10,6 @@ L["Common Place"] = true
 L["Auctioneer"] = true
 L["Banker"] = true
 L["Innkeeper"] = true
-L["Arcane Reforger"] = true
 L["Void Storage"] = true
 L["Transmogrifier"] = true
 L["Battle Pet Trainer"] = true

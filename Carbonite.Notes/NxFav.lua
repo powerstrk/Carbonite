@@ -20,7 +20,7 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
 
---------
+---------------------------------------------------------------------------------------
 
 Nx.VERSIONFAV			= .15				-- Favorite data
 
@@ -111,7 +111,7 @@ function Nx.Notes:Init()
 	if not fav or not fav.Version or fav.Version < Nx.VERSIONFAV then
 
 		if fav and fav.Version then
-			Nx.prt ("Reset old notes data %f", fav.Version)
+			Nx.prt (L["Reset old notes data %f"], fav.Version)
 		end
 
 		fav = {}
@@ -162,8 +162,9 @@ function Nx.Notes:GetIconFile (index)
 	return self.NoteIcons[index]
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create favorites window
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:Create()
 
@@ -248,7 +249,7 @@ function Nx.Notes:Create()
 	self.List:FullUpdate()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:But_OnRecord (but)
 	self:SetRecord (but:GetPressed())
@@ -335,8 +336,9 @@ function Nx.Notes:But_OnItemDel()
 	self:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create menu
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:CreateMenu()
 
@@ -461,7 +463,7 @@ function Nx.Notes:Menu_OnPaste()
 	self:SelectCur()
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:IMenu_OnAddComment()
 
@@ -563,15 +565,17 @@ function Nx.Notes:SetIconAccept (name, sel)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show or hide
+---------------------------------------------------------------------------------------
 
 function Nx:NXFavKeyToggleShow()
 	Nx.Notes:ToggleShow()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show or hide
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:ToggleShow()
 
@@ -586,8 +590,9 @@ function Nx.Notes:ToggleShow()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Handle item list filter edit box
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:OnEditBox (editbox, message)
 
@@ -596,8 +601,9 @@ function Nx.Notes:OnEditBox (editbox, message)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On list events
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:OnListEvent (eventName, sel, val2, click)
 
@@ -653,8 +659,9 @@ function Nx.Notes:OnListEvent (eventName, sel, val2, click)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On item list events
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:OnItemListEvent (eventName, sel, val2, click)
 
@@ -688,8 +695,9 @@ function Nx.Notes:OnItemListEvent (eventName, sel, val2, click)
 	self:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Update Fav
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:Update()
 
@@ -851,8 +859,9 @@ function Nx.Notes:UpdateItems (selectI)
 	list:Update()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Select current favorite
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:SelectCur()
 
@@ -860,9 +869,10 @@ function Nx.Notes:SelectCur()
 	self:SelectItems (1)
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get the parent of the item
 -- (item, folder to start search or nil for root)
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:GetParent (item, folder)
 
@@ -884,9 +894,10 @@ function Nx.Notes:GetParent (item, folder)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find a folder by name
 -- (name)
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:FindFolder (name, parent)
 
@@ -902,9 +913,10 @@ function Nx.Notes:FindFolder (name, parent)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find a favorite by a variable name
 -- (name)
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:FindFav (val, varName, parent)
 
@@ -920,9 +932,10 @@ function Nx.Notes:FindFav (val, varName, parent)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 --
 -- (item)
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:OpenFoldersToFav (item, folder)
 
@@ -946,9 +959,10 @@ function Nx.Notes:OpenFoldersToFav (item, folder)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find the index where an item would be in list
 -- (item)
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:FindListI (item, folder, index)
 
@@ -1107,8 +1121,9 @@ function Nx.Notes:SetItemName (index, name)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Select items in item list
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:SelectItems (index)
 
@@ -1126,7 +1141,7 @@ function Nx.Notes:SelectItems (index)
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:Record (typ, name, id, x, y)
 	if self.InUpdateTarget then
@@ -1248,8 +1263,9 @@ function Nx.Notes:SetNoteAtStr (str)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Show note in window
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:ShowIconNote (icon)
 
@@ -1322,8 +1338,9 @@ function Nx.Notes:UpdateTargets()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 --
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:UpdateIcons()
 	local Map = Nx.Map
@@ -1418,14 +1435,15 @@ function Nx.Notes:UpdateIcons()
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
 function Nx.Notes:OnButToggleFav (but)
 	Nx.Notes:ToggleShow()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Get Favorite data
+---------------------------------------------------------------------------------------
 
 function Nx:GetFav()
 	return Nx.fdb.profile.Notes
@@ -1452,5 +1470,8 @@ function Nx.Notes:AddonNote(folder,name,icon,id,x,y)
 	addonNotes[folder]["notes"][name] = icon .. "|" .. id .. "|" .. x .. "|" .. y
 end
 -- Nx.Notes:AddonNote("Test2","Test",4,301,33.3,33.3)
--------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
 -- EOF
+---------------------------------------------------------------------------------------
+
