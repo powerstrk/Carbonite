@@ -118,7 +118,43 @@ local function WeeklyOptions()
 									-- Tarlna the Ageless
 									-- Drov the Ruiner
 									-- Rukhmar
-								},							
+								},
+								tarlna = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Tarlna The Ageless"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Tarlna
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Tarlna = not Nx.wkdb.profile.Track.Mob.Tarlna
+									end,
+								},
+								drov = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Drov the Ruiner"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Drov
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Drov = not Nx.wkdb.profile.Track.Mob.Drov
+									end,
+								},
+								ruk = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Rukmar"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Rukmar
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Rukmar = not Nx.wkdb.profile.Track.Mob.Rukmar
+									end,
+								},								
 							},
 						},						
 						MopMobs = {
@@ -288,9 +324,31 @@ local function WeeklyOptions()
 									order = 1,
 									type = "description",
 									name = L["Place check boxes in the weekly quests you want to track."],
-									-- Garrison
-									-- Tempered Fate Seal
 								},							
+								temperedfate = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Tempered Fate Seals"],
+									get = function()
+										return Nx.wkdb.profile.Track.Quest.TemperedFateSeals
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Quest.TemperedFateSeals = not Nx.wkdb.profile.Track.Quest.TemperedFateSeals
+									end,
+								},
+								garrinv = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Garrison Invasion"],
+									get = function()
+										return Nx.wkdb.profile.Track.Quest.GarrisonInvasion
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Quest.GarrisonInvasion = not Nx.wkdb.profile.Track.Quest.GarrisonInvasion
+									end,
+								},								
 							},
 						},						
 						MopQuests = {					
@@ -384,7 +442,7 @@ local function WeeklyOptions()
 								},															
 							},
 						},
-						WodQuests = {
+						WodRaids = {
 							type = "group",
 							name = "WoD",
 							order = 1,
@@ -393,10 +451,70 @@ local function WeeklyOptions()
 									order = 1,
 									type = "description",
 									name = L["Place check boxes in the raid progress you want to track."],
-								},							
-							},
+								},
+								MSV = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Mogu'shan Vaults"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.MSV
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.MSV = not Nx.wkdb.profile.Track.Raids.MSV
+									end,
+								},
+								HoF = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Heart of Fear"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.HoF
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.HoF = not Nx.wkdb.profile.Track.Raids.HoF
+									end,
+								},
+								TeS = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Terrace of Endless Spring"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.TeS
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.TeS = not Nx.wkdb.profile.Track.Raids.TeS
+									end,
+								},
+								ToTS = {
+									order = 5,
+									type = "toggle",
+									width = "full",
+									name = L["Throne of Thunder"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.ToTS
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.ToTS = not Nx.wkdb.profile.Track.Raids.ToTS
+									end,
+								},
+								SoO = {
+									order = 6,
+									type = "toggle",
+									width = "full",
+									name = L["Siege of Orgrimmar"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.SoO
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.SoO = not Nx.wkdb.profile.Track.Raids.SoO
+									end,
+								},
+							},							
 						},						
-						MopQuests = {					
+						MopRaids = {					
 							type = "group",
 							name = "MoP",
 							order = 2,
@@ -406,6 +524,30 @@ local function WeeklyOptions()
 									type = "description",
 									name = L["Place check boxes in the raid progress you want to track."],
 								},
+								Highmaul = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Highmaul"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.Highmaul
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.Highmaul = not Nx.wkdb.profile.Track.Raids.Highmaul
+									end,
+								},
+								BRF = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Blackrock Foundry"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.BRF
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.BRF = not Nx.wkdb.profile.Track.Raids.BRF
+									end,
+								},								
 							},
 						},
 					},					
