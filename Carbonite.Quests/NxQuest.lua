@@ -8793,11 +8793,11 @@ function Nx.Quest.Watch:UpdateList()
 							local progressCnt = 0
 							local tip = aDesc
 							for n = 1, numC do
-								local cName, cType, cComplete, cQuantity, cReqQuantity = GetAchievementCriteriaInfo (id, n)
+								local cName, cType, cComplete, cQuantity, cReqQuantity, _, _, _, cQuantityString = GetAchievementCriteriaInfo (id, n)
 								local color = cComplete and "|cff80ff80" or "|cffa0a0a0"
 								if not cComplete and cReqQuantity > 1 and cQuantity > 0 then
 									progressCnt = progressCnt + 1
-									tip = tip .. format ("\n%s%s: %s / %s", color, cName, cQuantity, cReqQuantity)
+									tip = tip .. (cQuantityString and format ("\n%s%s: %s", color, cName, cQuantityString) or format ("\n%s%s: %s / %s", color, cName, cQuantity, cReqQuantity))
 								else
 									tip = tip .. format ("\n%s%s", color, cName)
 								end
@@ -8806,13 +8806,13 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSetButtonTip (tip)
 							local showCnt = 0
 							for n = 1, numC do
-								local cName, cType, cComplete, cQuantity, cReqQuantity = GetAchievementCriteriaInfo (id, n)
+								local cName, cType, cComplete, cQuantity, cReqQuantity, _, _, _, cQuantityString = GetAchievementCriteriaInfo (id, n)
 								if not cComplete and (progressCnt <= 3 or cQuantity > 0) then
 									list:ItemAdd (0)
 									local s = "  |cffcfafcf"
 									if numC == 1 then
 										if cReqQuantity > 1 then
-											s = s .. format ("%s/%s", cQuantity, cReqQuantity)
+											s = s .. (cQuantityString or format ("%s/%s", cQuantity, cReqQuantity))
 										else
 											s = s .. cName
 										end
