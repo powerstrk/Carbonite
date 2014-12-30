@@ -1768,26 +1768,8 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						q12 = {
-							order = 16,
-							type = "toggle",
-							width = "full",
-							name = L["Quests Data Gathering"],
-							desc = L["Gathers quests data"],
-							get = function()
-								return Nx.db.profile.General.CaptureEnable
-							end,
-							set = function()
-								Nx.db.profile.General.CaptureEnable = not Nx.db.profile.General.CaptureEnable
-							end,
-						},
-						spacer3 = {
-							order = 17,
-							type = "description",
-							name = " ",
-						},
 						reboot = {
-							order = 18,
+							order = 16,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -3254,12 +3236,12 @@ function Nx.Quest:RecordQuestsLog()
 								end
 							end
 
-							local s1, _, oldCnt = strfind (cur[n] or "", "(%d+)/%d+ ")
+							local s1, _, oldCnt = strfind (cur[n] or "", ": (%d+)/")
 							if s1 then
 								oldCnt = tonumber (oldCnt)
 							end
 
-							local s1, _, newCnt = strfind (desc, "(%d+)/%d+ ")
+							local s1, _, newCnt = strfind (desc, ": (%d+)/")
 							if s1 then
 --								Nx.prt ("%s %s", i, total)
 								newCnt = tonumber (newCnt)
