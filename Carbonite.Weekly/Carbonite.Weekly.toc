@@ -8,7 +8,6 @@
 ## SavedVariables: NXWeek
 ## RequiredDeps: Carbonite
 
-Libs\Libs.xml
 Locales\locales.xml
 NxWeekly.lua
 
