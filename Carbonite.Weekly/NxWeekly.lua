@@ -151,7 +151,7 @@ local function WeeklyOptions()
 									order = 4,
 									type = "toggle",
 									width = "full",
-									name = B["Rukmar"],
+									name = "Rukmar",
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Rukmar
 									end,
