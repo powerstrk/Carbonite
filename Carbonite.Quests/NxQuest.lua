@@ -1768,8 +1768,26 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						reboot = {
+						q12 = {
 							order = 16,
+							type = "toggle",
+							width = "full",
+							name = L["Quests Data Gathering"],
+							desc = L["Gathers quests data"],
+							get = function()
+								return Nx.db.profile.General.CaptureEnable
+							end,
+							set = function()
+								Nx.db.profile.General.CaptureEnable = not Nx.db.profile.General.CaptureEnable
+							end,
+						},
+						spacer3 = {
+							order = 17,
+							type = "description",
+							name = " ",
+						},
+						reboot = {
+							order = 18,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -3236,12 +3254,12 @@ function Nx.Quest:RecordQuestsLog()
 								end
 							end
 
-							local s1, _, oldCnt = strfind (cur[n] or "", ": (%d+)/")
+							local s1, _, oldCnt = strfind (cur[n] or "", "(%d+)/%d+ ")
 							if s1 then
 								oldCnt = tonumber (oldCnt)
 							end
 
-							local s1, _, newCnt = strfind (desc, ": (%d+)/")
+							local s1, _, newCnt = strfind (desc, "(%d+)/%d+ ")
 							if s1 then
 --								Nx.prt ("%s %s", i, total)
 								newCnt = tonumber (newCnt)
@@ -3640,7 +3658,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 				return
 			end
 			if mapId ~= curMapId then
-				Map:SetCurrentMap (mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
+				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged				
 			end
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
@@ -3693,7 +3711,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()
+		local mapId = Nx.Map:GetCurrentMapId()		
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
@@ -8775,11 +8793,11 @@ function Nx.Quest.Watch:UpdateList()
 							local progressCnt = 0
 							local tip = aDesc
 							for n = 1, numC do
-								local cName, cType, cComplete, cQuantity, cReqQuantity = GetAchievementCriteriaInfo (id, n)
+								local cName, cType, cComplete, cQuantity, cReqQuantity, _, _, _, cQuantityString = GetAchievementCriteriaInfo (id, n)
 								local color = cComplete and "|cff80ff80" or "|cffa0a0a0"
 								if not cComplete and cReqQuantity > 1 and cQuantity > 0 then
 									progressCnt = progressCnt + 1
-									tip = tip .. format ("\n%s%s: %s / %s", color, cName, cQuantity, cReqQuantity)
+									tip = tip .. (cQuantityString and format ("\n%s%s: %s", color, cName, cQuantityString) or format ("\n%s%s: %s / %s", color, cName, cQuantity, cReqQuantity))
 								else
 									tip = tip .. format ("\n%s%s", color, cName)
 								end
@@ -8788,13 +8806,13 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSetButtonTip (tip)
 							local showCnt = 0
 							for n = 1, numC do
-								local cName, cType, cComplete, cQuantity, cReqQuantity = GetAchievementCriteriaInfo (id, n)
+								local cName, cType, cComplete, cQuantity, cReqQuantity, _, _, _, cQuantityString = GetAchievementCriteriaInfo (id, n)
 								if not cComplete and (progressCnt <= 3 or cQuantity > 0) then
 									list:ItemAdd (0)
 									local s = "  |cffcfafcf"
 									if numC == 1 then
 										if cReqQuantity > 1 then
-											s = s .. format ("%s/%s", cQuantity, cReqQuantity)
+											s = s .. (cQuantityString or format ("%s/%s", cQuantity, cReqQuantity))
 										else
 											s = s .. cName
 										end

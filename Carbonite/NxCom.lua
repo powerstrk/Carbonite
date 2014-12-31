@@ -1251,9 +1251,9 @@ function Nx.Com:MonitorZone (mapId, enable)
 				if mode >= 0 then
 					local zs = self.ZStatus[mapId]
 					if zs and zs.ChanName then
-						Nx.prt (" %s", Nx.MapIdToName[mapId])
+						Nx.prt (" %s", GetMapNameById(mapId))
 					else
-						Nx.prt (L[" %s (pending)"], Nx.MapIdToName[mapId])
+						Nx.prt (" %s (pending)", GetMapNameById(mapId))
 					end
 				end
 			end
@@ -1661,8 +1661,7 @@ end
 
 function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 
-	local memberNames = self.MemberNames
-	local idToName = Nx.MapIdToName
+	local memberNames = self.MemberNames	
 	local alt = IsAltKeyDown()
 	local redGlow = abs (GetTime() * 400 % 200 - 100) / 200 + .5
 	local inBG = Nx.InBG
@@ -1704,7 +1703,7 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 				f.NXType = 1000
 				f.NXData2 = name
 
-				local mapName = idToName[mapId] or "?"
+				local mapName = GetMapNameById(mapId) or "?"
 				local tStr = pl.TStr or ""
 				local qStr = pl.QStr or ""
 				f.NxTip = format ("%s\n  %s (%d,%d)%s%s", pl.Tip, mapName, pl.X, pl.Y, tStr, qStr)

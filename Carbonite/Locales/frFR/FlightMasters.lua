@@ -362,8 +362,8 @@ L["The Ring of Trials, Nagrand"] = "L'ar\195\168ne des \195\169preuves, Nagrand"
 L["Throne of the Elements, Nagrand"] = "Tr\195\180ne des \195\169l\195\169ments, Nagrand"
 L["Telaari Station, Nagrand"] = "Poste Telaari, Nagrand"
 L["Yrel's Watch, Nagrand"] = "Guet d'Yrel, Nagrand"
-L["Riverside Post, Nagrand"] = true
-L["Wor'var, Nagrand"] = true
+L["Riverside Post, Nagrand"] = "Poste de la Rive, Nagrand"
+L["Wor'var, Nagrand"] = "Wor'var, Nagrand"
 --Shadowmoon Valley
 L["Darktide Roost, Shadowmoon Valley"] = "Perchoir de sombreflux, Vall\195\169e d'Ombrelune"
 L["Exile's Rise, Shadowmoon Valley"] = "Cime de l'Exil\195\169, Vall\195\169e d'Ombrelune" 
