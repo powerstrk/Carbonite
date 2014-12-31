@@ -31,6 +31,7 @@ CarboniteQuest = LibStub("AceAddon-3.0"):NewAddon("Carbonite.Quest","AceEvent-3.
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Quest", true)
 
 Nx.VERSIONQOPTS		= .12				-- Quest options
+Nx.VERSIONCAP		= .80
 Nx.Quest = {}
 Nx.Quest.List = {}
 Nx.Quest.Watch = {}
@@ -2000,7 +2001,17 @@ function CarboniteQuest:OnInitialize()
 		VRGBAUp = "1|1|1|.31",
 		VRGBADn = "1|1|1|.85",
 	}
+	
+	-- Capture data
+	local cap = NXQuest.Gather
 
+	if not cap or cap.Version < Nx.VERSIONCAP then
+		cap = {}
+		cap.Version = Nx.VERSIONCAP
+		cap["Q"] = {}
+		NXQuest.Gather = cap
+	end
+	
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
@@ -4160,7 +4171,7 @@ function Nx.Quest.OnChat_msg_combat_faction_change (event, arg1)
 
 --			Nx.prt ("Fac %s %s", facName, rep)
 
-			local cap = Nx:GetCap()
+			local cap = NXQuest.Gather
 			local quests = Nx:CaptureFind (cap, "Q")
 			local qdata = { Nx.Split ("~", quests[self.CaptureQEndId]) }
 			local ender, reps = Nx.Split ("@", qdata[2])
@@ -4202,7 +4213,7 @@ function Nx.Quest:Capture (curi, objNum)
 		return
 	end
 
-	local cap = Nx:GetCap()
+	local cap = NXQuest.Gather
 
 	local facI = UnitFactionGroup ("player") == "Horde" and 1 or 0
 	local quests = Nx:CaptureFind (cap, "Q")
@@ -4303,7 +4314,7 @@ end
 
 function Nx.Quest:CaptureGetCount()
 
-	local cap = Nx:GetCap()
+	local cap = NXQuest.Gather
 	local quests = Nx:CaptureFind (cap, "Q")
 
 	local cnt = 0
@@ -4723,7 +4734,7 @@ end
 -------------------------------------------------------------------------------
 
 function Nx.Quest:ClearCaptured()
-	Nx:GetCap()["Q"] = {}
+	NXQuest.Gather["Q"] = {}
 end
 
 -------------------------------------------------------------------------------
