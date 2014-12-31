@@ -666,7 +666,9 @@ function Nx.Weekly:CharRecord(ch)
 	if not ch.Weekly then
 		ch.Weekly = {}
 	end	
- 
+	if not ch.Weekly.TemperedFateSeals then
+		ch.Weekly.TemperedFateSeals = 0
+	end
 	local qids = {36058,36054,37454,37455,36056,37456,37457,36057,37458,37459,36055,37452,37453}
 	for a,b in pairs(qids) do
 		if IsQuestFlaggedCompleted(b) then
