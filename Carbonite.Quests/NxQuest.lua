@@ -8753,8 +8753,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											local percent = GetQuestProgressBarPercent(questId)
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
+											local percent = GetQuestProgressBarPercent(questId) or 0
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8779,8 +8779,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											local percent = GetQuestProgressBarPercent(questId)
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
+											local percent = GetQuestProgressBarPercent(questId) or 0
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
