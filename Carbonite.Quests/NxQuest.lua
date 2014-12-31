@@ -8931,7 +8931,7 @@ function Nx.Quest.Watch:UpdateList()
 							end
 							if isComplete and cur.IsAutoComplete then
 								list:ItemAdd (0)
-								list:ItemSet (2, format ("|cff%2x0000--- " ..L["Click ? to complete"] " ---", self.FlashColor * 200 + 55))
+								list:ItemSet (2, format ("|cff%2x0000--- " ..L["Click ? to complete"] .." ---", self.FlashColor * 200 + 55))
 							end
 							if qi > 0 or cur.Party then
 								local desc, done
