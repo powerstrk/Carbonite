@@ -8660,17 +8660,17 @@ function Nx.Quest.Watch:UpdateList()
 						local diff = ""
 						list:ItemAdd(0)
 						if difficulty == 1 then
-							diff = "|cffffffff" ..L["Difficulty: "] "|cff8C7853" ..L["Bronze"]
+							diff = "|cffffffff" ..L["Difficulty: "] .."|cff8C7853" ..L["Bronze"]
 						end
 						if difficulty == 2 then
-							diff = "|cffffffff" ..L["Difficulty: "] "|cffC0C0C0" ..L["Silver"]
+							diff = "|cffffffff" ..L["Difficulty: "] .."|cffC0C0C0" ..L["Silver"]
 						end
 						if difficulty == 3 then
-							diff = "|cffffffff" ..L["Difficulty: "] "|cffC77826" ..L["Gold"]
+							diff = "|cffffffff" ..L["Difficulty: "] .."|cffC77826" ..L["Gold"]
 						end
 						list:ItemSet(2,format("|cffff8888%s",diff))
 						list:ItemSetButton("QuestWatch",false)
-						local s = "  |cffff0000 " ..L["Wave: "] "[|cffffffff" .. curWave .. "|cffff0000/|cffffffff" .. maxWave .. "|cffff0000]|cff00ff00 " .. SecondsToTime(duration-elapsedTime)
+						local s = "  |cffff0000 " ..L["Wave: "] .."[|cffffffff" .. curWave .. "|cffff0000/|cffffffff" .. maxWave .. "|cffff0000]|cff00ff00 " .. SecondsToTime(duration-elapsedTime)
 						list:ItemAdd(0)
 						list:ItemSet(2,s)
 					  end
@@ -8681,20 +8681,20 @@ function Nx.Quest.Watch:UpdateList()
 					if (currentStage > 0) then
 						local stageName, stageDescription, numCriteria = C_Scenario.GetStepInfo()
 						list:ItemAdd(0)
-						list:ItemSet(2,format("|cffff8888" ..L["Scenario: "] "%s",name))
+						list:ItemSet(2,format("|cffff8888" ..L["Scenario: "] .."%s",name))
 						list:ItemSetButtonTip(stageDescription)
 						list:ItemSetButton("QuestWatch",false)
 						if (currentStage <= numStages) then
-							s = format(" |cffff0000" ..L["Stage "] "[|cffffffff%d|cffff0000/|cffffffff%d|cffff0000]:|cff00ff00%s", currentStage, numStages,stageName)
+							s = format(" |cffff0000" ..L["Stage "] .."[|cffffffff%d|cffff0000/|cffffffff%d|cffff0000]:|cff00ff00%s", currentStage, numStages,stageName)
 						else
-							s = " |cffff0000[|cffffffff" ..L["Complete"] "|cffff0000]"
+							s = " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
 						end
 						list:ItemAdd(0)
 						list:ItemSet(2,s)
 						for criteria = 1, numCriteria do
 							local text, _, finished, quantity, totalquantity = C_Scenario.GetCriteriaInfo(criteria)
 							if finished then
-								s = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] "|cffff0000]",quantity, totalquantity, text)
+								s = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]",quantity, totalquantity, text)
 							else
 								s = format("|cffffffff%d/%d %s",quantity, totalquantity, text)
 							end
@@ -8708,7 +8708,7 @@ function Nx.Quest.Watch:UpdateList()
 							local title, task, _, completed = C_Scenario.GetStepInfo(1)
 							task = " |cffff0000Bonus |cff00ff00" .. task
 							if completed then
-								task = task .. " |cffff0000[|cffffffff" ..L["Complete"] "|cffff0000]"
+								task = task .. " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
 							end
 							list:ItemAdd(0)
 							list:ItemSet(2,task)
@@ -8716,7 +8716,7 @@ function Nx.Quest.Watch:UpdateList()
 								local index = bonusSteps[criteria]
 								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)
 								if completed then 
-									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] "|cffff0000]",quantity, totalquantity, task)
+									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]",quantity, totalquantity, task)
 								else
 									task = format("|cffffffff%d/%d %s",quantity, totalquantity, task)
 								end
@@ -8788,7 +8788,7 @@ function Nx.Quest.Watch:UpdateList()
 						local aId, aName, aPoints, aComplete, aMonth, aDay, aYear, aDesc = GetAchievementInfo (id)
 						if aName then		-- Person had nil name happen
 							list:ItemAdd (0)
-							list:ItemSet (2, format ("|cffdf9fff" ..L["Achievement:"] " %s", aName))
+							list:ItemSet (2, format ("|cffdf9fff" ..L["Achievement:"] .. " %s", aName))
 							local numC = GetAchievementNumCriteria (id)
 							local progressCnt = 0
 							local tip = aDesc
@@ -8899,7 +8899,7 @@ function Nx.Quest.Watch:UpdateList()
 							end
 							local nameStr = format ("%s%s%s", lvlStr, color, cur.Title)
 							if cur.NewTime and time() < cur.NewTime + 60 then
-								nameStr = format ("|cff00%2x00" ..L["New: "] "%s", self.FlashColor * 200 + 55, nameStr)
+								nameStr = format ("|cff00%2x00" ..L["New: "] .."%s", self.FlashColor * 200 + 55, nameStr)
 							end
 							if isComplete then
 								local obj = quest and (quest["End"] or quest["Start"])
@@ -10452,7 +10452,7 @@ function Nx.Quest:Find (title, level, desc, obj)
 		end
 
 		if Nx.Quest.Debug then
-			Nx.prt (L["QFind Failed to find"] "%s %d", title, level)
+			Nx.prt (L["QFind Failed to find"] .. "%s %d", title, level)
 		end
 	end
 
@@ -10541,19 +10541,19 @@ function Nx.Quest:DecodeComRcv (info, msg)
 	local quest = Nx.Quests[qId]
 	if not quest then						-- Unknown quest?
 		if Nx.Com.PalsInfo[Nx.qTEMPname] ~= nil then
-		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] " %s", qId)
+		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .. " %s", qId)
 		end
 		if Nx.Com.ZPInfo[Nx.qTEMPname] ~= nil then
-			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] " %s", qId)
+			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .. " %s", qId)
 		end
 		return
 	end
 	if not quest[1] then
 		if Nx.Com.PalsInfo[Nx.qTEMPname] ~= nil then
-		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] " %s", qId)
+		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .. " %s", qId)
 		end
 		if Nx.Com.ZPInfo[Nx.qTEMPname] ~= nil then
-			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] " %s", qId)
+			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .." %s", qId)
 		end
 		return
 	end
