@@ -2628,7 +2628,7 @@ function Nx.Social.TeamHUD:Update()
 			local targetStr = plTarget == name and "|cff8080ff>" or ""
 			local combatStr = UnitAffectingCombat (unit) and "|cffff4040*" or ""
 			local colStr = player.Dist < 41 and "|cffc0ffc0" or "|cff808080"
-			local distStr = player.Dist ~= 999999 and format ("%d yds", player.Dist) or ""
+			local distStr = player.Dist ~= 999999 and format ("%d " .. L["yds"], player.Dist) or ""
 			local s = format ("%s%s%s%s %s", targetStr, combatStr, colStr, name, distStr)
 
 			self.FStrs[player.FrmI]:SetText (s)

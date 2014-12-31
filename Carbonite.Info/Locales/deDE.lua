@@ -35,3 +35,8 @@ L["Cancel"] = "Abbrechen"
 L["One minute until the Arena"] = "Eine Minute bis zum Arenastart"
 L["Thirty seconds until the Arena"] = "Drei\195\159\ig Sekunden bis zum Arenastart"
 L["Fifteen seconds until the Arena"] = "F\195\188nfzehn Sekunden bis zum Arenastart"
+
+L["Reset old info data %f"] = "Alte Info-Daten zur\195\188cksetzen"
+L[" begins? in (%d+) "] = " startet? in (%d+) "
+L["(%d+) minutes? until the battle"] = "(%d+) Minuten? bis zur Schlacht"
+

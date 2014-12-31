@@ -1805,7 +1805,7 @@ function Nx:CalcRealmChars()
 			for rc, v in pairs (chars) do
 				if v ~= Nx.CurCharacter then
 					local rname = Nx.Split (".", rc)
-					if rname == connectedrealms[i] then
+					if rname == connectedrealms[i] and connectedrealms[i] ~= realmName then
 						tinsert (t, rc)
 					end
 				end
@@ -3902,4 +3902,6 @@ function Nx.Proc:OnUpdate (elapsed)
 	self.TimeLeft = elapsed
 end
 
----------------------------------------------------------------------------------EOF
+---------------------------------------------------------------------------------------
+--EOF
+---------------------------------------------------------------------------------------

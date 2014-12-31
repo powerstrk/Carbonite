@@ -163,6 +163,8 @@ L["Load Quests for Levels 71-80"] = "Charger Qu\195\170tes pour niveaux 71-80"
 L["Load Quests for Levels 81-85"] = "Charger Qu\195\170tes pour niveaux 81-85"
 L["Load Quests for Levels 86-90"] = "Charger Qu\195\170tes pour niveaux 86-90"
 L["Load Quests for Levels 91-100"] = "Charger Qu\195\170tes pour niveaux 91-100"
+L["Quests Data Gathering"] = true
+L["Gathers quests data"] = true
 L["Reload UI"] = "Recharger UI"
 L["Toggle Quest Watch"] = "Basculer vers fen\195\170tre de suivi de Qu\195\170tes"
 L["Daily"] = "Journali\195\168res"
@@ -287,3 +289,5 @@ L["Player"] = "Joueur"
 L["Daily Quests Completed: |cffffffff"] = "Qu\195\170tes journali\195\168res termin\195\169es: |cffffffff"
 L["|r  Daily reset: |cffffffff"] = "|r  Reset Journalier: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "Qu\195\170tes: |cffffffff%d/%d|r  %s"
+
+L["yds"] = true

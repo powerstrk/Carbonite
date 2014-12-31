@@ -184,7 +184,7 @@ local function mainConfig()
 								   "|cff9999ff" .. L["Naharis for quest watchlist fixes"] .. "\n" ..
 								   "|cff9999ff" .. L["JimboBlue for guide location updates"] .. "\n" ..
 								   "|cff9999ff" .. L["Localization Efforts By:"] .. "\n" ..
-								   "|cff9999ff" .. L["frFR - powerstk"] .. "\n" ..
+								   "|cff9999ff" .. L["frFR - powerstrk"] .. "\n" ..
 								   "|cff9999ff" .. L["deDE - atl77 & samyonair"] .. "\n" ..
 								   "|cff9999ff" .. L["itIT - ThorwaldOdin"] .. "\n" ..
 								   "|cff9999ff" .. L["ruRU - NotDead"] .. "\n" ..

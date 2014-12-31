@@ -1,7 +1,21 @@
 ﻿---------------------------------------------------------------------------------------
+-- Carbonite - Addon for World of Warcraft(tm)
 -- NxWeekly - Weekly Objective Tracker
--- Copyright 2013 Rythal
---------
+-- Copyright 2013-2014 Rytal
+--
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License
+-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+---------------------------------------------------------------------------------------
 
 local _G = getfenv(0)
 
@@ -24,16 +38,32 @@ local defaults = {
 				Nalak = true,
 				Oondasta = true,
 				Celestials = true,
-				Ordos = true
+				Ordos = true,
+				Tarlna = true,
+				Drov = true,
+				Rukmar = true,
 			},
 			Loot = {
-				Ritual = true,
-				LootKey = true,
-				OutdoorChest = true,
 			},
-			Quest = {
-				WarforgedSeals = true,
+			Quest = {				
 				Chamberlain = true,
+				TemperedFateSeals = true,
+				GarrisonInvasion = true,
+			},
+			Raids = {				
+				MSV = true,
+				HoF = true,
+				TeS = true,
+				ToTS = true,
+				SoO = true,
+				Highmaul = true,
+				BRF = true,
+			},
+			RaidLevels = {
+				LFR = true,
+				Norm = true,
+				Heroic = true,
+				Mythic = true,
 			},
 		},
 	},
@@ -76,82 +106,140 @@ local function WeeklyOptions()
 					name = L["Mobs"],
 					order = 2,
 					args = {
-						mdesc = {
+						WodMobs = {
+							type = "group",
+							name = "WoD",
 							order = 1,
-							type = "description",
-							name = L["Place check boxes in the mobs you wish to track weekly kills."],
-						},
-						sha = {
+							args = {
+								mdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the mobs you wish to track weekly kills."],
+									-- Tarlna the Ageless
+									-- Drov the Ruiner
+									-- Rukhmar
+								},
+								tarlna = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Tarlna The Ageless"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Tarlna
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Tarlna = not Nx.wkdb.profile.Track.Mob.Tarlna
+									end,
+								},
+								drov = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Drov the Ruiner"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Drov
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Drov = not Nx.wkdb.profile.Track.Mob.Drov
+									end,
+								},
+								ruk = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Rukmar"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Rukmar
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Rukmar = not Nx.wkdb.profile.Track.Mob.Rukmar
+									end,
+								},								
+							},
+						},						
+						MopMobs = {
+							type = "group",
+							name = "MoP",
 							order = 2,
-							type = "toggle",
-							width = "full",
-							name = L["Sha of Anger"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Sha
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Sha = not Nx.wkdb.profile.Track.Mob.Sha
-							end,
-						},
-						galleon = {
-							order = 3,
-							type = "toggle",
-							width = "full",
-							name = L["Galleon"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Galleon
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Galleon = not Nx.wkdb.profile.Track.Mob.Galleon
-							end,
-						},
-						nalak = {
-							order = 4,
-							type = "toggle",
-							width = "full",
-							name = L["Nalak"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Nalak
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Nalak = not Nx.wkdb.profile.Track.Mob.Nalak
-							end,
-						},
-						oondasta = {
-							order = 5,
-							type = "toggle",
-							width = "full",
-							name = L["Oondasta"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Oondasta
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Oondasta = not Nx.wkdb.profile.Track.Mob.Oondasta
-							end,
-						},
-						celestials = {
-							order = 6,
-							type = "toggle",
-							width = "full",
-							name = L["Celestials"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Celestials
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Celestials = not Nx.wkdb.profile.Track.Mob.Celestials
-							end,
-						},
-						ordos = {
-							order = 7,
-							type = "toggle",
-							width = "full",
-							name = L["Ordos"],
-							get = function()
-								return Nx.wkdb.profile.Track.Mob.Ordos
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Mob.Ordos = not Nx.wkdb.profile.Track.Mob.Ordos
-							end,
+							args = {
+								mdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the mobs you wish to track weekly kills."],
+								},
+								sha = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Sha of Anger"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Sha
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Sha = not Nx.wkdb.profile.Track.Mob.Sha
+									end,
+								},
+								galleon = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Galleon"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Galleon
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Galleon = not Nx.wkdb.profile.Track.Mob.Galleon
+									end,
+								},
+								nalak = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Nalak"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Nalak
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Nalak = not Nx.wkdb.profile.Track.Mob.Nalak
+									end,
+								},
+								oondasta = {
+									order = 5,
+									type = "toggle",
+									width = "full",
+									name = L["Oondasta"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Oondasta
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Oondasta = not Nx.wkdb.profile.Track.Mob.Oondasta
+									end,
+								},
+								celestials = {
+									order = 6,
+									type = "toggle",
+									width = "full",
+									name = L["Celestials"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Celestials
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Celestials = not Nx.wkdb.profile.Track.Mob.Celestials
+									end,
+								},
+								ordos = {
+									order = 7,
+									type = "toggle",
+									width = "full",
+									name = L["Ordos"],
+									get = function()
+										return Nx.wkdb.profile.Track.Mob.Ordos
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Mob.Ordos = not Nx.wkdb.profile.Track.Mob.Ordos
+									end,
+								},
+							},
 						},
 					},
 				},
@@ -159,47 +247,66 @@ local function WeeklyOptions()
 					type = "group",
 					name = L["Lootables"],
 					order = 3,
-					args = {
-						ldesc = {
+					args = {					
+						WodLoot = {
+							type = "group",
+							name = "WoD",
 							order = 1,
-							type = "description",
-							name = L["Place check boxes in the weekly drops you wish to track."],
-						},
-						ritual = {
+							args = {
+								ldesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the weekly drops you wish to track."],
+								},							
+							},
+						},						
+						MopLoot = {					
+							type = "group",
+							name = "MoP",
 							order = 2,
-							type = "toggle",
-							width = "full",
-							name = L["Shan'ze Ritual Stone"],
-							get = function()
-								return Nx.wkdb.profile.Track.Loot.Ritual
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Loot.Ritual = not Nx.wkdb.profile.Track.Loot.Ritual
-							end,
-						},
-						lootkey = {
-							order = 3,
-							type = "toggle",
-							width = "full",
-							name = L["Lei Shen Palace Key"],
-							get = function()
-								return Nx.wkdb.profile.Track.Loot.LootKey
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Loot.LootKey = not Nx.wkdb.profile.Track.Loot.LootKey
-							end,
-						},
-						ochest = {
-							order = 4,
-							type = "toggle",
-							width = "full",
-							name = L["Thunder King Trove"],
-							get = function()
-								return Nx.wkdb.profile.Track.Loot.OutdoorChest
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Loot.OutdoorChest = not Nx.wkdb.profile.Track.Loot.OutdoorChest
-							end,
+							args = {
+								ldesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the weekly drops you wish to track."],
+								},
+								ritual = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Shan'ze Ritual Stone"],
+									get = function()
+										return Nx.wkdb.profile.Track.Loot.Ritual
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Loot.Ritual = not Nx.wkdb.profile.Track.Loot.Ritual
+									end,
+								},
+								lootkey = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Lei Shen Palace Key"],
+									get = function()
+										return Nx.wkdb.profile.Track.Loot.LootKey
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Loot.LootKey = not Nx.wkdb.profile.Track.Loot.LootKey
+									end,
+								},
+								ochest = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Thunder King Trove"],
+									get = function()
+										return Nx.wkdb.profile.Track.Loot.OutdoorChest
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Loot.OutdoorChest = not Nx.wkdb.profile.Track.Loot.OutdoorChest
+									end,
+								},
+							},
 						},
 					},
 				},
@@ -208,34 +315,65 @@ local function WeeklyOptions()
 					name = L["Quests"],
 					order = 4,
 					args = {
-						qdesc = {
+						WodQuests = {
+							type = "group",
+							name = "WoD",
 							order = 1,
-							type = "description",
-							name = L["Place check boxes in the weekly quests you want to track."],
-						},
-						warforgedseals = {
+							args = {
+								qdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the weekly quests you want to track."],
+								},							
+								temperedfate = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Tempered Fate Seals"],
+									get = function()
+										return Nx.wkdb.profile.Track.Quest.TemperedFateSeals
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Quest.TemperedFateSeals = not Nx.wkdb.profile.Track.Quest.TemperedFateSeals
+									end,
+								},
+								garrinv = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Garrison Invasion"],
+									get = function()
+										return Nx.wkdb.profile.Track.Quest.GarrisonInvasion
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Quest.GarrisonInvasion = not Nx.wkdb.profile.Track.Quest.GarrisonInvasion
+									end,
+								},								
+							},
+						},						
+						MopQuests = {					
+							type = "group",
+							name = "MoP",
 							order = 2,
-							type = "toggle",
-							width = "full",
-							name = L["Warforged Seals"],
-							get = function()
-								return Nx.wkdb.profile.Track.Quest.WarforgedSeals
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Quest.WarforgedSeals = not Nx.wkdb.profile.Track.Quest.WarforgedSeals
-							end,
-						},
-						chamberlain = {
-							order = 3,
-							type = "toggle",
-							width = "full",
-							name = L["The Crumbled Chamberlain"],
-							get = function()
-								return Nx.wkdb.profile.Track.Quest.Chamberlain
-							end,
-							set = function()
-								Nx.wkdb.profile.Track.Quest.Chamberlain = not Nx.wkdb.profile.Track.Quest.Chamberlain
-							end,
+							args = {					
+								qdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the weekly quests you want to track."],
+								},
+								chamberlain = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["The Crumbled Chamberlain"],
+									get = function()
+										return Nx.wkdb.profile.Track.Quest.Chamberlain
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Quest.Chamberlain = not Nx.wkdb.profile.Track.Quest.Chamberlain
+									end,
+								},
+							},
 						},
 					},
 				},
@@ -244,12 +382,175 @@ local function WeeklyOptions()
 					name = "Raids",
 					order = 5,
 					args = {
-						rdesc = {
+						Difficulties = {
+							type = "group",
+							name = "Difficulties",
 							order = 1,
-							type = "description",
-							name = L["Place check boxes in the raid progress you want to track."],
+							args = {
+								rdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the difficulties you want to track."],
+								},
+								LFR = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["LFR"],
+									get = function()
+										return Nx.wkdb.profile.Track.RaidLevels.LFR
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.RaidLevels.LFR = not Nx.wkdb.profile.Track.RaidLevels.LFR
+									end,
+								},
+								Normal = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Normal"],
+									get = function()
+										return Nx.wkdb.profile.Track.RaidLevels.Norm
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.RaidLevels.Norm = not Nx.wkdb.profile.Track.RaidLevels.Norm
+									end,
+								},
+								Heroic = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Heroic"],
+									get = function()
+										return Nx.wkdb.profile.Track.RaidLevels.Heroic
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.RaidLevels.Heroic = not Nx.wkdb.profile.Track.RaidLevels.Heroic
+									end,
+								},
+								Mythic = {
+									order = 5,
+									type = "toggle",
+									width = "full",
+									name = L["Mythic"],
+									get = function()
+										return Nx.wkdb.profile.Track.RaidLevels.Mythic
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.RaidLevels.Mythic = not Nx.wkdb.profile.Track.RaidLevels.Mythic
+									end,
+								},															
+							},
 						},
-					},
+						WodRaids = {
+							type = "group",
+							name = "WoD",
+							order = 1,
+							args = {
+								rdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the raid progress you want to track."],
+								},
+								MSV = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Mogu'shan Vaults"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.MSV
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.MSV = not Nx.wkdb.profile.Track.Raids.MSV
+									end,
+								},
+								HoF = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Heart of Fear"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.HoF
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.HoF = not Nx.wkdb.profile.Track.Raids.HoF
+									end,
+								},
+								TeS = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Terrace of Endless Spring"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.TeS
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.TeS = not Nx.wkdb.profile.Track.Raids.TeS
+									end,
+								},
+								ToTS = {
+									order = 5,
+									type = "toggle",
+									width = "full",
+									name = L["Throne of Thunder"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.ToTS
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.ToTS = not Nx.wkdb.profile.Track.Raids.ToTS
+									end,
+								},
+								SoO = {
+									order = 6,
+									type = "toggle",
+									width = "full",
+									name = L["Siege of Orgrimmar"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.SoO
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.SoO = not Nx.wkdb.profile.Track.Raids.SoO
+									end,
+								},
+							},							
+						},						
+						MopRaids = {					
+							type = "group",
+							name = "MoP",
+							order = 2,
+							args = {										
+								rdesc = {
+									order = 1,
+									type = "description",
+									name = L["Place check boxes in the raid progress you want to track."],
+								},
+								Highmaul = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Highmaul"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.Highmaul
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.Highmaul = not Nx.wkdb.profile.Track.Raids.Highmaul
+									end,
+								},
+								BRF = {
+									order = 3,
+									type = "toggle",
+									width = "full",
+									name = L["Blackrock Foundry"],
+									get = function()
+										return Nx.wkdb.profile.Track.Raids.BRF
+									end,
+									set = function()
+										Nx.wkdb.profile.Track.Raids.BRF = not Nx.wkdb.profile.Track.Raids.BRF
+									end,
+								},								
+							},
+						},
+					},					
 				},
 			},
 		}
@@ -266,7 +567,7 @@ function CarboniteWeekly:OnInitialize()
 	Nx.wkdb:SetProfile(Nx.db:GetCurrentProfile())
 	tinsert(Nx.dbs,Nx.wkdb)
 	Nx.Weekly:Init()
-	Nx.Weekly:Login()
+	Nx.Weekly:Login()	
 	local function func ()
 		Nx.Weekly:ToggleShow()
 	end
@@ -282,13 +583,14 @@ function CarboniteWeekly:OnInitialize()
 
 	tinsert (Nx.BarData,{"MapWeekly", L["-Weekly Tracker-"], Nx.Weekly.OnButToggleWeekly, false })
 	Nx.Map.Maps[1]:CreateToolBar()
-	local resettime = Nx.Weekly:CalcEpoch()
+	local resettime = Nx.Weekly:CalcEpoch()	
 	if resettime > Nx.wkdb.profile.Weekly.SecondsToReset then
 		Nx.wkdb.profile.Weekly.SecondsToReset = resettime + Nx.Weekly:CalcReset()
 		Nx.Weekly:Reset()
 	end
 	Nx:AddToConfig("Weekly Status Module",WeeklyOptions(),L["Weekly Status Module"])
 	tinsert(Nx.BrokerMenuTemplate,{ text = L["Toggle Weekly List"], func = function() Nx.Weekly:ToggleShow() end })
+	Nx.Weekly.WhichExpansion = 1
 end
 
 function CarboniteWeekly:EventHandler(event, arg1, arg2, arg3)
@@ -324,8 +626,9 @@ function Nx.Weekly:Init()
 	}
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Debug print
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:Login(event, arg1)
 	local ch = Nx.CurCharacter
@@ -349,74 +652,198 @@ function Nx.Weekly:Reset()
 			ch.Weekly.Chamberlain = false
 			ch.Weekly.Celestials = false
 			ch.Weekly.Ordos = false
-			ch.Weekly.WarforgedSeals = false
+			ch.Weekly.TemperedFateSeals = 0
+			ch.Weekly.GarrisonInvasion = false
+			ch.Weekly.Tarlna = false
+			ch.Weekly.Drov = false
+			ch.Weekly.Rukmar = false
+			ch.Weekly.Raids = {}
 		end
 	end
 end
 
 function Nx.Weekly:CharRecord(ch)
-  if not ch.Weekly then
-    ch.Weekly = {}
-  end
-  if IsQuestFlaggedCompleted(32099) then
-	ch.Weekly.Sha = true
-  else
-	ch.Weekly.Sha = false
-  end
-  if IsQuestFlaggedCompleted(32098) then
-	ch.Weekly.Galleon = true
-  else
-	ch.Weekly.Galleon = false
-  end
-  if IsQuestFlaggedCompleted(32518) then
-	ch.Weekly.Nalak = true
-  else
-	ch.Weekly.Nalak = false
-  end
-  if IsQuestFlaggedCompleted(32519) then
-	ch.Weekly.Oondasta = true
-  else
-	ch.Weekly.Oondasta = false
-  end
-  if IsQuestFlaggedCompleted(32610) then
-	ch.Weekly.Ritual = true
-  else
-	ch.Weekly.Ritual = false
-  end
-  if IsQuestFlaggedCompleted(32626) then
-	ch.Weekly.LootKey = true
-  else
-	ch.Weekly.LootKey = false
-  end
-  if IsQuestFlaggedCompleted(32609) then
-	ch.Weekly.OutdoorChest = true
-  else
-	ch.Weekly.OutdoorChest = false
-  end
-  if IsQuestFlaggedCompleted(32505) then
-	ch.Weekly.Chamberlain = true
-  else
-	ch.Weekly.Chamberlain = false
-  end
-  if IsQuestFlaggedCompleted(33117) then
-	ch.Weekly.Celestials = true
-  else
-	ch.Weekly.Celestials = false
-  end
-  if IsQuestFlaggedCompleted(33118) then
-	ch.Weekly.Ordos = true
-  else
-	ch.Weekly.Ordos = false
-  end
-  if IsQuestFlaggedCompleted(33134) then
-	ch.Weekly.WarforgedSeals = true
-  else
-	ch.Weekly.WarforgedSeals = false
-  end
+	if not ch.Weekly then
+		ch.Weekly = {}
+	end	
+	if not ch.Weekly.TemperedFateSeals then
+		ch.Weekly.TemperedFateSeals = 0
+	end
+	local qids = {36058,36054,37454,37455,36056,37456,37457,36057,37458,37459,36055,37452,37453}
+	for a,b in pairs(qids) do
+		if IsQuestFlaggedCompleted(b) then
+			ch.Weekly.TemperedFateSeals = ch.Weekly.TemperedFateSeals + 1
+		end
+	end
+	qids = {
+		["Ordos"] = 33118,
+		["Celestials"] = 33117,
+		["Chamberlain"] = 32505,
+		["OutdoorChest"] = 32609,
+		["LootKey"] = 32626,
+		["Ritual"] = 32610,
+		["Oondasta"] = 32519,
+		["Nalak"] = 32518,
+		["Galleon"] = 32098,
+		["Sha"] = 32099,
+	}
+	for a,b in pairs(qids) do	
+		ch.Weekly[a] = IsQuestFlaggedCompleted(b)
+	end
+	qids = {
+		[L["Bronze"]] = 37638, 
+		[L["Silver"]] = 36739,
+		[L["Gold"]] = 37640,
+	}	
+	for a,b in pairs(qids) do
+		if IsQuestFlaggedCompleted(b) then
+			ch.Weekly.GarrisonInvasion = a
+		end
+	end
+	
+	qids = {
+		["MSV"] = {
+			[1] = {
+				[527] = { num = 3, start = 1 },
+				[528] = { num = 3, start = 4 },
+			},
+			[2] = {
+				[830] = { num = 3, start = 1 },
+				[831] = { num = 3, start = 4 },
+			},	
+			[3] = {
+				[532] = { num = 6, start = 1 },
+			},
+			[4] = {
+				[533] = { num = 6, start = 1 },
+			},		
+		},
+		["HoF"] = {
+			[1] = {
+				[529] = { num = 3, start = 1 },
+				[530] = { num = 3, start = 4 },
+			},
+			[2] = {
+				[832] = { num = 3, start = 1 },
+				[833] = { num = 3, start = 4 },
+			},		
+			[3] = {
+				[534] = { num = 6, start = 1 },
+			},
+			[4] = {
+				[533] = { num = 6, start = 1 },
+			},
+		},		
+		["TeS"] = {
+			[1] = {
+				[526] = { num = 4, start = 1 },			
+			},
+			[2] = {
+				[834] = { num = 4, start = 1 },			
+			},
+			[3] = {
+				[536] = { num = 8, start = 1 },
+			},
+			[4] = {
+				[535] = { num = 8, start = 1 },
+			},
+		},		
+		["ToTS"] = {
+			[1] = {
+				[610] = { num = 3, start = 1 },
+				[611] = { num = 3, start = 4 },
+				[612] = { num = 3, start = 7 },
+				[613] = { num = 3, start = 10 },
+			},
+			[2] = {
+				[835] = { num = 3, start = 1 },
+				[836] = { num = 3, start = 4 },
+				[837] = { num = 3, start = 7 },
+				[838] = { num = 3, start = 10 },
+			},
+			[3] = {
+				[634] = { num = 12, start = 1 },
+			},			
+			[4] = {
+				[633] = { num = 12, start = 1 },
+			},			
+		},		
+		["SoO"] = {
+			[1] = {
+				[716] = { num = 4, start = 1 },
+				[717] = { num = 4, start = 5 },
+				[724] = { num = 4, start = 9 },
+				[725] = { num = 4, start = 12 },
+			},
+			[2] = {
+				[839] = { num = 4, start = 1 },
+				[840] = { num = 4, start = 5 },
+				[841] = { num = 3, start = 9 },
+				[842] = { num = 3, start = 12 },
+			},
+			[3] = {
+				[715] = { num = 14, start = 1 },
+			},
+			[4] = {
+				[714] = { num = 14, start = 1 },
+			},
+			[5] = {
+				[766] = { num = 14, start = 1 },
+			},
+		},				
+		["Highmaul"] = {
+			[1] = {
+				[849] = { num = 3, start = 1 },
+				[850] = { num = 3, start = 4 },
+				[851] = { num = 1, start = 7 },
+			},
+			[3] = {
+				[895] = { num = 7, start = 1 },
+			},
+			[4] = {
+				[896] = { num = 7, start = 1 },
+			},
+			[5] = {
+				[897] = { num = 7, start = 1 },
+			},
+		},
+		["BRF"] = {
+			[1] = {
+				[847] = { num = 3, start = 1 },
+				[846] = { num = 3, start = 4 },
+				[848] = { num = 3, start = 7 },
+				[823] = { num = 1, start = 10 },
+			},
+			[3] = {
+				[898] = { num = 10, start = 1 },
+			},
+			[4] = {
+				[899] = { num = 10, start = 1 },				
+			},
+			[5] = {
+				[900] = { num = 10, start = 1 },			
+			},		
+		},
+	}
+	ch.Weekly.Raids = {}
+	for a,b in pairs (qids) do
+		ch.Weekly.Raids[a] = {}
+		for c, d in pairs (b) do
+			ch.Weekly.Raids[a][c] = {}
+			for e, f in pairs (d) do
+				for num = f.start,f.start+f.num-1 do
+					local _,_,isKilled = GetLFGDungeonEncounterInfo(e,num)
+					if isKilled then
+						ch.Weekly.Raids[a][c][num] = true
+					end
+				end
+			end
+		end
+	end
 end
 
 --------
--- Create warehouse window
+-- Create weekly window
 
 function Nx.Weekly:Create()
 	self.SelectedChar = 1
@@ -455,13 +882,26 @@ function Nx.Weekly:Create()
 	list:ColumnAdd ("", 1, 250)
 	list:ColumnAdd ("", 2, 250)
 	win:Attach (list.Frm, .5, 1, 0, 1)
+	local bw, bh = win:GetBorderSize()
+	local but = Nx.Button:Create (win.Frm, "Txt64", "WoD", nil, bw + 444, -bh, "TOPLEFT", 40, 20, self.But_OnWoD, self)
+	local but = Nx.Button:Create (win.Frm, "Txt64", "MoP", nil, bw + 488, -bh, "TOPLEFT", 40, 20, self.But_OnMoP, self)
 	self:Update()
 	self.List:Select (0)
 	self.List:FullUpdate()
 end
 
+function Nx.Weekly:But_OnWoD()
+	Nx.Weekly.WhichExpansion = 1
+	Nx.Weekly:DisplayWeekly()
+end
+
+function Nx.Weekly:But_OnMoP()
+	Nx.Weekly.WhichExpansion = 2
+	Nx.Weekly:DisplayWeekly()
+end
 --------
 -- Show or hide window
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:ToggleShow()
 
@@ -475,11 +915,11 @@ function Nx.Weekly:ToggleShow()
 		self:Update()
 	end
 
---PAIDE!
 end
 
---------
+---------------------------------------------------------------------------------------
 -- On list events
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:OnListEvent (eventName, sel, val2, click)
 	local data = self.List:ItemGetData (sel) or 0
@@ -493,8 +933,9 @@ function Nx.Weekly:OnListEvent (eventName, sel, val2, click)
 	end
 end
 
---------
--- Update Warehouse
+---------------------------------------------------------------------------------------
+-- Update Weeklies
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:Update()
 	local Nx = Nx
@@ -505,7 +946,7 @@ function Nx.Weekly:Update()
 		return
 	end
 	Nx.Weekly:CharRecord(Nx.CurCharacter)
-	self.Win:SetTitle (format (L["Weekly Tracker: %d characters - Reset In %s"], #Nx.RealmChars,SecondsToTime(Nx.Weekly:CalcReset(), false, true,3)))
+	self.Win:SetTitle (format (L["Weekly Tracker: %d characters - Reset In %s"], #Nx.RealmChars,SecondsToTime(Nx.Weekly:CalcReset(), false, true, 3)))
 	local myName = UnitName ("player")
 	local totalChars = 0
 	local hicol = "|cffcfcfcf"
@@ -546,172 +987,619 @@ function Nx.Weekly:DisplayWeekly()
 	local rname, cname = strsplit (".", rc)
 	local curline = 1
 	local spacer = false
-	list:ColumnSetName (1, format ("  %s's Weekly Status", cname))
+	list:ColumnSetName (1, format ("  %s's Weekly Status", cname))	
 	local ch = Nx.db.global.Characters[rc]
-	if Nx.wkdb.profile.Track.Mob.Sha then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Sha of Anger"])
-		if ch.Weekly and ch.Weekly.Sha then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Sha then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+	if Nx.Weekly.WhichExpansion == 1 then
+		if Nx.wkdb.profile.Track.Mob.Tarlna then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Tarlna The Ageless"])
+			if ch.Weekly and ch.Weekly.Tarlna then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Tarlna then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end	
+		if Nx.wkdb.profile.Track.Mob.Drov then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Drov the Ruiner"])
+			if ch.Weekly and ch.Weekly.Drov then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Drov then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end	
+		if Nx.wkdb.profile.Track.Mob.Rukmar then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Rukmar"])
+			if ch.Weekly and ch.Weekly.Rukmar then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Rukmar then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end			
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+			curline = curline + 1
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Galleon then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Galleon"])
-		if ch.Weekly and ch.Weekly.Galleon then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Galleon then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		spacer = false
+		if Nx.wkdb.profile.Track.Quest.TemperedFateSeals then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Tempered Fate Seals"])
+			if ch.Weekly and ch.Weekly.TemperedFateSeals then
+				strng = "|cff00ff00" .. ch.Weekly.TemperedFateSeals
+			elseif not ch.Weekly or not ch.Weekly.TemperedFateSeals then
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Nalak then
+		if Nx.wkdb.profile.Track.Quest.GarrisonInvasion then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Garrison Invasion"])
+			if ch.Weekly and ch.Weekly.GarrisonInvasion then
+				if ch.Weekly.GarrisonInvasion == 0 then
+					strng = "|cff00ff00" .. L["Not Completed"]			
+				else
+					strng = "|cff00ff00" .. ch.Weekly.GarrisonInvasion							
+				end
+			elseif not ch.Weekly or not ch.Weekly.TemperedFateSeals then
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end		
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+			curline = curline + 1
+		end		
+		spacer = false		
+		strng = "                    "
+		local strng2 = "                    "
 		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Nalak"])
-		if ch.Weekly and ch.Weekly.Nalak then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Nalak then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		list:ItemSet(1,"")
+		curline = curline + 1
+		if Nx.wkdb.profile.Track.RaidLevels.LFR then
+			strng = strng .. "|cffffff00               LFR"
+			strng2 = strng2 .. "|cffff00ff              ------"
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Oondasta then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Oondasta"])
-		if ch.Weekly and ch.Weekly.Oondasta then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Oondasta then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.RaidLevels.Norm then
+			strng = strng .. "|cffffff00      Normal"
+			strng2 = strng2 .. "|cffff00ff     ----------"
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Celestials then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Celestials"])
-		if ch.Weekly and ch.Weekly.Celestials then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Celestials then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		local strng3 = ""
+		local strng4 = ""
+		if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+			strng3 = strng3 .. "|cffffff00      Heroic"
+			strng4 = strng4 .. "|cffff00ff     ---------"
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Mob.Ordos then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Ordos"])
-		if ch.Weekly and ch.Weekly.Ordos then
-			strng = "|cff00ff00" .. L["Killed"]
-		elseif ch.Weekly and not ch.Weekly.Ordos then
-			strng = "|cffff0000" .. L["Not Killed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+			strng3 = strng3 .. "|cffffff00        Mythic"
+			strng4 = strng4 .. "|cffff00ff       ----------"
+		end			
+		list:ItemAdd(curline + 1)
+		list:ItemSet(1, strng)
+		list:ItemSet(2, strng3)		
+		list:ItemAdd(curline + 2)		
+		list:ItemSet(1, strng2)				
+		list:ItemSet(2, strng4)
+		curline = curline + 2
+		strng = ""
+		strng2 = ""
+		if Nx.wkdb.profile.Track.Raids.Highmaul then
+			spacer = true
+			for i = 1,7 do				
+				strng = GetLFGDungeonEncounterInfo(895,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][1] and ch.Weekly.Raids["Highmaul"][1][i] then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][3] and ch.Weekly.Raids["Highmaul"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][4] and ch.Weekly.Raids["Highmaul"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][5] and ch.Weekly.Raids["Highmaul"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end		
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+			curline = curline + 1
+		end		
+		spacer = false		
+		if Nx.wkdb.profile.Track.Raids.BRF then
+			spacer = true
+			for i = 1,10 do				
+				strng = GetLFGDungeonEncounterInfo(898,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][1] and ch.Weekly.Raids["BRF"][1][i] then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][3] and ch.Weekly.Raids["BRF"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][4] and ch.Weekly.Raids["BRF"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][5] and ch.Weekly.Raids["BRF"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end				
+	end	
+	if Nx.Weekly.WhichExpansion == 2 then
+		if Nx.wkdb.profile.Track.Mob.Sha then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Sha of Anger"])
+			if ch.Weekly and ch.Weekly.Sha then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Sha then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if spacer then
-		list:ItemAdd(curline)
-		list:ItemSet(1,"|cff00ffff  -----------------------------")
-		curline = curline + 1
-	end
-	spacer = false
-	if Nx.wkdb.profile.Track.Loot.Ritual then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Shan'ze Ritual Stone"])
-		if ch.Weekly and ch.Weekly.Ritual then
-			strng = "|cff00ff00" .. L["Looted"]
-		elseif ch.Weekly and not ch.Weekly.Ritual then
-			strng = "|cffff0000" .. L["Not Looted"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.Mob.Galleon then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Galleon"])
+			if ch.Weekly and ch.Weekly.Galleon then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Galleon then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Loot.LootKey then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Palace Key"])
-		if ch.Weekly and ch.Weekly.LootKey then
-			strng = "|cff00ff00" .. L["Looted"]
-		elseif ch.Weekly and not ch.Weekly.LootKey then
-			strng = "|cffff0000" .. L["Not Looted"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.Mob.Nalak then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Nalak"])
+			if ch.Weekly and ch.Weekly.Nalak then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Nalak then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Loot.OutdoorChest then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Thunder King Trove"])
-		if ch.Weekly and ch.Weekly.OutdoorChest then
-			strng = "|cff00ff00" .. L["Looted"]
-		elseif ch.Weekly and not ch.Weekly.OutdoorChest then
-			strng = "|cffff0000" .. L["Not Looted"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.Mob.Oondasta then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Oondasta"])
+			if ch.Weekly and ch.Weekly.Oondasta then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Oondasta then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if spacer then
-		list:ItemAdd(curline)
-		list:ItemSet(1,"|cff00ffff  -----------------------------")
-	end
-	spacer = false
-	if Nx.wkdb.profile.Track.Quest.WarforgedSeals then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["Warforged Seals Quest"])
-		if ch.Weekly and ch.Weekly.WarforgedSeals then
-			strng = "|cff00ff00" .. L["Completed"]
-		elseif ch.Weekly and not ch.Weekly.WarforgedSeals then
-			strng = "|cffff0000" .. L["Not Completed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.Mob.Celestials then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Celestials"])
+			if ch.Weekly and ch.Weekly.Celestials then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Celestials then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
-		curline = curline + 1
-		spacer = true
-	end
-	if Nx.wkdb.profile.Track.Quest.Chamberlain then
-		list:ItemAdd(curline)
-		list:ItemSet(1, "|cffffff00  " .. L["The Crumbled Chamberlain Quest"])
-		if ch.Weekly and ch.Weekly.Chamberlain then
-			strng = "|cff00ff00" .. L["Completed"]
-		elseif ch.Weekly and not ch.Weekly.Chamberlain then
-			strng = "|cffff0000" .. L["Not Completed"]
-		else
-			strng = "|cffffffff" .. L["Unknown"]
+		if Nx.wkdb.profile.Track.Mob.Ordos then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Ordos"])
+			if ch.Weekly and ch.Weekly.Ordos then
+				strng = "|cff00ff00" .. L["Killed"]
+			elseif ch.Weekly and not ch.Weekly.Ordos then
+				strng = "|cffff0000" .. L["Not Killed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
 		end
-		list:ItemSet(2, strng)
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+			curline = curline + 1
+		end
+		spacer = false
+		if Nx.wkdb.profile.Track.Loot.Ritual then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Shan'ze Ritual Stone"])
+			if ch.Weekly and ch.Weekly.Ritual then
+				strng = "|cff00ff00" .. L["Looted"]
+			elseif ch.Weekly and not ch.Weekly.Ritual then
+				strng = "|cffff0000" .. L["Not Looted"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end
+		if Nx.wkdb.profile.Track.Loot.LootKey then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Palace Key"])
+			if ch.Weekly and ch.Weekly.LootKey then
+				strng = "|cff00ff00" .. L["Looted"]
+			elseif ch.Weekly and not ch.Weekly.LootKey then
+				strng = "|cffff0000" .. L["Not Looted"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end
+		if Nx.wkdb.profile.Track.Loot.OutdoorChest then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["Thunder King Trove"])
+			if ch.Weekly and ch.Weekly.OutdoorChest then
+				strng = "|cff00ff00" .. L["Looted"]
+			elseif ch.Weekly and not ch.Weekly.OutdoorChest then
+				strng = "|cffff0000" .. L["Not Looted"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end
+		spacer = false
+		if Nx.wkdb.profile.Track.Quest.Chamberlain then
+			list:ItemAdd(curline)
+			list:ItemSet(1, "|cffffff00  " .. L["The Crumbled Chamberlain Quest"])
+			if ch.Weekly and ch.Weekly.Chamberlain then
+				strng = "|cff00ff00" .. L["Completed"]
+			elseif ch.Weekly and not ch.Weekly.Chamberlain then
+				strng = "|cffff0000" .. L["Not Completed"]
+			else
+				strng = "|cffffffff" .. L["Unknown"]
+			end
+			list:ItemSet(2, strng)
+			curline = curline + 1
+			spacer = true
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end
+		spacer = false
+		strng = "                    "
+		local strng2 = "                    "
+		list:ItemAdd(curline)
+		list:ItemSet(1,"")
 		curline = curline + 1
-		spacer = true
+		if Nx.wkdb.profile.Track.RaidLevels.LFR then
+			strng = strng .. "|cffffff00               LFR"
+			strng2 = strng2 .. "|cffff00ff              ------"
+		end
+		if Nx.wkdb.profile.Track.RaidLevels.Norm then
+			strng = strng .. "|cffffff00      Normal"
+			strng2 = strng2 .. "|cffff00ff     ----------"
+		end
+		local strng3 = ""
+		local strng4 = ""
+		if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+			strng3 = strng3 .. "|cffffff00      Heroic"
+			strng4 = strng4 .. "|cffff00ff     ---------"
+		end
+		if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+			strng3 = strng3 .. "|cffffff00        Mythic"
+			strng4 = strng4 .. "|cffff00ff       ----------"
+		end			
+		list:ItemAdd(curline + 1)
+		list:ItemSet(1, strng)
+		list:ItemSet(2, strng3)		
+		list:ItemAdd(curline + 2)		
+		list:ItemSet(1, strng2)				
+		list:ItemSet(2, strng4)
+		curline = curline + 2
+		strng = ""
+		strng2 = ""
+		if Nx.wkdb.profile.Track.Raids.MSV then
+			spacer = true
+			for i = 1,6 do				
+				strng = GetLFGDungeonEncounterInfo(532,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ((ch.Weekly.Raids["MSV"][1] and ch.Weekly.Raids["MSV"][1][i]) or (ch.Weekly.Raids["MSV"][2] and ch.Weekly.Raids["MSV"][2][i])) then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][3] and ch.Weekly.Raids["MSV"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][4] and ch.Weekly.Raids["MSV"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][5] and ch.Weekly.Raids["MSV"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end		
+		if Nx.wkdb.profile.Track.Raids.HoF then
+			spacer = true
+			for i = 1,6 do				
+				strng = GetLFGDungeonEncounterInfo(534,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ((ch.Weekly.Raids["HoF"][1] and ch.Weekly.Raids["HoF"][1][i]) or (ch.Weekly.Raids["HoF"][2] and ch.Weekly.Raids["HoF"][2][i])) then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][3] and ch.Weekly.Raids["HoF"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][4] and ch.Weekly.Raids["HoF"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][5] and ch.Weekly.Raids["HoF"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end		
+		if Nx.wkdb.profile.Track.Raids.TeS then
+			spacer = true
+			for i = 1,4 do				
+				strng = GetLFGDungeonEncounterInfo(536,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ((ch.Weekly.Raids["TeS"][1] and ch.Weekly.Raids["TeS"][1][i]) or (ch.Weekly.Raids["TeS"][2] and ch.Weekly.Raids["TeS"][2][i])) then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][3] and ch.Weekly.Raids["TeS"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][4] and ch.Weekly.Raids["TeS"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][5] and ch.Weekly.Raids["TeS"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end				
+		if Nx.wkdb.profile.Track.Raids.ToTS then
+			spacer = true
+			for i = 1,12 do				
+				strng = GetLFGDungeonEncounterInfo(634,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ((ch.Weekly.Raids["ToTS"][1] and ch.Weekly.Raids["ToTS"][1][i]) or (ch.Weekly.Raids["ToTS"][2] and ch.Weekly.Raids["ToTS"][2][i])) then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][3] and ch.Weekly.Raids["ToTS"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][4] and ch.Weekly.Raids["ToTS"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][5] and ch.Weekly.Raids["ToTS"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end			
+		if Nx.wkdb.profile.Track.Raids.SoO then
+			spacer = true
+			for i = 1,14 do				
+				strng = GetLFGDungeonEncounterInfo(715,i)
+				strng2 = ""
+				strng = format("%-30s",string.sub(strng,1,22))
+				if Nx.wkdb.profile.Track.RaidLevels.LFR then
+					if ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ((ch.Weekly.Raids["SoO"][1] and ch.Weekly.Raids["SoO"][1][i]) or (ch.Weekly.Raids["SoO"][2] and ch.Weekly.Raids["SoO"][2][i])) then
+						strng = strng .. "|cff00ff00" .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000" .. L["No"]
+					end
+				end
+				if Nx.wkdb.profile.Track.RaidLevels.Norm then
+					if ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][3] and ch.Weekly.Raids["SoO"][3][i] then
+						strng = strng .. "|cff00ff00      " .. L["Yes"]
+					else
+						strng = strng .. "|cffff0000      " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][4] and ch.Weekly.Raids["SoO"][4][i] then
+						strng2 = strng2 .. "|cff00ff00        " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000        " .. L["No"]
+					end
+				end				
+				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
+					if ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][5] and ch.Weekly.Raids["SoO"][5][i] then
+						strng2 = strng2 .. "|cff00ff00              " .. L["Yes"]
+					else
+						strng2 = strng2 .. "|cffff0000              " .. L["No"]
+					end
+				end				
+				list:ItemAdd(curline + 1)
+				list:ItemSet(1, strng)
+				list:ItemSet(2, strng2)
+				curline = curline + 1
+			end
+		end
+		if spacer then
+			list:ItemAdd(curline)
+			list:ItemSet(1,"|cff00ffff  -----------------------------")
+		end						
 	end
 end
 
