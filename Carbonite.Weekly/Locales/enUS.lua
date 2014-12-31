@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Weekly", "enUS", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Weekly", "enUS", true, true)
 if not L then return end
 
 L["Weekly Status Module"] = true
