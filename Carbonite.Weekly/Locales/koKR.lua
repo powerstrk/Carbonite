@@ -48,3 +48,27 @@ L["Not Completed"] = "완료 안함"
 L["The Crumbled Chamberlain Quest"] = "부스러진 시종장 퀘스트"
 L["Warforged Seals Quest"] = "전쟁벼림 인장 퀘스트"
 L["Palace Key"] = "궁전으로 통하는 문의 열쇠"
+
+L["The Crumbled Chamberlain Quest"] = true
+L["Tempered Fate Seals"] = true
+L["Bronze"] = true
+L["Silver"] = true
+L["Gold"] = true
+L["Palace Key"] =true
+L["LFR"] = true
+L["Normal"] = true
+L["Heroic"] = true
+L["Mythic"] = true
+L["Yes"] = true
+L["No"] = true
+L["Mogu'shan Vaults"] = true
+L["Heart of Fear"] = true
+L["Terrace of Endless Spring"] = true
+L["Throne of Thunder"] = true
+L["Siege of Orgrimmar"] = true
+L["Blackrock Foundry"] = true
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["Celestials"] = true
+

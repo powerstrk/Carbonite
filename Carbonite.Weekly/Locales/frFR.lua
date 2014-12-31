@@ -40,3 +40,27 @@ L["Looted"] = "Ramass\195\169"
 L["Not Looted"] = "Pas Ramass\195\169"
 L["Completed"] = "Termin\195\169"
 L["Not Completed"] = "Pas Termin\195\169"
+
+L["The Crumbled Chamberlain Quest"] = true
+L["Tempered Fate Seals"] = true
+L["Bronze"] = true
+L["Silver"] = true
+L["Gold"] = true
+L["Palace Key"] =true
+L["LFR"] = true
+L["Normal"] = true
+L["Heroic"] = true
+L["Mythic"] = true
+L["Yes"] = true
+L["No"] = true
+L["Mogu'shan Vaults"] = true
+L["Heart of Fear"] = true
+L["Terrace of Endless Spring"] = true
+L["Throne of Thunder"] = true
+L["Siege of Orgrimmar"] = true
+L["Blackrock Foundry"] = true
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["Celestials"] = true
+
