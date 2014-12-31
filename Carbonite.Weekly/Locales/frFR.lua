@@ -18,9 +18,6 @@ L["Saturday"] = "Samedi"
 L["Sunday"] = "Dimanche"
 L["Mobs"] = "Monstres"
 L["Place check boxes in the mobs you wish to track weekly kills."] = "Cocher la case pour le Mob que vous d\195\169sirez suivre et tuer hebdomadairement" -- "Place une case \195\160 cocher pour le Mob que vous d\195\169sirez suivre et tuer hebdomadairement" change powerstk patch10
-L["Tarlna the Ageless"] = "Tarlna l'\195\137ternel"
-L["Drov the Ruiner"] = "Drov le D\195\169vastateur"
-L["Rukhmar"] = true   --Same Name
 L["Lootables"] = "Ramassable"
 L["Place check boxes in the weekly drops you wish to track."] = "Cocher la case pour l'objet que vous d\195\169sirez suivre hebdomadairement" --"Place une case \195\160 cocher pour l'objet que vous d\195\169sirez suivre hebdomadairement"
 L["Quests"] = "Qu\195\170tes"
@@ -42,6 +39,7 @@ L["Completed"] = "Termin\195\169"
 L["Not Completed"] = "Pas Termin\195\169"
 
 L["The Crumbled Chamberlain Quest"] = true
+L["The Crumbled Chamberlain"] = true
 L["Tempered Fate Seals"] = true
 L["Bronze"] = true
 L["Silver"] = true

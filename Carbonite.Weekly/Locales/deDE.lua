@@ -40,6 +40,7 @@ L["Completed"] = "Abgeschlossen"
 L["Not Completed"] = "Nicht abgeschlossen"
 
 L["The Crumbled Chamberlain Quest"] = true
+L["The Crumbled Chamberlain"] = true
 L["Tempered Fate Seals"] = true
 L["Bronze"] = true
 L["Silver"] = true

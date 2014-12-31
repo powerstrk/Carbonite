@@ -18,9 +18,6 @@ L["Saturday"] = "周六"
 L["Sunday"] = "周日"
 L["Mobs"] = "世界BOSS"
 L["Place check boxes in the mobs you wish to track weekly kills."] = "勾选你想要追踪击杀情况的世界BOSS。"
-L["Tarlna the Ageless"] = "永恒的塔尔纳"
-L["Drov the Ruiner"] = "毁灭者多弗"
-L["Rukhmar"] = "鲁克玛"
 L["Lootables"] = "可拾取物品"
 L["Place check boxes in the weekly drops you wish to track."] = "勾选你想要追踪拾取情况的物品。"
 L["Quests"] = "周常任务"
@@ -42,6 +39,7 @@ L["Completed"] = "已完成"
 L["Not Completed"] = "未完成"
 
 L["The Crumbled Chamberlain Quest"] = true
+L["The Crumbled Chamberlain"] = true
 L["Tempered Fate Seals"] = true
 L["Bronze"] = true
 L["Silver"] = true

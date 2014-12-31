@@ -18,9 +18,6 @@ L["Saturday"] = "Sabato"
 L["Sunday"] = "Domenica"
 L["Mobs"] = true
 L["Place check boxes in the mobs you wish to track weekly kills."] = "Metti un segno di spunta al mob di cui vuoi tracciare le kill settimanali"
-L["Tarlna the Ageless"] = true
-L["Drov the Ruiner"] = true
-L["Rukhmar"] = true
 L["Lootables"] = "Lista Ricompense"
 L["Place check boxes in the weekly drops you wish to track."] = "Metti un segno di spunta alla ricompensa che vuoi tracciare"
 L["Quests"] = "Missioni"
@@ -42,6 +39,7 @@ L["Completed"] = "Completato"
 L["Not Completed"] = "Non Completato"
 
 L["The Crumbled Chamberlain Quest"] = true
+L["The Crumbled Chamberlain"] = true
 L["Tempered Fate Seals"] = true
 L["Bronze"] = true
 L["Silver"] = true
