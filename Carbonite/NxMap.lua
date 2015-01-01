@@ -8301,12 +8301,6 @@ function Nx.Map:InitTables()
 	local Nx = Nx
 
 	local worldInfo = self.MapWorldInfo
-
-	Nx.MapNameToId = {}
-	Nx.MapIdToName = {}
-	Nx.MapIdToNxzone = {}
-	self.NxzoneToMapId = {}
-	Nx.NxzoneToMapId = self.NxzoneToMapId
 	Nx.MapOverlayToMapId = {}
 
 	-- Get Blizzard's alphabetical set of names
@@ -8533,70 +8527,6 @@ function Nx.Map:InitTables()
 			self.MapWorldInfo[mid] = winfo
 		end
 	end
---	Nx.prt("debug: ")
-	-- Init NxzoneToMapId, MapIdToNxzone
-
-	for id, v in pairs (Nx.Zones) do
-		local name, minLvl, maxLvl, faction = Nx.Split ("|", v)
---[[
-		if id ~= 146 then		-- The Scarlet Enclave needs to keep the :
-			local i = strfind (name, ": ")
-			if i then
-				name = strsub (name, i + 2)
-			end
-		end
---]]
-		local mapId = Nx.MapNameToId[name]
-
-		if mapId then
-
-			if not Nx.MapIdToNxzone[mapId] then
-				Nx.MapIdToNxzone[mapId] = id
-			else
---				Nx.prt ("Map Init %s %s dup %s", name, id, Nx.MapIdToNxzone[mapId])
-			end
-			self.NxzoneToMapId[id] = mapId
-		else
-			if id ~= 0 then
---				Nx.prt ("Inst %s %d", name, id)
-			end
-		end
-	end
-
--- Init AId2Id (Blizzard area id to map id and back)
-
-	Nx.AIdToId = {}
-	Nx.IdToAId = {}
-
-	for aid, zid in pairs (Nx.Zones) do
-		local id = self.NxzoneToMapId[aid]
---		Nx.AIdToId[aid] = id  -- remove old legacy conversion
-		if id then
-			Nx.IdToAId[id] = aid -- keep this for compatibility reasons
-		end
---		if not id then
---			Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
---		end
-	end
-
-	-- compatibility code
-	setmetatable(Nx.AIdToId, { __index = function(_, id)
-		return id
-	end })
-
-	-- Init instance entries
-
-	for k, v in pairs (Nx.Zones) do
-
-		local name, minLvl, maxLvl, faction, cont, entryId = Nx.Split ("|", v)
-
-		if faction ~= "3" then		-- Not instance
-
-			if entryId and entryId ~= "" then
-				self.NxzoneToMapId[k] = self.NxzoneToMapId[tonumber (entryId)]
-			end
-		end
-	end
 
 	--	DEBUG for Jamie
 
@@ -8799,15 +8729,6 @@ end
 
 function Nx.Map:SetToCurrentZone()
 	SetMapToCurrentZone()
-
-	local aid = GetCurrentMapAreaID()
-	local id = Nx.AIdToId[aid]
-
-	if id == 1014 then					-- Orgrimmar
-		SetDungeonMapLevel (1)			-- Don't allow cleft of shadows
-	end
-
---	Nx.prt ("SetToCurrentZone %s %s", aid, id or "nil")
 end
 
 --------

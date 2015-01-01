@@ -1703,7 +1703,10 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 				f.NXType = 1000
 				f.NXData2 = name
 
-				local mapName = GetMapNameById(mapId) or "?"
+				local mapName = "?"
+				if mapId then
+					mapName = GetMapNameById(mapId)
+				end
 				local tStr = pl.TStr or ""
 				local qStr = pl.QStr or ""
 				f.NxTip = format ("%s\n  %s (%d,%d)%s%s", pl.Tip, mapName, pl.X, pl.Y, tStr, qStr)
