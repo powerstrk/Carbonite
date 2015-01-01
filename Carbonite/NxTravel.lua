@@ -410,8 +410,8 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 		elseif cont1 == 4 then
 			self.FlyingMount = GetSpellInfo (self.ColdFlyName)
-        elseif cont1 == 6 then
-            self.FlyingMount = IsSpellKnown(self.FlySkillPandaria)
+		elseif cont1 == 6 then
+			self.FlyingMount = IsSpellKnown(self.FlySkillPandaria)
 
 		end
 	end
@@ -901,4 +901,5 @@ function Nx.Travel:GetRidingSkill()
 	return SkillRiding
 end
 
---------------------------------------------------------------------------------- EOF
+-------------------------------------------------------------------------------
+-- EOF

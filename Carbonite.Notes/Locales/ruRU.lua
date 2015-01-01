@@ -41,4 +41,3 @@ L["Note Addons"] = "Дополнения заметок"
 L["My Notes"] = "Мои заметки"
 
 L["Reset old notes data %f"] = true
-

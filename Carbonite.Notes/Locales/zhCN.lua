@@ -37,4 +37,3 @@ L["Note Addons"] = "标记插件"
 L["My Notes"] = "我的标记"
 
 L["Reset old notes data %f"] = "重置旧标记数据 %f"
-

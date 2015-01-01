@@ -43,6 +43,7 @@ L["Not Looted"] = "Noch nicht gepl\195\188ndert"
 L["Completed"] = "Abgeschlossen"
 L["Not Completed"] = "Nicht abgeschlossen"
 L["The Crumbled Chamberlain"] = "Der zerfallene K\195\164mmerer"
+L["The Crumbled Chamberlain Quest"] = true
 L["Tarlna the Ageless"] = "Tarlna der Zeitlose"
 L["Drov the Ruiner"] = "Drov der Verheerer"
 L["Rukhmar"] = "Rukhmar"

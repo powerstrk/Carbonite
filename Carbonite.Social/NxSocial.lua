@@ -1787,7 +1787,7 @@ function Nx.Social:AddLocalPunk (name, plyrNear, level, class)
 		end
 	end
 
-	punk.FinderName = "me"  ------ Maybe replace with translation string. Must take a look
+	punk.FinderName = "me"		-- Maybe replace with translation string. Must take a look
 	punk.Lvl = level or punk.Lvl or 0
 	punk.Class = class or punk.Class
 	if not punk.Time or GetTime() - punk.Time > 2 then
@@ -2722,5 +2722,3 @@ end
 
 ---------------------------------------------------------------------------------------
 -- EOF
----------------------------------------------------------------------------------------
-

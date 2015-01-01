@@ -82,7 +82,7 @@ Nx.GuideInfo = {
 			T = L["Barber"],
 			Tx = "INV_Misc_Comb_02",
 		},
-        {
+		{
 			T = L["Mailbox"],
 			Tx = "INV_Letter_15",
 		},
@@ -698,9 +698,9 @@ function Nx.Map.Guide:OnListEventDo (list, eventName, sel, val2, click)
 							Nx.Quest.Watch:ClearAutoTarget()
 						end
 						map:SetTarget ("Guide", x, y, x, y, false, folder, folder.Name, false, mapId)
-                        if false and npcI2 then
-                            map:SetTarget("Guide2", x2, y2, x2, y2, false, folder, folder.Name, true ,mapId2)
-                        end
+						if false and npcI2 then
+							map:SetTarget("Guide2", x2, y2, x2, y2, false, folder, folder.Name, true ,mapId2)
+						end
 						map:GotoPlayer()
 					end
 				else
@@ -774,7 +774,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 		local portalT = {
 			["Blasted Lands"] = "Spell_Arcane_TeleportStonard",
 			["Darnassus"] = "Spell_Arcane_TeleportDarnassus",
-            ["Teldrassil"] = "Spell_Arcane_TeleportDarnassus",
+			["Teldrassil"] = "Spell_Arcane_TeleportDarnassus",
 			["The Exodar"] = "Spell_Arcane_TeleportExodar",
 			["Hellfire Peninsula"] = "Spell_Arcane_TeleportStonard",
 			["Ironforge"] = "Spell_Arcane_TeleportIronForge",
@@ -786,9 +786,9 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			["Stormwind City"] = "Spell_Arcane_TeleportStormWind",
 			["Thunder Bluff"] = "Spell_Arcane_TeleportThunderBluff",
 			["Undercity"] = "Spell_Arcane_TeleportUnderCity",
-            ["Dalaran"] = "Spell_Arcane_TeleportDalaran",
-            ["Shattrath City"] = "Spell_Arcane_TeleportShattrath",
-            ["The Jade Forest"] = "Spell_Arcane_TeleportShattrath",
+			["Dalaran"] = "Spell_Arcane_TeleportDalaran",
+			["Shattrath City"] = "Spell_Arcane_TeleportShattrath",
+			["The Jade Forest"] = "Spell_Arcane_TeleportShattrath",
 		}
 		for i, str in ipairs (Nx.ZoneConnections) do
 			local flags, conTime, name1, mapId1, x1, y1, name2, mapId2, x2, y2 = Nx.Map:ConnectionUnpack (str)
@@ -1210,7 +1210,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 	local cont2 = Map.ContCnt
 	local mapId = map:GetCurrentMapId()
 	if not mapId then return end
-    if Nx.Map:IsMicroDungeon(mapId) then return end
+	if Nx.Map:IsMicroDungeon(mapId) then return end
 	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then	return end
 	if not self.ShowAllCont then
 		cont1 = map:IdToContZone (mapId)
@@ -1467,7 +1467,7 @@ Nx.GuidePOI = {
 	L["Flight Master"] .. "~Ability_Mount_Wyvern_01",
 	L["Innkeeper"] .. "~Spell_Shadow_Twilight",
 	L["Mailbox"] .. "~INV_Letter_15",
-    }
+	}
 
 function Nx.Map.Guide:UpdateZonePOIIcons()
 	local Map = Nx.Map
@@ -1480,7 +1480,7 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 	local alphaRange = atScale * .25
 	local s = atScale - alphaRange
 	local draw = map.ScaleDraw > s and Nx.db.profile.Map.ShowPOI
-    if Nx.Map:IsMicroDungeon(mapId) then draw = false end
+	if Nx.Map:IsMicroDungeon(mapId) then draw = false end
 	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then	draw = false end
 	local alpha = min ((map.ScaleDraw - s) / alphaRange, 1) * Nx.db.profile.Map.IconPOIAlpha
 	map:SetIconTypeAlpha ("!POI", alpha)
@@ -1552,7 +1552,7 @@ function Nx.Map.Guide:UpdateCustomIcons()
 	local map = self.Map
 	local mapId = map:GetCurrentMapId()
 	if not mapId then return end
-    if Nx.Map:IsMicroDungeon(mapId) then return end
+	if Nx.Map:IsMicroDungeon(mapId) then return end
 	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then	return end
 	if not Nx.CustomIcons then return end
 	if not Nx.CustomIcons[map.MapId] then return end
@@ -1706,11 +1706,11 @@ function Nx.Map.Guide:FindClosest (findType)
 				end
 			elseif mode == 35 then
 			elseif mode == 37 then
-                local mapId=folder.InstMapId
-                local win1=Nx.Map.MapWorldInfo[mapId]
-                local wx=win1.X
-                local wy=win1.Y
-                close, closeMapId, closeX, closeY = 0, folder.InstMapId, wx, wy
+				local mapId=folder.InstMapId
+				local win1=Nx.Map.MapWorldInfo[mapId]
+				local wx=win1.X
+				local wy=win1.Y
+				close, closeMapId, closeX, closeY = 0, folder.InstMapId, wx, wy
 
 			elseif mode == 38 then
 			elseif mode == 40 then
@@ -1821,21 +1821,21 @@ function Nx.Map.Guide:GetSecondaryTrainer (profName)
 	return " " .. L["Trainer"]
 end
 function Nx.Map.Guide:SavePlayerNPCTarget()
-    local visible = GameTooltip:IsVisible()
-    GameTooltip:SetOwner(MerchantFrame)
-    GameTooltip:SetUnit("NPC")
+	local visible = GameTooltip:IsVisible()
+	GameTooltip:SetOwner(MerchantFrame)
+	GameTooltip:SetUnit("NPC")
 	local tag = GameTooltipTextLeft2:GetText() or ""
 	local lvl = GameTooltipTextLeft3:GetText() or ""
 	local faction = GameTooltipTextLeft4:GetText() or ""
-    if strfind(tag,"^" .. L["Level"] .. " ") or strfind(tag, "^|c%x%x%x%x%x%x%x%x" .. L["Level"] .. " ") then
-        tag=""
-        faction=lvl
-    end
+	if strfind(tag,"^" .. L["Level"] .. " ") or strfind(tag, "^|c%x%x%x%x%x%x%x%x" .. L["Level"] .. " ") then
+		tag=""
+		faction=lvl
+	end
 	local str=format("%s~%s~%s",tag,GameTooltipTextLeft1:GetText() or "",faction)
 	self.PlayerNPCTarget = str
-    if not visible then
-        GameTooltip:Hide()
-    end
+	if not visible then
+		GameTooltip:Hide()
+	end
 
 
 	local map = Nx.Map:GetMap (1)
@@ -1993,11 +1993,11 @@ function Nx.Map.Guide:UpdateVisitedVendors()
 
 							itemF.Column2 = format ("L%2d", lvl)
 						end
-                        itemF.Column3 = price
-                        itemF.Column4 = type..(subType and "-"..subType or "")
+						itemF.Column3 = price
+						itemF.Column4 = type..(subType and "-"..subType or "")
 					else
 						itemF.Name = name
-                        if name=="1?" then itemF.Name = price end
+						if name=="1?" then itemF.Name = price end
 						itemF.Tx = "INV_Misc_QuestionMark"
 					end
 				end
@@ -2074,11 +2074,11 @@ function Nx.Map.Guide:CaptureItems()
 						local tx, value, costItemLink,costItemName = GetMerchantItemCostItem (n, i)
 						if value and value > 0 then
 
-                            if costItemName then
-                                tx = costItemName
-                            elseif costItemLink then
-                                tx = costItemLink
-                            elseif tx then
+							if costItemName then
+								tx = costItemName
+							elseif costItemLink then
+								tx = costItemLink
+							elseif tx then
 
 								tx = gsub (tx, "Interface\\Icons\\", "")
 								if strfind (tx, "-Honor-") then
@@ -3178,4 +3178,5 @@ function Nx.Map.Guide:UnpackObjective (obj)
 	local _,_,desc, zone = Nx.Split("|",obj)
 	return desc, tonumber(zone)
 end
---------------------------------------------------------------------------------- EOF
+-------------------------------------------------------------------------------
+-- EOF
