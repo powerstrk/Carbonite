@@ -31,6 +31,7 @@ CarboniteQuest = LibStub("AceAddon-3.0"):NewAddon("Carbonite.Quest","AceEvent-3.
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Quest", true)
 
 Nx.VERSIONQOPTS		= .12				-- Quest options
+Nx.VERSIONCAP		= .80
 Nx.Quest = {}
 Nx.Quest.List = {}
 Nx.Quest.Watch = {}
@@ -1768,8 +1769,26 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						reboot = {
+						q12 = {
 							order = 16,
+							type = "toggle",
+							width = "full",
+							name = L["Quests Data Gathering"],
+							desc = L["Gathers quests data"],
+							get = function()
+								return Nx.db.profile.General.CaptureEnable
+							end,
+							set = function()
+								Nx.db.profile.General.CaptureEnable = not Nx.db.profile.General.CaptureEnable
+							end,
+						},
+						spacer3 = {
+							order = 17,
+							type = "description",
+							name = " ",
+						},
+						reboot = {
+							order = 18,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -1982,7 +2001,17 @@ function CarboniteQuest:OnInitialize()
 		VRGBAUp = "1|1|1|.31",
 		VRGBADn = "1|1|1|.85",
 	}
+	
+	-- Capture data
+	local cap = NXQuest.Gather
 
+	if not cap or cap.Version < Nx.VERSIONCAP then
+		cap = {}
+		cap.Version = Nx.VERSIONCAP
+		cap["Q"] = {}
+		NXQuest.Gather = cap
+	end
+	
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
@@ -3236,12 +3265,12 @@ function Nx.Quest:RecordQuestsLog()
 								end
 							end
 
-							local s1, _, oldCnt = strfind (cur[n] or "", ": (%d+)/")
+							local s1, _, oldCnt = strfind (cur[n] or "", "(%d+)/%d+ ")
 							if s1 then
 								oldCnt = tonumber (oldCnt)
 							end
 
-							local s1, _, newCnt = strfind (desc, ": (%d+)/")
+							local s1, _, newCnt = strfind (desc, "(%d+)/%d+ ")
 							if s1 then
 --								Nx.prt ("%s %s", i, total)
 								newCnt = tonumber (newCnt)
@@ -3625,7 +3654,6 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 
 	IS_BACKGROUND_WORLD_CACHING = true
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
-	WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
 --	local tm = GetTime()
 
 	local Map = Nx.Map
@@ -3634,20 +3662,19 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			local mapId = a
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
-				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-				WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done				
 				Nx.Quest.WorldUpdate = false
+				IS_BACKGROUND_WORLD_CACHING = false
 				return
 			end
 			if mapId ~= curMapId then
-				Map:SetCurrentMap (mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
+				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged							
 			end
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
 			end
 		end
-	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-	WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done	
 	Map:SetCurrentMap (curMapId)
 	IS_BACKGROUND_WORLD_CACHING = false
 	self:RecordQuestsLog()
@@ -3665,7 +3692,6 @@ function Nx.Quest:MapChanged()
 	if Nx.ModQAction == "QUEST_DECODE" then
 		Nx.ModQAction = ""
 		Nx.Quest:DecodeComRcv (Nx.qTEMPinfo, Nx.qTEMPmsg)
-
 	end
 	if qlasttime then
 		local curtime = debugprofilestop()
@@ -3679,13 +3705,9 @@ function Nx.Quest:MapChanged()
 		return
 	end
 	qttl = 0
---	Nx.prtStack ("MapChanged %s", GetCurrentMapAreaID())
---	Nx.prt ("MapChanged %s", Nx.Map:GetCurrentMapId())
-
-		if Nx.QInit then	-- Quests inited?
-			self:ScanBlizzQuestDataZone()
-		end
-	--	Nx.Quest.Watch:Update()
+	if Nx.QInit then	-- Quests inited?
+		self:ScanBlizzQuestDataZone()
+	end	
 end
 
 function Nx.Quest:ScanBlizzQuestDataZone()
@@ -3693,31 +3715,30 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()
+		local mapId = Nx.Map:GetCurrentMapId()		
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
 		if not mapId then
 			return
-		end
-		for n = 1, num do
+		end		
+		for n = 1, num do			
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
-			if qi and qi > 0 then
+			if qi and qi > 0 then				
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
 				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
+				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then					
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
-					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
+					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil						
 						x = x * 100
 						y = y * 100
 --						Nx.prt ("%s #%s %s %s %s %s", mapId, n, id, x or "nil", y or "nil", objective or "nil")
 						if not quest["Quest"] then
---							self.ScanBlizzChanged = true
-							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)
+							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)							
 						end
 						if needEnd or bit.band (patch, 1) then
 							if not quest["End"] or bit.band(patch,1) then
@@ -3733,7 +3754,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 							patch = bit.bor (patch, 2)
 
 							local s = title
-							local obj = format ("|%s|32|%f|%f|6|6",mapId, x, y)
+							local obj = format ("nil|%s|32|%f|%f|6|6",mapId, x, y)
 
 							for i = 1, lbCnt do
 								quest["Objectives"][i] = {obj}
@@ -4099,9 +4120,7 @@ function Nx.Quest:RecordQuestAcceptOrFinish()
 	self.AcceptQName = qname
 
 	local id = Nx.Map:GetRealMapId()
---	self.AcceptNxzone = Nx.MapIdToNxzone[id] or 0
 	self.AcceptAId = id or 0
-
 	self.AcceptDLvl = 0
 
 	if Nx.Map:GetCurrentMapId() == id then
@@ -4142,7 +4161,7 @@ function Nx.Quest.OnChat_msg_combat_faction_change (event, arg1)
 
 --			Nx.prt ("Fac %s %s", facName, rep)
 
-			local cap = Nx:GetCap()
+			local cap = NXQuest.Gather
 			local quests = Nx:CaptureFind (cap, "Q")
 			local qdata = { Nx.Split ("~", quests[self.CaptureQEndId]) }
 			local ender, reps = Nx.Split ("@", qdata[2])
@@ -4184,7 +4203,7 @@ function Nx.Quest:Capture (curi, objNum)
 		return
 	end
 
-	local cap = Nx:GetCap()
+	local cap = NXQuest.Gather
 
 	local facI = UnitFactionGroup ("player") == "Horde" and 1 or 0
 	local quests = Nx:CaptureFind (cap, "Q")
@@ -4285,7 +4304,7 @@ end
 
 function Nx.Quest:CaptureGetCount()
 
-	local cap = Nx:GetCap()
+	local cap = NXQuest.Gather
 	local quests = Nx:CaptureFind (cap, "Q")
 
 	local cnt = 0
@@ -4705,7 +4724,7 @@ end
 -------------------------------------------------------------------------------
 
 function Nx.Quest:ClearCaptured()
-	Nx:GetCap()["Q"] = {}
+	NXQuest.Gather["Q"] = {}
 end
 
 -------------------------------------------------------------------------------
@@ -8724,8 +8743,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											local percent = GetQuestProgressBarPercent(questId)
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
+											local percent = GetQuestProgressBarPercent(questId) or 0
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8750,8 +8769,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											local percent = GetQuestProgressBarPercent(questId)
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
+											local percent = GetQuestProgressBarPercent(questId) or 0
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8775,11 +8794,11 @@ function Nx.Quest.Watch:UpdateList()
 							local progressCnt = 0
 							local tip = aDesc
 							for n = 1, numC do
-								local cName, cType, cComplete, cQuantity, cReqQuantity = GetAchievementCriteriaInfo (id, n)
+								local cName, cType, cComplete, cQuantity, cReqQuantity, _, _, _, cQuantityString = GetAchievementCriteriaInfo (id, n)
 								local color = cComplete and "|cff80ff80" or "|cffa0a0a0"
 								if not cComplete and cReqQuantity > 1 and cQuantity > 0 then
 									progressCnt = progressCnt + 1
-									tip = tip .. format ("\n%s%s: %s / %s", color, cName, cQuantity, cReqQuantity)
+									tip = tip .. (cQuantityString and format ("\n%s%s: %s", color, cName, cQuantityString) or format ("\n%s%s: %s / %s", color, cName, cQuantity, cReqQuantity))
 								else
 									tip = tip .. format ("\n%s%s", color, cName)
 								end
@@ -8788,13 +8807,13 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSetButtonTip (tip)
 							local showCnt = 0
 							for n = 1, numC do
-								local cName, cType, cComplete, cQuantity, cReqQuantity = GetAchievementCriteriaInfo (id, n)
+								local cName, cType, cComplete, cQuantity, cReqQuantity, _, _, _, cQuantityString = GetAchievementCriteriaInfo (id, n)
 								if not cComplete and (progressCnt <= 3 or cQuantity > 0) then
 									list:ItemAdd (0)
 									local s = "  |cffcfafcf"
 									if numC == 1 then
 										if cReqQuantity > 1 then
-											s = s .. format ("%s/%s", cQuantity, cReqQuantity)
+											s = s .. (cQuantityString or format ("%s/%s", cQuantity, cReqQuantity))
 										else
 											s = s .. cName
 										end
