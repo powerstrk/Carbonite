@@ -45,6 +45,7 @@ L["Import %s's character data and reload?"] = "Importer %s's donn\195\169es du p
 L["Overwrite all character settings and reload?"] = "Ecraser tous les param\195\168tres des personnages et red\195\169marrer?"
 L["Warehouse: %d characters"] = "Inventaires/D\195\169p\195\180ts %d personnages"
 L["DurPattern"] = "^Durabilit\195\169 (%d+) / (%d+)"
+L["Show Warehouse"] = true
 
 L["Import"] = "Importer"
 L["Cancel"] = "Annuler"

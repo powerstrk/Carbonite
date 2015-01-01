@@ -149,7 +149,7 @@ function CarboniteWarehouse:OnInitialize()
 	local function func ()
 		Nx.Warehouse:ToggleShow()
 	end
-	Nx.NXMiniMapBut.Menu:AddItem(0, "Show Warehouse", func, Nx.NXMiniMapBut)
+	Nx.NXMiniMapBut.Menu:AddItem(0, L["Show Warehouse"], func, Nx.NXMiniMapBut)
 	CarboniteWarehouse:RegisterEvent("BAG_UPDATE","EventHandler")
 	CarboniteWarehouse:RegisterEvent("PLAYERBANKSLOTS_CHANGED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("PLAYERREAGENTBANKSLOTS_CHANGED", "EventHandler")

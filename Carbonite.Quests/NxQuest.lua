@@ -8704,12 +8704,22 @@ function Nx.Quest.Watch:UpdateList()
 						local bonusSteps = C_Scenario.GetBonusSteps()
 						if bonusSteps then
 							local title, task, _, completed = C_Scenario.GetStepInfo(1)
-							task = " |cffff0000Bonus |cff00ff00" .. task
+							local tasktexts = { "Bonus |cff00ff00" }
+							task:gsub('%S+%s*', function(word)
+								if (#tasktexts[#tasktexts] + #word) < 60 then
+									tasktexts[#tasktexts] = tasktexts[#tasktexts] .. word
+								else
+									tasktexts[#tasktexts+1] = " |cff00ff00" .. word
+								end
+							end)
+							tasktexts[1] = " |cffff0000" .. tasktexts[1]
 							if completed then
-								task = task .. " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
+								tasktexts[#tasktexts] = tasktexts[#tasktexts] .. " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
 							end
-							list:ItemAdd(0)
-							list:ItemSet(2,task)
+							for i = 1, #tasktexts do
+								list:ItemAdd(0)
+								list:ItemSet(2, tasktexts[i])
+							end
 							for criteria = 1, #bonusSteps do
 								local index = bonusSteps[criteria]
 								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)
