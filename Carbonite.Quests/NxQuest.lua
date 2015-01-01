@@ -8699,7 +8699,8 @@ function Nx.Quest.Watch:UpdateList()
 						local bonusSteps = C_Scenario.GetBonusSteps()
 						if bonusSteps then
 							local title, task, _, completed = C_Scenario.GetStepInfo(1)
-							task = " |cffff0000Bonus |cff00ff00" .. task
+							-- reduce step length to 50 chars for now (until I figure out how to do line breaks) -- atl77
+							task = " |cffff0000Bonus |cff00ff00" .. task:sub(0,50) .. '...'
 							if completed then
 								task = task .. " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
 							end
