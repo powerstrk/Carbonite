@@ -212,7 +212,7 @@ end
 local blizSetMapToCurrentZone = SetMapToCurrentZone
 local blizSetMapByID = SetMapByID
 
-function SetMapToCurrentZone(carbcalled) 
+function SetMapToCurrentZone(carbcalled)
 	if carbcalled then
 		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
 			Nx.CurrentDetectedZone = GetRealZoneText()
@@ -3726,6 +3726,11 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
 	if ttl < .05 then
+		local f = this.NxMap.WorldMapFrm
+		if f and (this.NxMap.StepTime ~= 0 or this.NxMap.Scrolling or IsShiftKeyDown()) then
+			f:Hide()
+			--Nx.prt("Hiding Frame...")-- DEBUG!
+		end
 		return
 	end
 	ttl = 0
@@ -3754,7 +3759,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	if map.InstanceId then
 		winx = nil
 	end
-	
+
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
 		winx = nil
 	end
