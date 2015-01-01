@@ -3326,7 +3326,6 @@ function Nx.Quest:RecordQuestsLog()
 	local index = #curq + 1
 
 	for qn = 1, qcnt do
-
 		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
 		local tagID, tag = GetQuestTagInfo(questID)
 		local isDaily = frequency
@@ -3343,15 +3342,11 @@ function Nx.Quest:RecordQuestsLog()
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
 			if qId then
-				local quest = Nx.Quests[qId]
---			local quest = self:Find (title, level, qDesc, qObj)
+				local quest = Nx.Quests[qId]				
 				local lbCnt = GetNumQuestLeaderBoards (qn)
 
 				local cur = quest and fakeq[quest]
---			local DBqId = quest and self:UnpackId (quest[1])
---			assert (qId == DBqId)
-
-				if not cur then
+				if not cur then					
 					cur = {}
 					curq[index] = cur
 					cur.Index = index
@@ -3654,7 +3649,6 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 
 	IS_BACKGROUND_WORLD_CACHING = true
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
-	WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
 --	local tm = GetTime()
 
 	local Map = Nx.Map
@@ -3663,20 +3657,19 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			local mapId = a
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
-				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-				WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done				
 				Nx.Quest.WorldUpdate = false
+				IS_BACKGROUND_WORLD_CACHING = false
 				return
 			end
 			if mapId ~= curMapId then
-				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged				
+				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged							
 			end
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
 			end
 		end
-	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-	WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done	
 	Map:SetCurrentMap (curMapId)
 	IS_BACKGROUND_WORLD_CACHING = false
 	self:RecordQuestsLog()
@@ -3694,7 +3687,6 @@ function Nx.Quest:MapChanged()
 	if Nx.ModQAction == "QUEST_DECODE" then
 		Nx.ModQAction = ""
 		Nx.Quest:DecodeComRcv (Nx.qTEMPinfo, Nx.qTEMPmsg)
-
 	end
 	if qlasttime then
 		local curtime = debugprofilestop()
@@ -3708,13 +3700,9 @@ function Nx.Quest:MapChanged()
 		return
 	end
 	qttl = 0
---	Nx.prtStack ("MapChanged %s", GetCurrentMapAreaID())
---	Nx.prt ("MapChanged %s", Nx.Map:GetCurrentMapId())
-
-		if Nx.QInit then	-- Quests inited?
-			self:ScanBlizzQuestDataZone()
-		end
-	--	Nx.Quest.Watch:Update()
+	if Nx.QInit then	-- Quests inited?
+		self:ScanBlizzQuestDataZone()
+	end	
 end
 
 function Nx.Quest:ScanBlizzQuestDataZone()
@@ -3728,25 +3716,24 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 		end
 		if not mapId then
 			return
-		end
-		for n = 1, num do
+		end		
+		for n = 1, num do			
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
-			if qi and qi > 0 then
+			if qi and qi > 0 then				
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
 				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
+				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then					
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
-					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
+					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil						
 						x = x * 100
 						y = y * 100
 --						Nx.prt ("%s #%s %s %s %s %s", mapId, n, id, x or "nil", y or "nil", objective or "nil")
 						if not quest["Quest"] then
---							self.ScanBlizzChanged = true
-							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)
+							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)							
 						end
 						if needEnd or bit.band (patch, 1) then
 							if not quest["End"] or bit.band(patch,1) then
@@ -3762,7 +3749,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 							patch = bit.bor (patch, 2)
 
 							local s = title
-							local obj = format ("|%s|32|%f|%f|6|6",mapId, x, y)
+							local obj = format ("nil|%s|32|%f|%f|6|6",mapId, x, y)
 
 							for i = 1, lbCnt do
 								quest["Objectives"][i] = {obj}
@@ -3776,8 +3763,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 		end
 	end
 	if not Nx.Quest.List.LoggingIn then
-		Nx.Quest.Watch:Update()
-		Nx.Quest:RecordQuestsLog()
+		Nx.Quest.Watch:Update()		
 	end
 	--Nx.prt ("%f secs", GetTime() - tm)
 end
@@ -3939,10 +3925,10 @@ end
 function Nx.Quest:GetLogIdLevel (questID)
 	if questID > 0 then
 		local qlink = GetQuestLink (GetQuestLogIndexByID(questID))
-		if qlink then
+		if qlink then			
 			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")
 			if s1 then
---				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))
+--				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))				
 				return tonumber (id), tonumber (level)
 			end
 		end
@@ -4128,9 +4114,7 @@ function Nx.Quest:RecordQuestAcceptOrFinish()
 	self.AcceptQName = qname
 
 	local id = Nx.Map:GetRealMapId()
---	self.AcceptNxzone = Nx.MapIdToNxzone[id] or 0
 	self.AcceptAId = id or 0
-
 	self.AcceptDLvl = 0
 
 	if Nx.Map:GetCurrentMapId() == id then
@@ -4398,8 +4382,8 @@ function Nx.Quest:TellPartyOfChanges()
 					if not done then
 
 						local num = Nx.qdb.profile.Quest.BroadcastQChangesNum
-						local oldCnt = tonumber (strmatch (cur[n] or "", ": (%d+)/"))
-						local newCnt = tonumber (strmatch (desc, ": (%d+)/"))
+						local oldCnt = tonumber (strmatch (cur[n] or "", "(%d+)/"))						
+						local newCnt = tonumber (strmatch (desc, "(%d+)/"))
 						if oldCnt and newCnt then
 							if floor (oldCnt / num) == floor (newCnt / num) then
 								skip = true
@@ -4477,9 +4461,7 @@ function Nx.Quest:FindCur (qId, qIndex)
 end
 
 function Nx.Quest:FindCurByIndex (qi)
-
 	assert (qi > 0)
-
 	local curq = self.CurQ
 
 	for n, v in ipairs (curq) do
@@ -5128,12 +5110,12 @@ end
 
 function Nx.Quest:CalcPercentColor (desc, done)
 
-	local s1, _, i, total = strfind (desc, ": (%d+)/(%d+)")
+	local s1, _, i, total = strfind (desc, "(%d+)/(%d+)")
 
 	if done then
 		return self.PerColors[9], s1
 	else
-		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1
+		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1		
 		return self.PerColors[i], s1
 	end
 end
@@ -8753,8 +8735,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											local percent = GetQuestProgressBarPercent(questId)
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
+											local percent = GetQuestProgressBarPercent(questId) or 0
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8779,8 +8761,8 @@ function Nx.Quest.Watch:UpdateList()
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
-											local percent = GetQuestProgressBarPercent(questId)
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (percent%8) >= 4 and "\226\150\140" or "") or L["Progress: "], percent))
+											local percent = GetQuestProgressBarPercent(questId) or 0
+											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8813,7 +8795,7 @@ function Nx.Quest.Watch:UpdateList()
 									tip = tip .. format ("\n%s%s", color, cName)
 								end
 							end
-							list:ItemSetButton ("QuestWatch", false)
+							list:ItemSetButton ("QuestWatchTip", false)
 							list:ItemSetButtonTip (tip)
 							local showCnt = 0
 							for n = 1, numC do
@@ -8970,7 +8952,7 @@ function Nx.Quest.Watch:UpdateList()
 											if done then
 												color = Quest.PerColors[9]
 											else
-												local s1, _, i, total = strfind (desc, ": (%d+)/(%d+)")
+												local s1, _, i, total = strfind (desc, "(%d+)/(%d+)")
 												if s1 then
 	--												Nx.prt ("%s %s", i, total)
 													i = floor (tonumber (i) / tonumber (total) * 8.99) + 1
@@ -10508,7 +10490,7 @@ function Nx.Quest:BuildComSend()
 
 		for n = 1, cur.LBCnt do
 
-			local s1, _, cnt, total = strfind (cur[n], ": (%d+)/(%d+)")
+			local s1, _, cnt, total = strfind (cur[n], "(%d+)/(%d+)")
 			if s1 then
 				total = tonumber (total)
 				if total > 50 then
@@ -10809,7 +10791,7 @@ function Nx.Quest:PartyBuildSendData()
 
 			for n = 1, cur.LBCnt do
 
-				local _, _, cnt, total = strfind (cur[n], ": (%d+)/(%d+)")
+				local _, _, cnt, total = strfind (cur[n], "(%d+)/(%d+)")
 				cnt = tonumber (cnt)
 				total = tonumber (total)
 
