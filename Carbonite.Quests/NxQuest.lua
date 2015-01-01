@@ -4461,9 +4461,7 @@ function Nx.Quest:FindCur (qId, qIndex)
 end
 
 function Nx.Quest:FindCurByIndex (qi)
-
 	assert (qi > 0)
-
 	local curq = self.CurQ
 
 	for n, v in ipairs (curq) do
@@ -8797,7 +8795,7 @@ function Nx.Quest.Watch:UpdateList()
 									tip = tip .. format ("\n%s%s", color, cName)
 								end
 							end
-							list:ItemSetButton ("QuestWatch", false)
+							list:ItemSetButton ("QuestWatchTip", false)
 							list:ItemSetButtonTip (tip)
 							local showCnt = 0
 							for n = 1, numC do
