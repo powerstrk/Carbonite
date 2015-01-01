@@ -3326,7 +3326,6 @@ function Nx.Quest:RecordQuestsLog()
 	local index = #curq + 1
 
 	for qn = 1, qcnt do
-
 		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
 		local tagID, tag = GetQuestTagInfo(questID)
 		local isDaily = frequency
@@ -3343,15 +3342,11 @@ function Nx.Quest:RecordQuestsLog()
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
 			if qId then
-				local quest = Nx.Quests[qId]
---			local quest = self:Find (title, level, qDesc, qObj)
+				local quest = Nx.Quests[qId]				
 				local lbCnt = GetNumQuestLeaderBoards (qn)
 
 				local cur = quest and fakeq[quest]
---			local DBqId = quest and self:UnpackId (quest[1])
---			assert (qId == DBqId)
-
-				if not cur then
+				if not cur then					
 					cur = {}
 					curq[index] = cur
 					cur.Index = index
@@ -3768,8 +3763,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 		end
 	end
 	if not Nx.Quest.List.LoggingIn then
-		Nx.Quest.Watch:Update()
-		Nx.Quest:RecordQuestsLog()
+		Nx.Quest.Watch:Update()		
 	end
 	--Nx.prt ("%f secs", GetTime() - tm)
 end
@@ -3931,10 +3925,10 @@ end
 function Nx.Quest:GetLogIdLevel (questID)
 	if questID > 0 then
 		local qlink = GetQuestLink (GetQuestLogIndexByID(questID))
-		if qlink then
+		if qlink then			
 			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")
 			if s1 then
---				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))
+--				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))				
 				return tonumber (id), tonumber (level)
 			end
 		end
@@ -4388,8 +4382,8 @@ function Nx.Quest:TellPartyOfChanges()
 					if not done then
 
 						local num = Nx.qdb.profile.Quest.BroadcastQChangesNum
-						local oldCnt = tonumber (strmatch (cur[n] or "", ": (%d+)/"))
-						local newCnt = tonumber (strmatch (desc, ": (%d+)/"))
+						local oldCnt = tonumber (strmatch (cur[n] or "", "(%d+)/"))						
+						local newCnt = tonumber (strmatch (desc, "(%d+)/"))
 						if oldCnt and newCnt then
 							if floor (oldCnt / num) == floor (newCnt / num) then
 								skip = true
@@ -4467,9 +4461,7 @@ function Nx.Quest:FindCur (qId, qIndex)
 end
 
 function Nx.Quest:FindCurByIndex (qi)
-
 	assert (qi > 0)
-
 	local curq = self.CurQ
 
 	for n, v in ipairs (curq) do
@@ -5118,12 +5110,12 @@ end
 
 function Nx.Quest:CalcPercentColor (desc, done)
 
-	local s1, _, i, total = strfind (desc, ": (%d+)/(%d+)")
+	local s1, _, i, total = strfind (desc, "(%d+)/(%d+)")
 
 	if done then
 		return self.PerColors[9], s1
 	else
-		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1
+		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1		
 		return self.PerColors[i], s1
 	end
 end
@@ -8803,7 +8795,7 @@ function Nx.Quest.Watch:UpdateList()
 									tip = tip .. format ("\n%s%s", color, cName)
 								end
 							end
-							list:ItemSetButton ("QuestWatch", false)
+							list:ItemSetButton ("QuestWatchTip", false)
 							list:ItemSetButtonTip (tip)
 							local showCnt = 0
 							for n = 1, numC do
@@ -8960,7 +8952,7 @@ function Nx.Quest.Watch:UpdateList()
 											if done then
 												color = Quest.PerColors[9]
 											else
-												local s1, _, i, total = strfind (desc, ": (%d+)/(%d+)")
+												local s1, _, i, total = strfind (desc, "(%d+)/(%d+)")
 												if s1 then
 	--												Nx.prt ("%s %s", i, total)
 													i = floor (tonumber (i) / tonumber (total) * 8.99) + 1
@@ -10498,7 +10490,7 @@ function Nx.Quest:BuildComSend()
 
 		for n = 1, cur.LBCnt do
 
-			local s1, _, cnt, total = strfind (cur[n], ": (%d+)/(%d+)")
+			local s1, _, cnt, total = strfind (cur[n], "(%d+)/(%d+)")
 			if s1 then
 				total = tonumber (total)
 				if total > 50 then
@@ -10799,7 +10791,7 @@ function Nx.Quest:PartyBuildSendData()
 
 			for n = 1, cur.LBCnt do
 
-				local _, _, cnt, total = strfind (cur[n], ": (%d+)/(%d+)")
+				local _, _, cnt, total = strfind (cur[n], "(%d+)/(%d+)")
 				cnt = tonumber (cnt)
 				total = tonumber (total)
 
