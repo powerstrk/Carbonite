@@ -42,10 +42,10 @@ L["Not Completed"] = "未完成"
 -- MoP
 L["Sha of Anger"] = true
 L["Galleon"] = true
-L["Nalak, The Storm Lord"]
+L["Nalak, The Storm Lord"] = true
 L["Oondasta"] = true
 L["Celestials"] = true
-L["Ordos"]
+L["Ordos"] = true
 --WoD
 L["Rukhmar"] = true
 L["Drov the Ruiner"] = true
