@@ -45,6 +45,7 @@ L["Import %s's character data and reload?"] = "%s's Charakterdaten einf\195\188g
 L["Overwrite all character settings and reload?"] = "Alle Charaktereinstellungen \195\188berschreiben und neu laden"
 L["Warehouse: %d characters"] = "Lager: %d Charaktere"
 L["DurPattern"] = "^Haltbarkeit (%d+) / (%d+)"
+L["Show Warehouse"] = "Zeige Warenhaus"
 
 L["Import"] = "Importieren"
 L["Cancel"] = "Abbruch"
