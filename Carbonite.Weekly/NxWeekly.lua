@@ -22,7 +22,6 @@ local _G = getfenv(0)
 CarboniteWeekly = LibStub("AceAddon-3.0"):NewAddon("CarboniteWeekly","AceEvent-3.0","AceComm-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Weekly", true)
-local B = LibStub("LibBabble-Boss-3.0"):GetLookupTable()
 
 Nx.VERSIONWeek			= .1				-- Warehouse data
 
@@ -109,7 +108,7 @@ local function WeeklyOptions()
 					args = {
 						WodMobs = {
 							type = "group",
-							name = "WoD",
+							name = L["WoD"],
 							order = 1,
 							args = {
 								mdesc = {
@@ -125,7 +124,7 @@ local function WeeklyOptions()
 									order = 2,
 									type = "toggle",
 									width = "full",
-									name = B["Tarlna the Ageless"],
+									name = L["Tarlna the Ageless"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Tarlna
 									end,
@@ -138,7 +137,7 @@ local function WeeklyOptions()
 									order = 3,
 									type = "toggle",
 									width = "full",
-									name = B["Drov the Ruiner"],
+									name = L["Drov the Ruiner"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Drov
 									end,
@@ -151,7 +150,7 @@ local function WeeklyOptions()
 									order = 4,
 									type = "toggle",
 									width = "full",
-									name = "Rukhmar",
+									name = L["Rukhmar"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Rukmar
 									end,
@@ -163,7 +162,7 @@ local function WeeklyOptions()
 						},						
 						MopMobs = {
 							type = "group",
-							name = "MoP",
+							name = L["MoP"],
 							order = 2,
 							args = {
 								mdesc = {
@@ -175,7 +174,7 @@ local function WeeklyOptions()
 									order = 2,
 									type = "toggle",
 									width = "full",
-									name = B["Sha of Anger"],
+									name = L["Sha of Anger"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Sha
 									end,
@@ -187,7 +186,7 @@ local function WeeklyOptions()
 									order = 3,
 									type = "toggle",
 									width = "full",
-									name = "Galleon",
+									name = L["Galleon"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Galleon
 									end,
@@ -199,7 +198,7 @@ local function WeeklyOptions()
 									order = 4,
 									type = "toggle",
 									width = "full",
-									name = B["Nalak, The Storm Lord"],
+									name = L["Nalak, The Storm Lord"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Nalak
 									end,
@@ -211,7 +210,7 @@ local function WeeklyOptions()
 									order = 5,
 									type = "toggle",
 									width = "full",
-									name = "Oondasta",
+									name = L["Oondasta"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Oondasta
 									end,
@@ -235,7 +234,7 @@ local function WeeklyOptions()
 									order = 7,
 									type = "toggle",
 									width = "full",
-									name = B["Ordos, Fire-God of the Yaungol"],
+									name = L["Ordos"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Ordos
 									end,
@@ -321,7 +320,7 @@ local function WeeklyOptions()
 					args = {
 						WodQuests = {
 							type = "group",
-							name = "WoD",
+							name = L["WoD"],
 							order = 1,
 							args = {
 								qdesc = {

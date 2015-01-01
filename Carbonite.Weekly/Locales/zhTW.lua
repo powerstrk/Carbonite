@@ -38,7 +38,19 @@ L["Not Looted"] = true
 L["Completed"] = true
 L["Not Completed"] = true
 
-L["The Crumbled Chamberlain Quest"] = true
+-- Bosses
+-- MoP
+L["Sha of Anger"] = true
+L["Galleon"] = true
+L["Nalak, The Storm Lord"]
+L["Oondasta"] = true
+L["Celestials"] = true
+L["Ordos"]
+--WoD
+L["Rukhmar"] = true
+L["Drov the Ruiner"] = true
+L["Tarlna the Ageless"] = true
+
 L["The Crumbled Chamberlain"] = true
 L["Tempered Fate Seals"] = true
 L["Bronze"] = true
@@ -60,5 +72,5 @@ L["Blackrock Foundry"] = true
 L["Shan'ze Ritual Stone"] = true
 L["Lei Shen Palace Key"] = true
 L["Thunder King Trove"] = true
-L["Celestials"] = true
-
+L["MoP"] = true
+L["WoD"] = true
