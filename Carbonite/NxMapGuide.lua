@@ -1262,9 +1262,8 @@ function Nx.Map.Guide:UpdateMapIcons()
 			end
 			if Quest and Quest.QGivers then
 				local mapId = map:GetCurrentMapId()
-				mapId=Nx.Map:GCMI_OVERRIDE(mapId)
-				local zone = Nx.MapIdToNxzone[mapId]
-				local stzone = Quest.QGivers[zone]
+				mapId=Nx.Map:GCMI_OVERRIDE(mapId)				
+				local stzone = Quest.QGivers[mapId]
 				if stzone then
 					if not Nx.CurCharacter["Level"] then return end
 					local minLvl = Nx.CurCharacter["Level"] - Nx.qdb.profile.Quest.MapQuestGiversLowLevel
@@ -1840,7 +1839,7 @@ function Nx.Map.Guide:SavePlayerNPCTarget()
 
 	local map = Nx.Map:GetMap (1)
 	local s = Nx:PackXY (map.PlyrRZX, map.PlyrRZY)
-	self.PlayerNPCTargetPos = format ("%d^%s", Nx.MapIdToNxzone[map.UpdateMapID] or 0, s)
+	self.PlayerNPCTargetPos = format ("%d^%s", map.UpdateMapID or 0, s)
 end
 function Nx.Map.Guide.OnGossip_show()
 	local self = Nx.Map.Guide

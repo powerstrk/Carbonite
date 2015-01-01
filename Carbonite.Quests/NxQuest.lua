@@ -3654,7 +3654,6 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 
 	IS_BACKGROUND_WORLD_CACHING = true
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
-	WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
 --	local tm = GetTime()
 
 	local Map = Nx.Map
@@ -3663,20 +3662,19 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			local mapId = a
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
-				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-				WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done				
 				Nx.Quest.WorldUpdate = false
+				IS_BACKGROUND_WORLD_CACHING = false
 				return
 			end
 			if mapId ~= curMapId then
-				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged				
+				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged							
 			end
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
 			end
 		end
-	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-	WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done	
 	Map:SetCurrentMap (curMapId)
 	IS_BACKGROUND_WORLD_CACHING = false
 	self:RecordQuestsLog()
@@ -3694,7 +3692,6 @@ function Nx.Quest:MapChanged()
 	if Nx.ModQAction == "QUEST_DECODE" then
 		Nx.ModQAction = ""
 		Nx.Quest:DecodeComRcv (Nx.qTEMPinfo, Nx.qTEMPmsg)
-
 	end
 	if qlasttime then
 		local curtime = debugprofilestop()
@@ -3708,13 +3705,9 @@ function Nx.Quest:MapChanged()
 		return
 	end
 	qttl = 0
---	Nx.prtStack ("MapChanged %s", GetCurrentMapAreaID())
---	Nx.prt ("MapChanged %s", Nx.Map:GetCurrentMapId())
-
-		if Nx.QInit then	-- Quests inited?
-			self:ScanBlizzQuestDataZone()
-		end
-	--	Nx.Quest.Watch:Update()
+	if Nx.QInit then	-- Quests inited?
+		self:ScanBlizzQuestDataZone()
+	end	
 end
 
 function Nx.Quest:ScanBlizzQuestDataZone()
@@ -3728,25 +3721,24 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 		end
 		if not mapId then
 			return
-		end
-		for n = 1, num do
+		end		
+		for n = 1, num do			
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
-			if qi and qi > 0 then
+			if qi and qi > 0 then				
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
 				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
+				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then					
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
-					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
+					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil						
 						x = x * 100
 						y = y * 100
 --						Nx.prt ("%s #%s %s %s %s %s", mapId, n, id, x or "nil", y or "nil", objective or "nil")
 						if not quest["Quest"] then
---							self.ScanBlizzChanged = true
-							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)
+							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)							
 						end
 						if needEnd or bit.band (patch, 1) then
 							if not quest["End"] or bit.band(patch,1) then
@@ -3762,7 +3754,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 							patch = bit.bor (patch, 2)
 
 							local s = title
-							local obj = format ("|%s|32|%f|%f|6|6",mapId, x, y)
+							local obj = format ("nil|%s|32|%f|%f|6|6",mapId, x, y)
 
 							for i = 1, lbCnt do
 								quest["Objectives"][i] = {obj}
@@ -4128,9 +4120,7 @@ function Nx.Quest:RecordQuestAcceptOrFinish()
 	self.AcceptQName = qname
 
 	local id = Nx.Map:GetRealMapId()
---	self.AcceptNxzone = Nx.MapIdToNxzone[id] or 0
 	self.AcceptAId = id or 0
-
 	self.AcceptDLvl = 0
 
 	if Nx.Map:GetCurrentMapId() == id then
