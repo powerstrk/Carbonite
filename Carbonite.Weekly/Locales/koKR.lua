@@ -21,9 +21,6 @@ L["Place check boxes in the mobs you wish to track weekly kills."] = "매주 처
 L["Lootables"] = "전리품"
 L["Place check boxes in the weekly drops you wish to track."] = "매주 획득 여부를 추적할 전리품을 선택하십시오."
 L["Place check boxes in the difficulties you want to track."] = true
-L["Shan'ze Ritual Stone"] = "샨쩌 의식용 돌"
-L["Lei Shen Palace Key"] = "레이 션 궁전으로 통하는 문의 열쇠"
-L["Thunder King Trove"] = "천둥왕의 발견물"
 L["Quests"] = "퀘스트"
 L["Place check boxes in the weekly quests you want to track."] = "매주 수행 여부를 추적할 퀘스트를 선택하십시오."
 L["Tempered Fate Seals"] = true
@@ -59,6 +56,26 @@ L["Bronze"] = true
 L["Silver"] = true
 L["Gold"] = true
 L["Palace Key"] = "궁전으로 통하는 문의 열쇠"
+
+-- Bosses
+-- MoP
+L["Sha of Anger"] = true
+L["Galleon"] = true
+L["Nalak, The Storm Lord"] = true
+L["Oondasta"] = true
+L["Celestials"] = true
+L["Ordos"] = true
+--WoD
+L["Rukhmar"] = true
+L["Drov the Ruiner"] = true
+L["Tarlna the Ageless"] = true
+
+L["The Crumbled Chamberlain"] = true
+L["Tempered Fate Seals"] = true
+L["Bronze"] = true
+L["Silver"] = true
+L["Gold"] = true
+L["Palace Key"] =true
 L["LFR"] = true
 L["Normal"] = true
 L["Heroic"] = true
@@ -71,7 +88,8 @@ L["Terrace of Endless Spring"] = true
 L["Throne of Thunder"] = true
 L["Siege of Orgrimmar"] = true
 L["Blackrock Foundry"] = true
-
--- Not used
-L["Warforged Seals"] = "전쟁벼림 인장"
-L["Warforged Seals Quest"] = "전쟁벼림 인장 퀘스트"
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["MoP"] = true
+L["WoD"] = true

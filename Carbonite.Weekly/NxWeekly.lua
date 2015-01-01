@@ -108,7 +108,7 @@ local function WeeklyOptions()
 					args = {
 						WodMobs = {
 							type = "group",
-							name = "WoD",
+							name = L["WoD"],
 							order = 1,
 							args = {
 								mdesc = {
@@ -119,6 +119,7 @@ local function WeeklyOptions()
 									-- Drov the Ruiner
 									-- Rukhmar
 								},
+								
 								tarlna = {
 									order = 2,
 									type = "toggle",
@@ -131,6 +132,7 @@ local function WeeklyOptions()
 										Nx.wkdb.profile.Track.Mob.Tarlna = not Nx.wkdb.profile.Track.Mob.Tarlna
 									end,
 								},
+								
 								drov = {
 									order = 3,
 									type = "toggle",
@@ -143,6 +145,7 @@ local function WeeklyOptions()
 										Nx.wkdb.profile.Track.Mob.Drov = not Nx.wkdb.profile.Track.Mob.Drov
 									end,
 								},
+								
 								ruk = {
 									order = 4,
 									type = "toggle",
@@ -159,7 +162,7 @@ local function WeeklyOptions()
 						},
 						MopMobs = {
 							type = "group",
-							name = "MoP",
+							name = L["MoP"],
 							order = 2,
 							args = {
 								mdesc = {
@@ -195,7 +198,7 @@ local function WeeklyOptions()
 									order = 4,
 									type = "toggle",
 									width = "full",
-									name = L["Nalak"],
+									name = L["Nalak, The Storm Lord"],
 									get = function()
 										return Nx.wkdb.profile.Track.Mob.Nalak
 									end,
@@ -317,7 +320,7 @@ local function WeeklyOptions()
 					args = {
 						WodQuests = {
 							type = "group",
-							name = "WoD",
+							name = L["WoD"],
 							order = 1,
 							args = {
 								qdesc = {

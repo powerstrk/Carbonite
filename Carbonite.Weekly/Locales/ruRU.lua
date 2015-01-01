@@ -43,18 +43,22 @@ L["Looted"] = true
 L["Not Looted"] = true
 L["Completed"] = true
 L["Not Completed"] = true
-L["The Crumbled Chamberlain"] = true
-L["The Crumbled Chamberlain Quest"] = true
-L["Tarlna the Ageless"] = "Тарлна Нестареющий"
-L["Drov the Ruiner"] = "Дров Крушитель"
-L["Rukhmar"] = "Рухмар"
-L["Ordos"] = true
-L["Celestials"] = true
-L["Oondasta"] = true
-L["Nalak"] = true
-L["Galleon"] = true
+
+-- Bosses
+-- MoP
 L["Sha of Anger"] = true
-L["Garrison Invasion"] = true
+L["Galleon"] = true
+L["Nalak, The Storm Lord"] = true
+L["Oondasta"] = true
+L["Celestials"] = true
+L["Ordos"] = true
+--WoD
+L["Rukhmar"] = true
+L["Drov the Ruiner"] = true
+L["Tarlna the Ageless"] = true
+
+L["The Crumbled Chamberlain"] = true
+L["Tempered Fate Seals"] = true
 L["Bronze"] = true
 L["Silver"] = true
 L["Gold"] = true
@@ -65,9 +69,16 @@ L["Heroic"] = true
 L["Mythic"] = true
 L["Yes"] = true
 L["No"] = true
-L["Mogu'shan Vaults"] = "Подземелья Могу'шан"
-L["Heart of Fear"] = "Сердце Страха"
-L["Terrace of Endless Spring"] = "Терраса Вечной Весны"
-L["Throne of Thunder"] = "Престол Гроз"
-L["Siege of Orgrimmar"] = "Осада Оргриммара"
-L["Blackrock Foundry"] = "Литейная клана Черной горы"
+L["Mogu'shan Vaults"] = true
+L["Heart of Fear"] = true
+L["Terrace of Endless Spring"] = true
+L["Throne of Thunder"] = true
+L["Siege of Orgrimmar"] = true
+L["Blackrock Foundry"] = true
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["MoP"] = true
+L["WoD"] = true
+
+

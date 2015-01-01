@@ -26,10 +26,9 @@ L["Lei Shen Palace Key"] = true
 L["Thunder King Trove"] = true
 L["Quests"] = "Missioni"
 L["Place check boxes in the weekly quests you want to track."] = "Metti un segno di spunta sulle missioni settimanali che vuoi tracciare"
-L["Tempered Fate Seals"] = true
-L["Seal of Tempered Fate"] = "Sigillo del Destino Temprato"
-L["Seals of Tempered Fate"] = "Sigilli del Destino Temprati"
-L["Garrison Invasion"] = "Invasione della Guarnigione"
+L["Seal of Tempered Fate"] = true
+L["Seals of Tempered Fate"] = true
+L["Garrison Invasion"] = true
 L["Place check boxes in the raid progress you want to track."] = "Metti un segno di spunta sui progressi Raid che vuoi tracciare"
 L["Highmaul"] = true
 L["Show Weekly Objectives"] = "Mostra Obiettivi Settimanali"
@@ -43,18 +42,22 @@ L["Looted"] = "Depredato"
 L["Not Looted"] = "Non Depredato"
 L["Completed"] = "Completato"
 L["Not Completed"] = "Non Completato"
-L["The Crumbled Chamberlain"] = true
-L["The Crumbled Chamberlain Quest"] = true
-L["Tarlna the Ageless"] = "Tarlna il Senza Eta'"
-L["Drov the Ruiner"] = "Drov il Polverizzatore"
-L["Rukhmar"] = true
-L["Ordos"] = true
-L["Celestials"] = true
-L["Oondasta"] = true
-L["Nalak"] = true
-L["Galleon"] = true
+
+-- Bosses
+-- MoP
 L["Sha of Anger"] = true
-L["Garrison Invasion"] = true
+L["Galleon"] = true
+L["Nalak, The Storm Lord"] = true
+L["Oondasta"] = true
+L["Celestials"] = true
+L["Ordos"] = true
+--WoD
+L["Rukhmar"] = true
+L["Drov the Ruiner"] = true
+L["Tarlna the Ageless"] = true
+
+L["The Crumbled Chamberlain"] = true
+L["Tempered Fate Seals"] = true
 L["Bronze"] = true
 L["Silver"] = true
 L["Gold"] = true
@@ -71,3 +74,8 @@ L["Terrace of Endless Spring"] = true
 L["Throne of Thunder"] = true
 L["Siege of Orgrimmar"] = true
 L["Blackrock Foundry"] = true
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["MoP"] = true
+L["WoD"] = true

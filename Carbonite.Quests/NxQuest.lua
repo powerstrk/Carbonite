@@ -20,10 +20,10 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Quest General
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
 local _G = getfenv(0)
 
@@ -1821,7 +1821,7 @@ function CarboniteQuest:OnInitialize()
 	if not qopts or qopts.Version < Nx.VERSIONQOPTS then
 
 		if qopts then
-			Nx.prt ("Reset old quest options %f", qopts.Version)
+			Nx.prt (L["Reset old quest options %f"], qopts.Version)
 		end
 
 		qopts = {}
@@ -2057,18 +2057,18 @@ function Nx.Quest:OptsReset()
 	qopts.NXWPriGroup = -100			-- Not used yet
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- DEBUG
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
 --function Nx.Quest.SelectQuestLogEntry (qn)
 --	Nx.prt ("QSel %s", qn)
 --	Nx.Quest.OldSelectQuestLogEntry (qn)
 --end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Init quest and watch data and windows
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
 function Nx.Quest:Init()
 
@@ -3802,7 +3802,7 @@ function Nx.Quest:CurQSetPreviousDone()
 	end
 
 	if cnt > 0 then
-		Nx.prt ("Set %d chain quests as done", cnt)
+		Nx.prt (L["Set %d chain quests as done"], cnt)
 	end
 
 --	Nx.prt ("Calc %f secs", GetTime() - sTime)
@@ -3881,7 +3881,7 @@ function Nx.Quest:QuestQueryTimer()
 
 	local qc = GetQuestsCompleted()
 	if not qc then
-		Nx.prt ("QuestQueryTimer wait")
+		Nx.prt (L["QuestQueryTimer wait"])
 		return 1
 	end
 
@@ -3900,7 +3900,7 @@ function Nx.Quest:QuestQueryTimer()
 	end
 
 	if cnt > 0 then
-		Nx.prt ("Set %d previous quests as done", cnt)
+		Nx.prt (L["Set %d previous quests as done"], cnt)
 		Nx.Quest.List:Update()
 	end
 end
@@ -4040,7 +4040,7 @@ end
 
 -------------------------------------------------------------------------------
 -- Detect a new quest
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 function Nx.Quest:FindNewQuest()
 
@@ -4217,10 +4217,10 @@ function Nx.Quest:Capture (curi, objNum)
 
 --[[
 	if not objNum or objNum < 0 then
-		Nx.prt ("Capture %s %s %s %.2f,%.2f", self.AcceptGiver, self.AcceptAId or 0, self.AcceptDLvl, self.AcceptX, self.AcceptY)
+		Nx.prt (L["Capture %s %s %s %.2f,%.2f"], self.AcceptGiver, self.AcceptAId or 0, self.AcceptDLvl, self.AcceptX, self.AcceptY)
 	else
 		local map = self.Map
-		Nx.prt ("Capture #%s %s %.2f,%.2f", objNum, map.RMapId, map.PlyrRZX, map.PlyrRZY)
+		Nx.prt (L["Capture #%s %s %.2f,%.2f"], objNum, map.RMapId, map.PlyrRZX, map.PlyrRZY)
 	end
 --]]
 
@@ -4267,7 +4267,7 @@ function Nx.Quest:Capture (curi, objNum)
 			local obj = qdata[index]
 
 			if not obj then
-				Nx.prt ("Capture err %s, %s", cur.Title, objNum)
+				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)
 				return
 			end
 
@@ -4498,7 +4498,7 @@ function Nx.Quest:CheckShow (mapId, qId)
 	--	Check start, end and objectives
 --[[
 	if not quest[2] then
-		Nx.prt ("quest error: %s %s", qname, qId)
+		Nx.prt (L["quest error: %s %s"], qname, qId)
 		assert (quest[2])
 	end
 --]]
@@ -4581,7 +4581,7 @@ function Nx.Quest:Goto (qId)
 	local i = self:FindCur (qId)
 
 	if i then
-		Nx.prt ("Already going to quest")
+		Nx.prt (L["Already going to quest"])
 		return
 	end
 
@@ -4687,7 +4687,7 @@ function Nx.Quest:LinkChat (qId)
 		end
 	else
 
-		Nx.prt ("|cffff4040No edit box open!")
+		Nx.prt (L["|cffff4040No edit box open!"])
 	end
 end
 
@@ -4737,7 +4737,7 @@ function Nx.Quest:OnMsgQuest (plName, msg)
 --		if nil then
 		if not self.SendPlyr or self.SendPlyr == plName then
 
-			Nx.prt ("Sending quests to %s", plName)
+			Nx.prt (L["Sending quests to %s"], plName)
 
 			self.SendPlyr = plName
 			self:BuildQSendData()
@@ -4754,11 +4754,11 @@ function Nx.Quest:OnMsgQuest (plName, msg)
 			local mode = strsub (msg, 3, 3)
 
 			if mode == "s" then
-				Nx.prt (" %s -share", self.RcvPlyr)
+				Nx.prt (L[" %s -share"], self.RcvPlyr)
 			elseif mode == "C" then
-				Nx.prt (" %s busy", self.RcvPlyr)
+				Nx.prt (L[" %s busy"], self.RcvPlyr)
 			else
-				tinsert (self.FriendQuests, " ^Player is busy")
+				tinsert (self.FriendQuests, L[" ^Player is busy"])
 			end
 
 			self.RcvPlyr = nil
@@ -4942,10 +4942,10 @@ function	Nx.Quest:OnChat_msg_raid_boss_whisper (event, arg1)
 				x = tonumber (x) * .01
 				y = tonumber (y) * .01
 
-				local s = format ("%s on %s in %s", name, shelf, item)
+				local s = format (L["%s on %s in %s"], name, shelf, item)
 
 				if tonumber (shelf) then
-					s = format ("%s, shelf %s, item %s", name, shelf, item)
+					s = format (L["%s, shelf %s, item %s"], name, shelf, item)
 				end
 
 				self.Map:SetTargetXY (4011, x, y, s)
@@ -5003,7 +5003,7 @@ function	Nx.Quest:TooltipProcess2 (stripColor, tipStr)
 	-- Check if already added
 
 	local textName = "GameTooltipTextLeft"
-	local questStr = format ("|cffffffffQ%suest:", Nx.TXTBLUE)
+	local questStr = format (L["|cffffffffQ%suest:"], Nx.TXTBLUE)
 
 	for n = 2, tip:NumLines() do
 		local s = _G[textName .. n]:GetText()
@@ -5789,7 +5789,7 @@ function Nx.Quest.List:Menu_OnGoto (item)
 		local qIndex = bit.band (i, 0xff)
 
 		if qIndex > 0 then
-			Nx.prt ("Already have the quest!")
+			Nx.prt (L["Already have the quest!"])
 
 		else
 			local qId = bit.rshift (i, 16)
@@ -5892,7 +5892,7 @@ function Nx.Quest.List:Menu_OnHistoryRemoveAll()
 		end
 	end
 
-	Nx.prt ("History cleared")
+	Nx.prt (L["History cleared"])
 	self:Update()
 end
 
@@ -6017,7 +6017,7 @@ function Nx.Quest.List:Menu_OnShare (item)
 			if GetNumSubgroupMembers() > 0 then
 				QuestLogPushQuest()
 			else
-				Nx.prt ("Must be in party to share")
+				Nx.prt (L["Must be in party to share"])
 			end
 		end
 	end
@@ -6751,7 +6751,7 @@ function Nx.Quest.List:Update()
 					local dayChange = 86400 - GetQuestResetTime()
 
 					if age < dayChange then
-						dailyName = dailyName .. " |cffff8080today"
+						dailyName = dailyName .. L[" |cffff8080today"]
 					end
 				end
 
@@ -6845,7 +6845,7 @@ function Nx.Quest.List:Update()
 
 			local quest = Nx.Quests[qId]
 			if not quest then
-				Nx.prt ("nil quest %s", qId)
+				Nx.prt (L["nil quest %s"], qId)
 			end
 			local qname, side, lvl, minlvl, next = Quest:Unpack (quest["Quest"])
 
@@ -6903,10 +6903,10 @@ function Nx.Quest.List:Update()
 --					if quest.CNum > 1 then
 --						lvlStr = "    " .. lvlStr
 --					end
-					title = title .. format (" (Part %d)", quest.CNum)
+					title = title .. format (L[" (Part %d)"], quest.CNum)
 				end
 
-				local tag = qCompleted and "(History) " or ""
+				local tag = qCompleted and L["(History) "] or ""
 
 				local dailyStr = Quest.DailyIds[qId] or Quest.DailyDungeonIds[qId]
 				if dailyStr then
@@ -6921,7 +6921,7 @@ function Nx.Quest.List:Update()
 						tag = format ("%s, %s %s", tag, strsub (rep, i + 1, i + 3), Quest.Reputations[repChar])
 					end
 					if req and Quest.Requirements[req] then	-- 1 and 2 (Ally, Horde) not in table
-						tag = tag .. ", |cffe0c020Need " .. Quest.Requirements[req]
+						tag = tag .. L[", |cffe0c020Need "] .. Quest.Requirements[req]
 					end
 					tag = tag .. ")"
 				end
@@ -7005,9 +7005,9 @@ function Nx.Quest.List:Update()
 						list:ItemAdd (qId * 0x10000)
 
 						if not eName then
-							list:ItemSet (2, "     |cff6060ffStart/End: " .. sName)
+							list:ItemSet (2, "     |cff6060ff" ..L["Start/End: "] .. sName)
 						else
-							list:ItemSet (2, "     |cff6060ffStart: " .. sName)
+							list:ItemSet (2, "     |cff6060ff" ..L["Start: "] .. sName)
 						end
 						list:ItemSet (4, sMapName)
 
@@ -7019,7 +7019,7 @@ function Nx.Quest.List:Update()
 					end
 					if eName then
 						list:ItemAdd (qId * 0x10000 + 16 * 0x100)
-						list:ItemSet (2, "     |cff6060ffEnd: " .. eName)
+						list:ItemSet (2, L["     |cff6060ffEnd: "] .. eName)
 						list:ItemSet (4, eMapName)
 
 						list:ItemSetButton ("QuestWatch", false)
@@ -7075,7 +7075,7 @@ function Nx.Quest.List:Update()
 
 		local low = max (1, showLowLevel and 1 or minLevel)
 		local high = min (MAX_PLAYER_LEVEL, maxLevel)
-		list:ItemSet (2, format ("|cffc0c0c0--- Levels %d to %d ---", low, high), dbTitleIndex + 1)
+		list:ItemSet (2, format (L["|cffc0c0c0--- Levels %d to %d ---"], low, high), dbTitleIndex + 1)
 	end
 
 	-- Add other player quests
@@ -7258,7 +7258,7 @@ function Nx.Quest:UpdateIcons (map)
 					f.NXType = 9000
 					f.NXData = cur
 					local qname = Nx.TXTBLUE .. "Quest: " .. cur.Title
-					f.NxTip = format ("%s\nEnd: %s (%.1f %.1f)", qname, endName, x, y)
+					f.NxTip = format (L["%s\nEnd: %s (%.1f %.1f)"], qname, endName, x, y)
 					if cur.PartyNames then
 						f.NxTip = f.NxTip .. "\n" .. cur.PartyNames
 					end
@@ -7303,7 +7303,7 @@ function Nx.Quest:UpdateIcons (map)
 
 		local cur = Quest.IdToCurQ[trackId]
 		local quest = cur and cur.Q or Nx.Quests[trackId]
-		local qname = Nx.TXTBLUE .. "Quest: " .. (cur and cur.Title or Quest:UnpackName (quest["Quest"]))
+		local qname = Nx.TXTBLUE .. L["Quest: "] .. (cur and cur.Title or Quest:UnpackName (quest["Quest"]))
 
 		local mask = showOnMap and cur and cur.TrackMask or trackMode
 		local showEnd
@@ -7321,7 +7321,7 @@ function Nx.Quest:UpdateIcons (map)
 					local f = map:GetIconStatic (4)
 
 					if map:ClipFrameW (f, wx, wy, navscale, navscale, 0) then
-						f.NxTip = format ("%s\nStart: %s (%.1f %.1f)", qname, startName, x, y)
+						f.NxTip = format (L["%s\nStart: %s (%.1f %.1f)"], qname, startName, x, y)
 						f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaim")
 					end
 				end
@@ -7347,7 +7347,7 @@ function Nx.Quest:UpdateIcons (map)
 
 					f.NXType = 9000
 					f.NXData = cur
-					f.NxTip = format ("%s\nEnd: %s (%.1f %.1f)", qname, endName, x, y)
+					f.NxTip = format ("%s\n" ..L["End: "] .. "%s (%.1f %.1f)", qname, endName, x, y)
 					if cur and cur.PartyNames then
 						f.NxTip = f.NxTip .. "\n" .. cur.PartyNames
 					end
@@ -7439,7 +7439,7 @@ function Nx.Quest:UpdateIcons (map)
 							local hover = Quest.IconHoverCur == cur and Quest.IconHoverObjI == n
 							local tracking = bit.band (trackMode, bit.lshift (1, n)) > 0
 
-							local tip = format ("%s\nObj: %s", qname, oname)
+							local tip = format (L["%s\nObj: %s"], qname, oname)
 							if cur and cur[n + 400] then
 								tip = tip .. "\n" .. cur[n + 400]
 							end
@@ -8330,7 +8330,7 @@ function Nx.Quest.Watch:Menu_OnShare (item)
 			QuestLogPushQuest (qi)
 			Nx.Quest:RestoreExpandQuests()
 		else
-			Nx.prt ("Must be in party to share")
+			Nx.prt (L["Must be in party to share"])
 		end
 	end
 end
@@ -8653,17 +8653,17 @@ function Nx.Quest.Watch:UpdateList()
 						local diff = ""
 						list:ItemAdd(0)
 						if difficulty == 1 then
-							diff = "|cffffffffDifficulty: |cff8C7853Bronze"
+							diff = "|cffffffff" ..L["Difficulty: "] .."|cff8C7853" ..L["Bronze"]
 						end
 						if difficulty == 2 then
-							diff = "|cffffffffDifficulty: |cffC0C0C0Silver"
+							diff = "|cffffffff" ..L["Difficulty: "] .."|cffC0C0C0" ..L["Silver"]
 						end
 						if difficulty == 3 then
-							diff = "|cffffffffDifficulty: |cffC77826gold"
+							diff = "|cffffffff" ..L["Difficulty: "] .."|cffC77826" ..L["Gold"]
 						end
 						list:ItemSet(2,format("|cffff8888%s",diff))
 						list:ItemSetButton("QuestWatch",false)
-						local s = "  |cffff0000 Wave: [|cffffffff" .. curWave .. "|cffff0000/|cffffffff" .. maxWave .. "|cffff0000]|cff00ff00 " .. SecondsToTime(duration-elapsedTime)
+						local s = "  |cffff0000 " ..L["Wave: "] .."[|cffffffff" .. curWave .. "|cffff0000/|cffffffff" .. maxWave .. "|cffff0000]|cff00ff00 " .. SecondsToTime(duration-elapsedTime)
 						list:ItemAdd(0)
 						list:ItemSet(2,s)
 					  end
@@ -8674,20 +8674,20 @@ function Nx.Quest.Watch:UpdateList()
 					if (currentStage > 0) then
 						local stageName, stageDescription, numCriteria = C_Scenario.GetStepInfo()
 						list:ItemAdd(0)
-						list:ItemSet(2,format("|cffff8888Scenario: %s",name))
+						list:ItemSet(2,format("|cffff8888" ..L["Scenario: "] .."%s",name))
 						list:ItemSetButtonTip(stageDescription)
 						list:ItemSetButton("QuestWatch",false)
 						if (currentStage <= numStages) then
-							s = format(" |cffff0000Stage [|cffffffff%d|cffff0000/|cffffffff%d|cffff0000]:|cff00ff00%s", currentStage, numStages,stageName)
+							s = format(" |cffff0000" ..L["Stage "] .."[|cffffffff%d|cffff0000/|cffffffff%d|cffff0000]:|cff00ff00%s", currentStage, numStages,stageName)
 						else
-							s = " |cffff0000[|cffffffffComplete|cffff0000]"
+							s = " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
 						end
 						list:ItemAdd(0)
 						list:ItemSet(2,s)
 						for criteria = 1, numCriteria do
 							local text, _, finished, quantity, totalquantity = C_Scenario.GetCriteriaInfo(criteria)
 							if finished then
-								s = format("|cffffffff%d/%d %s |cffff0000[|cffffffffComplete|cffff0000]",quantity, totalquantity, text)
+								s = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]",quantity, totalquantity, text)
 							else
 								s = format("|cffffffff%d/%d %s",quantity, totalquantity, text)
 							end
@@ -8701,7 +8701,7 @@ function Nx.Quest.Watch:UpdateList()
 							local title, task, _, completed = C_Scenario.GetStepInfo(1)
 							task = " |cffff0000Bonus |cff00ff00" .. task
 							if completed then
-								task = task .. " |cffff0000[|cffffffffComplete|cffff0000]"
+								task = task .. " |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]"
 							end
 							list:ItemAdd(0)
 							list:ItemSet(2,task)
@@ -8709,7 +8709,7 @@ function Nx.Quest.Watch:UpdateList()
 								local index = bonusSteps[criteria]
 								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)
 								if completed then
-									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffffComplete|cffff0000]",quantity, totalquantity, task)
+									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]",quantity, totalquantity, task)
 								else
 									task = format("|cffffffff%d/%d %s",quantity, totalquantity, task)
 								end
@@ -8781,7 +8781,7 @@ function Nx.Quest.Watch:UpdateList()
 						local aId, aName, aPoints, aComplete, aMonth, aDay, aYear, aDesc = GetAchievementInfo (id)
 						if aName then		-- Person had nil name happen
 							list:ItemAdd (0)
-							list:ItemSet (2, format ("|cffdf9fffAchievement: %s", aName))
+							list:ItemSet (2, format ("|cffdf9fff" ..L["Achievement:"] .. " %s", aName))
 							local numC = GetAchievementNumCriteria (id)
 							local progressCnt = 0
 							local tip = aDesc
@@ -8892,12 +8892,12 @@ function Nx.Quest.Watch:UpdateList()
 							end
 							local nameStr = format ("%s%s%s", lvlStr, color, cur.Title)
 							if cur.NewTime and time() < cur.NewTime + 60 then
-								nameStr = format ("|cff00%2x00New: %s", self.FlashColor * 200 + 55, nameStr)
+								nameStr = format ("|cff00%2x00" ..L["New: "] .."%s", self.FlashColor * 200 + 55, nameStr)
 							end
 							if isComplete then
 								local obj = quest and (quest["End"] or quest["Start"])
 								if lbNum > 0 or not obj then
-									nameStr = nameStr .. (isComplete == 1 and "|cff80ff80 (Complete)" or "|cfff04040 - " .. FAILED)
+									nameStr = nameStr .. (isComplete == 1 and "|cff80ff80 " ..L["(Complete)"] or "|cfff04040 - " .. FAILED)
 								else
 									local desc = Quest:UnpackSE (obj)
 									nameStr = format ("%s |cffffffff(%s)", nameStr, desc)
@@ -8924,7 +8924,7 @@ function Nx.Quest.Watch:UpdateList()
 							end
 							if isComplete and cur.IsAutoComplete then
 								list:ItemAdd (0)
-								list:ItemSet (2, format ("|cff%2x0000--- Click ? to complete ---", self.FlashColor * 200 + 55))
+								list:ItemSet (2, format ("|cff%2x0000--- " ..L["Click ? to complete"] .." ---", self.FlashColor * 200 + 55))
 							end
 							if qi > 0 or cur.Party then
 								local desc, done
@@ -9422,7 +9422,7 @@ function Nx.Quest:CreateGiverIconMenu (mainMenu, frm)
 
 	local infoMenu = Nx.Menu:Create (frm)
 	self.GiverIconMenuInfo = infoMenu
-	self.GiverIconMenuIInfo = mainMenu:AddSubMenu (infoMenu, "Quest Info (shift click - goto)...")
+	self.GiverIconMenuIInfo = mainMenu:AddSubMenu (infoMenu, L["Quest Info (shift click - goto)..."])
 
 	self.GiverIconMenuIInfoT = {}
 
@@ -9718,7 +9718,7 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 						end
 
 						if cur.Complete then
-							name = name .. " |cff80ff80(Complete)"
+							name = name .. " |cff80ff80" ..L["(Complete)"]
 						end
 					end
 
@@ -10423,7 +10423,7 @@ function Nx.Quest:Find (title, level, desc, obj)
 					end
 
 				else
-					Nx.prt ("QFind bad mode %d", mode)
+					Nx.prt (L["QFind bad mode %d"], mode)
 
 				end
 
@@ -10445,7 +10445,7 @@ function Nx.Quest:Find (title, level, desc, obj)
 		end
 
 		if Nx.Quest.Debug then
-			Nx.prt ("QFind Failed to find %s %d", title, level)
+			Nx.prt (L["QFind Failed to find"] .. "%s %d", title, level)
 		end
 	end
 
@@ -10534,19 +10534,19 @@ function Nx.Quest:DecodeComRcv (info, msg)
 	local quest = Nx.Quests[qId]
 	if not quest then						-- Unknown quest?
 		if Nx.Com.PalsInfo[Nx.qTEMPname] ~= nil then
-		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\nQuest %s", qId)
+		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .. " %s", qId)
 		end
 		if Nx.Com.ZPInfo[Nx.qTEMPname] ~= nil then
-			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\nQuest %s", qId)
+			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .. " %s", qId)
 		end
 		return
 	end
 	if not quest[1] then
 		if Nx.Com.PalsInfo[Nx.qTEMPname] ~= nil then
-		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\nQuest %s", qId)
+		  Nx.Com.PalsInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .. " %s", qId)
 		end
 		if Nx.Com.ZPInfo[Nx.qTEMPname] ~= nil then
-			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\nQuest %s", qId)
+			Nx.Com.ZPInfo[Nx.qTEMPname].QStr = format ("\n" ..L["Quest"] .." %s", qId)
 		end
 		return
 	end
@@ -10564,7 +10564,7 @@ function Nx.Quest:DecodeComRcv (info, msg)
 	local str = format ("\n|r%s%d |cffcfcf0f%s", targetStr, lvl, name)
 
 	if bit.band (flgs, 1) > 0 then
-		str = str .. " (Complete)"
+		str = str .. L[" (Complete)"]
 	end
 
 	if #msg >= 7 + lbcnt * 2 then
@@ -10588,7 +10588,7 @@ function Nx.Quest:DecodeComRcv (info, msg)
 				if cnt == 0 then
 					str = str .. format ("\n  %s", oname)
 				elseif cnt == 1 then
-					str = str .. format ("\n  %s (done)", oname)
+					str = str .. format ("\n  %s " ..L["(done)"], oname)
 				else
 					str = str .. format ("\n  %s %d/%d", oname, cnt - 2, total)
 				end
