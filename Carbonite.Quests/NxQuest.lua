@@ -42,6 +42,11 @@ Nx.Quest.Tick = 0
 Nx.QInit = false
 Nx.Quest.Custom = {}
 
+-- Keybindings
+BINDING_HEADER_CarboniteQuests	= L["|cffc0c0ff Carbonite Quests|r"]
+BINDING_NAME_NxTOGGLEWATCHMINI	= L["NxTOGGLEWATCHMINI"]
+BINDING_NAME_NxWATCHUSEITEM	= L["NxWATCHUSEITEM"]
+
 local defaults = {
 	profile = {
 		Quest = {

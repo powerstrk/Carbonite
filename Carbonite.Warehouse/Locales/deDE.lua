@@ -22,7 +22,7 @@ L["ItemTypes"] = {
 }
 
 L["Warehouse Module"] = "Lager Modul"
-L["Warehouse Options"] = "Lager Optionen"
+L["Warehouse Options"] = "Lager Einstellungen"
 L["Add Warehouse Tooltip"] = "Lager Kurzinfo hinzuf\195\188gen"
 L["When enabled, will show warehouse information in hover tooltips of items"] = "Wenn eingestellt, werden Lagerinformationen in den Schaltfl\195\164chentexten von Gegenst\195\164nden angezeigt"
 L["Warehouse Font"] = "Lager Schriftart"
@@ -91,4 +91,8 @@ L["LOOT_SLOT_CLEARED #%s %s (quest)"] = true
 L["%s deleted"] = "%s gel\195\182scht"
 L["enchant:(%d+)"] = "enzaubern:(%d+)"
 L["item:(%d+)"] = true
+
+-- Keybinds / Tastaturbelegungen
+L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Lager|r"
+L["NxTOGGLEWAREHOUSE"] = "Lager ein/ausblenden"
 

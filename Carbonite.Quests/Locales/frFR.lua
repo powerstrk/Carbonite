@@ -291,3 +291,7 @@ L["|r  Daily reset: |cffffffff"] = "|r  Reset Journalier: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "Qu\195\170tes: |cffffffff%d/%d|r  %s"
 
 L["yds"] = true
+--	Keybinds
+L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
+L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
+L["NxWATCHUSEITEM"] = "Use Questitem"

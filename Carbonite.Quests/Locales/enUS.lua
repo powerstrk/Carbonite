@@ -339,3 +339,7 @@ L["Click ? to complete"] = true
 L["Quest Info (shift click - goto)..."] = true
 L[" (Complete)"] = true
 L["(done)"] = true
+--	Keybinds
+L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
+L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
+L["NxWATCHUSEITEM"] = "Use Questitem"
