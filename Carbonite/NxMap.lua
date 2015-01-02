@@ -3294,6 +3294,7 @@ function Nx.Map:ToggleSize (szmode)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
 			WorldMapPlayerLower:SetAlpha(0)
 			WorldMapPlayerUpper:SetAlpha(0)
+			
 			map:MaxSize()
 		end
 
@@ -3339,7 +3340,9 @@ function Nx.Map:RestoreSize()
 			self.Win:Show (false)
 		end
 	end
-
+	if self:IsInstanceMap(Nx.Map.UpdateMapID) then
+		self.Scale = 120.0
+	end
 	local wname = self:GetWinName()
 	for n, name in pairs (UISpecialFrames) do
 		if name == wname then
@@ -3365,7 +3368,9 @@ function Nx.Map:MaxSize()
 		self:SaveView ("")
 
 		self:MouseEnable (true)
-
+		if self:IsInstanceMap(Nx.Map.UpdateMapID) then
+			self.Scale = 256.0
+		end
 		if Nx.db.profile.Map.MaxCenter then
 			self:CenterMap()
 		end
@@ -3726,6 +3731,11 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
 	if ttl < .05 then
+		local f = this.NxMap.WorldMapFrm
+		if f and (this.NxMap.StepTime ~= 0 or this.NxMap.Scrolling or IsShiftKeyDown()) then
+			f:Hide()
+			--Nx.prt("Hiding Frame...")-- DEBUG!
+		end
 		return
 	end
 	ttl = 0
@@ -3910,7 +3920,11 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 						if lrid ~= nil then rid = lrid end
 					end
 					if map:IsInstanceMap(rid) then
-						map.Scale = 120
+						if map.Win:IsSizeMax() then
+							map.Scale = 256
+						else
+							map.Scale = 120
+						end
 					else
 						map.Scale = map.RealScale
 					end
@@ -6461,7 +6475,9 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 		overlays = self.CurOverlays
 		txFolder = self.CurOverlaysTexFolder
 	end
-
+	if self:IsBattleGroundMap(Nx.Map.UpdateMapID) then
+		return
+	end
 	if not overlays then	-- Not found? New stuff probably
 		return
 	end
@@ -6473,8 +6489,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local path = "Interface\\Worldmap\\" .. txFolder .. "\\"
 
 	local alpha = self.BackgndAlpha
-	local unExAl = self.LOpts.NXUnexploredAlpha
-
+	local unExAl = self.LOpts.NXUnexploredAlpha	
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
 	for txName, whxyStr in pairs (overlays) do
@@ -8316,7 +8331,7 @@ function Nx.Map:InitTables()
 		 [5] = {640,605,544,737,823},
 		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807},
 		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
-		 [90] = {401,461,482,540,860,512,856,736,626,443},
+		 [90] = {401,461,482,540,860,512,856,736,626,443,935,1010},
 		 [100] = {},
 	}
 
@@ -9079,7 +9094,7 @@ function Nx.Map:GetWorldZoneScale (mapId)
 
 --	if not self.MapWorldInfo[mapId] then
 --		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
---	end
+--	end	
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]
