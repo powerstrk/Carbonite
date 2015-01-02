@@ -1769,7 +1769,7 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						q12 = {
+						gather = {
 							order = 16,
 							type = "toggle",
 							width = "full",
@@ -8701,7 +8701,7 @@ function Nx.Quest.Watch:UpdateList()
 							local title, task, _, completed = C_Scenario.GetStepInfo(1)
 							local tasktexts = { "Bonus |cff00ff00" }
 							task:gsub('%S+%s*', function(word)
-								if (#tasktexts[#tasktexts] + #word) < 60 then
+								if (#tasktexts[#tasktexts] + #word) < (Nx.qdb.profile.QuestWatch.OMaxLen + 10) then
 									tasktexts[#tasktexts] = tasktexts[#tasktexts] .. word
 								else
 									tasktexts[#tasktexts+1] = " |cff00ff00" .. word
