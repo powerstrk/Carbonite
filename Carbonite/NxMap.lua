@@ -3294,6 +3294,7 @@ function Nx.Map:ToggleSize (szmode)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
 			WorldMapPlayerLower:SetAlpha(0)
 			WorldMapPlayerUpper:SetAlpha(0)
+			
 			map:MaxSize()
 		end
 
@@ -3339,7 +3340,9 @@ function Nx.Map:RestoreSize()
 			self.Win:Show (false)
 		end
 	end
-
+	if self:IsInstanceMap(Nx.Map.UpdateMapID) then
+		self.Scale = 120.0
+	end
 	local wname = self:GetWinName()
 	for n, name in pairs (UISpecialFrames) do
 		if name == wname then
@@ -3365,7 +3368,9 @@ function Nx.Map:MaxSize()
 		self:SaveView ("")
 
 		self:MouseEnable (true)
-
+		if self:IsInstanceMap(Nx.Map.UpdateMapID) then
+			self.Scale = 256.0
+		end
 		if Nx.db.profile.Map.MaxCenter then
 			self:CenterMap()
 		end
@@ -3915,7 +3920,11 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 						if lrid ~= nil then rid = lrid end
 					end
 					if map:IsInstanceMap(rid) then
-						map.Scale = 120
+						if map.Win:IsSizeMax() then
+							map.Scale = 256
+						else
+							map.Scale = 120
+						end
 					else
 						map.Scale = map.RealScale
 					end
