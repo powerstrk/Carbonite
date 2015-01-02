@@ -4446,7 +4446,7 @@ function Nx.Quest:FindCur (qId, qIndex)
 		return
 	end
 
-	if qIndex and qId == 0 then
+	if qIndex and and qIndex > 0 and qId == 0 then
 		local i, cur = self:FindCurByIndex (qIndex)
 		return i, cur, cur.Title	-- Also return string type id
 	end
@@ -5962,7 +5962,7 @@ end
 function Nx.Quest.List:OnSendQuestInfoTimer()
 
 	local qi = self.SendQInfoQI
-	local i, cur = Nx.Quest:FindCurByIndex (qi)
+	local i, cur = qi > 0 and Nx.Quest:FindCurByIndex (qi) or nil, nil
 
 	if not i then
 		return
@@ -6427,7 +6427,7 @@ function Nx.Quest.List:LogUpdate()
 			QHistLogin = Nx:ScheduleTimer(Quest.QuestQueryTimer, 1, Quest)
 		end
 	end
-	if qn then
+	if qn and qn > 0 then
 
 		local curi, cur = Quest:FindCurByIndex (qn)
 
