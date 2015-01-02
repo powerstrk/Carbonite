@@ -575,8 +575,8 @@ function Nx.Warehouse.ExportDo()
 end
 
 function Nx.Warehouse:Menu_OnSyncAccount()
-	Nx:ImportCharacterData()
-	Nx:ExportCharacterData()
+	Nx:ImportDo()
+	Nx:ExportDo()
 	Nx:CalcRealmChars()
 	self:Update()
 end

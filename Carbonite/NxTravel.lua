@@ -20,13 +20,11 @@
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- Tables
+---------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------
-
---------
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
 function Nx.Travel:Init()
@@ -83,8 +81,9 @@ function Nx.Travel:Add (typ)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Taxi Map open event
+---------------------------------------------------------------------------------------
 
 function Nx.Travel.OnTaximap_opened()
 
@@ -95,8 +94,9 @@ function Nx.Travel.OnTaximap_opened()
 	self:CaptureTaxi()
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Record taxi locations we can use
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:CaptureTaxi()
 
@@ -123,8 +123,9 @@ function Nx.Travel:CaptureTaxi()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Hook for Taxi use
+---------------------------------------------------------------------------------------
 
 function Nx.Travel.TakeTaxiNode (node)
 
@@ -155,8 +156,9 @@ function Nx.Travel.TakeTaxiNode (node)
 	Nx.Travel.OrigTakeTaxiNode (node)
 end
 
---------
+---------------------------------------------------------------------------------------
 --
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:TaxiCalcTime (dest)
 
@@ -226,8 +228,9 @@ function Nx.Travel:TaxiCalcTime (dest)
 	return tm
 end
 
---------
+---------------------------------------------------------------------------------------
 --
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:TaxiFindNodeFromRouteXY (x, y)
 
@@ -320,8 +323,9 @@ function Nx.Travel:TaxiTimer()
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Called by map to save flight time
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:TaxiSaveTime (tm)
 
@@ -332,11 +336,11 @@ function Nx.Travel:TaxiSaveTime (tm)
 	end
 end
 
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 
---------
+---------------------------------------------------------------------------------------
 -- Make shortest path
---
+---------------------------------------------------------------------------------------
 -- Straight line (flight master can shorten)
 -- zone connection (FM can shorten)
 --
@@ -361,6 +365,7 @@ end
 --  *        .CC.F--         *
 --  *          *             *
 --  ************************
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dstY, targetType)
 	if not Nx.db.profile.Map.RouteUse then
@@ -499,7 +504,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 									node1.NoSplit = true
 								end
 
-								local name = format ("Connection: %s to %s", GetMapNameByID(con.StartMapId), GetMapNameByID(con.EndMapId))
+								local name = format (L["Connection: %s to %s"], GetMapNameByID(con.StartMapId), GetMapNameByID(con.EndMapId))
 
 								local node = {}
 								node.NoSplit = true
@@ -647,7 +652,7 @@ function Nx.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 
 		local path = {}
 
-		local name = format ("Fly: %s to %s", gsub (t1Node.Name, ".+!", ""), gsub (bt2Node.Name, ".+!", ""))
+		local name = format (L["Fly: %s to %s"], gsub (t1Node.Name, ".+!", ""), gsub (bt2Node.Name, ".+!", ""))
 --		local name = format ("Fly: %s to %s", t1Node.Name, bt2Node.Name)
 
 		local node1 = {}
@@ -673,9 +678,10 @@ function Nx.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find closest
 -- (mapid, world x, world y)
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:FindClosest (mapId, posX, posY)
 	local Map = Nx.Map
@@ -726,8 +732,9 @@ function Nx.Travel:FindClosest (mapId, posX, posY)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Find best connection
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, skipIndirect)
 
@@ -828,7 +835,7 @@ function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, s
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 
 function Nx.Travel:DebugCaptureTaxi()
 
@@ -901,5 +908,6 @@ function Nx.Travel:GetRidingSkill()
 	return SkillRiding
 end
 
--------------------------------------------------------------------------------
--- EOF
+---------------------------------------------------------------------------------------
+--EOF
+---------------------------------------------------------------------------------------
