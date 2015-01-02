@@ -4446,7 +4446,7 @@ function Nx.Quest:FindCur (qId, qIndex)
 		return
 	end
 
-	if qIndex and and qIndex > 0 and qId == 0 then
+	if qIndex and qIndex > 0 and qId == 0 then
 		local i, cur = self:FindCurByIndex (qIndex)
 		return i, cur, cur.Title	-- Also return string type id
 	end
