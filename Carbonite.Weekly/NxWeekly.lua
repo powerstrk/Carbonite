@@ -445,9 +445,9 @@ local function WeeklyOptions()
 								},
 							},
 						},
-						WodRaids = {
+						MopRaids = {
 							type = "group",
-							name = "WoD",
+							name = "MoP",
 							order = 1,
 							args = {
 								rdesc = {
@@ -517,9 +517,9 @@ local function WeeklyOptions()
 								},
 							},
 						},
-						MopRaids = {
+						WodRaids = {
 							type = "group",
-							name = "MoP",
+							name = "WoD",
 							order = 2,
 							args = {
 								rdesc = {
