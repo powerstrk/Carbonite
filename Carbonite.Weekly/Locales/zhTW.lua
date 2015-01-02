@@ -18,9 +18,6 @@ L["Saturday"] = true
 L["Sunday"] = true
 L["Mobs"] = true
 L["Place check boxes in the mobs you wish to track weekly kills."] = true
-L["Tarlna the Ageless"] = true
-L["Drov the Ruiner"] = true
-L["Rukhmar"] = true
 L["Lootables"] = true
 L["Place check boxes in the weekly drops you wish to track."] = true
 L["Quests"] = true
@@ -40,3 +37,40 @@ L["Looted"] = true
 L["Not Looted"] = true
 L["Completed"] = true
 L["Not Completed"] = true
+
+-- Bosses
+-- MoP
+L["Sha of Anger"] = true
+L["Galleon"] = true
+L["Nalak, The Storm Lord"] = true
+L["Oondasta"] = true
+L["Celestials"] = true
+L["Ordos"] = true
+--WoD
+L["Rukhmar"] = true
+L["Drov the Ruiner"] = true
+L["Tarlna the Ageless"] = true
+
+L["The Crumbled Chamberlain"] = true
+L["Tempered Fate Seals"] = true
+L["Bronze"] = true
+L["Silver"] = true
+L["Gold"] = true
+L["Palace Key"] =true
+L["LFR"] = true
+L["Normal"] = true
+L["Heroic"] = true
+L["Mythic"] = true
+L["Yes"] = true
+L["No"] = true
+L["Mogu'shan Vaults"] = true
+L["Heart of Fear"] = true
+L["Terrace of Endless Spring"] = true
+L["Throne of Thunder"] = true
+L["Siege of Orgrimmar"] = true
+L["Blackrock Foundry"] = true
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["MoP"] = true
+L["WoD"] = true

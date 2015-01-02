@@ -46,6 +46,7 @@ L["Import %s's character data and reload?"] = true
 L["Overwrite all character settings and reload?"] = true
 L["Warehouse: %d characters"] = true
 L["DurPattern"] = "^Durabilidade (%d+) / (%d+)"
+L["Show Warehouse"] = true
 
 L["Import"] = true
 L["Cancel"] = true

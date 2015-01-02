@@ -18,9 +18,6 @@ L["Saturday"] = "周六"
 L["Sunday"] = "周日"
 L["Mobs"] = "世界BOSS"
 L["Place check boxes in the mobs you wish to track weekly kills."] = "勾选你想要追踪击杀情况的世界BOSS。"
-L["Tarlna the Ageless"] = "永恒的塔尔纳"
-L["Drov the Ruiner"] = "毁灭者多弗"
-L["Rukhmar"] = "鲁克玛"
 L["Lootables"] = "可拾取物品"
 L["Place check boxes in the weekly drops you wish to track."] = "勾选你想要追踪拾取情况的物品。"
 L["Quests"] = "周常任务"
@@ -40,3 +37,40 @@ L["Looted"] = "已拾取"
 L["Not Looted"] = "未拾取"
 L["Completed"] = "已完成"
 L["Not Completed"] = "未完成"
+
+-- Bosses
+-- MoP
+L["Sha of Anger"] = true
+L["Galleon"] = true
+L["Nalak, The Storm Lord"] = true
+L["Oondasta"] = true
+L["Celestials"] = true
+L["Ordos"] = true
+--WoD
+L["Rukhmar"] = true
+L["Drov the Ruiner"] = true
+L["Tarlna the Ageless"] = true
+
+L["The Crumbled Chamberlain"] = true
+L["Tempered Fate Seals"] = true
+L["Bronze"] = true
+L["Silver"] = true
+L["Gold"] = true
+L["Palace Key"] =true
+L["LFR"] = true
+L["Normal"] = true
+L["Heroic"] = true
+L["Mythic"] = true
+L["Yes"] = true
+L["No"] = true
+L["Mogu'shan Vaults"] = true
+L["Heart of Fear"] = true
+L["Terrace of Endless Spring"] = true
+L["Throne of Thunder"] = true
+L["Siege of Orgrimmar"] = true
+L["Blackrock Foundry"] = true
+L["Shan'ze Ritual Stone"] = true
+L["Lei Shen Palace Key"] = true
+L["Thunder King Trove"] = true
+L["MoP"] = true
+L["WoD"] = true
