@@ -347,6 +347,12 @@ L["Click ? to complete"] = true
 L["Quest Info (shift click - goto)..."] = true
 L[" (Complete)"] = true
 L["(done)"] = true
+
+L["Quest Complete '%s'"] = "Quest Abgeschlossen '%s'"
+L["Load quest data by threshold"] = "Lade Questdaten nach Grenzwert"
+L["Loads all the carbonite quest data between player level - level threshold to 100"] = "Lade alle Carbonite-Questdaten zwischen Spielerlevel - Levelgrenze bis 100"
+L["Level Threshold"] = "Levelgrenze"
+L["Levels under player level to load quest data on reload"] = "Level unter dem Spielerlevel zum laden der Questdaten nach dem Neuladen"
 --	Keybinds/Tastaturbelegungen
 L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
 L["NxTOGGLEWATCHMINI"] = "Questleiste mini/maximieren"
