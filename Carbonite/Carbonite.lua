@@ -1805,7 +1805,7 @@ function Nx:CalcRealmChars()
 			for rc, v in pairs (chars) do
 				if v ~= Nx.CurCharacter then
 					local rname = Nx.Split (".", rc)
-					if rname == connectedrealms[i] then
+					if rname == connectedrealms[i] and connectedrealms[i] ~= realmName then
 						tinsert (t, rc)
 					end
 				end
@@ -1992,7 +1992,7 @@ function Nx:AddEvent (event, name, time, mapId, x, y, data)
 	local s = Nx:PackXY (x, y)
 	name = gsub (name, "^", "")
 
-	s = format ("%s^%.0f^%d^%s^%s", event, time, Nx.MapIdToNxzone[mapId] or 0, s, name)
+	s = format ("%s^%.0f^%d^%s^%s", event, time, mapId or 0, s, name)
 
 	if data then
 		s = s .. "^" .. data
@@ -2013,20 +2013,16 @@ function Nx:GetEventMapId (evStr)
 
 	local _, _, map = Nx.Split ("^", evStr)
 
-	return self.NxzoneToMapId[tonumber (map)] or 0
+	return tonumber (map) or 0
 end
 
 --------
 
 function Nx:UnpackEvent (evStr)
-
 	local typ, tm, map, xy, text, data = Nx.Split ("^", evStr)
-
 	tm = tonumber (tm)
-	map = self.NxzoneToMapId[tonumber (map)] or 0
-
+	map = tonumber (map) or 0
 	local x, y = Nx:UnpackXY (xy)
-
 	return typ, tm, map, x, y, text, data
 end
 
@@ -3902,4 +3898,6 @@ function Nx.Proc:OnUpdate (elapsed)
 	self.TimeLeft = elapsed
 end
 
----------------------------------------------------------------------------------EOF
+---------------------------------------------------------------------------------------
+--EOF
+---------------------------------------------------------------------------------------

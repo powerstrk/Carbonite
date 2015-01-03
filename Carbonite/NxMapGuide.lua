@@ -67,10 +67,6 @@ Nx.GuideInfo = {
 			Tx = "Spell_Shadow_Twilight",
 		},
 		{
-			T = L["Arcane Reforger"],
-			Tx = "INV_Sword_67",
-		},
-        {
 			T = L["Void Storage"],
 			Tx = "spell_nature_astralrecalgroup",
 		},
@@ -1266,9 +1262,8 @@ function Nx.Map.Guide:UpdateMapIcons()
 			end
 			if Quest and Quest.QGivers then
 				local mapId = map:GetCurrentMapId()
-				mapId=Nx.Map:GCMI_OVERRIDE(mapId)
-				local zone = Nx.MapIdToNxzone[mapId]
-				local stzone = Quest.QGivers[zone]
+				mapId=Nx.Map:GCMI_OVERRIDE(mapId)				
+				local stzone = Quest.QGivers[mapId]
 				if stzone then
 					if not Nx.CurCharacter["Level"] then return end
 					local minLvl = Nx.CurCharacter["Level"] - Nx.qdb.profile.Quest.MapQuestGiversLowLevel
@@ -1471,8 +1466,7 @@ Nx.GuidePOI = {
 	L["Flight Master"] .. "~Ability_Mount_Wyvern_01",
 	L["Innkeeper"] .. "~Spell_Shadow_Twilight",
 	L["Mailbox"] .. "~INV_Letter_15",
-    L["Arcane Reforger"] .. "~INV_Sword_67",
-}
+    }
 
 function Nx.Map.Guide:UpdateZonePOIIcons()
 	local Map = Nx.Map
@@ -1845,7 +1839,7 @@ function Nx.Map.Guide:SavePlayerNPCTarget()
 
 	local map = Nx.Map:GetMap (1)
 	local s = Nx:PackXY (map.PlyrRZX, map.PlyrRZY)
-	self.PlayerNPCTargetPos = format ("%d^%s", Nx.MapIdToNxzone[map.UpdateMapID] or 0, s)
+	self.PlayerNPCTargetPos = format ("%d^%s", map.UpdateMapID or 0, s)
 end
 function Nx.Map.Guide.OnGossip_show()
 	local self = Nx.Map.Guide

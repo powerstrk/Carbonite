@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "enUS", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite", "enUS", true, true)
 if not L then return end
 
 -- Profiles Menu
@@ -33,7 +33,7 @@ L["Naharis for quest watchlist fixes"] = true
 L["nelegalno for many cleanups, api fixes"] = true
 L["JimboBlue for guide location updates"] = true
 L["Localization Efforts By:"] = true
-L["frFR - powerstk"] = true
+L["frFR - powerstrk"] = true
 L["deDE - atl77 & samyonair"] = true
 L["itIT - ThorwaldOdin"] = true
 L["ruRU - NotDead"] = true

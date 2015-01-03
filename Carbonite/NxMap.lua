@@ -212,7 +212,7 @@ end
 local blizSetMapToCurrentZone = SetMapToCurrentZone
 local blizSetMapByID = SetMapByID
 
-function SetMapToCurrentZone(carbcalled) 
+function SetMapToCurrentZone(carbcalled)
 	if carbcalled then
 		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
 			Nx.CurrentDetectedZone = GetRealZoneText()
@@ -233,11 +233,11 @@ function SetMapByID(zone,level)
 			zone = Nx.Map.MouseIsOverMap
 			Nx.Map.RMapId = zone
 		else
-			Nx.Map.RMapId = Nx.Map.UpdateMapID
+			Nx.Map.RMapId = zone
 			return
 		end
 	else
-		Nx.Map.RMapId = Nx.Map.UpdateMapID
+		Nx.Map.RMapId = zone
 	end
 	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
 		if zone then
@@ -3294,6 +3294,7 @@ function Nx.Map:ToggleSize (szmode)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
 			WorldMapPlayerLower:SetAlpha(0)
 			WorldMapPlayerUpper:SetAlpha(0)
+			
 			map:MaxSize()
 		end
 
@@ -3339,7 +3340,9 @@ function Nx.Map:RestoreSize()
 			self.Win:Show (false)
 		end
 	end
-
+	if self:IsInstanceMap(Nx.Map.UpdateMapID) then
+		self.Scale = 120.0
+	end
 	local wname = self:GetWinName()
 	for n, name in pairs (UISpecialFrames) do
 		if name == wname then
@@ -3365,7 +3368,9 @@ function Nx.Map:MaxSize()
 		self:SaveView ("")
 
 		self:MouseEnable (true)
-
+		if self:IsInstanceMap(Nx.Map.UpdateMapID) then
+			self.Scale = 256.0
+		end
 		if Nx.db.profile.Map.MaxCenter then
 			self:CenterMap()
 		end
@@ -3726,6 +3731,11 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
 	if ttl < .05 then
+		local f = this.NxMap.WorldMapFrm
+		if f and (this.NxMap.StepTime ~= 0 or this.NxMap.Scrolling or IsShiftKeyDown()) then
+			f:Hide()
+			--Nx.prt("Hiding Frame...")-- DEBUG!
+		end
 		return
 	end
 	ttl = 0
@@ -3754,7 +3764,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	if map.InstanceId then
 		winx = nil
 	end
-	
+
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
 		winx = nil
 	end
@@ -3879,7 +3889,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 			y = floor (y * 10) / 10
 			local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ .5 * 4.575
 
-			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f yds", x, y, dist)
+			cursorLocXY = format ("|cff80b080%.1f %.1f %.0f " .. L["yds"], x, y, dist)
 			cursorLocStr = cursorLocXY
 
 			local name = UpdateMapHighlight (x / 100, y / 100)
@@ -3910,7 +3920,11 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 						if lrid ~= nil then rid = lrid end
 					end
 					if map:IsInstanceMap(rid) then
-						map.Scale = 120
+						if map.Win:IsSizeMax() then
+							map.Scale = 256
+						else
+							map.Scale = 120
+						end
 					else
 						map.Scale = map.RealScale
 					end
@@ -5721,7 +5735,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 		local s = name or self.TrackName
 
-		f.NxTip = format ("%s\n%d yds", s, dist * 4.575)
+		f.NxTip = format ("%s\n%d " .. L["yds"], s, dist * 4.575)
 
 		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
 	end
@@ -6461,7 +6475,9 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 		overlays = self.CurOverlays
 		txFolder = self.CurOverlaysTexFolder
 	end
-
+	if self:IsBattleGroundMap(Nx.Map.UpdateMapID) then
+		return
+	end
 	if not overlays then	-- Not found? New stuff probably
 		return
 	end
@@ -6473,8 +6489,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local path = "Interface\\Worldmap\\" .. txFolder .. "\\"
 
 	local alpha = self.BackgndAlpha
-	local unExAl = self.LOpts.NXUnexploredAlpha
-
+	local unExAl = self.LOpts.NXUnexploredAlpha	
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
 	for txName, whxyStr in pairs (overlays) do
@@ -8301,12 +8316,6 @@ function Nx.Map:InitTables()
 	local Nx = Nx
 
 	local worldInfo = self.MapWorldInfo
-
-	Nx.MapNameToId = {}
-	Nx.MapIdToName = {}
-	Nx.MapIdToNxzone = {}
-	self.NxzoneToMapId = {}
-	Nx.NxzoneToMapId = self.NxzoneToMapId
 	Nx.MapOverlayToMapId = {}
 
 	-- Get Blizzard's alphabetical set of names
@@ -8322,7 +8331,7 @@ function Nx.Map:InitTables()
 		 [5] = {640,605,544,737,823},
 		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807},
 		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
-		 [90] = {401,461,482,540,860,512,856,736,626,443},
+		 [90] = {401,461,482,540,860,512,856,736,626,443,935,1010},
 		 [100] = {},
 	}
 
@@ -8533,65 +8542,6 @@ function Nx.Map:InitTables()
 			self.MapWorldInfo[mid] = winfo
 		end
 	end
---	Nx.prt("debug: ")
-	-- Init NxzoneToMapId, MapIdToNxzone
-
-	for id, v in pairs (Nx.Zones) do
-		local name, minLvl, maxLvl, faction = Nx.Split ("|", v)
---[[
-		if id ~= 146 then		-- The Scarlet Enclave needs to keep the :
-			local i = strfind (name, ": ")
-			if i then
-				name = strsub (name, i + 2)
-			end
-		end
---]]
-		local mapId = Nx.MapNameToId[name]
-
-		if mapId then
-
-			if not Nx.MapIdToNxzone[mapId] then
-				Nx.MapIdToNxzone[mapId] = id
-			else
---				Nx.prt ("Map Init %s %s dup %s", name, id, Nx.MapIdToNxzone[mapId])
-			end
-			self.NxzoneToMapId[id] = mapId
-		else
-			if id ~= 0 then
---				Nx.prt ("Inst %s %d", name, id)
-			end
-		end
-	end
-
--- Init AId2Id (Blizzard area id to map id and back)
-
-	Nx.AIdToId = {}
-	Nx.IdToAId = {}
-
-	for aid, zid in pairs (Nx.Zones) do
-			local id = self.NxzoneToMapId[aid]
-			Nx.AIdToId[aid] = id
-			if id then
-				Nx.IdToAId[id] = aid
-			end
---			if not id then
---				Nx.prt ("AId %s (%s) = %s", aid, zid, id or "nil")
---			end
-	end
-
-	-- Init instance entries
-
-	for k, v in pairs (Nx.Zones) do
-
-		local name, minLvl, maxLvl, faction, cont, entryId = Nx.Split ("|", v)
-
-		if faction ~= "3" then		-- Not instance
-
-			if entryId and entryId ~= "" then
-				self.NxzoneToMapId[k] = self.NxzoneToMapId[tonumber (entryId)]
-			end
-		end
-	end
 
 	--	DEBUG for Jamie
 
@@ -8794,15 +8744,6 @@ end
 
 function Nx.Map:SetToCurrentZone()
 	SetMapToCurrentZone()
-
-	local aid = GetCurrentMapAreaID()
-	local id = Nx.AIdToId[aid]
-
-	if id == 1014 then					-- Orgrimmar
-		SetDungeonMapLevel (1)			-- Don't allow cleft of shadows
-	end
-
---	Nx.prt ("SetToCurrentZone %s %s", aid, id or "nil")
 end
 
 --------
@@ -9153,7 +9094,7 @@ function Nx.Map:GetWorldZoneScale (mapId)
 
 --	if not self.MapWorldInfo[mapId] then
 --		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
---	end
+--	end	
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]

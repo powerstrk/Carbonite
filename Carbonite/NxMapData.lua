@@ -971,7 +971,7 @@ Map.MapWorldInfo = {
 		Name = L["The Battle for Gilneas"],
 		Scale = 2.6041665649414,
 		X = -14500,
-		X = 2000,
+		Y = 2000,
 		Short = "TBG",
 	},
 	[737] = {
@@ -1343,7 +1343,7 @@ Map.MapWorldInfo = {
 		Overlay = "ashranalliancefactionhub",
 	},
 	[1010] = {
-		Name = L["Deepwind Gorge"],
+		Name = L["Tarren Mills vs Southshore"],
 		Scale = 4.337498046875,
 		X = -13000,
 		Y = 1000,

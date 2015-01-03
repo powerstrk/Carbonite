@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "enUS", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("Carbonite.Info", "enUS", true, true)
 if not L then return end
 
 L["Info Options"] = true
@@ -31,3 +31,7 @@ L["Cancel"] = true
 L["One minute until the Arena"] = true
 L["Thirty seconds until the Arena"] = true
 L["Fifteen seconds until the Arena"] = true
+
+L["Reset old info data %f"] = true
+L[" begins? in (%d+) "] = true
+L["(%d+) minutes? until the battle"] = true

@@ -23,6 +23,8 @@
 --------
 -- Init HUD data
 
+local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
+
 function Nx.HUD:Init()
 
 	Nx.HUD.TexNames = { "", "Chip", "Gloss", "Glow", "Neon" }
@@ -234,7 +236,7 @@ function Nx.HUD:Update (map)
 --PAIDE!
 
 		local col = dirDist < 5 and "|cffa0a0ff" or ""
-		local str = format ("%s%d yds", col, dist)
+		local str = format ("%s%d " .. L["yds"], col, dist)
 
 		if Nx.db.profile.Track.ShowDir then
 			local fmt = dirDist < 1 and " %.1f deg" or " %d deg"
