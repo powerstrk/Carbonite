@@ -44,4 +44,5 @@ Temporary Items
 .apdisk
 
 # IDE Directories
+*.orig
 .idea
