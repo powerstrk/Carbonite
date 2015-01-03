@@ -96,7 +96,7 @@ function Nx.prt (...)
 	local args = {...}
 	local i = 1
 	-- replace missing/erroneous placeholders
-	function replace_placeholders(placeholder, item)
+	function replace_placeholders(placeholder, item) 		
 		i = i + 1
 		if (args[i] == nil) then
 			return '[missing argument]'
@@ -118,7 +118,7 @@ end
 
 function Nx.prtraw (msg)
 	local f = Nx.prtChatFrm or DEFAULT_CHAT_FRAME
---	msg = debugstack(2,3,2)
+--    msg = debugstack(2,3,2)
 	f:AddMessage (Nx.TXTBLUE..L["Carbonite"].." |cffffffff".. msg, 1, 1, 1)
 end
 
@@ -254,6 +254,7 @@ function Nx.prtFrameChildren (msg, frm, lvl)
 end
 
 ---------------------------------------------------------------------------------------
+
 ---------------------------------------------------------------------------------------
 -- Make the first letter a cap and the rest lower case
 ---------------------------------------------------------------------------------------
@@ -2008,7 +2009,7 @@ end
 
 ---------------------------------------------------------------------------------------
 -- Check if hidden from combat
----------------------------------------------------------------------------------------
+
 
 function Nx.Window:IsCombatHidden()
 
@@ -6626,9 +6627,8 @@ function Nx.DropDown:OnListEvent (eventName, sel, val2, click)
 	self.Win:Show (false)
 end
 
----------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 -- Tab Bar
----------------------------------------------------------------------------------------
 
 function Nx.TabBar:GetHeight()
 	return 22
@@ -6689,9 +6689,8 @@ function Nx.TabBar:Create (name, parentFrm, width, height)
 	return bar
 end
 
----------------------------------------------------------------------------------------
+------
 -- Create border frames
----------------------------------------------------------------------------------------
 
 function Nx.TabBar:CreateBorders()
 
@@ -7882,3 +7881,4 @@ end
 
 ---------------------------------------------------------------------------------------
 --EOF
+---------------------------------------------------------------------------------------

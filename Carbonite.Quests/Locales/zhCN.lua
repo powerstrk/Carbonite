@@ -289,7 +289,9 @@ L["Player"] = "玩家"
 L["Daily Quests Completed: |cffffffff"] = "日常任务已完成: |cffffffff"
 L["|r  Daily reset: |cffffffff"] = "|r  日常重置: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "任务: |cffffffff%d/%d|r  %s"
+
 L["yds"] = "码"
+
 L["Reset old quest options %f"] = "重置旧任务设置 %f"
 L["Set %d chain quests as done"] = "设置 %d 个任务链为已完成状态"
 L["QuestQueryTimer wait"] = true

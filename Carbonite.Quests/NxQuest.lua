@@ -64,8 +64,8 @@ local defaults = {
 			DetailTC = ".125|.06|.03|1",
 			DetailScale = .95,
 			HCheckCompleted = false,
-			LevelsToLoad = 100,
-			MapQuestGiversHighLevel = 100,
+			LevelsToLoad = 90,
+			MapQuestGiversHighLevel = 90,
 			MapQuestGiversLowLevel = 90,
 			MapShowWatchAreas = true,
 			MapWatchAreaAlpha = "1|1|1|.4",
@@ -102,18 +102,18 @@ local defaults = {
 			Snd6 = false,
 			Snd7 = false,
 			Snd8 = false,
-			Load0 = true,	-- dailies
-			Load1 = true,	--  1 - 10
-			Load2 = true,	-- 11 - 20
-			Load3 = true,	-- 21 - 30
-			Load4 = true,	-- 31 - 40
-			Load5 = true,	-- 41 - 50
-			Load6 = true,	-- 51 - 60
-			Load7 = true,	-- 61 - 70
-			Load8 = true,	-- 71 - 80
-			Load9 = true,	-- 81 - 85
-			Load10 = true,	-- 86 - 90
-			Load11 = true,	-- 91 - 100
+			Load0 = true,    -- dailies
+			Load1 = true,    -- 1 - 10
+			Load2 = true,    -- 11 - 20
+			Load3 = true,    -- 21 - 30
+			Load4 = true,    -- 31 - 40
+			Load5 = true,    -- 41 - 50
+			Load6 = true,    -- 51 - 60
+			Load7 = true,    -- 61 - 70
+			Load8 = true,    -- 71 - 80
+			Load9 = true,    -- 81 - 85
+			Load10 = true,   -- 86 - 90
+			Load11 = true,
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -858,7 +858,7 @@ local function QuestOptions ()
 							end,
 						},
 					},
-				},
+			    },
 				watch = {
 					type = "group",
 					name = L["Watch Options"],
@@ -2016,7 +2016,7 @@ function CarboniteQuest:OnInitialize()
 		cap["Q"] = {}
 		NXQuest.Gather = cap
 	end
-
+	
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
@@ -2797,7 +2797,7 @@ function Nx.Quest:LoadQuestDB()
 	end
 
 
-	for lvl = 0, 100 do
+	for lvl = 0, 90 do
 
 		local grp = {}
 
@@ -3000,7 +3000,7 @@ function Nx.Quest.GetQuestReward (choice, ...)
 
 	local q = Nx.Quest
 	q:FinishQuest()
-	q.BlizzGetQuestReward (choice, ...)
+    q.BlizzGetQuestReward (choice, ...)
 end
 
 function Nx.Quest:FinishQuest()
@@ -3715,7 +3715,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()
+		local mapId = Nx.Map:GetCurrentMapId()		
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
@@ -5167,10 +5167,10 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
-	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
-	win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
-	win:RegisterEvent ("WORLD_STATE_TIMER_START", self.OnQuestUpdate)
-	win:RegisterEvent ("WORLD_STATE_TIMER_STOP", self.OnQuestUpdate)
+  win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
+  win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
+  win:RegisterEvent ("WORLD_STATE_TIMER_START", self.OnQuestUpdate)
+  win:RegisterEvent ("WORLD_STATE_TIMER_STOP", self.OnQuestUpdate)
 	win:RegisterEvent ("WORLD_MAP_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("CRITERIA_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("CHAT_MSG_COMBAT_FACTION_CHANGE", Nx.Quest.OnChat_msg_combat_faction_change)
@@ -6478,11 +6478,11 @@ function Nx.Quest.List:Update()
 
 	local dailyStr = ""
 	local dailysDone = GetDailyQuestsCompleted()
-	if Nx.qdb.profile.Quest.ShowDailyCount then
+    if Nx.qdb.profile.Quest.ShowDailyCount then
 	  if dailysDone > 0 then
 		dailyStr = L["Daily Quests Completed: |cffffffff"] .. dailysDone
 	  end
-	end
+    end
 	if Nx.qdb.profile.Quest.ShowDailyReset then
 		dailyStr = dailyStr .. L["|r  Daily reset: |cffffffff"] .. Nx.Util_GetTimeElapsedStr (GetQuestResetTime())
 	end
@@ -8723,7 +8723,7 @@ function Nx.Quest.Watch:UpdateList()
 							for criteria = 1, #bonusSteps do
 								local index = bonusSteps[criteria]
 								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)
-								if completed then
+								if completed then 
 									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]",quantity, totalquantity, task)
 								else
 									task = format("|cffffffff%d/%d %s",quantity, totalquantity, task)
@@ -9917,24 +9917,24 @@ function Nx.Quest:GetPosLoc (str)
 
 	if type(str) == "table" then
 		for i = 1,32 do
-			if str[i] then
-				local desc, zone, typ, x, y, w, h = Nx.Split("|",str[i])
-				if tonumber(typ) == 32 then
-					cnt = i
-					ox = ox + tonumber(x)
-					oy = oy + tonumber(y)
-				elseif tonumber(typ) == 33 then
-					cnt = 1
-					ox, oy = self:UnpackLocPtRelative (str, loc + 1)
-				else
-					w = tonumber(w) / 1002 * 100
-					h = tonumber(h) / 668 * 100
-					local area = w * h
-					cnt = cnt + area
-					ox = ox + (tonumber(x) + w * .5) * area
-					oy = oy + (tonumber(y) + h * .5) * area
-				end
+		  if str[i] then
+		    local desc, zone, typ, x, y, w, h = Nx.Split("|",str[i])
+			if tonumber(typ) == 32 then
+				cnt = i
+				ox = ox + tonumber(x)
+				oy = oy + tonumber(y)
+			elseif tonumber(typ) == 33 then
+				cnt = 1
+				ox, oy = self:UnpackLocPtRelative (str, loc + 1)
+			else
+				w = tonumber(w) / 1002 * 100
+				h = tonumber(h) / 668 * 100
+				local area = w * h
+				cnt = cnt + area
+				ox = ox + (tonumber(x) + w * .5) * area
+				oy = oy + (tonumber(y) + h * .5) * area
 			end
+		  end
 		end
 	elseif type(str) == "string" then
 		local desc, zone, typ, x, y, w, h = Nx.Split("|",str)
@@ -10628,6 +10628,7 @@ end
 -- Party quests
 -------------------------------------------------------------------------------
 
+
 function Nx.Quest.OnParty_members_changed()
 	if not Nx.Quest.Initialized then
 		return
@@ -10897,3 +10898,4 @@ end
 
 -------------------------------------------------------------------------------
 -- EOF
+-------------------------------------------------------------------------------

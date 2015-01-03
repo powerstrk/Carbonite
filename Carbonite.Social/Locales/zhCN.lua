@@ -101,3 +101,4 @@ L["Punk %s added"] = "敌对玩家 %s 已添加"
 L["hey"] = "♂嘿♂"	--	Hey?
 L["|cffff2020Team:"] = "|cffff2020队友:"
 L["Team:"] = "队友:"
+
