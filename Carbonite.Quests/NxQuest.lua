@@ -4272,7 +4272,7 @@ function Nx.Quest:Capture (curi, objNum)
 			local obj = qdata[index]
 
 			if not obj then
-				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)
+--				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)
 				return
 			end
 
