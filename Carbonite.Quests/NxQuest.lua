@@ -1769,7 +1769,7 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						q12 = {
+						gather = {
 							order = 16,
 							type = "toggle",
 							width = "full",
@@ -4446,7 +4446,7 @@ function Nx.Quest:FindCur (qId, qIndex)
 		return
 	end
 
-	if qIndex and qId == 0 then
+	if qIndex and qIndex > 0 and qId == 0 then
 		local i, cur = self:FindCurByIndex (qIndex)
 		return i, cur, cur.Title	-- Also return string type id
 	end
@@ -5962,7 +5962,7 @@ end
 function Nx.Quest.List:OnSendQuestInfoTimer()
 
 	local qi = self.SendQInfoQI
-	local i, cur = Nx.Quest:FindCurByIndex (qi)
+	local i, cur = qi > 0 and Nx.Quest:FindCurByIndex (qi) or nil, nil
 
 	if not i then
 		return
@@ -6427,7 +6427,7 @@ function Nx.Quest.List:LogUpdate()
 			QHistLogin = Nx:ScheduleTimer(Quest.QuestQueryTimer, 1, Quest)
 		end
 	end
-	if qn then
+	if qn and qn > 0 then
 
 		local curi, cur = Quest:FindCurByIndex (qn)
 
@@ -8701,7 +8701,7 @@ function Nx.Quest.Watch:UpdateList()
 							local title, task, _, completed = C_Scenario.GetStepInfo(1)
 							local tasktexts = { "Bonus |cff00ff00" }
 							task:gsub('%S+%s*', function(word)
-								if (#tasktexts[#tasktexts] + #word) < 60 then
+								if (#tasktexts[#tasktexts] + #word) < (Nx.qdb.profile.QuestWatch.OMaxLen + 10) then
 									tasktexts[#tasktexts] = tasktexts[#tasktexts] .. word
 								else
 									tasktexts[#tasktexts+1] = " |cff00ff00" .. word
