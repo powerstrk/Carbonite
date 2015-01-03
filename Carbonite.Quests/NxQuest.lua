@@ -8748,9 +8748,9 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSet(2,s)
 							list:ItemSetButton("QuestWatch",false)
 						end
-						local bonusSteps = C_Scenario.GetBonusSteps()
-						if bonusSteps then
-							local title, task, _, completed = C_Scenario.GetStepInfo(1)
+						local bonusSteps = C_Scenario.GetBonusSteps() or {}
+						for i = 1, #bonusSteps do
+							local title, task, _, completed = C_Scenario.GetStepInfo(bonusSteps[i])
 							local tasktexts = { "Bonus |cff00ff00" }
 							task:gsub('%S+%s*', function(word)
 								if (#tasktexts[#tasktexts] + #word) < (Nx.qdb.profile.QuestWatch.OMaxLen + 10) then
