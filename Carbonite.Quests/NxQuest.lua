@@ -59,9 +59,10 @@ local defaults = {
 			DetailTC = ".125|.06|.03|1",
 			DetailScale = .95,
 			HCheckCompleted = false,
-			LevelsToLoad = 90,
-			MapQuestGiversHighLevel = 90,
-			MapQuestGiversLowLevel = 90,
+			maxLoadLevel = false,
+			LevelsToLoad = 10,
+			MapQuestGiversHighLevel = 100,
+			MapQuestGiversLowLevel = 1,
 			MapShowWatchAreas = true,
 			MapWatchAreaAlpha = "1|1|1|.4",
 			MapWatchAreaGfx = "Solid",
@@ -108,7 +109,7 @@ local defaults = {
 			Load8 = true,    -- 71 - 80
 			Load9 = true,    -- 81 - 85
 			Load10 = true,   -- 86 - 90
-			Load11 = true,
+			Load11 = true,   -- 91 - 100
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -1608,8 +1609,44 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						q0 = {
+						maxLoadLevel = {
 							order = 3,
+							type = "toggle",
+							width = "full",
+							name = L["Load quest data by threshold"],
+							desc = L["Loads all the carbonite quest data between player level - level threshold to 100"],
+							get = function()
+								return Nx.qdb.profile.Quest.maxLoadLevel
+							end,
+							set = function()
+								Nx.qdb.profile.Quest.maxLoadLevel = not Nx.qdb.profile.Quest.maxLoadLevel
+								Nx.Opts.NXCmdReload()
+							end,
+						},
+						LevelsToLoad = {
+							order = 4,
+							type = "range",
+							name = L["Level Threshold"],
+							desc = L["Levels under player level to load quest data on reload"],
+							min = 1,
+							max = 100,
+							step = 1,
+							bigStep = 1,
+							get = function()
+								return Nx.qdb.profile.Quest.LevelsToLoad
+							end,
+							set = function(info,value)
+								Nx.qdb.profile.Quest.LevelsToLoad = value
+								--Nx.Opts:NXCmdFontChange()
+							end,
+						},
+						spacer2 = {
+							order = 5,
+							type = "description",
+							name = " ",
+						},
+						q0 = {
+							order = 6,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Level 0 (holidays, professions, etc)"],
@@ -1622,7 +1659,7 @@ local function QuestOptions ()
 							end,
 						},
 						q1 = {
-							order = 4,
+							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 1-10"],
@@ -1635,7 +1672,7 @@ local function QuestOptions ()
 							end,
 						},
 						q2 = {
-							order = 5,
+							order = 8,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 11-20"],
@@ -1648,7 +1685,7 @@ local function QuestOptions ()
 							end,
 						},
 						q3 = {
-							order = 6,
+							order = 9,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 21-30"],
@@ -1661,7 +1698,7 @@ local function QuestOptions ()
 							end,
 						},
 						q4 = {
-							order = 7,
+							order = 10,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 31-40"],
@@ -1674,7 +1711,7 @@ local function QuestOptions ()
 							end,
 						},
 						q5 = {
-							order = 8,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 41-50"],
@@ -1687,7 +1724,7 @@ local function QuestOptions ()
 							end,
 						},
 						q6 = {
-							order = 9,
+							order = 12,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 51-60"],
@@ -1700,7 +1737,7 @@ local function QuestOptions ()
 							end,
 						},
 						q7 = {
-							order = 10,
+							order = 13,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 61-70"],
@@ -1713,7 +1750,7 @@ local function QuestOptions ()
 							end,
 						},
 						q8 = {
-							order = 11,
+							order = 14,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 71-80"],
@@ -1726,7 +1763,7 @@ local function QuestOptions ()
 							end,
 						},
 						q9 = {
-							order = 12,
+							order = 15,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 81-85"],
@@ -1739,7 +1776,7 @@ local function QuestOptions ()
 							end,
 						},
 						q10 = {
-							order = 13,
+							order = 16,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 86-90"],
@@ -1752,7 +1789,7 @@ local function QuestOptions ()
 							end,
 						},
 						q11 = {
-							order = 14,
+							order = 17,
 							type = "toggle",
 							width = "full",
 							name = L["Load Quests for Levels 91-100"],
@@ -1764,13 +1801,13 @@ local function QuestOptions ()
 								Nx.qdb.profile.Quest.Load11 = not Nx.qdb.profile.Quest.Load11
 							end,
 						},
-						spacer2 = {
-							order = 15,
+						spacer3 = {
+							order = 18,
 							type = "description",
 							name = " ",
 						},
 						gather = {
-							order = 16,
+							order = 19,
 							type = "toggle",
 							width = "full",
 							name = L["Quests Data Gathering"],
@@ -1782,13 +1819,13 @@ local function QuestOptions ()
 								Nx.db.profile.General.CaptureEnable = not Nx.db.profile.General.CaptureEnable
 							end,
 						},
-						spacer3 = {
-							order = 17,
+						spacer4 = {
+							order = 20,
 							type = "description",
 							name = " ",
 						},
 						reboot = {
-							order = 18,
+							order = 21,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -2001,7 +2038,7 @@ function CarboniteQuest:OnInitialize()
 		VRGBAUp = "1|1|1|.31",
 		VRGBADn = "1|1|1|.85",
 	}
-	
+
 	-- Capture data
 	local cap = NXQuest.Gather
 
@@ -2011,7 +2048,7 @@ function CarboniteQuest:OnInitialize()
 		cap["Q"] = {}
 		NXQuest.Gather = cap
 	end
-	
+
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
@@ -2702,48 +2739,58 @@ end
 
 function Nx.Quest:LoadQuestDB()
 	local Map = Nx.Map
+	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
 	Nx.Quests = Nx["Quests"] or Nx.Quests								-- Copy unmunged data to munged data
 	Nx.QuestStartEnd = Nx["QuestStartEnd"] or Nx.QuestStartEnd	-- Copy unmunged data to munged data
 
 	Nx.Quests = {}
-	if Nx.qdb.profile.Quest.Load0 then Nx.ModQuests:Load0 () else Nx.ModQuests:Clear0 () end
-	if Nx.qdb.profile.Quest.Load1 then Nx.ModQuests:Load1 () else Nx.ModQuests:Clear1 () end
-	if Nx.qdb.profile.Quest.Load2 then Nx.ModQuests:Load2 () else Nx.ModQuests:Clear2 () end
-	if Nx.qdb.profile.Quest.Load3 then Nx.ModQuests:Load3 () else Nx.ModQuests:Clear3 () end
-	if Nx.qdb.profile.Quest.Load4 then Nx.ModQuests:Load4 () else Nx.ModQuests:Clear4 () end
-	if Nx.qdb.profile.Quest.Load5 then Nx.ModQuests:Load5 () else Nx.ModQuests:Clear5 () end
-	if Nx.qdb.profile.Quest.Load6 then Nx.ModQuests:Load6 () else Nx.ModQuests:Clear6 () end
-	if Nx.qdb.profile.Quest.Load7 then Nx.ModQuests:Load7 () else Nx.ModQuests:Clear7 () end
-	if Nx.qdb.profile.Quest.Load8 then Nx.ModQuests:Load8 () else Nx.ModQuests:Clear8 () end
-	if Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
-	if Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
-	if Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
+	if Nx.qdb.profile.Quest.Load0 then Nx.ModQuests:Load0 () else Nx.ModQuests:Clear0 () end --DeaTHCorE - no check by maxLoadLevel, is not a Quest database...
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load1 then Nx.ModQuests:Load1 () else Nx.ModQuests:Clear1 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load2 then Nx.ModQuests:Load2 () else Nx.ModQuests:Clear2 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load3 then Nx.ModQuests:Load3 () else Nx.ModQuests:Clear3 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load4 then Nx.ModQuests:Load4 () else Nx.ModQuests:Clear4 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load5 then Nx.ModQuests:Load5 () else Nx.ModQuests:Clear5 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load6 then Nx.ModQuests:Load6 () else Nx.ModQuests:Clear6 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load7 then Nx.ModQuests:Load7 () else Nx.ModQuests:Clear7 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load8 then Nx.ModQuests:Load8 () else Nx.ModQuests:Clear8 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
 	self.Map = Map:GetMap (1)
 
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
---	enFact = 2
-	local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
+	 -- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
+	 -- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
+	--local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
+	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
+
 	local qMaxLevel = 999
 
-	local qCnt = 0
-	local maxid = 0
-	local sameCnt = 0
+	--DeaTHCorE - follow Vars are no required, they was not used...
+	--local qCnt = 0
+	--local maxid = 0
+	--local sameCnt = 0
 
 	for mungeId, q in pairs (Nx.Quests) do
 
-		local id = (mungeId + 3) / 2 - 7		-- Decode
-
-		qCnt = qCnt + 1
-		maxid = max (id, maxid)
+		--DeaTHCorE - follow are no required, was not used...
+		--local id = (mungeId + 3) / 2 - 7		-- Decode
+		--qCnt = qCnt + 1
+		--maxid = max (id, maxid)
 
 		local name, side, level = self:Unpack (q["Quest"])
-		if side == enFact or level > 0 and level < qLoadLevel or level > qMaxLevel then
+		--if side == enFact or level > 0 and level < qLoadLevel or level > qMaxLevel then
+		if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
 			Nx.Quests[mungeId] = nil
-
+			--if side ~= enFact then -- DEBUG
+			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", level, qLoadLevel)
+			--end
 		else
-			if q["End"] and q["End"] == q["Start"] then
---				q[3] = nil							-- Release mem !!!!! FIX for non enders !!!!!
-				sameCnt = sameCnt + 1
+			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
+			if q["End"] and q["End"] == q["Start"] then --DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
+--				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
+				--DeaTHCorE - follow are no required, was not used...
+				--sameCnt = sameCnt + 1
 			end
 			self:CheckQuestSE (q, 3)
 			for n = 1, 99 do
@@ -2755,8 +2802,6 @@ function Nx.Quest:LoadQuestDB()
 			end
 		end
 	end
-
-	--
 
 	for mungeId, q in pairs (Nx.Quests) do
 
@@ -2792,7 +2837,9 @@ function Nx.Quest:LoadQuestDB()
 	end
 
 
-	for lvl = 0, 90 do
+	--DeaTHCorE - changed to 100 so that all quests to level 100 are checked here...
+	--for lvl = 0, 90 do
+	for lvl = 0, 100 do
 
 		local grp = {}
 
@@ -3228,7 +3275,7 @@ function Nx.Quest:RecordQuestsLog()
 					local change
 
 					if isComplete == 1 and not cur.Complete then
-						Nx.prt ("Quest Complete '%s'", title)
+						Nx.prt (L["Quest Complete '%s'"], title)
 
 						if Nx.qdb.profile.Quest.SndPlayCompleted then
 							self:PlaySound()
@@ -3342,11 +3389,11 @@ function Nx.Quest:RecordQuestsLog()
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
 			if qId then
-				local quest = Nx.Quests[qId]				
+				local quest = Nx.Quests[qId]
 				local lbCnt = GetNumQuestLeaderBoards (qn)
 
 				local cur = quest and fakeq[quest]
-				if not cur then					
+				if not cur then
 					cur = {}
 					curq[index] = cur
 					cur.Index = index
@@ -3657,19 +3704,19 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			local mapId = a
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
-				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done				
+				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
 				Nx.Quest.WorldUpdate = false
 				IS_BACKGROUND_WORLD_CACHING = false
 				return
 			end
 			if mapId ~= curMapId then
-				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged							
+				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
 			end
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
 			end
 		end
-	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done	
+	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
 	Map:SetCurrentMap (curMapId)
 	IS_BACKGROUND_WORLD_CACHING = false
 	self:RecordQuestsLog()
@@ -3702,7 +3749,7 @@ function Nx.Quest:MapChanged()
 	qttl = 0
 	if Nx.QInit then	-- Quests inited?
 		self:ScanBlizzQuestDataZone()
-	end	
+	end
 end
 
 function Nx.Quest:ScanBlizzQuestDataZone()
@@ -3710,30 +3757,30 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()		
+		local mapId = Nx.Map:GetCurrentMapId()
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
 		if not mapId then
 			return
-		end		
-		for n = 1, num do			
+		end
+		for n = 1, num do
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
-			if qi and qi > 0 then				
+			if qi and qi > 0 then
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
 				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then					
+				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
-					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil						
+					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
 						x = x * 100
 						y = y * 100
 --						Nx.prt ("%s #%s %s %s %s %s", mapId, n, id, x or "nil", y or "nil", objective or "nil")
 						if not quest["Quest"] then
-							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)							
+							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)
 						end
 						if needEnd or bit.band (patch, 1) then
 							if not quest["End"] or bit.band(patch,1) then
@@ -3763,7 +3810,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 		end
 	end
 	if not Nx.Quest.List.LoggingIn then
-		Nx.Quest.Watch:Update()		
+		Nx.Quest.Watch:Update()
 	end
 	--Nx.prt ("%f secs", GetTime() - tm)
 end
@@ -3925,10 +3972,10 @@ end
 function Nx.Quest:GetLogIdLevel (questID)
 	if questID > 0 then
 		local qlink = GetQuestLink (GetQuestLogIndexByID(questID))
-		if qlink then			
+		if qlink then
 			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")
 			if s1 then
---				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))				
+--				Nx.prt ("qlink %s", gsub (qlink, "|", "^"))
 				return tonumber (id), tonumber (level)
 			end
 		end
@@ -4382,7 +4429,7 @@ function Nx.Quest:TellPartyOfChanges()
 					if not done then
 
 						local num = Nx.qdb.profile.Quest.BroadcastQChangesNum
-						local oldCnt = tonumber (strmatch (cur[n] or "", "(%d+)/"))						
+						local oldCnt = tonumber (strmatch (cur[n] or "", "(%d+)/"))
 						local newCnt = tonumber (strmatch (desc, "(%d+)/"))
 						if oldCnt and newCnt then
 							if floor (oldCnt / num) == floor (newCnt / num) then
@@ -5115,7 +5162,7 @@ function Nx.Quest:CalcPercentColor (desc, done)
 	if done then
 		return self.PerColors[9], s1
 	else
-		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1		
+		i = s1 and floor (tonumber (i) / tonumber (total) * 8.99) + 1 or 1
 		return self.PerColors[i], s1
 	end
 end
@@ -8245,10 +8292,10 @@ function Nx.Quest.Watch:Open()
 	end
 
 	local item = menu:AddItem (0, L["Quest Giver Lower Levels To Show"], func, self)
-	item:SetSlider (Nx.qdb.profile.Quest, 0, 90, 1, "MapQuestGiversLowLevel")
+	item:SetSlider (Nx.qdb.profile.Quest, 0, 100, 1, "MapQuestGiversLowLevel")
 
 	local item = menu:AddItem (0, L["Quest Giver Higher Levels To Show"], func, self)
-	item:SetSlider (Nx.qdb.profile.Quest, 0, 90, 1, "MapQuestGiversHighLevel")
+	item:SetSlider (Nx.qdb.profile.Quest, 0, 100, 1, "MapQuestGiversHighLevel")
 
 --	local item = menu:AddItem (0, L["Group"], update, self)
 --	item:SetSlider (qopts, -200, 200, 1, "NXWPriGroup")
@@ -8696,9 +8743,9 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSet(2,s)
 							list:ItemSetButton("QuestWatch",false)
 						end
-						local bonusSteps = C_Scenario.GetBonusSteps()
-						if bonusSteps then
-							local title, task, _, completed = C_Scenario.GetStepInfo(1)
+						local bonusSteps = C_Scenario.GetBonusSteps() or {}
+						for i = 1, #bonusSteps do
+							local title, task, _, completed = C_Scenario.GetStepInfo(bonusSteps[i])
 							local tasktexts = { "Bonus |cff00ff00" }
 							task:gsub('%S+%s*', function(word)
 								if (#tasktexts[#tasktexts] + #word) < (Nx.qdb.profile.QuestWatch.OMaxLen + 10) then
@@ -8718,7 +8765,7 @@ function Nx.Quest.Watch:UpdateList()
 							for criteria = 1, #bonusSteps do
 								local index = bonusSteps[criteria]
 								local task, _, completed, quantity, totalquantity = C_Scenario.GetCriteriaInfoByStep(index,1)
-								if completed then 
+								if completed then
 									task = format("|cffffffff%d/%d %s |cffff0000[|cffffffff" ..L["Complete"] .."|cffff0000]",quantity, totalquantity, task)
 								else
 									task = format("|cffffffff%d/%d %s",quantity, totalquantity, task)
