@@ -43,8 +43,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
 # IDE Directories
+*.orig
 .idea
-
 *.orig

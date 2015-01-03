@@ -342,6 +342,12 @@ L["Click ? to complete"] = "点击左边问号完成任务"
 L["Quest Info (shift click - goto)..."] = "任务信息(Shift-左键前往)..."
 L[" (Complete)"] = " (完成)"
 L["(done)"] = "(完成)"
+
+L["Quest Complete '%s'"] = true
+L["Load quest data by threshold"] = true
+L["Loads all the carbonite quest data between player level - level threshold to 100"] = true
+L["Level Threshold"] = true
+L["Levels under player level to load quest data on reload"] = true
 --	Keybinds
 L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
 L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
