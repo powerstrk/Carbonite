@@ -138,6 +138,8 @@ L["Opening - No Text"] = "Открывание - нет текста"		-- NXlOpe
 L["Everfrost Chip"] = "Осколок Вечного льда"			-- NXlEverfrost
 
 L["yds"] = true
+L["secs"] = true
+L["mins"] = true
 
 --NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true

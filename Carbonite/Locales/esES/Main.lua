@@ -138,6 +138,8 @@ L["Opening - No Text"] = "Apertura - Sin texto"				-- NXlOpeningNoText
 L["Everfrost Chip"] = "Esquirla de siemprescarcha"			-- NXlEverfrost
 
 L["yds"] = true
+L["secs"] = true
+L["mins"] = true
 
 --NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true

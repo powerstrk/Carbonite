@@ -140,6 +140,8 @@ L["Opening - No Text"] = "\195\150ffnen - Kein Text"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Immerfrostsplitter"			-- NXlEverfrost
 
 L["yds"] = true
+L["secs"] = true
+L["mins"] = true
 
 --NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
