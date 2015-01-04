@@ -67,6 +67,8 @@ L["Set person who owns character"] = "Benutzer dem der Charakter geh\195\182hrt 
 L["Add punk name"] = "Name des Gegners hinzuf195/188gen"
 L["Set note"] = "Notiz anlegen"
 
+L["Pals"] = "Kumpel"
+L["Punks"] = "Gegner"
 L["Friends"] = "Freunde"
 L["Who"] = "Wer" --needs revision if right german Term because of more possibilities
 L["Guild"] = "Gilde"

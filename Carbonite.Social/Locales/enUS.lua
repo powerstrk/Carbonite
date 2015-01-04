@@ -63,6 +63,8 @@ L["Set person who owns character"] = true
 L["Add punk name"] = true
 L["Set note"] = true
 
+L["Pals"] = true
+L["Punks"] = true
 L["Friends"] = true
 L["Who"] = true
 L["Guild"] = true

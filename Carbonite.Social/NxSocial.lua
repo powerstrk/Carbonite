@@ -809,14 +809,14 @@ function Nx.Social:Create()
 	local palw = 0
 	local selected = 2
 --PAIDS!
-	palw = 40
+	palw = 46
 	selected = 1
 --PAIDE!
 
 	local orig = 3
 
-	bar:AddTab ("Pals", 1, palw)
-	bar:AddTab ("Punks", 2, 46)
+	bar:AddTab (L["Pals"], 1, palw)
+	bar:AddTab (L["Punks"], 2, 46)
 
 	if Nx.db.profile.Debug.VerDebug then
 		bar:AddTab ("Com", 3, 38)
