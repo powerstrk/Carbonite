@@ -21,6 +21,7 @@ L["ItemTypes"] = {
 	"Waffe",
 }
 
+L["-Warehouse-"] = true
 L["Warehouse Module"] = "Lager Modul"
 L["Warehouse Options"] = "Lager Optionen"
 L["Add Warehouse Tooltip"] = "Lager Kurzinfo hinzuf\195\188gen"

@@ -132,6 +132,8 @@ L["Opening - No Text"] = "開啟 - 無文字"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "永霜屑片"			-- NXlEverfrost
 
 L["yds"] = "碼"
+L["secs"] = "秒"
+L["mins"] = "分鍾"
 
 --NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
