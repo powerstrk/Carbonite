@@ -1494,7 +1494,9 @@ function Nx.Com:OnUpdate (elapsed)
 		local msg = self.PalsSendMsg
 
 		if msg then
-
+			
+			ShowFriends() -- force Friend List Update
+			
 			self.PosSendNext = self.PosSendNext + 1
 
 			if self.PosSendNext > #self.Friends then
