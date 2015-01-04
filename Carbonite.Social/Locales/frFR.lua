@@ -67,6 +67,8 @@ L["Set person who owns character"] = "D\195\169fini une personne qui poss\195\16
 L["Add punk name"] = "Ajouter Nom de Punk(s)"
 L["Set note"] = "D\195\169finir note"
 
+L["Pals"] = true
+L["Punks"] = true
 L["Friends"] = "Amis"
 L["Who"] = "Qui"
 L["Guild"] = "Guilde"
