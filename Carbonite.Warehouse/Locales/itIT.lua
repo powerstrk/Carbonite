@@ -22,6 +22,7 @@ L["ItemTypes"] = {
 	"Armi",
 }
 
+L["-Warehouse-"] = true
 L["Warehouse Module"] = "Modulo Magazzino"
 L["Warehouse Options"] = "Opzioni Magazzino"
 L["Add Warehouse Tooltip"] = "Aggiungi Infonote Magazzino"

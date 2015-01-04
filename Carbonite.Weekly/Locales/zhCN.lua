@@ -52,7 +52,7 @@ L["Drov the Ruiner"] = "毁灭者多弗"
 L["Tarlna the Ageless"] = "永恒的塔尔纳"
 
 L["The Crumbled Chamberlain"] = "破碎的侍从官"
-L["Tempered Fate Seals"] = "钢化命运徽记"
+L["Tempered Fate Seals"] = "钢化命运印记"
 L["Bronze"] = "青铜"
 L["Silver"] = "白银"
 L["Gold"] = "黄金"

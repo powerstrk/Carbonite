@@ -18,6 +18,7 @@ L["ItemTypes"] = {
 	"武器",
 }
 
+L["-Warehouse-"] = "-仓库-"
 L["Warehouse Module"] = "仓库模块"
 L["Warehouse Options"] = "仓库模块设置"
 L["Add Warehouse Tooltip"] = "添加仓库鼠标提示"
@@ -42,7 +43,7 @@ L["Import %s's character data and reload?"] = "导入 %s 的角色数据并重�
 L["Overwrite all character settings and reload?"] = "覆盖所有角色设置并重载？"
 L["Warehouse: %d characters"] = "仓库: 共 %d 个角色"
 L["DurPattern"] = "^耐久度 (%d+) / (%d+)"
-L["Show Warehouse"] = true
+L["Show Warehouse"] = "显示仓库"
 
 L["Import"] = "导入"
 L["Cancel"] = "取消"
