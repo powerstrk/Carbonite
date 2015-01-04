@@ -809,7 +809,7 @@ function Nx.Social:Create()
 	local palw = 0
 	local selected = 2
 --PAIDS!
-	palw = 40
+	palw = 46
 	selected = 1
 --PAIDE!
 
