@@ -3294,7 +3294,7 @@ function Nx.Map:ToggleSize (szmode)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
 			WorldMapPlayerLower:SetAlpha(0)
 			WorldMapPlayerUpper:SetAlpha(0)
-			
+
 			map:MaxSize()
 		end
 
@@ -3734,7 +3734,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		local f = this.NxMap.WorldMapFrm
 		if f and (this.NxMap.StepTime ~= 0 or this.NxMap.Scrolling or IsShiftKeyDown()) then
 			f:Hide()
-			--Nx.prt("Hiding Frame...")-- DEBUG!
+--			Nx.prt("Hiding Frame...")	-- DEBUG!
 		end
 		return
 	end
@@ -6489,7 +6489,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local path = "Interface\\Worldmap\\" .. txFolder .. "\\"
 
 	local alpha = self.BackgndAlpha
-	local unExAl = self.LOpts.NXUnexploredAlpha	
+	local unExAl = self.LOpts.NXUnexploredAlpha
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
 	for txName, whxyStr in pairs (overlays) do
@@ -9094,7 +9094,7 @@ function Nx.Map:GetWorldZoneScale (mapId)
 
 --	if not self.MapWorldInfo[mapId] then
 --		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
---	end	
+--	end
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]
@@ -9519,7 +9519,7 @@ function Nx:TTSetCustomMFWaypoint (aid, _floor, zx, zy, opts)
 	zx = zx * 100
 	zy = zy * 100
 
-	return Nx:TTSetTarget (Nx.AIdToId[aid], zx, zy, opts["title"], opts["callbacks"])
+	return Nx:TTSetTarget (aid, zx, zy, opts["title"], opts["callbacks"])	-- Nx.AIdToId[aid] > aid (forgoten after Nx.AIdToId removal)
 end
 
 
@@ -10538,4 +10538,5 @@ function Nx.Map:VehicleDumpPos()
 	end
 end
 
---------------------------------------------------------------------------------- EOF
+-------------------------------------------------------------------------------
+-- EOF

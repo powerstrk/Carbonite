@@ -118,7 +118,7 @@ function Nx.Com:Init()
 	self.SentBytes = 0			-- Debugging
 	self.SentBytesSec = 0
 	self.SentBytesTime = GetTime()
-    ComBytesSec = Nx:ScheduleTimer(self.OnBytesSecTimer,1,self)
+	ComBytesSec = Nx:ScheduleTimer(self.OnBytesSecTimer,1,self)
 
 	hooksecurefunc ("SendChatMessage", self.SendChatHook)
 	Nx:RegisterComm(self.Name,Nx.Com.OnChat_msg_addon)
@@ -1253,7 +1253,7 @@ function Nx.Com:MonitorZone (mapId, enable)
 					if zs and zs.ChanName then
 						Nx.prt (" %s", GetMapNameByID(mapId))
 					else
-						Nx.prt (" %s (pending)", GetMapNameByID(mapId))
+						Nx.prt (L[" %s (pending)"], GetMapNameByID(mapId))	-- Why was the translation string removed? Still in translation files.
 					end
 				end
 			end
@@ -1495,7 +1495,7 @@ function Nx.Com:OnUpdate (elapsed)
 
 		if msg then
 			
-			ShowFriends() -- force Friend List Update
+			ShowFriends()		-- force Friend List Update
 			
 			self.PosSendNext = self.PosSendNext + 1
 
@@ -1663,7 +1663,7 @@ end
 
 function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 
-	local memberNames = self.MemberNames	
+	local memberNames = self.MemberNames
 	local alt = IsAltKeyDown()
 	local redGlow = abs (GetTime() * 400 % 200 - 100) / 200 + .5
 	local inBG = Nx.InBG
@@ -1877,4 +1877,3 @@ end
 
 ---------------------------------------------------------------------------------------
 --EOF
----------------------------------------------------------------------------------------

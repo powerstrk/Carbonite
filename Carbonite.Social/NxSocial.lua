@@ -1787,7 +1787,7 @@ function Nx.Social:AddLocalPunk (name, plyrNear, level, class)
 		end
 	end
 
-	punk.FinderName = "me"  ------ Maybe replace with translation string. Must take a look
+	punk.FinderName = "me"		-- Maybe replace with translation string. Must take a look
 	punk.Lvl = level or punk.Lvl or 0
 	punk.Class = class or punk.Class
 	if not punk.Time or GetTime() - punk.Time > 2 then
@@ -2078,7 +2078,7 @@ function Nx.Social:GetPunkPasteInfo (name)
 
 		local lvl = punk.Lvl > 0 and punk.Lvl or "?"
 		local class = punk.Class or "?"
-		return format (L["Punk: %s, %s %s at %s %d %d"], name, lvl, class, GetMapNameById(punk.MId) or "?", punk.X, punk.Y)
+		return format (L["Punk: %s, %s %s at %s %d %d"], name, lvl, class, GetMapNameByID(punk.MId) or "?", punk.X, punk.Y)
 	end
 
 	return ""
@@ -2722,5 +2722,3 @@ end
 
 ---------------------------------------------------------------------------------------
 -- EOF
----------------------------------------------------------------------------------------
-

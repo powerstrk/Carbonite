@@ -92,11 +92,11 @@ L["Mined"] = "Estratto"
 L["Fished"] = "Pescato"
 L["Unknown herb"] = "Erba Sconosciuta"
 L["Unknown ore"] = "Minerale Sconosciuto"
-L["Gathermate2_Data_Carbonite addon is not loaded!"] = "L'addon Gathermate2_Data_Carbonite non e' stato caricato!"
+L["Gathermate2_Data_Carbonite addon is not loaded!"] = "L'addon Gathermate2_Data_Carbonite non \195\168 stato caricato!"
 L["Imported"] = "Importato"
 L["nodes from GatherMate2_Data"] = "Nodi da Gathermate2_Data"
 L["Delete visited vendor data?"] = "Cancellare i dati dei vendor visitati?"
-L["This will stop the attempted retrieval of items on login."] = "Questo impedira' il tentativo di recuperare informazioni sugli oggetti durante la fase di accesso al gioco"
+L["This will stop the attempted retrieval of items on login."] = "Questo impedir\195\160 il tentativo di recuperare informazioni sugli oggetti durante la fase di accesso al gioco"
 L["Delete"] = "Cancella"
 L["Cancel"] = "Annulla"
 L["items retrieved"] = "informazioni sugli oggetti recuperati"
@@ -145,7 +145,7 @@ L["yds"] = true
 L["secs"] = true
 L["mins"] = true
 
---NxUI.lua
+-- NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
 L[" EScale %f, Lvl %f"] = true
 L[" LR %f, %f"] = true
@@ -170,6 +170,6 @@ L["Key %s %s #%s %s"] = true
 L["shift left/right click to change size"] = true
 L["Reset old tool bar data"] = true
 
---NxTravel.lua                  
+-- NxTravel.lua
 L["Connection: %s to %s"] = true
-L["Fly: %s to %s"] = true       
+L["Fly: %s to %s"] = true
