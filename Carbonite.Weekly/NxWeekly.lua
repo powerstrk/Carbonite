@@ -669,9 +669,8 @@ function Nx.Weekly:CharRecord(ch)
 	if not ch.Weekly then
 		ch.Weekly = {}
 	end	
-	if not ch.Weekly.TemperedFateSeals then
-		ch.Weekly.TemperedFateSeals = 0
-	end
+	-- always set to zero, otherwise we increment the number on every check
+	ch.Weekly.TemperedFateSeals = 0
 	local qids = {36058,36054,37454,37455,36056,37456,37457,36057,37458,37459,36055,37452,37453}
 	for a,b in pairs(qids) do
 		if IsQuestFlaggedCompleted(b) then
@@ -828,6 +827,19 @@ function Nx.Weekly:CharRecord(ch)
 			},		
 		},
 	}
+	function checkEncounterKillStatus(instanceName, instanceDifficulty, bossName)
+		for i = 1, GetNumSavedInstances() do
+			local raidName, _, _, raidDifficulty, _, _, _, _, _, _, numEncounters = GetSavedInstanceInfo(i)
+			if (raidName == instanceName and instanceDifficulty == raidDifficulty) then
+				for j = 1, numEncounters do
+					local iniBossName, _, iniBossKilled = GetSavedInstanceEncounterInfo(i, j)
+					if (bossName == iniBossName) then
+						return iniBossKilled
+					end
+				end
+			end
+		end
+	end
 	ch.Weekly.Raids = {}
 	for a,b in pairs (qids) do
 		ch.Weekly.Raids[a] = {}
@@ -835,8 +847,13 @@ function Nx.Weekly:CharRecord(ch)
 			ch.Weekly.Raids[a][c] = {}
 			for e, f in pairs (d) do
 				for num = f.start,f.start+f.num-1 do
-					local _,_,isKilled = GetLFGDungeonEncounterInfo(e,num)
+					local bossName,_,isKilled = GetLFGDungeonEncounterInfo(e,num)
 					ch.Weekly.Raids[a][c][num] = isKilled
+					-- not trackable via LFG API? find out anyway
+					if (isKilled == false) then
+						local instanceName, _, _, _, _, _, _, _, _, _, _, instanceDifficulty = GetLFGDungeonInfo(e)
+						ch.Weekly.Raids[a][c][num] = checkEncounterKillStatus(instanceName, instanceDifficulty, bossName)
+					end
 				end
 			end
 		end
