@@ -8793,7 +8793,15 @@ function Nx.Quest.Watch:UpdateList()
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
+											if Nx.qdb.profile.QuestWatch.BonusBar then
+												if (math.floor(percent) == 0) then
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
+												else
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
+												end
+											else
+												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
+											end
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8819,7 +8827,15 @@ function Nx.Quest.Watch:UpdateList()
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
+											if Nx.qdb.profile.QuestWatch.BonusBar then
+												if (math.floor(percent) == 0) then
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
+												else
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
+												end
+											else
+												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
+											end
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
