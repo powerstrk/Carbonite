@@ -21,7 +21,7 @@ L["ItemTypes"] = {
 	"Arme",
 }
 
-L["-Warehouse-"] = true
+L["-Warehouse-"] = "-Inventaires/D\195\169p\195\180ts-"
 L["Warehouse Module"] = "Module Inventaires/D\195\169p\195\180ts"
 L["Warehouse Options"] = "Options Inventaires/D\195\169p\195\180ts"
 L["Add Warehouse Tooltip"] = "Ajouter infobulle inventaires/d\195\169p\195\180ts"

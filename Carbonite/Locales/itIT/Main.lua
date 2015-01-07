@@ -141,7 +141,7 @@ L["Opening"] = "Apertura"					-- NXlOpening
 L["Opening - No Text"] = "Apertura - Nessun Testo"		-- NXlOpeningNoText
 L["Everfrost Chip"] = "Morceau de permagivre"			-- NXlEverfrost
 
-L["yds"] = true
+L["yds"] = "mtr"
 L["secs"] = true
 L["mins"] = true
 
@@ -154,22 +154,22 @@ L["%s#%d %s ID%s (%s) show%d l%d x%d y%d"] = true
 L["%.1f days"] = true
 L["%.1f hours"] = true
 L["%d mins"] = true
-L["Reset old layout data"] = true
-L["Window version mismatch!"] = true
+L["Reset old layout data"] = "Ripristinato vecchio layout"
+L["Window version mismatch!"] = "Versione Window non pertinente!"
 L["XY missing (%s)"] = true
-L["Window not found (%s)"] = true
-L["Detach %s"] = true
-L["Detach found %s"] = true
-L["Search: [click]"] = true
-L["Search: %[click%]"] = true
-L["Reset old list data"] = true
+L["Window not found (%s)"] = "Finestra non trovata (%s)"
+L["Detach %s"] = "Distacca %s"
+L["Detach found %s"] = "Distacco trovato %s"
+L["Search: [click]"] = "Cerca: [click]"
+L["Search: %[click%]"] = "Cerca: %[click%]"
+L["Reset old list data"] = "Ripristino vecchi dati lista"
 L["!BUT %s"] = true
-L["Key %s transfered to Watch List Item"] = true
+L["Key %s transfered to Watch List Item"] = "Chiave %s trasferita a Watch List Item"
 L["CLICK (.+):"] = true
-L["Key %s %s #%s %s"] = true
-L["shift left/right click to change size"] = true
-L["Reset old tool bar data"] = true
+L["Key %s %s #%s %s"] = "Chiave %s %s #%s %s"
+L["shift left/right click to change size"] = "shift + click mouse sinistro/destro per cambiare dimensione"
+L["Reset old tool bar data"] = "Ripristino vecchi dati barra strumenti"
 
 -- NxTravel.lua
-L["Connection: %s to %s"] = true
-L["Fly: %s to %s"] = true
+L["Connection: %s to %s"] = "Connessione: %s a %s"
+L["Fly: %s to %s"] = "Volo: %s a %s"
