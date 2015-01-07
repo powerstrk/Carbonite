@@ -62,8 +62,6 @@ L["LFR"] = true
 L["Normal"] = true
 L["Heroic"] = "H\195\169ro\195\175que"
 L["Mythic"] = "Mythique"
-L["Yes"] = "Oui"
-L["No"] = "Non"
 L["Mogu'shan Vaults"] = "Caveaux Mogu'shan"
 L["Heart of Fear"] = "Coeur de la Peur"
 L["Terrace of Endless Spring"] = "Terrasse des \195\169ternels Printemps"
@@ -76,3 +74,7 @@ L["Lei Shen Palace Key"] = "La cl\195\169 du palais de Lei Shen"
 L["Thunder King Trove"] = "Troyes du Roi-Tonnerre"
 L["MoP"] = true
 L["WoD"] = true
+
+-- No Longer Used
+L["Yes"] = "Oui"
+L["No"] = "Non"

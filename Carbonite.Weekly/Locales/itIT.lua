@@ -62,8 +62,6 @@ L["LFR"] = "RDI"
 L["Normal"] = "Normale"
 L["Heroic"] = "Eroica"
 L["Mythic"] = "Mitica"
-L["Yes"] = "Si"
-L["No"] = "No"
 L["Mogu'shan Vaults"] = "Segrete Mogu'shan"
 L["Heart of Fear"] = "Cuore della Paura"
 L["Terrace of Endless Spring"] = "Terrazza dell'Infinita Primavera"
@@ -76,3 +74,7 @@ L["Lei Shen Palace Key"] = "Chiave del Palazzo di Lei Shen"
 L["Thunder King Trove"] = true
 L["MoP"] = true
 L["WoD"] = true
+
+-- No Longer Used
+L["Yes"] = "Si"
+L["No"] = "No"

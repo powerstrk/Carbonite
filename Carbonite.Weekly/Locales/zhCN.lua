@@ -62,8 +62,6 @@ L["LFR"] = "随机团"
 L["Normal"] = "普通"
 L["Heroic"] = "英雄"
 L["Mythic"] = "史诗"
-L["Yes"] = "是"
-L["No"] = "否"
 L["Mogu'shan Vaults"] = "魔古山宝库"
 L["Heart of Fear"] = "恐惧之心"
 L["Terrace of Endless Spring"] = "永春台"
@@ -76,3 +74,7 @@ L["Lei Shen Palace Key"] = "雷神宫殿钥匙"
 L["Thunder King Trove"] = "雷电之王宝箱"
 L["MoP"] = true
 L["WoD"] = true
+
+-- No Longer Used
+L["Yes"] = "是"
+L["No"] = "否"

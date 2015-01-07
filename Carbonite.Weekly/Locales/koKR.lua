@@ -62,8 +62,6 @@ L["LFR"] = true
 L["Normal"] = true
 L["Heroic"] = true
 L["Mythic"] = true
-L["Yes"] = true
-L["No"] = true
 L["Mogu'shan Vaults"] = true
 L["Heart of Fear"] = true
 L["Terrace of Endless Spring"] = true
@@ -77,7 +75,7 @@ L["Thunder King Trove"] = "천둥왕의 발견물"
 L["MoP"] = true
 L["WoD"] = true
 
--- Not used
+-- No Longer Used
 L["Warforged Seals"] = "전쟁벼림 인장"
 L["Warforged Seals Quest"] = "전쟁벼림 인장 퀘스트"
 L["The Crumbled Chamberlain Quest"] = "부스러진 시종장 퀘스트"
