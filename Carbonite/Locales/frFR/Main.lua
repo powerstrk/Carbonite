@@ -137,7 +137,7 @@ L["Opening"] = "Ouverture"						-- NXlOpening
 L["Opening - No Text"] = "Ouverture - pas de texte"			-- NXlOpeningNoText
 L["Everfrost Chip"] = "Morceau de permagivre"				-- NXlEverfrost
 
-L["yds"] = "m"
+L["yds"] = "m\195\168tres"
 L["secs"] = true
 L["mins"] = true
 
