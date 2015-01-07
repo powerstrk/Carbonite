@@ -15,7 +15,7 @@ L["When enabled, shows the quest details to the right side of the quest window"]
 L["Show Daily Reset Time"] = "Mostra Ora Reset Giornaliere"
 L["When enabled, shows the time until dailies reset"] = "Quando Abilitato, mostra quanto tempo manca al reset delle missioni giornaliere"
 L["Show Daily Quest Count"] = "Mostra Conteggio Giornaliere"
-L["When enabled, shows the number of daily quests yo\195\185ve done"] = "Quando Abilitato, mostra il numero di missione giornaliere completate"
+L["When enabled, shows the number of daily quests you've done"] = "Quando Abilitato, mostra il numero di missione giornaliere completate"
 L["Show Quest ID"] = "Mostra ID MIssione"
 L["When enabled, shows the quest ID beside the quest"] = "Quando Abilitato, mostra il codice identificativo interno della missione"
 L["Quest Details Background Color"] = "Colore di Sfondo Dettaglio Missioni"
