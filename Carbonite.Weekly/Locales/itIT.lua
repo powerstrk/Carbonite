@@ -9,11 +9,11 @@ L["Weekly Status Module"] = "Modulo Stato Settimanali"
 L["Weekly Status Options"] = "Opzioni Stato Settimanali"
 L["General"] = "Generale"
 L["Day Reset Occurs"] = "Giorno di Reset"
-L["Monday"] = "Luned\195\172"
-L["Tuesday"] = "Marted\195\172"
-L["Wednesday"] = "Mercoled\195\172"
-L["Thursday"] = "Gioved\195\172"
-L["Friday"] = "Venerd\195\172"
+L["Monday"] = "Lunedì"
+L["Tuesday"] = "Martedì"
+L["Wednesday"] = "Mercoledì"
+L["Thursday"] = "Giovedì"
+L["Friday"] = "Venerdì"
 L["Saturday"] = "Sabato"
 L["Sunday"] = "Domenica"
 L["Mobs"] = true
@@ -49,7 +49,7 @@ L["Ordos"] = true
 --WoD
 L["Rukhmar"] = true
 L["Drov the Ruiner"] = "Drov il Polverizzatore"
-L["Tarlna the Ageless"] = "Tarlna il Senza Et\195\160"
+L["Tarlna the Ageless"] = "Tarlna il Senza Eta'"
 
 L["The Crumbled Chamberlain"] = "Il Ciambellano Sbriciolato"
 L["Tempered Fate Seals"] = "Sigilli del Fato Temprati"
