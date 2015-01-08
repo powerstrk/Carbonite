@@ -5662,10 +5662,28 @@ end
 -- Frame update. Called by main addon frame
 -------------------------------------------------------------------------------
 
+local elap = nil
 function Nx.Quest:OnUpdate (elapsed)
 	if not Nx.Quest.Initialized then
 		return
 	end
+
+	-- DeaTHCorE - missing questwatch update... the quest range as a example are updated very late without updates,
+	-- so i have added here a update every 1 secound. this update is any more required for update questwatch itembutton in
+	-- conjunction with the InCombatLockdown() call ( :Hide() quest itembutton is a example for missing update by InCombatLockdown(),
+	-- the call of :Hide() are not called a the frame lists etcetera are wiped.	)
+	-- I have tested with a CPU Profiling addon and no performence lost i have seen...
+	-- I call the update here to spare one more timer ;)
+	if not elap then
+		elap = GetTime()
+		return
+	end
+	local t = GetTime()
+	if t - elap >= 1 then
+		Nx.Quest.Watch:Update()
+		elap = t
+	end
+
 	if not self.List.Win:IsShown() then
 --		Nx.prt ("skip")
 		return
@@ -8953,7 +8971,12 @@ function Nx.Quest.Watch:UpdateList()
 							else
 								list:ItemSetButton ("QuestWatchTip", false)		-- QuestWatchTip  >  QuestWatch?
 							end
-							if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
+							-- DeaTHCorE - fix for item button. 'not isComplete' is commented out to delete quest itembutton only
+							-- if the quest is to release by questgiver, this is usefull for many quests who the questitem can help
+							-- after quest completed ( the way out of a cave as a example, the questitem will be used for many mobs
+							-- on the way) and this reduce the risk for not :Hide() the quest itembutton by InCombatLockdown...
+							-- if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
+							if cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
 							end
 							list:ItemSetButtonTip ((cur.ObjText or "?") .. (cur.PartyDesc or ""))
