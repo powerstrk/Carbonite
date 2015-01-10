@@ -1384,8 +1384,12 @@ function Nx.Map:AttachWorldMap()
 		self.WorldMapFrm = f
 		self.WorldMapFrmParent = f:GetParent()
 		self.WorldMapFrmScale = f:GetScale()
+		self.WorldMapFrmGetCenter = f.GetCenter
 		f:SetParent (self.TextScFrm:GetScrollChild())
 		f:SetSize(WorldMapDetailFrame:GetSize())
+		f.GetCenter = function()
+			return WorldMapDetailFrame:GetCenter()
+		end
 		f:ClearAllPoints()
 		f:Show()
 
@@ -1433,6 +1437,7 @@ function Nx.Map:DetachWorldMap()
 		f:SetParent (self.WorldMapFrmParent)
 		f:SetScale (self.WorldMapFrmScale)
 		f:SetPoint ("TOPLEFT", "WorldMapDetailFrame", "TOPLEFT", 0, 0)
+		f.GetCenter = self.WorldMapFrmGetCenter
 
 		f:EnableMouse (true)
 
@@ -3294,7 +3299,7 @@ function Nx.Map:ToggleSize (szmode)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
 			WorldMapPlayerLower:SetAlpha(0)
 			WorldMapPlayerUpper:SetAlpha(0)
-			
+
 			map:MaxSize()
 		end
 
@@ -3731,11 +3736,6 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
 	if ttl < .05 then
-		local f = this.NxMap.WorldMapFrm
-		if f and (this.NxMap.StepTime ~= 0 or this.NxMap.Scrolling or IsShiftKeyDown()) then
-			f:Hide()
-			--Nx.prt("Hiding Frame...")-- DEBUG!
-		end
 		return
 	end
 	ttl = 0
@@ -6489,7 +6489,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local path = "Interface\\Worldmap\\" .. txFolder .. "\\"
 
 	local alpha = self.BackgndAlpha
-	local unExAl = self.LOpts.NXUnexploredAlpha	
+	local unExAl = self.LOpts.NXUnexploredAlpha
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
 	for txName, whxyStr in pairs (overlays) do
@@ -9094,7 +9094,7 @@ function Nx.Map:GetWorldZoneScale (mapId)
 
 --	if not self.MapWorldInfo[mapId] then
 --		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
---	end	
+--	end
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]
