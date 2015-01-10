@@ -3696,7 +3696,7 @@ function Nx.Map:MouseWheel (value)
 
 	map.Scale = map:ScrollScale (value)
 	map.StepTime = 10
-	if map:IsInstanceMap(map:GetRealMapId()) then
+	if map:IsInstanceMap(map:GetCurrentMapId()) then
 	else
 		map.RealScale = map.Scale
 	end
