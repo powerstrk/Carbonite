@@ -9436,7 +9436,7 @@ function Nx.Map:ParseTargetStr (str)
 
 	if zone then
 		mid = nil
-		for name, id in pairs (Nx.MapNameToId) do
+--[[		for name, id in pairs (Nx.MapNameToId) do
 			if strlower(name) == zone then
 				mid = id
 				break
@@ -9447,6 +9447,16 @@ function Nx.Map:ParseTargetStr (str)
 				if strfind (strlower (name), zone, 1, true) then
 					mid = id
 					break
+				end
+			end
+		end]]
+		local curmid = GetCurrentMapAreaID()
+		for id, zonedesc in pairs (Nx.Zones) do
+			local name = strlower (string.gsub (zonedesc, "|.*", ""))
+			if name == zone or string.sub (name, 1, #zone) == zone then
+				-- choose zone id closest to current zone id
+				if not mid or math.abs(mid - curmid) > math.abs(mid - id) then
+					mid = id
 				end
 			end
 		end
@@ -9464,6 +9474,8 @@ function Nx.Map:ParseTargetStr (str)
 
 	return mid, zx, zy, desc
 end
+
+
 
 ----------------
 -- External functions (for TomTom and Cartographer emulation)
