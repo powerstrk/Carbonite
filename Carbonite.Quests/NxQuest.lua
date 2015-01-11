@@ -2654,8 +2654,12 @@ function Nx.Quest:Init()
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
-		if auto and not QuestGetAutoAccept() then
-			AcceptQuest()
+		if auto then
+			if not QuestGetAutoAccept() then
+				AcceptQuest()
+			else
+				AcknowledgeAutoAcceptQuest()
+			end
 		end
 	end
 
