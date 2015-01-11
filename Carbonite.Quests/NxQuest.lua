@@ -2048,7 +2048,9 @@ function CarboniteQuest:OnInitialize()
 		cap["Q"] = {}
 		NXQuest.Gather = cap
 	end
-
+	
+	NXQuest.Gather.UserLocale = GetLocale()
+	
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
