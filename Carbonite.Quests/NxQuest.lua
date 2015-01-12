@@ -2048,7 +2048,9 @@ function CarboniteQuest:OnInitialize()
 		cap["Q"] = {}
 		NXQuest.Gather = cap
 	end
-
+	
+	NXQuest.Gather.UserLocale = GetLocale()
+	
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
@@ -2654,8 +2656,12 @@ function Nx.Quest:Init()
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
-		if auto and not QuestGetAutoAccept() then
-			AcceptQuest()
+		if auto then
+			if not QuestGetAutoAccept() then
+				AcceptQuest()
+			else
+				AcknowledgeAutoAcceptQuest()
+			end
 		end
 	end
 
