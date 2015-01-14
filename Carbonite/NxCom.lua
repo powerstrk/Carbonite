@@ -1253,7 +1253,7 @@ function Nx.Com:MonitorZone (mapId, enable)
 					if zs and zs.ChanName then
 						Nx.prt (" %s", GetMapNameByID(mapId))
 					else
-						Nx.prt (L[" %s (pending)"], GetMapNameByID(mapId))	-- Why was the translation string removed? Still in translation files.
+						Nx.prt (" %s (pending)", GetMapNameByID(mapId))
 					end
 				end
 			end
@@ -1494,9 +1494,9 @@ function Nx.Com:OnUpdate (elapsed)
 		local msg = self.PalsSendMsg
 
 		if msg then
-			
+
 			ShowFriends()		-- force Friend List Update
-			
+
 			self.PosSendNext = self.PosSendNext + 1
 
 			if self.PosSendNext > #self.Friends then
