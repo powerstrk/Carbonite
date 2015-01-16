@@ -90,3 +90,6 @@ L["LOOT_SLOT_CLEARED #%s %s (quest)"] = "LOOT_SLOT_CLEARED #%s %s (任务)"
 L["%s deleted"] = "%s 已删除"
 L["enchant:(%d+)"] = "附魔:(%d+)"
 L["item:(%d+)"] = "物品:(%d+)"
+--	Keybinds
+L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Warehouse|r"
+L["NxTOGGLEWAREHOUSE"] = "show/hide Warehouse"

@@ -29,6 +29,10 @@ Nx.Notes = {}
 CarboniteNotes = LibStub("AceAddon-3.0"):NewAddon("CarboniteNotes","AceEvent-3.0","AceTimer-3.0","AceComm-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Notes", true)
 
+-- Keybindings
+BINDING_HEADER_CarboniteNotes = L["|cffc0c0ffCarbonite Notes|r"]
+BINDING_NAME_NxTOGGLEFAV	= L["NxTOGGLEFAV"]
+
 local addonNotes = {}
 
 local defaults = {

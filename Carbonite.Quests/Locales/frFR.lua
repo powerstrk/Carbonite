@@ -350,3 +350,7 @@ L["Load quest data by threshold"] = "Charger donn\195\169e de Qu\195\170te par s
 L["Loads all the carbonite quest data between player level - level threshold to 100"] = "Charger toutes les donn\195\169es Carbonite pour les Qu\195\170tes au milieu du niveau du joueur - Seuil de niveau \195\160 100"
 L["Level Threshold"] = "Seuil de niveau"
 L["Levels under player level to load quest data on reload"] = true
+--	Keybinds
+L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
+L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
+L["NxWATCHUSEITEM"] = "Use Questitem"
