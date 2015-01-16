@@ -98,18 +98,18 @@ local defaults = {
 			Snd6 = false,
 			Snd7 = false,
 			Snd8 = false,
-			Load0 = true,    -- dailies
-			Load1 = true,    -- 1 - 10
-			Load2 = true,    -- 11 - 20
-			Load3 = true,    -- 21 - 30
-			Load4 = true,    -- 31 - 40
-			Load5 = true,    -- 41 - 50
-			Load6 = true,    -- 51 - 60
-			Load7 = true,    -- 61 - 70
-			Load8 = true,    -- 71 - 80
-			Load9 = true,    -- 81 - 85
-			Load10 = true,   -- 86 - 90
-			Load11 = true,   -- 91 - 100
+			Load0 = true,	-- dailies
+			Load1 = true,	--  1 - 10
+			Load2 = true,	-- 11 - 20
+			Load3 = true,	-- 21 - 30
+			Load4 = true,	-- 31 - 40
+			Load5 = true,	-- 41 - 50
+			Load6 = true,	-- 51 - 60
+			Load7 = true,	-- 61 - 70
+			Load8 = true,	-- 71 - 80
+			Load9 = true,	-- 81 - 85
+			Load10 = true,	-- 86 - 90
+			Load11 = true,	-- 91 - 100
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -854,7 +854,7 @@ local function QuestOptions ()
 							end,
 						},
 					},
-			    },
+				},
 				watch = {
 					type = "group",
 					name = L["Watch Options"],
@@ -1806,7 +1806,7 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						gather = {
+						gather = {		-- Change to qgather perhaps?
 							order = 19,
 							type = "toggle",
 							width = "full",
@@ -2048,9 +2048,9 @@ function CarboniteQuest:OnInitialize()
 		cap["Q"] = {}
 		NXQuest.Gather = cap
 	end
-	
+
 	NXQuest.Gather.UserLocale = GetLocale()
-	
+
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
 		Nx.Quest:HideUIPanel (_G["QuestMapFrame"])
@@ -2746,7 +2746,7 @@ end
 function Nx.Quest:LoadQuestDB()
 	local Map = Nx.Map
 	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
-	Nx.Quests = Nx["Quests"] or Nx.Quests								-- Copy unmunged data to munged data
+	Nx.Quests = Nx["Quests"] or Nx.Quests				-- Copy unmunged data to munged data
 	Nx.QuestStartEnd = Nx["QuestStartEnd"] or Nx.QuestStartEnd	-- Copy unmunged data to munged data
 
 	Nx.Quests = {}
@@ -2765,9 +2765,9 @@ function Nx.Quest:LoadQuestDB()
 	self.Map = Map:GetMap (1)
 
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
-	 -- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
-	 -- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
-	--local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
+	-- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
+	-- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
+	-- local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
 	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
 
 	local qMaxLevel = 999
@@ -2793,7 +2793,7 @@ function Nx.Quest:LoadQuestDB()
 			--end
 		else
 			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
-			if q["End"] and q["End"] == q["Start"] then --DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
+			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
 --				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
 				--DeaTHCorE - follow are no required, was not used...
 				--sameCnt = sameCnt + 1
@@ -2843,8 +2843,6 @@ function Nx.Quest:LoadQuestDB()
 	end
 
 
-	--DeaTHCorE - changed to 100 so that all quests to level 100 are checked here...
-	--for lvl = 0, 90 do
 	for lvl = 0, 100 do
 
 		local grp = {}
@@ -3048,7 +3046,7 @@ function Nx.Quest.GetQuestReward (choice, ...)
 
 	local q = Nx.Quest
 	q:FinishQuest()
-    q.BlizzGetQuestReward (choice, ...)
+	q.BlizzGetQuestReward (choice, ...)
 end
 
 function Nx.Quest:FinishQuest()
@@ -3406,7 +3404,7 @@ function Nx.Quest:RecordQuestsLog()
 					index = index + 1
 
 				else
-					cur.Goto = nil						-- Might have been a goto quest
+					cur.Goto = nil					-- Might have been a goto quest
 					cur.Index = index
 
 					if quest then
@@ -3418,7 +3416,7 @@ function Nx.Quest:RecordQuestsLog()
 				qIds[qId] = cur
 
 				cur.Q = quest
-				cur.QI = qn							-- Blizzard index
+				cur.QI = qn						-- Blizzard index
 				cur.QId = qId
 				cur.Header = header
 				cur.Title = title
@@ -3426,7 +3424,7 @@ function Nx.Quest:RecordQuestsLog()
 				cur.DescText = qDesc
 				cur.Level = level
 				cur.RealLevel = qLevel
-				cur.NewTime = self.QIdsNew[qId]	-- Copy new time
+				cur.NewTime = self.QIdsNew[qId]				-- Copy new time
 
 				cur.Tag = tag
 				cur.GCnt = groupCnt or 0
@@ -3447,7 +3445,7 @@ function Nx.Quest:RecordQuestsLog()
 					cur.TagShort = "#" .. cur.TagShort
 				end
 				cur.CanShare = GetQuestLogPushable()
-				cur.Complete = isComplete		-- 1 is Done, nil not. Otherwise failed
+				cur.Complete = isComplete			-- 1 is Done, nil not. Otherwise failed
 				cur.IsAutoComplete = GetQuestLogIsAutoComplete (qn)
 
 				local left = GetQuestLogTimeLeft()
@@ -4320,7 +4318,7 @@ function Nx.Quest:Capture (curi, objNum)
 			local obj = qdata[index]
 
 			if not obj then
---				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)
+--				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)	-- Debug message
 				return
 			end
 
@@ -5215,10 +5213,10 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
-  win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
-  win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
-  win:RegisterEvent ("WORLD_STATE_TIMER_START", self.OnQuestUpdate)
-  win:RegisterEvent ("WORLD_STATE_TIMER_STOP", self.OnQuestUpdate)
+	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
+	win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
+	win:RegisterEvent ("WORLD_STATE_TIMER_START", self.OnQuestUpdate)
+	win:RegisterEvent ("WORLD_STATE_TIMER_STOP", self.OnQuestUpdate)
 	win:RegisterEvent ("WORLD_MAP_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("CRITERIA_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("CHAT_MSG_COMBAT_FACTION_CHANGE", Nx.Quest.OnChat_msg_combat_faction_change)
@@ -6544,11 +6542,11 @@ function Nx.Quest.List:Update()
 
 	local dailyStr = ""
 	local dailysDone = GetDailyQuestsCompleted()
-    if Nx.qdb.profile.Quest.ShowDailyCount then
-	  if dailysDone > 0 then
-		dailyStr = L["Daily Quests Completed: |cffffffff"] .. dailysDone
-	  end
-    end
+	if Nx.qdb.profile.Quest.ShowDailyCount then
+		if dailysDone > 0 then
+			dailyStr = L["Daily Quests Completed: |cffffffff"] .. dailysDone
+		end
+	end
 	if Nx.qdb.profile.Quest.ShowDailyReset then
 		dailyStr = dailyStr .. L["|r  Daily reset: |cffffffff"] .. Nx.Util_GetTimeElapsedStr (GetQuestResetTime())
 	end
@@ -9056,7 +9054,7 @@ function Nx.Quest.Watch:UpdateList()
 											else
 												local s1, _, i, total = strfind (desc, "(%d+)/(%d+)")
 												if s1 then
-	--												Nx.prt ("%s %s", i, total)
+--													Nx.prt ("%s %s", i, total)
 													i = floor (tonumber (i) / tonumber (total) * 8.99) + 1
 												else
 													i = 1
@@ -9310,6 +9308,7 @@ function Nx.Quest.Watch:OnListEvent (eventName, val1, val2, click, but)
 end
 
 -------------------------------------------------------------------------------
+--
 -------------------------------------------------------------------------------
 
 function Nx.Quest.Watch:Set (data, on, track)
@@ -10004,24 +10003,24 @@ function Nx.Quest:GetPosLoc (str)
 
 	if type(str) == "table" then
 		for i = 1,32 do
-		  if str[i] then
-		    local desc, zone, typ, x, y, w, h = Nx.Split("|",str[i])
-			if tonumber(typ) == 32 then
-				cnt = i
-				ox = ox + tonumber(x)
-				oy = oy + tonumber(y)
-			elseif tonumber(typ) == 33 then
-				cnt = 1
-				ox, oy = self:UnpackLocPtRelative (str, loc + 1)
-			else
-				w = tonumber(w) / 1002 * 100
-				h = tonumber(h) / 668 * 100
-				local area = w * h
-				cnt = cnt + area
-				ox = ox + (tonumber(x) + w * .5) * area
-				oy = oy + (tonumber(y) + h * .5) * area
+			if str[i] then
+				local desc, zone, typ, x, y, w, h = Nx.Split("|",str[i])
+				if tonumber(typ) == 32 then
+					cnt = i
+					ox = ox + tonumber(x)
+					oy = oy + tonumber(y)
+				elseif tonumber(typ) == 33 then
+					cnt = 1
+					ox, oy = self:UnpackLocPtRelative (str, loc + 1)
+				else
+					w = tonumber(w) / 1002 * 100
+					h = tonumber(h) / 668 * 100
+					local area = w * h
+					cnt = cnt + area
+					ox = ox + (tonumber(x) + w * .5) * area
+					oy = oy + (tonumber(y) + h * .5) * area
+				end
 			end
-		  end
 		end
 	elseif type(str) == "string" then
 		local desc, zone, typ, x, y, w, h = Nx.Split("|",str)
@@ -10715,7 +10714,6 @@ end
 -- Party quests
 -------------------------------------------------------------------------------
 
-
 function Nx.Quest.OnParty_members_changed()
 	if not Nx.Quest.Initialized then
 		return
@@ -10985,4 +10983,3 @@ end
 
 -------------------------------------------------------------------------------
 -- EOF
--------------------------------------------------------------------------------

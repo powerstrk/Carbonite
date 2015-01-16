@@ -62,7 +62,7 @@ L["Options..."] = "Opzioni..."
 L["Goto"] = "Vai"
 L["Add Character"] = "Aggiungi Personaggio"
 L["Remove Character"] = "Rimuovi Personaggio"
-L["Clear Actives"] = "Pulisci Attivita'"
+L["Clear Actives"] = "Pulisci Attivit\195\160"
 L["Set person who owns character"] = "Imposta la persona che muove il personaggio"
 L["Add punk name"] = "Aggiungi il nome dell'avversario"
 L["Set note"] = "Imposta Nota"
@@ -103,4 +103,3 @@ L["Punk %s added"] = "Avversario %s aggiunto"
 L["hey"] = true
 L["|cffff2020Team:"] = true
 L["Team:"] = true
-

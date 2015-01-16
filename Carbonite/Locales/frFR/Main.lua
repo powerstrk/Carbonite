@@ -141,7 +141,7 @@ L["yds"] = "m\195\168tres"
 L["secs"] = true
 L["mins"] = true
 
---NxUI.lua
+-- NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
 L[" EScale %f, Lvl %f"] = true
 L[" LR %f, %f"] = true
@@ -166,6 +166,6 @@ L["Key %s %s #%s %s"] = true
 L["shift left/right click to change size"] = "maj gauche/clic droit pour changer la taille"
 L["Reset old tool bar data"] = "R\195\169initialiser anciennes donn\195\169es barre d'outils"
 
---NxTravel.lua                  
+-- NxTravel.lua
 L["Connection: %s to %s"] = "Connection: %s vers %s"
 L["Fly: %s to %s"] = "Fly: %s vers %s"
