@@ -9531,7 +9531,7 @@ function Nx:TTSetCustomMFWaypoint (aid, _floor, zx, zy, opts)
 	zx = zx * 100
 	zy = zy * 100
 
-	return Nx:TTSetTarget (Nx.AIdToId[aid], zx, zy, opts["title"], opts["callbacks"])
+	return Nx:TTSetTarget (aid, zx, zy, opts["title"], opts["callbacks"])
 end
 
 
