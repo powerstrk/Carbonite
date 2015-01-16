@@ -125,7 +125,7 @@ Nx.ModQAction = ""
 Nx.ModPAction = ""
 
 if _G.TomTom then
-  Nx.RealTom = true
+	Nx.RealTom = true
 end
 
 function Nx.EmulateTomTom()
@@ -152,9 +152,9 @@ end
 Nx.EmulateTomTom()
 
 local defaults = {
-    char = {
+	char = {
 		Map = {
-  			ShowGatherA = false,
+			ShowGatherA = false,
 			ShowGatherH = false,
 			ShowGatherM = false,
 			ShowQuestGivers = 1,
@@ -526,9 +526,9 @@ function Nx:OnInitialize()
 	Nx.TooltipLastDiffNumLines = 0
 	Nx.db = LibStub("AceDB-3.0"):New("CarbData",defaults,true)
 	tinsert(Nx.dbs,Nx.db)
-    Nx.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
-    Nx.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
-    Nx.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
+	Nx.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
+	Nx.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
+	Nx.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 	Nx.SetupConfig()
 	Nx:RegisterComm("carbmodule",Nx.ModChatReceive)
 end
@@ -3049,7 +3049,7 @@ Nx.GatherInfo = {
 		{ 475, "inv_misc_herb_heartblossom", L["Heartblossom"]},
 		{ 500, "inv_misc_herb_whiptail", L["Whiptail"]},
 		{ 525, "inv_misc_herb_twilightjasmine",	L["Twilight Jasmine"]},
-	    { 600, "inv_misc_herb_foolscap", L["Fool's Cap"]},
+		{ 600, "inv_misc_herb_foolscap", L["Fool's Cap"]},
 		{ 550, "inv_misc_herb_goldenlotus", L["Golden Lotus"]},
 		{ 500, "inv_misc_herb_jadetealeaf", L["Green Tea Leaf"]},
 		{ 525, "inv_misc_herb_rainpoppy", L["Rain Poppy"]},
@@ -3097,7 +3097,7 @@ Nx.GatherInfo = {
 		{ 500,	"item_pyriumore", L["Rich Elementium Vein"]},
 		{ 525,	"inv_ore_arcanite_01", L["Pyrite Deposit"]},
 		{ 525,	"inv_ore_arcanite_01", L["Rich Pyrite Deposit"]},
-        { 515, "inv_ore_ghostiron", L["Ghost Iron Deposit"]},
+		{ 515, "inv_ore_ghostiron", L["Ghost Iron Deposit"]},
 		{ 550, "inv_ore_ghostiron", L["Rich Ghost Iron Deposit"]},
 		{ 550, "inv_ore_manticyte", L["Kyparite Deposit"]},
 		{ 575, "inv_ore_manticyte", L["Rich Kyparite Deposit"]},
@@ -3827,28 +3827,28 @@ local TempTable = {}
 setmetatable(TempTable, {__mode = "v"})
 
 function Nx.Split(d, p)
-  if p and not string.find(p,d) then
-	return p
-  end
-  if p and #p <= 1 then return p end
-  if TempTable[p] then
-	return unpack(TempTable[p],1,table.maxn(TempTable[p]))
-  else
+	if p and not string.find(p,d) then
+		return p
+	end
+	if p and #p <= 1 then return p end
+	if TempTable[p] then
+		return unpack(TempTable[p],1,table.maxn(TempTable[p]))
+	else
 	local TempNum = 0
 	local Tossaway = {}
-    while true do
-      l=string.find(p,d,TempNum,true)
-      if l~=nil then
-        table.insert(Tossaway, string.sub(p,TempNum,l-1))
-        TempNum=l+1
-      else
-        table.insert(Tossaway, string.sub(p,TempNum))
-        break
-      end
-    end
-   TempTable[p] = Tossaway
-   return unpack(Tossaway)
-   end
+	while true do
+		l=string.find(p,d,TempNum,true)
+		if l~=nil then
+			table.insert(Tossaway, string.sub(p,TempNum,l-1))
+			TempNum=l+1
+		else
+			table.insert(Tossaway, string.sub(p,TempNum))
+			break
+		end
+	end
+	TempTable[p] = Tossaway
+	return unpack(Tossaway)
+	end
 end
 
 function Nx.Proc:Init()
@@ -3913,4 +3913,3 @@ end
 
 ---------------------------------------------------------------------------------------
 --EOF
----------------------------------------------------------------------------------------

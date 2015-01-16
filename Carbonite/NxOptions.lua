@@ -172,24 +172,24 @@ local function mainConfig()
 						title = {
 							type = "description",
 							name = L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] ..
-							       "\n\n\n|cff9999ff" .. L["Release Version"] .. ": |cffd700ff" .. Nx.VERMAJOR .. "." .. (Nx.VERMINOR*10) .. "\n" ..
-								   "|cff9999ff" .. L["Maintained by"] .. ": |cffd700ffRythal of Moon Guard\n" ..
-								   "|cff9999ff" .. L["Website"] .. ": |cffd700ffhttp://www.wowinterface.com/downloads/info12965-Carbonite.html\n"..
-								   "\n"..
-								   "|cd700ffff" .. L["For support, please visit the forums for Carbonite on WoW Interface."] .. "\n"..
-								   "|cd700ffff" .. L["Special thanks to"] .. ": \n\n"..
-								   "|cff9999ff" .. L["Cirax for Carbonite2 Logo"] .. "\n" ..
-								   "|cff9999ff" .. L["ircdirk & atl77 for Quest Database updates"] .. "\n" ..
-								   "|cff9999ff" .. L["nelegalno for many cleanups, api fixes"] .. "\n" ..
-								   "|cff9999ff" .. L["Naharis for quest watchlist fixes"] .. "\n" ..
-								   "|cff9999ff" .. L["JimboBlue for guide location updates"] .. "\n" ..
-								   "|cff9999ff" .. L["Localization Efforts By:"] .. "\n" ..
-								   "|cff9999ff" .. L["frFR - powerstrk"] .. "\n" ..
-								   "|cff9999ff" .. L["deDE - atl77 & samyonair"] .. "\n" ..
-								   "|cff9999ff" .. L["itIT - ThorwaldOdin"] .. "\n" ..
-								   "|cff9999ff" .. L["ruRU - NotDead"] .. "\n" ..
-								   "|cff9999ff" .. L["zhCN - Raka-loah"] .. "\n" ..
-								   "|cff9999ff" .. L["zhTW - kc305chen"] .. "\n",
+								"\n\n\n|cff9999ff" .. L["Release Version"] .. ": |cffd700ff" .. Nx.VERMAJOR .. "." .. (Nx.VERMINOR*10) .. "\n" ..
+								"|cff9999ff" .. L["Maintained by"] .. ": |cffd700ffRythal of Moon Guard\n" ..
+								"|cff9999ff" .. L["Website"] .. ": |cffd700ffhttp://www.wowinterface.com/downloads/info12965-Carbonite.html\n"..
+								"\n"..
+								"|cd700ffff" .. L["For support, please visit the forums for Carbonite on WoW Interface."] .. "\n"..
+								"|cd700ffff" .. L["Special thanks to"] .. ": \n\n"..
+								"|cff9999ff" .. L["Cirax for Carbonite2 Logo"] .. "\n" ..
+								"|cff9999ff" .. L["ircdirk & atl77 for Quest Database updates"] .. "\n" ..
+								"|cff9999ff" .. L["nelegalno for many cleanups, api fixes"] .. "\n" ..
+								"|cff9999ff" .. L["Naharis for quest watchlist fixes"] .. "\n" ..
+								"|cff9999ff" .. L["JimJoBlue for guide location updates"] .. "\n" ..
+								"|cff9999ff" .. L["Localization Efforts By:"] .. "\n" ..
+								"|cff9999ff" .. L["frFR - powerstrk"] .. "\n" ..
+								"|cff9999ff" .. L["deDE - atl77 & samyonair"] .. "\n" ..
+								"|cff9999ff" .. L["itIT - ThorwaldOdin"] .. "\n" ..
+								"|cff9999ff" .. L["ruRU - NotDead"] .. "\n" ..
+								"|cff9999ff" .. L["zhCN - Raka-loah"] .. "\n" ..
+								"|cff9999ff" .. L["zhTW - kc305chen"] .. "\n",
 						},
 					},
 				},
@@ -286,9 +286,9 @@ local function generalOptions()
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("Chat")
 						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.General.ChatMsgFrm) then
-						     return a
-						  end
+							if (b == Nx.db.profile.General.ChatMsgFrm) then
+								return a
+							end
 						end
 						return ""
 					end,
@@ -298,7 +298,7 @@ local function generalOptions()
 						Nx.Opts:NXCmdUIChange()
 					end,
 					values	= function()
-					    return Nx.Opts:CalcChoices("Chat")
+						return Nx.Opts:CalcChoices("Chat")
 					end,
 				},
 				spacer2 = {
@@ -4910,4 +4910,5 @@ function Nx.Opts:SetVar (varName, val)
 	end
 end
 
---------------------------------------------------------------------------------- EOF
+-------------------------------------------------------------------------------
+-- EOF

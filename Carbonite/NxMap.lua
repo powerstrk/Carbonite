@@ -1384,8 +1384,12 @@ function Nx.Map:AttachWorldMap()
 		self.WorldMapFrm = f
 		self.WorldMapFrmParent = f:GetParent()
 		self.WorldMapFrmScale = f:GetScale()
+		self.WorldMapFrmGetCenter = f.GetCenter
 		f:SetParent (self.TextScFrm:GetScrollChild())
 		f:SetSize(WorldMapDetailFrame:GetSize())
+		f.GetCenter = function()
+			return WorldMapDetailFrame:GetCenter()
+		end
 		f:ClearAllPoints()
 		f:Show()
 
@@ -1433,6 +1437,7 @@ function Nx.Map:DetachWorldMap()
 		f:SetParent (self.WorldMapFrmParent)
 		f:SetScale (self.WorldMapFrmScale)
 		f:SetPoint ("TOPLEFT", "WorldMapDetailFrame", "TOPLEFT", 0, 0)
+		f.GetCenter = self.WorldMapFrmGetCenter
 
 		f:EnableMouse (true)
 
@@ -3294,7 +3299,7 @@ function Nx.Map:ToggleSize (szmode)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
 			WorldMapPlayerLower:SetAlpha(0)
 			WorldMapPlayerUpper:SetAlpha(0)
-			
+
 			map:MaxSize()
 		end
 
@@ -3691,7 +3696,7 @@ function Nx.Map:MouseWheel (value)
 
 	map.Scale = map:ScrollScale (value)
 	map.StepTime = 10
-	if map:IsInstanceMap(map:GetRealMapId()) then
+	if map:IsInstanceMap(Nx.Map:GetRealMapId()) then
 	else
 		map.RealScale = map.Scale
 	end
@@ -3731,11 +3736,6 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	ttl = ttl + elapsed
 	if ttl < .05 then
-		local f = this.NxMap.WorldMapFrm
-		if f and (this.NxMap.StepTime ~= 0 or this.NxMap.Scrolling or IsShiftKeyDown()) then
-			f:Hide()
-			--Nx.prt("Hiding Frame...")-- DEBUG!
-		end
 		return
 	end
 	ttl = 0
@@ -6489,7 +6489,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local path = "Interface\\Worldmap\\" .. txFolder .. "\\"
 
 	local alpha = self.BackgndAlpha
-	local unExAl = self.LOpts.NXUnexploredAlpha	
+	local unExAl = self.LOpts.NXUnexploredAlpha
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
 	for txName, whxyStr in pairs (overlays) do
@@ -9094,7 +9094,7 @@ function Nx.Map:GetWorldZoneScale (mapId)
 
 --	if not self.MapWorldInfo[mapId] then
 --		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
---	end	
+--	end
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]
@@ -9436,6 +9436,7 @@ function Nx.Map:ParseTargetStr (str)
 
 	if zone then
 		mid = nil
+--[[
 		for name, id in pairs (Nx.MapNameToId) do
 			if strlower(name) == zone then
 				mid = id
@@ -9447,6 +9448,17 @@ function Nx.Map:ParseTargetStr (str)
 				if strfind (strlower (name), zone, 1, true) then
 					mid = id
 					break
+				end
+			end
+		end
+]]
+		local curmid = GetCurrentMapAreaID()
+		for id, zonedesc in pairs (Nx.Zones) do
+			local name = strlower (string.gsub (zonedesc, "|.*", ""))
+			if name == zone or string.sub (name, 1, #zone) == zone then
+				-- choose zone id closest to current zone id
+				if not mid or math.abs(mid - curmid) > math.abs(mid - id) then
+					mid = id
 				end
 			end
 		end
@@ -9519,7 +9531,7 @@ function Nx:TTSetCustomMFWaypoint (aid, _floor, zx, zy, opts)
 	zx = zx * 100
 	zy = zy * 100
 
-	return Nx:TTSetTarget (Nx.AIdToId[aid], zx, zy, opts["title"], opts["callbacks"])
+	return Nx:TTSetTarget (aid, zx, zy, opts["title"], opts["callbacks"])
 end
 
 
@@ -10538,4 +10550,5 @@ function Nx.Map:VehicleDumpPos()
 	end
 end
 
---------------------------------------------------------------------------------- EOF
+-------------------------------------------------------------------------------
+-- EOF
