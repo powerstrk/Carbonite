@@ -134,18 +134,18 @@ L["Auto Scale"] = "Autodimensiona"
 
 -- Stuff from old localization
 L["Searching for Artifacts"] = "Ricerca per Artefatti"		-- NXlARTIFACTS
-L["Extract Gas"] = "Estrazione di Gas"						-- NXlEXTRACTGAS
-L["Herb Gathering"] = "Raccolta Erbe"						-- NXlHERBGATHERING
-L["In Conflict"] = "Territorio Conteso"						-- NXlINCONFLICT
-L["Opening"] = "Apertura"									-- NXlOpening
-L["Opening - No Text"] = "Apertura - Nessun Testo"			-- NXlOpeningNoText
-L["Everfrost Chip"] = "Morceau de permagivre"				-- NXlEverfrost
+L["Extract Gas"] = "Estrazione di Gas"				-- NXlEXTRACTGAS
+L["Herb Gathering"] = "Raccolta Erbe"				-- NXlHERBGATHERING
+L["In Conflict"] = "Territorio Conteso"				-- NXlINCONFLICT
+L["Opening"] = "Apertura"					-- NXlOpening
+L["Opening - No Text"] = "Apertura - Nessun Testo"		-- NXlOpeningNoText
+L["Everfrost Chip"] = "Morceau de permagivre"			-- NXlEverfrost
 
 L["yds"] = "mtr"
 L["secs"] = true
 L["mins"] = true
 
---NxUI.lua
+-- NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
 L[" EScale %f, Lvl %f"] = true
 L[" LR %f, %f"] = true
@@ -170,6 +170,6 @@ L["Key %s %s #%s %s"] = "Chiave %s %s #%s %s"
 L["shift left/right click to change size"] = "shift + click mouse sinistro/destro per cambiare dimensione"
 L["Reset old tool bar data"] = "Ripristino vecchi dati barra strumenti"
 
---NxTravel.lua                  
+-- NxTravel.lua
 L["Connection: %s to %s"] = "Connessione: %s a %s"
 L["Fly: %s to %s"] = "Volo: %s a %s"

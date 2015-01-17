@@ -285,6 +285,7 @@ L["Player"] = true
 L["Daily Quests Completed: |cffffffff"] = true
 L["|r  Daily reset: |cffffffff"] = true
 L["Quests: |cffffffff%d/%d|r  %s"] = true
+
 L["yds"] = true
 
 L["Reset old quest options %f"] = true
@@ -345,3 +346,7 @@ L["Load quest data by threshold"] = true
 L["Loads all the carbonite quest data between player level - level threshold to 100"] = true
 L["Level Threshold"] = true
 L["Levels under player level to load quest data on reload"] = true
+--	Keybinds
+L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
+L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
+L["NxWATCHUSEITEM"] = "Use Questitem"

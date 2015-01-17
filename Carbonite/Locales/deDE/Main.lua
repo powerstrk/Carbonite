@@ -143,7 +143,7 @@ L["yds"] = true
 L["secs"] = true
 L["mins"] = true
 
---NxUI.lua
+-- NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
 L[" EScale %f, Lvl %f"] = true
 L[" LR %f, %f"] = true
@@ -168,6 +168,6 @@ L["Key %s %s #%s %s"] = true
 L["shift left/right click to change size"] = true
 L["Reset old tool bar data"] = "Alte Funktionsleistendaten zurücksetzen"
 
---NxTravel.lua                  
+-- NxTravel.lua
 L["Connection: %s to %s"] = "Verbindung: %s nach %s"
-L["Fly: %s to %s"] = "Fliege: %s nach %s"       
+L["Fly: %s to %s"] = "Fliege: %s nach %s"

@@ -41,16 +41,16 @@ local defaults = {
 				Ordos = true,
 				Tarlna = true,
 				Drov = true,
-				Rukmar = true,
+				Rukhmar = true,
 			},
 			Loot = {
 			},
-			Quest = {				
+			Quest = {
 				Chamberlain = true,
 				TemperedFateSeals = true,
 				GarrisonInvasion = true,
 			},
-			Raids = {				
+			Raids = {
 				MSV = true,
 				HoF = true,
 				TeS = true,
@@ -119,7 +119,6 @@ local function WeeklyOptions()
 									-- Drov the Ruiner
 									-- Rukhmar
 								},
-								
 								tarlna = {
 									order = 2,
 									type = "toggle",
@@ -132,7 +131,6 @@ local function WeeklyOptions()
 										Nx.wkdb.profile.Track.Mob.Tarlna = not Nx.wkdb.profile.Track.Mob.Tarlna
 									end,
 								},
-								
 								drov = {
 									order = 3,
 									type = "toggle",
@@ -145,21 +143,20 @@ local function WeeklyOptions()
 										Nx.wkdb.profile.Track.Mob.Drov = not Nx.wkdb.profile.Track.Mob.Drov
 									end,
 								},
-								
 								ruk = {
 									order = 4,
 									type = "toggle",
 									width = "full",
 									name = L["Rukhmar"],
 									get = function()
-										return Nx.wkdb.profile.Track.Mob.Rukmar
+										return Nx.wkdb.profile.Track.Mob.Rukhmar
 									end,
 									set = function()
-										Nx.wkdb.profile.Track.Mob.Rukmar = not Nx.wkdb.profile.Track.Mob.Rukmar
+										Nx.wkdb.profile.Track.Mob.Rukhmar = not Nx.wkdb.profile.Track.Mob.Rukhmar
 									end,
-								},								
+								},
 							},
-						},						
+						},
 						MopMobs = {
 							type = "group",
 							name = L["MoP"],
@@ -250,7 +247,7 @@ local function WeeklyOptions()
 					type = "group",
 					name = L["Lootables"],
 					order = 3,
-					args = {					
+					args = {
 						WodLoot = {
 							type = "group",
 							name = "WoD",
@@ -260,10 +257,10 @@ local function WeeklyOptions()
 									order = 1,
 									type = "description",
 									name = L["Place check boxes in the weekly drops you wish to track."],
-								},							
+								},
 							},
-						},						
-						MopLoot = {					
+						},
+						MopLoot = {
 							type = "group",
 							name = "MoP",
 							order = 2,
@@ -327,7 +324,7 @@ local function WeeklyOptions()
 									order = 1,
 									type = "description",
 									name = L["Place check boxes in the weekly quests you want to track."],
-								},							
+								},
 								temperedfate = {
 									order = 2,
 									type = "toggle",
@@ -351,14 +348,14 @@ local function WeeklyOptions()
 									set = function()
 										Nx.wkdb.profile.Track.Quest.GarrisonInvasion = not Nx.wkdb.profile.Track.Quest.GarrisonInvasion
 									end,
-								},								
+								},
 							},
-						},						
-						MopQuests = {					
+						},
+						MopQuests = {
 							type = "group",
 							name = "MoP",
 							order = 2,
-							args = {					
+							args = {
 								qdesc = {
 									order = 1,
 									type = "description",
@@ -442,7 +439,7 @@ local function WeeklyOptions()
 									set = function()
 										Nx.wkdb.profile.Track.RaidLevels.Mythic = not Nx.wkdb.profile.Track.RaidLevels.Mythic
 									end,
-								},															
+								},
 							},
 						},
 						MopRaids = {
@@ -515,13 +512,13 @@ local function WeeklyOptions()
 										Nx.wkdb.profile.Track.Raids.SoO = not Nx.wkdb.profile.Track.Raids.SoO
 									end,
 								},
-							},							
-						},						
-						WodRaids = {					
+							},
+						},
+						WodRaids = {
 							type = "group",
 							name = "WoD",
 							order = 2,
-							args = {										
+							args = {
 								rdesc = {
 									order = 1,
 									type = "description",
@@ -550,10 +547,10 @@ local function WeeklyOptions()
 									set = function()
 										Nx.wkdb.profile.Track.Raids.BRF = not Nx.wkdb.profile.Track.Raids.BRF
 									end,
-								},								
+								},
 							},
 						},
-					},					
+					},
 				},
 			},
 		}
@@ -570,7 +567,7 @@ function CarboniteWeekly:OnInitialize()
 	Nx.wkdb:SetProfile(Nx.db:GetCurrentProfile())
 	tinsert(Nx.dbs,Nx.wkdb)
 	Nx.Weekly:Init()
-	Nx.Weekly:Login()	
+	Nx.Weekly:Login()
 	local function func ()
 		Nx.Weekly:ToggleShow()
 	end
@@ -586,7 +583,7 @@ function CarboniteWeekly:OnInitialize()
 
 	tinsert (Nx.BarData,{"MapWeekly", L["-Weekly Tracker-"], Nx.Weekly.OnButToggleWeekly, false })
 	Nx.Map.Maps[1]:CreateToolBar()
-	local resettime = Nx.Weekly:CalcEpoch()	
+	local resettime = Nx.Weekly:CalcEpoch()
 	if resettime > Nx.wkdb.profile.Weekly.SecondsToReset then
 		Nx.wkdb.profile.Weekly.SecondsToReset = resettime + Nx.Weekly:CalcReset()
 		Nx.Weekly:Reset()
@@ -659,7 +656,7 @@ function Nx.Weekly:Reset()
 			ch.Weekly.GarrisonInvasion = false
 			ch.Weekly.Tarlna = false
 			ch.Weekly.Drov = false
-			ch.Weekly.Rukmar = false
+			ch.Weekly.Rukhmar = false
 			ch.Weekly.Raids = {}
 		end
 	end
@@ -668,7 +665,7 @@ end
 function Nx.Weekly:CharRecord(ch)
 	if not ch.Weekly then
 		ch.Weekly = {}
-	end	
+	end
 	-- always set to zero, otherwise we increment the number on every check
 	ch.Weekly.TemperedFateSeals = 0
 	local qids = {36058,36054,37454,37455,36056,37456,37457,36057,37458,37459,36055,37452,37453}
@@ -689,20 +686,20 @@ function Nx.Weekly:CharRecord(ch)
 		["Galleon"] = 32098,
 		["Sha"] = 32099,
 	}
-	for a,b in pairs(qids) do	
+	for a,b in pairs(qids) do
 		ch.Weekly[a] = IsQuestFlaggedCompleted(b)
 	end
 	qids = {
-		[L["Bronze"]] = 37638, 
+		[L["Bronze"]] = 37638,
 		[L["Silver"]] = 36739,
 		[L["Gold"]] = 37640,
-	}	
+	}
 	for a,b in pairs(qids) do
 		if IsQuestFlaggedCompleted(b) then
 			ch.Weekly.GarrisonInvasion = a
 		end
 	end
-	
+
 	qids = {
 		["MSV"] = {
 			[1] = {
@@ -712,13 +709,13 @@ function Nx.Weekly:CharRecord(ch)
 			[2] = {
 				[830] = { num = 3, start = 1 },
 				[831] = { num = 3, start = 4 },
-			},	
+			},
 			[3] = {
 				[532] = { num = 6, start = 1 },
 			},
 			[4] = {
 				[533] = { num = 6, start = 1 },
-			},		
+			},
 		},
 		["HoF"] = {
 			[1] = {
@@ -728,20 +725,20 @@ function Nx.Weekly:CharRecord(ch)
 			[2] = {
 				[832] = { num = 3, start = 1 },
 				[833] = { num = 3, start = 4 },
-			},		
+			},
 			[3] = {
 				[534] = { num = 6, start = 1 },
 			},
 			[4] = {
 				[533] = { num = 6, start = 1 },
 			},
-		},		
+		},
 		["TeS"] = {
 			[1] = {
-				[526] = { num = 4, start = 1 },			
+				[526] = { num = 4, start = 1 },
 			},
 			[2] = {
-				[834] = { num = 4, start = 1 },			
+				[834] = { num = 4, start = 1 },
 			},
 			[3] = {
 				[536] = { num = 8, start = 1 },
@@ -749,7 +746,7 @@ function Nx.Weekly:CharRecord(ch)
 			[4] = {
 				[535] = { num = 8, start = 1 },
 			},
-		},		
+		},
 		["ToTS"] = {
 			[1] = {
 				[610] = { num = 3, start = 1 },
@@ -765,11 +762,11 @@ function Nx.Weekly:CharRecord(ch)
 			},
 			[3] = {
 				[634] = { num = 12, start = 1 },
-			},			
+			},
 			[4] = {
 				[633] = { num = 12, start = 1 },
-			},			
-		},		
+			},
+		},
 		["SoO"] = {
 			[1] = {
 				[716] = { num = 4, start = 1 },
@@ -792,7 +789,7 @@ function Nx.Weekly:CharRecord(ch)
 			[5] = {
 				[766] = { num = 14, start = 1 },
 			},
-		},				
+		},
 		["Highmaul"] = {
 			[1] = {
 				[849] = { num = 3, start = 1 },
@@ -820,11 +817,11 @@ function Nx.Weekly:CharRecord(ch)
 				[898] = { num = 10, start = 1 },
 			},
 			[4] = {
-				[899] = { num = 10, start = 1 },				
+				[899] = { num = 10, start = 1 },
 			},
 			[5] = {
-				[900] = { num = 10, start = 1 },			
-			},		
+				[900] = { num = 10, start = 1 },
+			},
 		},
 	}
 	function checkEncounterKillStatus(instanceName, instanceDifficulty, bossName)
@@ -860,8 +857,9 @@ function Nx.Weekly:CharRecord(ch)
 	end
 end
 
---------
+---------------------------------------------------------------------------------------
 -- Create weekly window
+---------------------------------------------------------------------------------------
 
 function Nx.Weekly:Create()
 	self.SelectedChar = 1
@@ -917,7 +915,8 @@ function Nx.Weekly:But_OnMoP()
 	Nx.Weekly.WhichExpansion = 2
 	Nx.Weekly:DisplayWeekly()
 end
---------
+
+---------------------------------------------------------------------------------------
 -- Show or hide window
 ---------------------------------------------------------------------------------------
 
@@ -1005,12 +1004,12 @@ function Nx.Weekly:DisplayWeekly()
 	local rname, cname = strsplit (".", rc)
 	local curline = 1
 	local spacer = false
-	list:ColumnSetName (1, format ("  %s's Weekly Status", cname))	
+	list:ColumnSetName (1, format ("  %s's Weekly Status", cname))
 	local ch = Nx.db.global.Characters[rc]
 	if Nx.Weekly.WhichExpansion == 1 then
 		if Nx.wkdb.profile.Track.Mob.Tarlna then
 			list:ItemAdd(curline)
-			list:ItemSet(1, "|cffffff00  " .. L["Tarlna The Ageless"])
+			list:ItemSet(1, "|cffffff00  " .. L["Tarlna the Ageless"])
 			if ch.Weekly and ch.Weekly.Tarlna then
 				strng = "|cff00ff00" .. L["Killed"]
 			elseif ch.Weekly and not ch.Weekly.Tarlna then
@@ -1021,7 +1020,7 @@ function Nx.Weekly:DisplayWeekly()
 			list:ItemSet(2, strng)
 			curline = curline + 1
 			spacer = true
-		end	
+		end
 		if Nx.wkdb.profile.Track.Mob.Drov then
 			list:ItemAdd(curline)
 			list:ItemSet(1, "|cffffff00  " .. L["Drov the Ruiner"])
@@ -1035,13 +1034,13 @@ function Nx.Weekly:DisplayWeekly()
 			list:ItemSet(2, strng)
 			curline = curline + 1
 			spacer = true
-		end	
-		if Nx.wkdb.profile.Track.Mob.Rukmar then
+		end
+		if Nx.wkdb.profile.Track.Mob.Rukhmar then
 			list:ItemAdd(curline)
-			list:ItemSet(1, "|cffffff00  " .. L["Rukmar"])
-			if ch.Weekly and ch.Weekly.Rukmar then
+			list:ItemSet(1, "|cffffff00  " .. L["Rukhmar"])
+			if ch.Weekly and ch.Weekly.Rukhmar then
 				strng = "|cff00ff00" .. L["Killed"]
-			elseif ch.Weekly and not ch.Weekly.Rukmar then
+			elseif ch.Weekly and not ch.Weekly.Rukhmar then
 				strng = "|cffff0000" .. L["Not Killed"]
 			else
 				strng = "|cffffffff" .. L["Unknown"]
@@ -1049,7 +1048,7 @@ function Nx.Weekly:DisplayWeekly()
 			list:ItemSet(2, strng)
 			curline = curline + 1
 			spacer = true
-		end			
+		end
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
@@ -1073,9 +1072,9 @@ function Nx.Weekly:DisplayWeekly()
 			list:ItemSet(1, "|cffffff00  " .. L["Garrison Invasion"])
 			if ch.Weekly and ch.Weekly.GarrisonInvasion then
 				if ch.Weekly.GarrisonInvasion == 0 then
-					strng = "|cff00ff00" .. L["Not Completed"]			
+					strng = "|cff00ff00" .. L["Not Completed"]
 				else
-					strng = "|cff00ff00" .. ch.Weekly.GarrisonInvasion							
+					strng = "|cff00ff00" .. ch.Weekly.GarrisonInvasion
 				end
 			elseif not ch.Weekly or not ch.Weekly.TemperedFateSeals then
 				strng = "|cffffffff" .. L["Unknown"]
@@ -1083,12 +1082,12 @@ function Nx.Weekly:DisplayWeekly()
 			list:ItemSet(2, strng)
 			curline = curline + 1
 			spacer = true
-		end		
+		end
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
 			curline = curline + 1
-		end		
+		end
 		spacer = false
 		strng = "                    "
 		local strng2 = "                    "
@@ -1097,7 +1096,7 @@ function Nx.Weekly:DisplayWeekly()
 		curline = curline + 1
 		list:ItemAdd(curline + 1)
 		list:ItemSet(1, "                    ")
-		list:ItemSet(2, format("|cffffff00%s%s%s%s|r", 
+		list:ItemSet(2, format("|cffffff00%s%s%s%s|r",
 			Nx.wkdb.profile.Track.RaidLevels.LFR and ' LFR  ' or '',
 			Nx.wkdb.profile.Track.RaidLevels.Norm and ' NHC  ' or '',
 			Nx.wkdb.profile.Track.RaidLevels.Heroic and ' HC   ' or '',
@@ -1114,65 +1113,65 @@ function Nx.Weekly:DisplayWeekly()
 		strng2 = ""
 		if Nx.wkdb.profile.Track.Raids.Highmaul then
 			spacer = true
-			for i = 1,7 do				
+			for i = 1,7 do
 				strng = GetLFGDungeonEncounterInfo(895,i)
 				strng2 = ""
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][1] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][1] and
 						ch.Weekly.Raids["Highmaul"][1][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][3] and
 						ch.Weekly.Raids["Highmaul"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][4] and
 						ch.Weekly.Raids["Highmaul"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["Highmaul"] and ch.Weekly.Raids["Highmaul"][5] and
 						ch.Weekly.Raids["Highmaul"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
 				curline = curline + 1
 			end
-		end		
+		end
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
 			curline = curline + 1
-		end		
-		spacer = false		
+		end
+		spacer = false
 		if Nx.wkdb.profile.Track.Raids.BRF then
 			spacer = true
-			for i = 1,10 do				
+			for i = 1,10 do
 				strng = GetLFGDungeonEncounterInfo(898,i)
 				strng2 = ""
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][1] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][1] and
 						ch.Weekly.Raids["BRF"][1][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][3] and
 						ch.Weekly.Raids["BRF"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][4] and
 						ch.Weekly.Raids["BRF"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["BRF"] and ch.Weekly.Raids["BRF"][5] and
 						ch.Weekly.Raids["BRF"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
 				curline = curline + 1
 			end
-		end				
-	end	
+		end
+	end
 	if Nx.Weekly.WhichExpansion == 2 then
 		if Nx.wkdb.profile.Track.Mob.Sha then
 			list:ItemAdd(curline)
@@ -1204,7 +1203,7 @@ function Nx.Weekly:DisplayWeekly()
 		end
 		if Nx.wkdb.profile.Track.Mob.Nalak then
 			list:ItemAdd(curline)
-			list:ItemSet(1, "|cffffff00  " .. L["Nalak"])
+			list:ItemSet(1, "|cffffff00  " .. L["Nalak, The Storm Lord"])
 			if ch.Weekly and ch.Weekly.Nalak then
 				strng = "|cff00ff00" .. L["Killed"]
 			elseif ch.Weekly and not ch.Weekly.Nalak then
@@ -1313,7 +1312,7 @@ function Nx.Weekly:DisplayWeekly()
 		spacer = false
 		if Nx.wkdb.profile.Track.Quest.Chamberlain then
 			list:ItemAdd(curline)
-			list:ItemSet(1, "|cffffff00  " .. L["The Crumbled Chamberlain Quest"])
+			list:ItemSet(1, "|cffffff00  " .. L["The Crumbled Chamberlain"])
 			if ch.Weekly and ch.Weekly.Chamberlain then
 				strng = "|cff00ff00" .. L["Completed"]
 			elseif ch.Weekly and not ch.Weekly.Chamberlain then
@@ -1337,7 +1336,7 @@ function Nx.Weekly:DisplayWeekly()
 		curline = curline + 1
 		list:ItemAdd(curline + 1)
 		list:ItemSet(1, "                    ")
-		list:ItemSet(2, format("|cffffff00%s%s%s%s|r", 
+		list:ItemSet(2, format("|cffffff00%s%s%s%s|r",
 			Nx.wkdb.profile.Track.RaidLevels.LFR and ' LFR  ' or '',
 			Nx.wkdb.profile.Track.RaidLevels.Norm and ' NHC  ' or '',
 			Nx.wkdb.profile.Track.RaidLevels.Heroic and ' HC   ' or '',
@@ -1354,26 +1353,26 @@ function Nx.Weekly:DisplayWeekly()
 		strng2 = ""
 		if Nx.wkdb.profile.Track.Raids.MSV then
 			spacer = true
-			for i = 1,6 do				
+			for i = 1,6 do
 				strng = GetLFGDungeonEncounterInfo(532,i)
 				strng2 = ""
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ((ch.Weekly.Raids["MSV"][1] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ((ch.Weekly.Raids["MSV"][1] and
 						ch.Weekly.Raids["MSV"][1][i]) or (ch.Weekly.Raids["MSV"][2] and ch.Weekly.Raids["MSV"][2][i]))) and
-							"   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ") 
+							"   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][3] and
 						ch.Weekly.Raids["MSV"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][4] and
 						ch.Weekly.Raids["MSV"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["MSV"] and ch.Weekly.Raids["MSV"][5] and
 						ch.Weekly.Raids["MSV"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
@@ -1383,29 +1382,29 @@ function Nx.Weekly:DisplayWeekly()
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
-		end		
+		end
 		if Nx.wkdb.profile.Track.Raids.HoF then
 			spacer = true
-			for i = 1,6 do				
+			for i = 1,6 do
 				strng = GetLFGDungeonEncounterInfo(534,i)
 				strng2 = ""
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ((ch.Weekly.Raids["HoF"][1] and 
-						ch.Weekly.Raids["HoF"][1][i]) or (ch.Weekly.Raids["HoF"][2] and ch.Weekly.Raids["HoF"][2][i]))) and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ((ch.Weekly.Raids["HoF"][1] and
+						ch.Weekly.Raids["HoF"][1][i]) or (ch.Weekly.Raids["HoF"][2] and ch.Weekly.Raids["HoF"][2][i]))) and
 							"   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][3] and
 						ch.Weekly.Raids["HoF"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][4] and
 						ch.Weekly.Raids["HoF"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["HoF"] and ch.Weekly.Raids["HoF"][5] and
 						ch.Weekly.Raids["HoF"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
@@ -1415,29 +1414,29 @@ function Nx.Weekly:DisplayWeekly()
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
-		end		
+		end
 		if Nx.wkdb.profile.Track.Raids.TeS then
 			spacer = true
-			for i = 1,4 do				
+			for i = 1,4 do
 				strng = GetLFGDungeonEncounterInfo(536,i)
 				strng2 = ""
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ((ch.Weekly.Raids["TeS"][1] and 
-						ch.Weekly.Raids["TeS"][1][i]) or (ch.Weekly.Raids["TeS"][2] and ch.Weekly.Raids["TeS"][2][i]))) and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ((ch.Weekly.Raids["TeS"][1] and
+						ch.Weekly.Raids["TeS"][1][i]) or (ch.Weekly.Raids["TeS"][2] and ch.Weekly.Raids["TeS"][2][i]))) and
 							"   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][3] and
 						ch.Weekly.Raids["TeS"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][4] and
 						ch.Weekly.Raids["TeS"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["TeS"] and ch.Weekly.Raids["TeS"][5] and
 						ch.Weekly.Raids["TeS"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
@@ -1447,29 +1446,29 @@ function Nx.Weekly:DisplayWeekly()
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
-		end				
+		end
 		if Nx.wkdb.profile.Track.Raids.ToTS then
 			spacer = true
-			for i = 1,12 do				
+			for i = 1,12 do
 				strng = GetLFGDungeonEncounterInfo(634,i)
 				strng2 = ""
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ((ch.Weekly.Raids["ToTS"][1] and 
-						ch.Weekly.Raids["ToTS"][1][i]) or (ch.Weekly.Raids["ToTS"][2] and ch.Weekly.Raids["ToTS"][2][i]))) and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ((ch.Weekly.Raids["ToTS"][1] and
+						ch.Weekly.Raids["ToTS"][1][i]) or (ch.Weekly.Raids["ToTS"][2] and ch.Weekly.Raids["ToTS"][2][i]))) and
 							"   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][3] and
 						ch.Weekly.Raids["ToTS"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][4] and
 						ch.Weekly.Raids["ToTS"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["ToTS"] and ch.Weekly.Raids["ToTS"][5] and
 						ch.Weekly.Raids["ToTS"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
@@ -1479,30 +1478,30 @@ function Nx.Weekly:DisplayWeekly()
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
-		end			
+		end
 		if Nx.wkdb.profile.Track.Raids.SoO then
 			spacer = true
-			for i = 1,14 do				
+			for i = 1,14 do
 				strng = GetLFGDungeonEncounterInfo(715,i)
 				strng2 = ""
 				strng = format("%-30s",string.sub(strng,1,22))
 				if Nx.wkdb.profile.Track.RaidLevels.LFR then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ((ch.Weekly.Raids["SoO"][1] and 
-						ch.Weekly.Raids["SoO"][1][i]) or (ch.Weekly.Raids["SoO"][2] and ch.Weekly.Raids["SoO"][2][i]))) and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ((ch.Weekly.Raids["SoO"][1] and
+						ch.Weekly.Raids["SoO"][1][i]) or (ch.Weekly.Raids["SoO"][2] and ch.Weekly.Raids["SoO"][2][i]))) and
 							"   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
 				end
 				if Nx.wkdb.profile.Track.RaidLevels.Norm then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][3] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][3] and
 						ch.Weekly.Raids["SoO"][3][i]) and "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "    |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Heroic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][4] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][4] and
 						ch.Weekly.Raids["SoO"][4][i]) and "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "   |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				if Nx.wkdb.profile.Track.RaidLevels.Mythic then
-					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][5] and 
+					strng2 = strng2 .. ((ch.Weekly.Raids and ch.Weekly.Raids["SoO"] and ch.Weekly.Raids["SoO"][5] and
 						ch.Weekly.Raids["SoO"][5][i]) and "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_8:12|t   " or "     |TInterface\\TARGETINGFRAME\\UI-RaidTargetingIcon_7:12|t   ")
-				end				
+				end
 				list:ItemAdd(curline + 1)
 				list:ItemSet(1, strng)
 				list:ItemSet(2, strng2)
@@ -1512,7 +1511,7 @@ function Nx.Weekly:DisplayWeekly()
 		if spacer then
 			list:ItemAdd(curline)
 			list:ItemSet(1,"|cff00ffff  -----------------------------")
-		end						
+		end
 	end
 end
 
@@ -1548,3 +1547,6 @@ function Nx.Weekly:CalcReset()
 --	Nx.prt(day .. " " .. dailydate .. " " .. tdays)
 	return seconds + tdays * 86400
 end
+
+-------------------------------------------------------------------------------
+-- EOF

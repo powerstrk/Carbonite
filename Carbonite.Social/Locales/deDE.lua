@@ -70,7 +70,7 @@ L["Set note"] = "Notiz anlegen"
 L["Pals"] = "Kumpel"
 L["Punks"] = "Gegner"
 L["Friends"] = "Freunde"
-L["Who"] = "Wer" --needs revision if right german Term because of more possibilities
+L["Who"] = "Wer"		--needs revision if right german Term because of more possibilities
 L["Guild"] = "Gilde"
 L["Chat"] = true
 L["Raid"] = true
@@ -103,4 +103,3 @@ L["Punk %s added"] = "Gengner %s hinzugef\195\188gt"
 L["hey"] = true
 L["|cffff2020Team:"] = true
 L["Team:"] = true
-

@@ -33,6 +33,11 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Warehouse", true)
 
 Nx.VERSIONWare			= .15				-- Warehouse data
 
+-- Keybindings
+BINDING_HEADER_CarboniteWarehouse = L["|cffc0c0ffCarboniteWarehouse|r"]
+BINDING_NAME_NxTOGGLEWAREHOUSE	= L["NxTOGGLEWAREHOUSE"]
+
+
 local defaults = {
 	profile = {
 		Warehouse = {
@@ -2467,5 +2472,3 @@ end
 
 -------------------------------------------------------------------------------
 -- EOF
--------------------------------------------------------------------------------
-

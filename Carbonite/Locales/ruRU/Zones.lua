@@ -88,7 +88,7 @@ L["Eye of the Storm"] = "Око Бури"
 L["Felwood"] = "Оскверненный лес"
 L["Feralas"] = "Фералас"
 L["Firelands"] = "Огненные Просторы"
-L["Frostfire Ridge"] = "Хребет Ледяного Огня				-- http://ru.wowhead.com/zone=6720"
+L["Frostfire Ridge"] = "Хребет Ледяного Огня"				-- http://ru.wowhead.com/zone=6720"
 L["Frostwall"] = "Ледяные скалы"					-- http://ru.wowhead.com/zone=7004
 L["Gate of the Setting Sun"] = "Врата Заходящего Солнца"
 L["Ghostlands"] = "Призрачные земли"

@@ -93,3 +93,8 @@ L["LOOT_SLOT_CLEARED #%s %s (quest)"] = true
 L["%s deleted"] = "%s gel\195\182scht"
 L["enchant:(%d+)"] = "enzaubern:(%d+)"
 L["item:(%d+)"] = true
+
+-- Keybinds / Tastaturbelegungen
+L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Lager|r"
+L["NxTOGGLEWAREHOUSE"] = "Lager ein/ausblenden"
+
