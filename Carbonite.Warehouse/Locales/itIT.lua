@@ -94,6 +94,7 @@ L["LOOT_SLOT_CLEARED #%s %s (quest)"] = true
 L["%s deleted"] = "%s cancellato"
 L["enchant:(%d+)"] = "incanto:(%d+)"
 L["item:(%d+)"] = "oggetto:(%d+)"
---	Keybinds
+
+-- Keybinds
 L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Warehouse|r"
 L["NxTOGGLEWAREHOUSE"] = "show/hide Warehouse"

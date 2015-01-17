@@ -41,6 +41,7 @@ L["Note Addons"] = true
 L["My Notes"] = true
 
 L["Reset old notes data %f"] = true
---Keybinds
+
+-- Keybinds
 L["|cffc0c0ffCarbonite Notes|r"] = "|cffc0c0ffCarbonite Notes|r"
 L["NxTOGGLEFAV"] = "show/hide Notes"

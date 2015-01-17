@@ -1,6 +1,6 @@
 ## Interface: 60000
-## Title: Carbonite Quest 1.0
-## Version: 1.0
+## Title: Carbonite Quest 6.0.1D
+## Version: 6.0.1D
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

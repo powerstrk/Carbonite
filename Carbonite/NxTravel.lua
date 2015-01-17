@@ -846,7 +846,7 @@ function Nx.Travel:DebugCaptureTaxi()
 --		NxData.TaxiCap = {}
 
 		local map = Nx.Map:GetMap (1)
-		local mid = map:GetRealMapId()
+		local mid = Nx.Map:GetRealMapId()
 
 		local cap = Nx.db.char.TaxiCap or {}
 		Nx.db.char.TaxiCap = cap

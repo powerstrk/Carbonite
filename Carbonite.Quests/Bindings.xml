@@ -4,6 +4,6 @@
 		Nx.NXWatchKeyToggleMini()
 	</Binding>
 	<Binding name="NxWATCHUSEITEM" category="ADDONS">
-    Nx.NXWatchKeyUseItem()
-  </Binding>
+		Nx.NXWatchKeyUseItem()
+	</Binding>
 </Bindings>

@@ -97,4 +97,3 @@ L["item:(%d+)"] = true
 -- Keybinds / Tastaturbelegungen
 L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Lager|r"
 L["NxTOGGLEWAREHOUSE"] = "Lager ein/ausblenden"
-
