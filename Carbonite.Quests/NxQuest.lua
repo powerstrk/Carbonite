@@ -114,7 +114,7 @@ local defaults = {
 			Load8 = true,	-- 71 - 80
 			Load9 = true,	-- 81 - 85
 			Load10 = true,	-- 86 - 90
-			Load11 = true,   -- 91 - 100
+			Load11 = true,	-- 91 - 100
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -1811,7 +1811,7 @@ local function QuestOptions ()
 							type = "description",
 							name = " ",
 						},
-						gather = {
+						gather = {		-- Change to qgather perhaps?
 							order = 19,
 							type = "toggle",
 							width = "full",
@@ -2053,6 +2053,8 @@ function CarboniteQuest:OnInitialize()
 		cap["Q"] = {}
 		NXQuest.Gather = cap
 	end
+
+	NXQuest.Gather.UserLocale = GetLocale()
 
 	Nx.Quest:Init()
 	if Nx.qdb.profile.Quest.Enable then
@@ -2659,8 +2661,12 @@ function Nx.Quest:Init()
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
-		if auto and not QuestGetAutoAccept() then
-			AcceptQuest()
+		if auto then
+			if not QuestGetAutoAccept() then
+				AcceptQuest()
+			else
+				AcknowledgeAutoAcceptQuest()
+			end
 		end
 	end
 
@@ -2745,7 +2751,7 @@ end
 function Nx.Quest:LoadQuestDB()
 	local Map = Nx.Map
 	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
-	Nx.Quests = Nx["Quests"] or Nx.Quests								-- Copy unmunged data to munged data
+	Nx.Quests = Nx["Quests"] or Nx.Quests				-- Copy unmunged data to munged data
 	Nx.QuestStartEnd = Nx["QuestStartEnd"] or Nx.QuestStartEnd	-- Copy unmunged data to munged data
 
 	Nx.Quests = {}
@@ -2764,9 +2770,9 @@ function Nx.Quest:LoadQuestDB()
 	self.Map = Map:GetMap (1)
 
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
-	 -- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
-	 -- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
-	--local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
+	-- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
+	-- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
+	-- local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
 	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
 
 	local qMaxLevel = 999
@@ -2792,7 +2798,7 @@ function Nx.Quest:LoadQuestDB()
 			--end
 		else
 			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
-			if q["End"] and q["End"] == q["Start"] then --DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
+			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
 --				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
 				--DeaTHCorE - follow are no required, was not used...
 				--sameCnt = sameCnt + 1
@@ -2842,8 +2848,6 @@ function Nx.Quest:LoadQuestDB()
 	end
 
 
-	--DeaTHCorE - changed to 100 so that all quests to level 100 are checked here...
-	--for lvl = 0, 90 do
 	for lvl = 0, 100 do
 
 		local grp = {}
@@ -3405,7 +3409,7 @@ function Nx.Quest:RecordQuestsLog()
 					index = index + 1
 
 				else
-					cur.Goto = nil						-- Might have been a goto quest
+					cur.Goto = nil					-- Might have been a goto quest
 					cur.Index = index
 
 					if quest then
@@ -3417,7 +3421,7 @@ function Nx.Quest:RecordQuestsLog()
 				qIds[qId] = cur
 
 				cur.Q = quest
-				cur.QI = qn							-- Blizzard index
+				cur.QI = qn						-- Blizzard index
 				cur.QId = qId
 				cur.Header = header
 				cur.Title = title
@@ -3425,7 +3429,7 @@ function Nx.Quest:RecordQuestsLog()
 				cur.DescText = qDesc
 				cur.Level = level
 				cur.RealLevel = qLevel
-				cur.NewTime = self.QIdsNew[qId]	-- Copy new time
+				cur.NewTime = self.QIdsNew[qId]				-- Copy new time
 
 				cur.Tag = tag
 				cur.GCnt = groupCnt or 0
@@ -3446,7 +3450,7 @@ function Nx.Quest:RecordQuestsLog()
 					cur.TagShort = "#" .. cur.TagShort
 				end
 				cur.CanShare = GetQuestLogPushable()
-				cur.Complete = isComplete		-- 1 is Done, nil not. Otherwise failed
+				cur.Complete = isComplete			-- 1 is Done, nil not. Otherwise failed
 				cur.IsAutoComplete = GetQuestLogIsAutoComplete (qn)
 
 				local left = GetQuestLogTimeLeft()
@@ -4319,7 +4323,7 @@ function Nx.Quest:Capture (curi, objNum)
 			local obj = qdata[index]
 
 			if not obj then
---				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)
+--				Nx.prt (L["Capture err %s, %s"], cur.Title, objNum)	-- Debug message
 				return
 			end
 
@@ -5667,10 +5671,28 @@ end
 -- Frame update. Called by main addon frame
 -------------------------------------------------------------------------------
 
+local elap = nil
 function Nx.Quest:OnUpdate (elapsed)
 	if not Nx.Quest.Initialized then
 		return
 	end
+
+	-- DeaTHCorE - missing questwatch update... the quest range as a example are updated very late without updates,
+	-- so i have added here a update every 1 secound. this update is any more required for update questwatch itembutton in
+	-- conjunction with the InCombatLockdown() call ( :Hide() quest itembutton is a example for missing update by InCombatLockdown(),
+	-- the call of :Hide() are not called a the frame lists etcetera are wiped.	)
+	-- I have tested with a CPU Profiling addon and no performence lost i have seen...
+	-- I call the update here to spare one more timer ;)
+	if not elap then
+		elap = GetTime()
+		return
+	end
+	local t = GetTime()
+	if t - elap >= 1 then
+		Nx.Quest.Watch:Update()
+		elap = t
+	end
+
 	if not self.List.Win:IsShown() then
 --		Nx.prt ("skip")
 		return
@@ -6526,9 +6548,9 @@ function Nx.Quest.List:Update()
 	local dailyStr = ""
 	local dailysDone = GetDailyQuestsCompleted()
 	if Nx.qdb.profile.Quest.ShowDailyCount then
-	  if dailysDone > 0 then
-		dailyStr = L["Daily Quests Completed: |cffffffff"] .. dailysDone
-	  end
+		if dailysDone > 0 then
+			dailyStr = L["Daily Quests Completed: |cffffffff"] .. dailysDone
+		end
 	end
 	if Nx.qdb.profile.Quest.ShowDailyReset then
 		dailyStr = dailyStr .. L["|r  Daily reset: |cffffffff"] .. Nx.Util_GetTimeElapsedStr (GetQuestResetTime())
@@ -8798,7 +8820,15 @@ function Nx.Quest.Watch:UpdateList()
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
+											if Nx.qdb.profile.QuestWatch.BonusBar then
+												if (math.floor(percent) == 0) then
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
+												else
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
+												end
+											else
+												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
+											end
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8824,7 +8854,15 @@ function Nx.Quest.Watch:UpdateList()
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
-											list:ItemSet(2,format("|cff00ff00%s %.2f%%", Nx.qdb.profile.QuestWatch.BonusBar and (string.rep("\226\150\136", math.floor(percent/8)) .. (((percent%8) >= 4) and "\226\150\140" or "")) or L["Progress: "], percent))
+											if Nx.qdb.profile.QuestWatch.BonusBar then
+												if (math.floor(percent) == 0) then
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
+												else
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
+												end
+											else
+												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
+											end
 										else
 											list:ItemAdd(0)
 											list:ItemSet(2,"|cff00ff00" .. text)
@@ -8942,7 +8980,12 @@ function Nx.Quest.Watch:UpdateList()
 							else
 								list:ItemSetButton ("QuestWatchTip", false)		-- QuestWatchTip  >  QuestWatch?
 							end
-							if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
+							-- DeaTHCorE - fix for item button. 'not isComplete' is commented out to delete quest itembutton only
+							-- if the quest is to release by questgiver, this is usefull for many quests who the questitem can help
+							-- after quest completed ( the way out of a cave as a example, the questitem will be used for many mobs
+							-- on the way) and this reduce the risk for not :Hide() the quest itembutton by InCombatLockdown...
+							-- if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
+							if cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
 							end
 							list:ItemSetButtonTip ((cur.ObjText or "?") .. (cur.PartyDesc or ""))
@@ -9016,7 +9059,7 @@ function Nx.Quest.Watch:UpdateList()
 											else
 												local s1, _, i, total = strfind (desc, "(%d+)/(%d+)")
 												if s1 then
-	--												Nx.prt ("%s %s", i, total)
+--													Nx.prt ("%s %s", i, total)
 													i = floor (tonumber (i) / tonumber (total) * 8.99) + 1
 												else
 													i = 1
@@ -9270,6 +9313,7 @@ function Nx.Quest.Watch:OnListEvent (eventName, val1, val2, click, but)
 end
 
 -------------------------------------------------------------------------------
+--
 -------------------------------------------------------------------------------
 
 function Nx.Quest.Watch:Set (data, on, track)

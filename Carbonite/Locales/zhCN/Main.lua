@@ -132,8 +132,10 @@ L["Opening - No Text"] = true				-- NXlOpeningNoText
 L["Everfrost Chip"] = "永冻薄片"			-- NXlEverfrost
 
 L["yds"] = "码"
+L["secs"] = "秒"
+L["mins"] = "分钟"
 
---NxUI.lua
+-- NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
 L[" EScale %f, Lvl %f"] = true
 L[" LR %f, %f"] = true
@@ -158,6 +160,6 @@ L["Key %s %s #%s %s"] = "键 %s %s #%s %s"
 L["shift left/right click to change size"] = "Shift-左键或右键点击改变大小"
 L["Reset old tool bar data"] = "重置旧工具栏数据"
 
---NxTravel.lua                  
+-- NxTravel.lua
 L["Connection: %s to %s"] = "连接：%s 到 %s"
 L["Fly: %s to %s"] = "飞行：%s 到 %s"

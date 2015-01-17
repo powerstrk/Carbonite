@@ -38,5 +38,5 @@ L["My Notes"] = "我的标记"
 
 L["Reset old notes data %f"] = "重置旧标记数据 %f"
 --Keybinds
-L["|cffc0c0ffCarbonite Notes|r"] = "|cffc0c0ffCarbonite Notes|r"
-L["NxTOGGLEFAV"] = "show/hide Notes"
+L["|cffc0c0ffCarbonite Notes|r"] = "|cffc0c0ffCarbonite 标记模块|r"
+L["NxTOGGLEFAV"] = "显示/隐藏标记"

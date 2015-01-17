@@ -22,6 +22,7 @@ L["ItemTypes"] = {
 	"Оружие",
 }
 
+L["-Warehouse-"] = true
 L["Warehouse Module"] = true
 L["Warehouse Options"] = true
 L["Add Warehouse Tooltip"] = true

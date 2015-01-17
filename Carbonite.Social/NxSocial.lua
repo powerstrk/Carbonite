@@ -809,14 +809,14 @@ function Nx.Social:Create()
 	local palw = 0
 	local selected = 2
 --PAIDS!
-	palw = 40
+	palw = 46
 	selected = 1
 --PAIDE!
 
 	local orig = 3
 
-	bar:AddTab ("Pals", 1, palw)
-	bar:AddTab ("Punks", 2, 46)
+	bar:AddTab (L["Pals"], 1, palw)
+	bar:AddTab (L["Punks"], 2, 46)
 
 	if Nx.db.profile.Debug.VerDebug then
 		bar:AddTab ("Com", 3, 38)
@@ -2078,7 +2078,7 @@ function Nx.Social:GetPunkPasteInfo (name)
 
 		local lvl = punk.Lvl > 0 and punk.Lvl or "?"
 		local class = punk.Class or "?"
-		return format (L["Punk: %s, %s %s at %s %d %d"], name, lvl, class, GetMapNameById(punk.MId) or "?", punk.X, punk.Y)
+		return format (L["Punk: %s, %s %s at %s %d %d"], name, lvl, class, GetMapNameByID(punk.MId) or "?", punk.X, punk.Y)
 	end
 
 	return ""

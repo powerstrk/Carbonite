@@ -1495,6 +1495,8 @@ function Nx.Com:OnUpdate (elapsed)
 
 		if msg then
 
+			ShowFriends()		-- force Friend List Update
+
 			self.PosSendNext = self.PosSendNext + 1
 
 			if self.PosSendNext > #self.Friends then

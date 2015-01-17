@@ -256,9 +256,9 @@ function Nx.HUD:Update (map)
 				local eta = map.TrackETA or dist / map.PlyrSpeed
 
 				if eta < 60 then
-					self.ETAStr = format ("|cffdfffdf %.0f secs", eta)
+					self.ETAStr = format ("|cffdfffdf %.0f " .. L["secs"], eta)
 				else
-					self.ETAStr = format ("|cffdfdfdf %.1f mins", eta / 60)
+					self.ETAStr = format ("|cffdfdfdf %.1f " .. L["mins"], eta / 60)
 				end
 			end
 

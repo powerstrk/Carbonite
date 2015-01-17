@@ -289,7 +289,9 @@ L["Player"] = "玩家"
 L["Daily Quests Completed: |cffffffff"] = "日常任务已完成: |cffffffff"
 L["|r  Daily reset: |cffffffff"] = "|r  日常重置: |cffffffff"
 L["Quests: |cffffffff%d/%d|r  %s"] = "任务: |cffffffff%d/%d|r  %s"
+
 L["yds"] = "码"
+
 L["Reset old quest options %f"] = "重置旧任务设置 %f"
 L["Set %d chain quests as done"] = "设置 %d 个任务链为已完成状态"
 L["QuestQueryTimer wait"] = true
@@ -343,12 +345,12 @@ L["Quest Info (shift click - goto)..."] = "任务信息(Shift-左键前往)..."
 L[" (Complete)"] = " (完成)"
 L["(done)"] = "(完成)"
 
-L["Quest Complete '%s'"] = true
-L["Load quest data by threshold"] = true
-L["Loads all the carbonite quest data between player level - level threshold to 100"] = true
-L["Level Threshold"] = true
-L["Levels under player level to load quest data on reload"] = true
+L["Quest Complete '%s'"] = "任务完成 '%s'"
+L["Load quest data by threshold"] = "按玩家等级区间载入任务数据"
+L["Loads all the carbonite quest data between player level - level threshold to 100"] = "载入玩家当前等级至100级的任务数据"
+L["Level Threshold"] = "等级阈值"
+L["Levels under player level to load quest data on reload"] = "重载后将会加载的低于玩家等级的任务数据"
 --	Keybinds
-L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
-L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
-L["NxWATCHUSEITEM"] = "Use Questitem"
+L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite 任务模块|r"
+L["NxTOGGLEWATCHMINI"] = "任务监视列表 最小/最大化"
+L["NxWATCHUSEITEM"] = "使用任务物品"

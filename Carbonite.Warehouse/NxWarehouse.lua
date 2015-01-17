@@ -200,7 +200,7 @@ function CarboniteWarehouse:OnInitialize()
 		SizeDn = 14,
 		UpUV = { 0, 1, 0, .5 },
 	}
-	tinsert (Nx.BarData,{"MapWarehouse", "-Warehouse-", Nx.Warehouse.OnButToggleWarehouse, false })
+	tinsert (Nx.BarData,{"MapWarehouse", L["-Warehouse-"], Nx.Warehouse.OnButToggleWarehouse, false })
 	Nx.Map.Maps[1]:CreateToolBar()
 
 	local ttHooks = {
@@ -2467,6 +2467,8 @@ end
 function Nx.Warehouse:OnButToggleWarehouse (but)
 	Nx.Warehouse:ToggleShow()
 end
+
+--PAIDE!
 
 -------------------------------------------------------------------------------
 -- EOF

@@ -128,8 +128,10 @@ L["Opening - No Text"] = true			-- NXlOpeningNoText
 L["Everfrost Chip"] = true			-- NXlEverfrost
 
 L["yds"] = true
+L["secs"] = true
+L["mins"] = true
 
---NxUI.lua
+-- NxUI.lua
 L[" Frame: %s Shown%d Vis%d P>%s"] = true
 L[" EScale %f, Lvl %f"] = true
 L[" LR %f, %f"] = true
@@ -154,7 +156,6 @@ L["Key %s %s #%s %s"] = true
 L["shift left/right click to change size"] = true
 L["Reset old tool bar data"] = true
 
---NxTravel.lua
+-- NxTravel.lua
 L["Connection: %s to %s"] = true
 L["Fly: %s to %s"] = true
-

@@ -1262,7 +1262,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 			end
 			if Quest and Quest.QGivers then
 				local mapId = map:GetCurrentMapId()
-				mapId=Nx.Map:GCMI_OVERRIDE(mapId)				
+				mapId=Nx.Map:GCMI_OVERRIDE(mapId)
 				local stzone = Quest.QGivers[mapId]
 				if stzone then
 					if not Nx.CurCharacter["Level"] then return end

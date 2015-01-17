@@ -21,8 +21,9 @@ L["ItemTypes"] = {
 	"Waffe",
 }
 
+L["-Warehouse-"] = true
 L["Warehouse Module"] = "Lager Modul"
-L["Warehouse Options"] = "Lager Einstellungen"
+L["Warehouse Options"] = "Lager Optionen"
 L["Add Warehouse Tooltip"] = "Lager Kurzinfo hinzuf\195\188gen"
 L["When enabled, will show warehouse information in hover tooltips of items"] = "Wenn eingestellt, werden Lagerinformationen in den Schaltfl\195\164chentexten von Gegenst\195\164nden angezeigt"
 L["Warehouse Font"] = "Lager Schriftart"
@@ -49,11 +50,11 @@ L["Show Warehouse"] = "Zeige Warenhaus"
 
 L["Import"] = "Importieren"
 L["Cancel"] = "Abbruch"
-L["Export"] = "Exportieren"
+L["Export"] = "Export"
 L["Warehouse"] = "Lager"
 L[" Realm:%s %s"] = true
 L[" Time On: %s%2d:%02d:%02d|r, Played: %s%s"] = " Online seid: %s%2d:%02d:%02d|r, gespielt: %s%s"
-L[" Session Money:%s %s|r, Per Hour:%s %s"] = " eingenommenes Geld dieser Sitzung:%s %s|r, pro Stunde:%s %s"
+L[" Session Money:%s %s|r, Per Hour:%s %s"] = " eingenommenes Gold in dieser Sitzung:%s %s|r, pro Stunde:%s %s"
 L[" Durability: %s%d%%, lowest %d%%"] = " Haltbarkeit: %s%d%%, niedrigstes %d%%"
 L[" Session XP:%s %s|r, Per Hour:%s %.0f"] = " erhaltene EP in derzeitiger Sitzung:%s %s|r, pro Stunde:%s %.0f"
 L[" Hours To Level: %s%.1f"] = " Stunden bis zum nächsten Level: %s%.1f"
@@ -61,8 +62,8 @@ L[" Last On: %s%s|r, Played: %s%s"] = " zuletzt Online: %s%s|r, gespielt: %s%s"
 L[" Location: %s%s (%d, %d)"] = " Position: %s%s (%d, %d)"
 L[" Start XP: %s%s/%s (%.0f%%)|r Rest: %s%.0f%%"] = " Start EP: %s%s/%s (%.0f%%)|r ausgeruht: %s%.0f%%"
 L[" XP: %s%s/%s (%.0f%%)|r Rest: %s%.0f%%"] = " EP: %s%s/%s (%.0f%%)|r ausgeruht: %s%.0f%%"
-L[" Honor: %s%s|r Conquest: %s%s"] = true
-L[" Valor: %s%s|r Justice: %s%s"] = true -- it's no more needed
+L[" Honor: %s%s|r  Conquest: %s%s"] = true
+L[" Valor: %s%s|r  Justice: %s%s"] = true
 --L[" %s %s%s"] = true
 L["|cffafdfafAll: %s. |cffafdfafPlayed: %s%s"] = "|cffafdfafAlles: %s. |cffafdfafgespielt: %s%s"
 L["%s's Items"] = true

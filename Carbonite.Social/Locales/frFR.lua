@@ -67,6 +67,8 @@ L["Set person who owns character"] = "D\195\169fini une personne qui poss\195\16
 L["Add punk name"] = "Ajouter Nom de Punk(s)"
 L["Set note"] = "D\195\169finir note"
 
+L["Pals"] = "Alli\195\169s"
+L["Punks"] = true
 L["Friends"] = "Amis"
 L["Who"] = "Qui"
 L["Guild"] = "Guilde"
@@ -91,12 +93,12 @@ L["Enemy"] = "Ennemi"
 L["%s %s detected near you"] = "%s %s detect\195\169 pr\195\168s de vous"
 L["Note: %s"] = true
 L["|cffff4000near you"] = "|cffff4000pr\195\168s de vous"
-L["at %d yards"] = "A %d yards"
+L["at %d yards"] = "A %d m\195\168tres"					-- yards <> meters
 L["|cffff4000%s|r detected %s!"] = "|cffff4000%s|r detect\195\169 %s!"
-L["*|cffff0000%s %s, %d:%02d ago\n%s (%d,%d)"] = "*|cffff0000%s %s, %d:%02d distance\n%s (%d,%d)"	-- distance != ago
-L["|cffff6060%s %s, %d:%02d ago\n%s (%d,%d)"] = "|cffff6060%s %s, %d:%02d distance\n%s (%d,%d)"		-- distance != ago
+L["*|cffff0000%s %s, %d:%02d ago\n%s (%d,%d)"] = "*|cffff0000%s %s, %d:%02d distance\n%s (%d,%d)"	-- verify translation
+L["|cffff6060%s %s, %d:%02d ago\n%s (%d,%d)"] = "|cffff6060%s %s, %d:%02d distance\n%s (%d,%d)"		-- verify translation
 L["Goto"] = "Destination"
-L["Punk: %s, %s %s at %s %d %d"] = true
+L["Punk: %s, %s %s at %s %d %d"] = "Punk: %s, %s %s \195\160 %s %d %d"
 L["Punk %s added"] = "Punk %s ajout\195\169"
 L["hey"] = true
 L["|cffff2020Team:"] = "|cffff2020Equipe:"
