@@ -67,8 +67,8 @@ L["Set person who owns character"] = "设置谁是该角色大号"
 L["Add punk name"] = "添加敌对角色名"
 L["Set note"] = "设置备注"
 
-L["Pals"] = true
-L["Punks"] = true
+L["Pals"] = "好友"
+L["Punks"] = "敌对"
 L["Friends"] = "好友"
 L["Who"] = "查询"
 L["Guild"] = "公会"

@@ -351,6 +351,6 @@ L["Loads all the carbonite quest data between player level - level threshold to 
 L["Level Threshold"] = "等级阈值"
 L["Levels under player level to load quest data on reload"] = "重载后将会加载的低于玩家等级的任务数据"
 --	Keybinds
-L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite Quests|r"
-L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
-L["NxWATCHUSEITEM"] = "Use Questitem"
+L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ff Carbonite 任务模块|r"
+L["NxTOGGLEWATCHMINI"] = "任务监视列表 最小/最大化"
+L["NxWATCHUSEITEM"] = "使用任务物品"

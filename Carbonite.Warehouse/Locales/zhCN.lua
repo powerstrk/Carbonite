@@ -91,5 +91,5 @@ L["%s deleted"] = "%s 已删除"
 L["enchant:(%d+)"] = "附魔:(%d+)"
 L["item:(%d+)"] = "物品:(%d+)"
 --	Keybinds
-L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Warehouse|r"
-L["NxTOGGLEWAREHOUSE"] = "show/hide Warehouse"
+L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite 仓库模块|r"
+L["NxTOGGLEWAREHOUSE"] = "显示/隐藏仓库窗口"
