@@ -22,7 +22,7 @@ L["ItemTypes"] = {
 	"Armi",
 }
 
-L["-Warehouse-"] = true
+L["-Warehouse-"] = "-Magazzino-"
 L["Warehouse Module"] = "Modulo Magazzino"
 L["Warehouse Options"] = "Opzioni Magazzino"
 L["Add Warehouse Tooltip"] = "Aggiungi Infonote Magazzino"
@@ -47,7 +47,7 @@ L["Import %s's character data and reload?"] = "Importo i dati del personaggio %s
 L["Overwrite all character settings and reload?"] = "Sovrascrivo tutte le impostazioni dei personaggi e ricarico l'interfaccia?"
 L["Warehouse: %d characters"] = "Magazzino: %d Personaggi"
 L["DurPattern"] = "Durabilit\195\160 (%d+) / (%d+)"
-L["Show Warehouse"] = true
+L["Show Warehouse"] = "Mostra Magazzino"
 
 L["Import"] = "Importa"
 L["Cancel"] = "Annulla"
@@ -96,5 +96,5 @@ L["enchant:(%d+)"] = "incanto:(%d+)"
 L["item:(%d+)"] = "oggetto:(%d+)"
 
 -- Keybinds
-L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Warehouse|r"
-L["NxTOGGLEWAREHOUSE"] = "show/hide Warehouse"
+L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffMagazzino Carbonite|r"
+L["NxTOGGLEWAREHOUSE"] = "Mostra/Nascondi Magazzino"

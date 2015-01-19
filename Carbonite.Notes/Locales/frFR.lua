@@ -44,4 +44,4 @@ L["Reset old notes data %f"] = "R\195\169initialiser anciennes donn\195\169s de 
 
 -- Keybinds
 L["|cffc0c0ffCarbonite Notes|r"] = "|cffc0c0ffCarbonite Notes|r"
-L["NxTOGGLEFAV"] = "show/hide Notes"
+L["NxTOGGLEFAV"] = "Afficher/Cacher Notes"
