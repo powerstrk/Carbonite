@@ -370,13 +370,13 @@ L["Exile's Rise, Shadowmoon Valley"] = "Exile's Rise, Valle di Torvaluna"
 L["Socrethar's Rise, Shadowmoon Valley"] = "Socrethar's Rise, Valle di Torvaluna"
 L["Elodor, Shadowmoon Valley"] = "Elodor, Valle di Torvaluna"
 L["Embaari Village, Shadowmoon Valley"] = "Embaari Village, Valle di Torvaluna"
-L["Lunarfall, Shadowmoon Valley"] = "Calaluna, Valle di Torvaluna"		-- A Garrison Subzone
+L["Lunarfall, Shadowmoon Valley"] = "Calaluna, Valle di Torvaluna"			-- A Garrison Subzone
 L["Path of Light, Shadowmoon Valley"] = "Path of Light, Valle di Torvaluna"
 L["The Draakorium, Shadowmoon Valley"] = "The Draakorium, Valle di Torvaluna"
 L["Tranquil Court, Shadowmoon Valley"] = "Tranquil Court, Valle di Torvaluna"
 L["Twilight Glade, Shadowmoon Valley"] = "Twilight Glade, Valle di Torvaluna"
 --Spires of Arak
-L["Akeeta's Hovel, Shadowmoon Valley"] = "Tugurio di Akeeta, Valle di Torvaluna"		-- is in Spires of Arak but Shadowmoon Valley named
+L["Akeeta's Hovel, Shadowmoon Valley"] = "Tugurio di Akeeta, Valle di Torvaluna"	-- is in Spires of Arak but Shadowmoon Valley named
 L["Apexis Excavation, Spires of Arak"] = "Apexis Excavation, Guglie di Arak"
 L["Crow's Crook, Spires of Arak"] = "Crow's Crook, Spires of Arak"
 L["Pinchwhistle Gearworks, Spires of Arak"] = "Pinchwhistle Gearworks, Guglie di Arak"

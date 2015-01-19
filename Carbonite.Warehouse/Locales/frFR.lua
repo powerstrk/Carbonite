@@ -93,6 +93,7 @@ L["LOOT_SLOT_CLEARED #%s %s (quest)"] = true
 L["%s deleted"] = "%s effac\195\169"
 L["enchant:(%d+)"] = true
 L["item:(%d+)"] = "Objet:(%d+)"
---	Keybinds
-L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Inventaires/D\195\169p\195\180ts|r"
+
+-- Keybinds
+L["Carbonite Warehouse"] = "Carbonite Inventaires/D\195\169p\195\180ts"
 L["NxTOGGLEWAREHOUSE"] = "Afficher/Cacher Inventaires/D\195\169p\195\180ts"

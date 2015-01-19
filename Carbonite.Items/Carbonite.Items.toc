@@ -1,6 +1,6 @@
 ## Interface: 60000
-## Title: Carbonite Items 1.1
-## Version: 1.1
+## Title: Carbonite Items 1.1D
+## Version: 1.1D
 ## Author: Carbon Based Creations, LLC
 ## Notes: Copyright 2011 Carbon Based Creations, LLC.  Item data.
 ## DefaultState: Enabled

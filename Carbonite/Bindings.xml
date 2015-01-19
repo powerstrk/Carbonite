@@ -32,26 +32,10 @@
 	<Binding name="NxMAPTOGMINE" category="ADDONS">
 		Nx:NXMapKeyTogMine()
 	</Binding>
-	<!-- Carbonite.Notes\NxFav.lua
-	<Binding name="NxTOGGLEFAV" category="ADDONS">
-		Nx:NXFavKeyToggleShow()
-	</Binding> -->
 	<!-- Carbonite\NxMapGuide.lua -->
 	<Binding name="NxTOGGLEGUIDE" category="ADDONS">
 		Nx:NXGuideKeyToggleShow()
 	</Binding>
-	<!-- Carbonite.Warehouse\NxWarehouse.lua
-	<Binding name="NxTOGGLEWAREHOUSE" category="ADDONS">
-		Nx:NXWarehouseKeyToggleShow()
-	</Binding> -->
-	<!-- Carbonite.Quests\NxQuest.lua
-	<Binding name="NxTOGGLEWATCHMINI" category="ADDONS">
-		Nx.NXWatchKeyToggleMini()
-	</Binding> -->
-	<!-- Carbonite.Quests\NxQuest.lua
-	<Binding name="NxWATCHUSEITEM"category="ADDONS" >
-		Nx.NXWatchKeyUseItem()
-	</Binding> -->
 	<!-- Carbonite\NxMap.lua -->
 	<Binding name="NxMAPSKIPTARGET" category="ADDONS">
 		Nx.NXMapKeyTargetSkip()

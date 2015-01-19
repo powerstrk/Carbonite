@@ -63,7 +63,7 @@ L[" Location: %s%s (%d, %d)"] = " Position: %s%s (%d, %d)"
 L[" Start XP: %s%s/%s (%.0f%%)|r Rest: %s%.0f%%"] = " Start EP: %s%s/%s (%.0f%%)|r ausgeruht: %s%.0f%%"
 L[" XP: %s%s/%s (%.0f%%)|r Rest: %s%.0f%%"] = " EP: %s%s/%s (%.0f%%)|r ausgeruht: %s%.0f%%"
 L[" Honor: %s%s|r  Conquest: %s%s"] = " Ehrenpunkte: %s%s|r  Eroberungspunkte: %s%s"
-L[" Valor: %s%s|r  Justice: %s%s"] = " Valor: %s%s|r  Justice: %s%s" -- not translated not in Game anymore
+L[" Valor: %s%s|r  Justice: %s%s"] = " Valor: %s%s|r  Justice: %s%s"	-- not translated not in Game anymore
 --L[" %s %s%s"] = true
 L["|cffafdfafAll: %s. |cffafdfafPlayed: %s%s"] = "|cffafdfafAlles: %s. |cffafdfafgespielt: %s%s"
 L["%s's Items"] = "%s's Items"
@@ -95,6 +95,5 @@ L["enchant:(%d+)"] = "enzaubern:(%d+)"
 L["item:(%d+)"] = "item:(%d+)"
 
 -- Keybinds / Tastaturbelegungen
-L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Lager|r"
+L["Carbonite Warehouse"] = "Carbonite Lager"
 L["NxTOGGLEWAREHOUSE"] = "Lager ein/ausblenden"
-

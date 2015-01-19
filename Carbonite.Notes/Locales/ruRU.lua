@@ -40,7 +40,8 @@ L["Notes"] = "Заметки"
 L["Note Addons"] = "Дополнения заметок"
 L["My Notes"] = "Мои заметки"
 
-L["Reset old notes data %f"] = true
---Keybinds
-L["|cffc0c0ffCarbonite Notes|r"] = "|cffc0c0ffCarbonite Notes|r"
+L["Reset old notes data"] = true
+
+-- Keybinds
+L["Carbonite Notes"] = "Carbonite Notes"
 L["NxTOGGLEFAV"] = "show/hide Notes"

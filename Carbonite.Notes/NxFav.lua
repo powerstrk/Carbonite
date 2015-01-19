@@ -30,7 +30,7 @@ CarboniteNotes = LibStub("AceAddon-3.0"):NewAddon("CarboniteNotes","AceEvent-3.0
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Notes", true)
 
 -- Keybindings
-BINDING_HEADER_CarboniteNotes = L["|cffc0c0ffCarbonite Notes|r"]
+BINDING_HEADER_CarboniteNotes	= "|cffc0c0ff" .. L["Carbonite Notes"] .. "|r"
 BINDING_NAME_NxTOGGLEFAV	= L["NxTOGGLEFAV"]
 
 local addonNotes = {}
@@ -115,7 +115,7 @@ function Nx.Notes:Init()
 	if not fav or not fav.Version or fav.Version < Nx.VERSIONFAV then
 
 		if fav and fav.Version then
-			Nx.prt (L["Reset old notes data %f"], fav.Version)
+			Nx.prt (L["Reset old notes data"] .. " %f", fav.Version)
 		end
 
 		fav = {}
