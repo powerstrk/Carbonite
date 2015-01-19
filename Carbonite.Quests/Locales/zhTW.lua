@@ -286,9 +286,9 @@ L["Current"] = true
 L["History"] = true
 L["Database"] = true
 L["Player"] = true
-L["Daily Quests Completed: |cffffffff"] = true
-L["|r  Daily reset: |cffffffff"] = true
-L["Quests: |cffffffff%d/%d|r  %s"] = true
+L["Daily Quests Completed:"] = true
+L["Daily reset:"] = true
+L["Quests:"] = true
 
 L["yds"] = "碼"
 
@@ -352,6 +352,6 @@ L["Level Threshold"] = true
 L["Levels under player level to load quest data on reload"] = true
 
 -- Keybinds
-L["|cffc0c0ffCarbonite Quests|r"] = "|cffc0c0ffCarbonite Quests|r"
+L["Carbonite Quests"] = "Carbonite Quests"
 L["NxTOGGLEWATCHMINI"] = "QuestWatchlist mini/maximize"
 L["NxWATCHUSEITEM"] = "Use Questitem"

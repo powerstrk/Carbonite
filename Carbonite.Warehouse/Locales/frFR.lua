@@ -95,5 +95,5 @@ L["enchant:(%d+)"] = true
 L["item:(%d+)"] = "Objet:(%d+)"
 
 -- Keybinds
-L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffCarbonite Inventaires/D\195\169p\195\180ts|r"
+L["Carbonite Warehouse"] = "Carbonite Inventaires/D\195\169p\195\180ts"
 L["NxTOGGLEWAREHOUSE"] = "Afficher/Cacher Inventaires/D\195\169p\195\180ts"

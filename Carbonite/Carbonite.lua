@@ -48,7 +48,7 @@ Nx.VERSIONTransferData		= .1				-- Transfer data
 Nx.TXTBLUE			= "|cffc0c0ff"
 
 -- Keybindings
-BINDING_HEADER_Carbonite	= L["|cffc0c0ffCarbonite|r"]
+BINDING_HEADER_Carbonite	= "|cffc0c0ff" .. L["Carbonite"] .. "|r"
 BINDING_NAME_NxMAPTOGORIGINAL	= L["NxMAPTOGORIGINAL"]
 BINDING_NAME_NxMAPTOGNORMMAX	= L["NxMAPTOGNORMMAX"]
 BINDING_NAME_NxMAPTOGNONEMAX	= L["NxMAPTOGNONEMAX"]

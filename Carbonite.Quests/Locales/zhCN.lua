@@ -286,9 +286,9 @@ L["Current"] = "当前"
 L["History"] = "历史"
 L["Database"] = "数据库"
 L["Player"] = "玩家"
-L["Daily Quests Completed: |cffffffff"] = "日常任务已完成: |cffffffff"
-L["|r  Daily reset: |cffffffff"] = "|r  日常重置: |cffffffff"
-L["Quests: |cffffffff%d/%d|r  %s"] = "任务: |cffffffff%d/%d|r  %s"
+L["Daily Quests Completed:"] = "日常任务已完成:"
+L["Daily reset:"] = "日常重置:"
+L["Quests:"] = "任务:"
 
 L["yds"] = "码"
 
@@ -352,6 +352,6 @@ L["Level Threshold"] = "等级阈值"
 L["Levels under player level to load quest data on reload"] = "重载后将会加载的低于玩家等级的任务数据"
 
 -- Keybinds
-L["|cffc0c0ffCarbonite Quests|r"] = "|cffc0c0ffCarbonite 任务模块|r"
+L["Carbonite Quests"] = "Carbonite 任务模块"
 L["NxTOGGLEWATCHMINI"] = "任务监视列表 最小/最大化"
 L["NxWATCHUSEITEM"] = "使用任务物品"

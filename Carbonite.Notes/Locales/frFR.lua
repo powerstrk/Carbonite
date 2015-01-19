@@ -40,8 +40,8 @@ L["Notes"] = "Notes"
 L["Note Addons"] = "Notes add-on(s)"
 L["My Notes"] = "Mes Notes"
 
-L["Reset old notes data %f"] = "R\195\169initialiser anciennes donn\195\169s de vos Notes %f"
+L["Reset old notes data"] = "R\195\169initialiser anciennes donn\195\169s de vos Notes"
 
 -- Keybinds
-L["|cffc0c0ffCarbonite Notes|r"] = "|cffc0c0ffCarbonite Notes|r"
+L["Carbonite Notes"] = "Carbonite Notes"
 L["NxTOGGLEFAV"] = "Afficher/Cacher Notes"

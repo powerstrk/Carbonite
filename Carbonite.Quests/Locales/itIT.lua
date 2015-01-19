@@ -286,9 +286,9 @@ L["Current"] = "Corrente"
 L["History"] = "Storico"
 L["Database"] = true
 L["Player"] = "Giocatore"
-L["Daily Quests Completed: |cffffffff"] = "Missioni Giornaliere Completate: |cffffffff"
-L["|r  Daily reset: |cffffffff"] = "|r  reset Giornaliere: |cffffffff"
-L["Quests: |cffffffff%d/%d|r  %s"] = "Missioni: |cffffffff%d/%d|r  %s"
+L["Daily Quests Completed:"] = "Missioni Giornaliere Completate:"
+L["Daily reset:"] = "reset Giornaliere:"
+L["Quests:"] = "Missioni:"
 
 L["yds"] = true
 
@@ -352,6 +352,6 @@ L["Level Threshold"] = "Livello Soglia"
 L["Levels under player level to load quest data on reload"] = "Imposta da quanti N livelli inferiori al livello attuale del giocatore iniziare a caricare le missioni nel momento dell'accesso al gioco"
 
 -- Keybinds
-L["|cffc0c0ff Carbonite Quests|r"] = "|cffc0c0ffMissioni Carbonite|r"
+L["Carbonite Quests"] = "Missioni Carbonite"
 L["NxTOGGLEWATCHMINI"] = "Mini/Massimizza Lista Missioni"
 L["NxWATCHUSEITEM"] = "Utilizza Oggetto Missione"

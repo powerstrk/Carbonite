@@ -96,5 +96,5 @@ L["enchant:(%d+)"] = "incanto:(%d+)"
 L["item:(%d+)"] = "oggetto:(%d+)"
 
 -- Keybinds
-L["|cffc0c0ffCarboniteWarehouse|r"] = "|cffc0c0ffMagazzino Carbonite|r"
+L["Carbonite Warehouse"] = "Magazzino Carbonite"
 L["NxTOGGLEWAREHOUSE"] = "Mostra/Nascondi Magazzino"
