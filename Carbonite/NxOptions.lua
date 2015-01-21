@@ -3953,7 +3953,7 @@ local function trackConfig()
 						return Nx.db.profile.Track.ATTaxi
 					end,
 					set = function()
-						Nx.db.profile.Track.ATtaxi = not Nx.db.profile.Track.ATTaxi
+						Nx.db.profile.Track.ATTaxi = not Nx.db.profile.Track.ATTaxi
 						Nx.HUD:UpdateOptions()
 					end,
 				},
