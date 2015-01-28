@@ -8688,18 +8688,14 @@ function Nx.Map:SetCurrentMap (mapId)
 					local cont = self.MapWorldInfo[mapId].Cont
 					local zone = self.MapWorldInfo[mapId].Zone
 					
-					-- Commenting this out. I think this is not needed anymore but have to check in Dungeons and BGS.
-					
-					--[[if not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId() then
+					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then
 						SetMapToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position
 						SetDungeonMapLevel (1)
-						SetMapByID(mapId)
 					else
 --						SetMapZoom (cont, i)
 						SetMapByID(mapId)
-					end]]--
-					
-					SetMapByID(mapId)
+					end
+			
 					return
 				end
 			end
