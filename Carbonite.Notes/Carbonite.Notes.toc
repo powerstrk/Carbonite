@@ -1,6 +1,6 @@
 ## Interface: 60000
-## Title: Carbonite Notes 1.1
-## Version: 1.1
+## Title: Carbonite Notes 6.0.1
+## Version: 6.0.1
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
