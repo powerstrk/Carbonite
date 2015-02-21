@@ -564,7 +564,7 @@ function CarboniteWeekly:OnInitialize()
 		return
 	end
 	Nx.wkdb = LibStub("AceDB-3.0"):New("NXWeek",defaults, true)
-	Nx.wkdb:SetProfile(Nx.db:GetCurrentProfile())
+	Nx.Weekly:ConvertData()
 	tinsert(Nx.dbs,Nx.wkdb)
 	Nx.Weekly:Init()
 	Nx.Weekly:Login()
@@ -635,29 +635,57 @@ function Nx.Weekly:Login(event, arg1)
 	Nx.Weekly:CharRecord(ch)
 end
 
+function Nx.Weekly:ConvertData()	
+	if not Nx.wkdb.global then
+		Nx.wkdb.global = {}
+	end
+	if not Nx.wkdb.global.Characters then
+		Nx.wkdb.global.Characters = {}
+	end	
+	for ch,data in pairs(Nx.db.global.Characters) do			
+		if Nx.db.global.Characters[ch].Weekly then
+			if not Nx.wkdb.global.Characters[ch] then
+				Nx.wkdb.global.Characters[ch] = {}
+			end
+			Nx.wkdb.global.Characters[ch].Weekly = Nx.db.global.Characters[ch].Weekly
+			Nx.db.global.Characters[ch].Weekly = nil
+		else
+			Nx.wkdb.global.Characters[ch] = {}
+			Nx.Weekly:ResetChar(Nx.wkdb.global.Characters[ch])
+		end				
+	end
+end
+
+function Nx.Weekly:ResetChar(ch)
+	if not ch.Weekly then
+		ch.Weekly = {}
+	end
+	ch.Weekly.Sha = false
+	ch.Weekly.Galleon = false
+	ch.Weekly.Nalak = false
+	ch.Weekly.Oondasta = false
+	ch.Weekly.Ritual = false
+	ch.Weekly.LootKey = false
+	ch.Weekly.OutdoorChest = false
+	ch.Weekly.Chamberlain = false
+	ch.Weekly.Celestials = false
+	ch.Weekly.Ordos = false
+	ch.Weekly.TemperedFateSeals = 0
+	ch.Weekly.GarrisonInvasion = false
+	ch.Weekly.Tarlna = false
+	ch.Weekly.Drov = false
+	ch.Weekly.Rukhmar = false
+	ch.Weekly.Raids = {}	
+end
+
 function Nx.Weekly:Reset()
 	for cnum, rc in ipairs (Nx.RealmChars) do
-		local ch = Nx.db.global.Characters[rc]
+		local ch = Nx.wkdb.global.Characters[rc]
 		if not ch then
 			return
 		end
 		if ch.Weekly then
-			ch.Weekly.Sha = false
-			ch.Weekly.Galleon = false
-			ch.Weekly.Nalak = false
-			ch.Weekly.Oondasta = false
-			ch.Weekly.Ritual = false
-			ch.Weekly.LootKey = false
-			ch.Weekly.OutdoorChest = false
-			ch.Weekly.Chamberlain = false
-			ch.Weekly.Celestials = false
-			ch.Weekly.Ordos = false
-			ch.Weekly.TemperedFateSeals = 0
-			ch.Weekly.GarrisonInvasion = false
-			ch.Weekly.Tarlna = false
-			ch.Weekly.Drov = false
-			ch.Weekly.Rukhmar = false
-			ch.Weekly.Raids = {}
+			Nx.Weekly:ResetChar(ch)
 		end
 	end
 end
@@ -1005,7 +1033,7 @@ function Nx.Weekly:DisplayWeekly()
 	local curline = 1
 	local spacer = false
 	list:ColumnSetName (1, format ("  %s's Weekly Status", cname))
-	local ch = Nx.db.global.Characters[rc]
+	local ch = Nx.wkdb.global.Characters[rc]
 	if Nx.Weekly.WhichExpansion == 1 then
 		if Nx.wkdb.profile.Track.Mob.Tarlna then
 			list:ItemAdd(curline)
