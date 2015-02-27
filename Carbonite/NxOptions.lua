@@ -4022,13 +4022,13 @@ end
 
 Nx.OptsDataSounds = {
 	"Interface\\AddOns\\Carbonite\\Snd\\QuestComplete.ogg",
-	"Sound\\Creature\\Peon\\PeonBuildingComplete1.wav",
-	"Sound\\Character\\Scourge\\ScourgeVocalMale\\UndeadMaleCongratulations02.wav",
-	"Sound\\Character\\Human\\HumanVocalFemale\\HumanFemaleCongratulations01.wav",
-	"Sound\\Character\\Dwarf\\DwarfVocalMale\\DwarfMaleCongratulations04.wav",
-	"Sound\\Character\\Gnome\\GnomeVocalMale\\GnomeMaleCongratulations03.wav",
-	"Sound\\Creature\\Tauren\\TaurenYes3.wav",
-	"Sound\\Creature\\UndeadMaleWarriorNPC\\UndeadMaleWarriorNPCGreeting01.wav",
+	"Sound\\Creature\\Peon\\PeonBuildingComplete1.ogg",
+	"Sound\\Character\\Scourge\\ScourgeVocalMale\\UndeadMaleCongratulations02.ogg",
+	"Sound\\Character\\Human\\HumanVocalFemale\\HumanFemaleCongratulations01.ogg",
+	"Sound\\Character\\Dwarf\\DwarfVocalMale\\DwarfMaleCongratulations04.ogg",
+	"Sound\\Character\\Gnome\\GnomeVocalMale\\GnomeMaleCongratulations03.ogg",
+	"Sound\\Creature\\Tauren\\TaurenYes3.ogg",
+	"Sound\\Creature\\UndeadMaleWarriorNPC\\UndeadMaleWarriorNPCGreeting01.ogg",
 }
 
 -------------------------------------------------------------------------------

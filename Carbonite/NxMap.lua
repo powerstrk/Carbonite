@@ -5636,7 +5636,7 @@ function Nx.Map:UpdateTargets()
 			end
 
 			if Nx.db.profile.Track.TSoundOn then
-				Nx:PlaySoundFile ("sound\\interface\\magicclick.wav")
+				Nx:PlaySoundFile ("sound\\interface\\magicclick.ogg")
 			end
 
 			UIErrorsFrame:AddMessage ("Target " .. tar.TargetName .. " reached", 1, 1, 1, 1)
