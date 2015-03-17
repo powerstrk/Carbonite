@@ -8687,7 +8687,7 @@ function Nx.Map:SetCurrentMap (mapId)
 				if mapId == j then
 					local cont = self.MapWorldInfo[mapId].Cont
 					local zone = self.MapWorldInfo[mapId].Zone
-					
+
 					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then
 						SetMapToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position
 						SetDungeonMapLevel (1)
@@ -8695,7 +8695,7 @@ function Nx.Map:SetCurrentMap (mapId)
 --						SetMapZoom (cont, i)
 						SetMapByID(mapId)
 					end
-			
+
 					return
 				end
 			end
