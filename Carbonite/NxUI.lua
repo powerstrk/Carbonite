@@ -5034,13 +5034,27 @@ end
 -- Free list frames by adding back to global list
 ---------------------------------------------------------------------------------------
 
+local visFrms = {} 	-- DeaTHCorE - for hiding out of combat...
 function Nx.List:FreeFrames (list)
 	local frms = self.Frms
 	for n, f in ipairs (list.UsedFrms) do
 		if not InCombatLockdown() then
 			f:Hide()
+		else
+			tinsert(visFrms, f)	-- DeaTHCorE - Insert for hiding out of combat...
 		end
 		tinsert (frms[f.NXListFType], n, f)		-- Insert at top in same order, so we don't have flipping
+	end
+	if not InCombatLockdown() then -- DeaTHCorE - Hiding all frames who not hidden in combat. problem: order can change and buttons are assigned by a empthy list entry and will never hidden while frames not in list.UsedFrms
+		for i, j in ipairs (visFrms) do
+			j:Hide()
+			--DeaTHCorE - debug...
+			--if Nx.DBG then
+			--	Nx.DBG:Print("Carbonite", false, "|cffff2020Nx.List:FreeFrames:|r Hiding Fame", j:GetName())
+			--end
+			--**--
+		end
+		wipe(visFrms or {})
 	end
 	list.UsedFrms = wipe (list.UsedFrms or {})
 end
