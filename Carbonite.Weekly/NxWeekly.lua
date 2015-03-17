@@ -635,14 +635,14 @@ function Nx.Weekly:Login(event, arg1)
 	Nx.Weekly:CharRecord(ch)
 end
 
-function Nx.Weekly:ConvertData()	
+function Nx.Weekly:ConvertData()
 	if not Nx.wkdb.global then
 		Nx.wkdb.global = {}
 	end
 	if not Nx.wkdb.global.Characters then
 		Nx.wkdb.global.Characters = {}
-	end	
-	for ch,data in pairs(Nx.db.global.Characters) do			
+	end
+	for ch,data in pairs(Nx.db.global.Characters) do
 		if Nx.db.global.Characters[ch].Weekly then
 			if not Nx.wkdb.global.Characters[ch] then
 				Nx.wkdb.global.Characters[ch] = {}
@@ -652,7 +652,7 @@ function Nx.Weekly:ConvertData()
 		else
 			Nx.wkdb.global.Characters[ch] = {}
 			Nx.Weekly:ResetChar(Nx.wkdb.global.Characters[ch])
-		end				
+		end
 	end
 end
 
@@ -675,7 +675,7 @@ function Nx.Weekly:ResetChar(ch)
 	ch.Weekly.Tarlna = false
 	ch.Weekly.Drov = false
 	ch.Weekly.Rukhmar = false
-	ch.Weekly.Raids = {}	
+	ch.Weekly.Raids = {}
 end
 
 function Nx.Weekly:Reset()
