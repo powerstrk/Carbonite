@@ -5045,7 +5045,7 @@ function Nx.List:FreeFrames (list)
 		else
 			tinsert(visFrms, f)	
 		end
-		tinsert (frms[f.NXListFType], n, f)		-
+		tinsert (frms[f.NXListFType], n, f)		
 	end
 	if not InCombatLockdown() then 
 		for i, j in ipairs (visFrms) do
