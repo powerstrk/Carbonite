@@ -5034,14 +5034,23 @@ end
 -- Free list frames by adding back to global list
 ---------------------------------------------------------------------------------------
 
+local visFrms = {}
 function Nx.List:FreeFrames (list)
 	local frms = self.Frms
 	for n, f in ipairs (list.UsedFrms) do
 		if not InCombatLockdown() then
 			f:Hide()
+		else
+			tinsert(visFrms,f)
 		end
 		tinsert (frms[f.NXListFType], n, f)		-- Insert at top in same order, so we don't have flipping
 	end
+	if not InCombatLockdown() then
+		for i,j in ipairs(visFrms) do
+			j:Hide()
+		end
+		wipe(visFrms or {})
+	end	
 	list.UsedFrms = wipe (list.UsedFrms or {})
 end
 

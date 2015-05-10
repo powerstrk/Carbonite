@@ -764,6 +764,9 @@ Map.MapWorldInfo = {
 		Y = 0,
 		Short = "SoA",
 	},
+	[539] = {
+		BaseMap = 545,
+	},
 	[540] = {
 		Name = L["Isle of Conquest"],
 		Scale = 5.3,
@@ -1066,14 +1069,12 @@ Map.MapWorldInfo = {
 	},
 	[823] = {
 		Scale = 3.716666015625,
-		X = -1453.7499023437,
+		X = -953.7499023437,
 		Y = 664.58330078125,
 		Overlay = "darkmoonfaireisland",
 		Name = L["Darkmoon Island"],
-		Explored = true,
-		City = true,
-		MMOutside = true,
-		UseAId=true,
+		Explored = true,		
+		MMOutside = true,		
 		MId=823,
 	},
 	[856] = {
@@ -7481,7 +7482,7 @@ Map.MiniMapBlks = {
 		Map.DraenorMapBlks,
 		1220,
 		12, 20,
-		Map.MapWorldInfo[962].X + Map.MapInfo[7].X + 314, Map.MapWorldInfo[962].Y + Map.MapInfo[7].Y + 961,
+		Map.MapWorldInfo[962].X + Map.MapInfo[7].X + 315, Map.MapWorldInfo[962].Y + Map.MapInfo[7].Y + 959,
 		"World\\Minimaps\\Draenor"
 	},
 	[464] = {
@@ -7537,7 +7538,7 @@ Map.MiniMapBlks = {
 		Map.DarkMoonFaireBlks,
 		1636,
 		16, 36,
-		-1871.26-1375+1100+3000-300,-3133.00-100-1800+3000-2750+2400,
+		Map.MapWorldInfo[823].X + Map.MapInfo[5].X + -253,Map.MapWorldInfo[823].Y + Map.MapInfo[5].Y + -238,
 		"World\\Minimaps\\DarkmoonFaire"
 	},
 }

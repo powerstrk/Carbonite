@@ -379,8 +379,21 @@ local function mapConfig ()
 								Nx.db.profile.Map.Compatability = not Nx.db.profile.Map.Compatability
 							end,
 						},
+						hidecombat = {
+							order = 3,
+							type = "toggle",
+							width = "full",
+							name = L["Hide Map In Combat"],
+							desc = L["If large map is open when you enter combat attempts to hide it."],
+							get = function()
+								return Nx.db.profile.Map.HideCombat
+							end,
+							set = function()
+								Nx.db.profile.Map.HideCombat = not Nx.db.profile.Map.HideCombat
+							end,							
+						},
 						centerMap = {
-							order = 2,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Center map when maximizing"] .. "\n",
@@ -393,7 +406,7 @@ local function mapConfig ()
 							end,
 						},
 						mouseIgnore = {
-							order = 3,
+							order = 5,
 							type = "toggle",
 							width = "full",
 							name = L["Ignore mouse on map except when ALT is pressed"] .. "\n",
@@ -406,7 +419,7 @@ local function mapConfig ()
 							end,
 						},
 						maxMouseIgnore = {
-							order = 4,
+							order = 6,
 							type = "toggle",
 							width = "full",
 							name = L["Ignore mouse on full-sized map except when ALT is pressed"] .. "\n",
@@ -419,7 +432,7 @@ local function mapConfig ()
 							end,
 						},
 						ownMap = {
-							order = 5,
+							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Move Worldmap Data into Maximized Map"] .. "\n",
@@ -432,7 +445,7 @@ local function mapConfig ()
 							end,
 						},
 						restoreMap = {
-							order = 6,
+							order = 8,
 							type = "toggle",
 							width = "full",
 							name = L["Close Map instead of minimize"] .. "\n",
@@ -445,12 +458,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer1 = {
-							order = 7,
+							order = 9,
 							type = "description",
 							name = "\n",
 						},
 						showPals = {
-							order = 8,
+							order = 10,
 							type = "toggle",
 							name = L["Show Friends/Guildmates in Cities"],
 							width = "full",
@@ -463,7 +476,7 @@ local function mapConfig ()
 							end,
 						},
 						showOthers = {
-							order = 9,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Show Other people in Cities"],
@@ -476,7 +489,7 @@ local function mapConfig ()
 							end,
 						},
 						showOthersZ = {
-							order = 10,
+							order = 12,
 							type = "toggle",
 							width = "full",
 							name = L["Show Other people In Zone"],
@@ -489,12 +502,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer2 = {
-							order = 11,
+							order = 13,
 							type = "description",
 							name = "\n",
 						},
 						restoreScale = {
-							order = 12,
+							order = 14,
 							type = "toggle",
 							name = L["Restore map scale after track"],
 							width = "full",
@@ -507,7 +520,7 @@ local function mapConfig ()
 							end,
 						},
 						useRoute = {
-							order = 13,
+							order = 15,
 							type = "toggle",
 							name = L["Use Travel Routing"],
 							width = "full",
@@ -520,12 +533,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer3 = {
-							order = 15,
+							order = 16,
 							type = "description",
 							name = "\n",
 						},
 						showTrail = {
-							order = 16,
+							order = 17,
 							type = "toggle",
 							name = L["Show Movement Trail"],
 							width = "full",
@@ -538,7 +551,7 @@ local function mapConfig ()
 							end,
 						},
 						trailDist = {
-							order = 17,
+							order = 18,
 							type = "range",
 							name = L["Movement trail distance"],
 							desc = L["sets the distance of movement between the trail marks"],
@@ -554,7 +567,7 @@ local function mapConfig ()
 							end,
 						},
 						trailCnt = {
-							order = 18,
+							order = 19,
 							type = "range",
 							name = L["Movement dot count"],
 							desc = L["sets the number of movement dots to draw on the map"],
@@ -570,7 +583,7 @@ local function mapConfig ()
 							end,
 						},
 						trailTime = {
-							order = 19,
+							order = 20,
 							type = "range",
 							name = L["Movement trail fade time"],
 							desc = L["sets the time trail marks last on the map (in seconds)"],
@@ -586,12 +599,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer4 = {
-							order = 20,
+							order = 21,
 							type = "description",
 							name = "\n",
 						},
 						showToolBar = {
-							order = 21,
+							order = 22,
 							type = "toggle",
 							name = L["Show Map Toolbar"],
 							width = "full",
@@ -605,7 +618,7 @@ local function mapConfig ()
 							end,
 						},
 						TooltipAnchor = {
-							order = 22,
+							order = 23,
 							type	= "select",
 							name	= "  " .. L["Map Tooltip Anchor"],
 							desc	= L["Sets the anchor point for tooltips on the map"],
@@ -627,7 +640,7 @@ local function mapConfig ()
 							end,
 						},
 						TooltipAnchorRel = {
-							order = 23,
+							order = 24,
 							type	= "select",
 							name	= "  " .. L["Map Tooltip Anchor To Map"],
 							desc	= L["Sets the secondary anchor point for tooltips on the map"],
@@ -649,7 +662,7 @@ local function mapConfig ()
 							end,
 						},
 						TopToolTip = {
-							order = 24,
+							order = 25,
 							type = "toggle",
 							name = L["Show All Tooltips Above Map"],
 							width = "full",
@@ -662,7 +675,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitleName = {
-							order = 25,
+							order = 26,
 							type = "toggle",
 							name = L["Show Map Name"],
 							desc = L["When enabled, shows current map zone name in the titlebar."],
@@ -674,7 +687,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitleXY = {
-							order = 26,
+							order = 27,
 							type = "toggle",
 							name = L["Show Coordinates"],
 							desc = L["When enabled, Shows your current coordinates in the titlebar."],
@@ -686,7 +699,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitleSpeed = {
-							order = 27,
+							order = 28,
 							type = "toggle",
 							name = L["Show Speed"],
 							desc = L["When enabled, Shows your current movement speed in the titlebar."],
@@ -698,7 +711,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitle2 = {
-							order = 28,
+							order = 29,
 							type = "toggle",
 							name = L["Show Second Title Line"],
 							width = "full",
@@ -712,12 +725,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer5 = {
-							order = 29,
+							order = 30,
 							type = "description",
 							name = "\n",
 						},
 						showPOI = {
-							order = 30,
+							order = 31,
 							type = "toggle",
 							name = L["Show Map POI"],
 							width = "full",
@@ -730,12 +743,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer6 = {
-							order = 31,
+							order = 32,
 							type = "description",
 							name = "\n",
 						},
 						plyrArrowSize = {
-							order = 32,
+							order = 33,
 							type = "range",
 							name = L["Player Arrow Size"],
 							width = "double",
@@ -752,7 +765,7 @@ local function mapConfig ()
 							end,
 						},
 						iconScaleMin = {
-							order = 33,
+							order = 34,
 							type = "range",
 							width = "double",
 							name = L["Icon Scale Min"],
@@ -769,7 +782,7 @@ local function mapConfig ()
 							end,
 						},
 						mapLineThick = {
-							order = 34,
+							order = 35,
 							type = "range",
 							width = "double",
 							name = L["Map Health Bar Thickness"],
@@ -786,7 +799,7 @@ local function mapConfig ()
 							end,
 						},
 						zoneDrawCnt = {
-							order = 35,
+							order = 36,
 							type = "range",
 							width = "double",
 							name = L["Maximum Zones To Draw At Once"],
@@ -803,7 +816,7 @@ local function mapConfig ()
 							end,
 						},
 						detailSize = {
-							order = 36,
+							order = 37,
 							type = "range",
 							name = L["Detail Graphics Visible Area"],
 							width = "double",
@@ -821,17 +834,17 @@ local function mapConfig ()
 							end,
 						},
 						spacer7 = {
-							order = 37,
+							order = 38,
 							type = "description",
 							name = "\n",
 						},
 						header = {
-							order	= 38,
+							order	= 39,
 							type	= "header",
 							name	= L["Map Mouse Button Binds"],
 						},
 						ButLAlt = {
-							order = 39,
+							order = 40,
 							type	= "select",
 							name	= "           " .. L["Alt Left Click"],
 							desc	= L["Sets the action performed when left clicking holding ALT"],
@@ -853,7 +866,7 @@ local function mapConfig ()
 							end,
 						},
 						ButLCtrl = {
-							order = 40,
+							order = 41,
 							type	= "select",
 							name	= "           " .. L["Ctrl Left Click"],
 							desc	= L["Sets the action performed when left clicking holding CTRL"],
@@ -875,7 +888,7 @@ local function mapConfig ()
 							end,
 						},
 						ButM = {
-							order = 41,
+							order = 42,
 							type	= "select",
 							name	= "           " .. L["Middle Click"],
 							desc	= L["Sets the action performed when clicking your middle mouse button"],
@@ -897,7 +910,7 @@ local function mapConfig ()
 							end,
 						},
 						ButMAlt = {
-							order = 42,
+							order = 43,
 							type	= "select",
 							name	= "           " .. L["Alt Middle Click"],
 							desc	= L["Sets the action performed when middle clicking holding ALT"],
@@ -919,7 +932,7 @@ local function mapConfig ()
 							end,
 						},
 						ButMCtrl = {
-							order = 43,
+							order = 44,
 							type	= "select",
 							name	= "           " .. L["Ctrl Left Click"],
 							desc	= L["Sets the action performed when middle clicking holding CTRL"],
@@ -941,7 +954,7 @@ local function mapConfig ()
 							end,
 						},
 						ButR = {
-							order = 44,
+							order = 45,
 							type	= "select",
 							name	= "           " .. L["Right Click"],
 							desc	= L["Sets the action performed when right clicking the map"],
@@ -963,7 +976,7 @@ local function mapConfig ()
 							end,
 						},
 						ButRAlt = {
-							order = 45,
+							order = 46,
 							type	= "select",
 							name	= "           " .. L["Alt Right Click"],
 							desc	= L["Sets the action performed when Right clicking holding ALT"],
@@ -985,7 +998,7 @@ local function mapConfig ()
 							end,
 						},
 						ButRCtrl = {
-							order = 46,
+							order = 47,
 							type	= "select",
 							name	= "           " .. L["Ctrl Right Click"],
 							desc	= L["Sets the action performed when right clicking holding CTRL"],
@@ -1007,7 +1020,7 @@ local function mapConfig ()
 							end,
 						},
 						But4 = {
-							order = 47,
+							order = 48,
 							type	= "select",
 							name	= "           " .. L["Button 4 Click"],
 							desc	= L["Sets the action performed when clicking mouse button 4"],
@@ -1029,7 +1042,7 @@ local function mapConfig ()
 							end,
 						},
 						But4Alt = {
-							order = 48,
+							order = 49,
 							type	= "select",
 							name	= "           " .. L["Alt Button 4 Click"],
 							desc	= L["Sets the action performed when pressing mouse 4 while holding ALT"],
@@ -1051,7 +1064,7 @@ local function mapConfig ()
 							end,
 						},
 						But4Ctrl = {
-							order = 49,
+							order = 50,
 							type	= "select",
 							name	= "           " .. L["Ctrl Button 4 Click"],
 							desc	= L["Sets the action performed when clicking 4th mouse button holding CTRL"],

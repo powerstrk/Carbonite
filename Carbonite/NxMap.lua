@@ -3478,9 +3478,7 @@ end
 -- self = map table
 
 function Nx.Map:OnEvent (event, ...)
-
 	local this = self.Win.Frm
-
 --	Nx.prtVar ("Map Event", self)
 --	Nx.prt ("Map Event %s", event)
 
@@ -3490,6 +3488,11 @@ function Nx.Map:OnEvent (event, ...)
 			this.NxMap:UpdateAll()
 		end
 	elseif event == "PLAYER_REGEN_DISABLED" then
+		local map = self:GetMap (1)
+		local win = map.Win
+		if (Nx.db.profile.Map.HideCombat and win:IsSizeMax()) then
+			this:Hide()			
+		end
 		self.Arch:Hide()
 		self.QuestWin:Hide()
 		self.Arch:SetParent(nil)
@@ -6458,7 +6461,9 @@ end
 -- Update the overlays
 
 function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
-
+	if (mapId == nil or mapId == -1) then
+		return
+	end
 	local wzone = self:GetWorldZone (mapId)
 	if wzone and (wzone.City or self:IsMicroDungeon(mapId)) then
 		return
@@ -8886,7 +8891,9 @@ end
 -- Center the map in view
 
 function Nx.Map:CenterMap (mapId, scale)
-
+	if (mapId == nil or mapId == -1) then
+		return
+	end
 	mapId = mapId or self.MapId
 --[[ -- Map capture
 	if 1 then

@@ -1,6 +1,6 @@
-## Interface: 60000
-## Title: Carbonite Info 1.0D
-## Version: 1.0D
+## Interface: 60100
+## Title: Carbonite Info 6.1.0
+## Version: 6.1.0
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
