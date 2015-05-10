@@ -70,6 +70,7 @@ L["When enabled, pressing 'M' will maximize the carbonite map instead of opening
 L["Enable Compatability Mode"] = "Kompatibilit\195\164tsmodus"
 L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."] = "Wenn aktiv, wird Carbonite den Kampfstatus pr\195\188fen, bevor Kartenfunktionen aufgerufen werden, was 'Protected Mode'-Fehler durch andere Addons verhindert."
 L["Center map when maximizing"] = "Karte beim Vergr\195\182\195\159ern zentrieren"
+L["Hide Map In Combat"] = "Karte im Kampf verstecken"
 L["When enabled, the map will center on your current zone when you maximize it"] = "Wenn aktiv, wird die Karte beim Vergr\195\182\195\159ern auf der gegenw\195\164rtigen Zone zentriert."
 L["Ignore mouse on map except when ALT is pressed"] = "Maus auf der Karte ignorieren, au\195\159er wenn Alt gedr\195\188ckt ist"
 L["When enabled, the small game map will ignore all mouse clicks unless the ALT key is held down."] = "Wenn aktiv, wird die Maus auf der Karte ignoriert, au\195\159er wenn die Alt-Taste gedr\195\188ckt ist."
