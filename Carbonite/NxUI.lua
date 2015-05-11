@@ -5043,11 +5043,11 @@ function Nx.List:FreeFrames (list)
 		if not InCombatLockdown() then
 			f:Hide()
 		else
-			tinsert(visFrms, f)	
+			tinsert(visFrms, f)
 		end
-		tinsert (frms[f.NXListFType], n, f)		
+		tinsert (frms[f.NXListFType], n, f)
 	end
-	if not InCombatLockdown() then 
+	if not InCombatLockdown() then
 		for i, j in ipairs (visFrms) do
 			j:Hide()
 		end

@@ -1055,7 +1055,7 @@ function Nx:UnitDTip()
 end
 
 function Nx:OnPlayer_regen_disabled()
-	Nx.Window:UpdateCombat()	
+	Nx.Window:UpdateCombat()
 end
 
 function Nx:OnPlayer_regen_enabled()

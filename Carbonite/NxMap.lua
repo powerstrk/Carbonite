@@ -3491,7 +3491,7 @@ function Nx.Map:OnEvent (event, ...)
 		local map = self:GetMap (1)
 		local win = map.Win
 		if (Nx.db.profile.Map.HideCombat and win:IsSizeMax()) then
-			this:Hide()			
+			this:Hide()
 		end
 		self.Arch:Hide()
 		self.QuestWin:Hide()
@@ -4303,9 +4303,9 @@ function Nx.Map:Update (elapsed)
 			end
 		end
 		self.Scale = self.RealScale
-	end		
-	local plZX, plZY = GetPlayerMapPosition ("player")	
-	if (self.RMapId ~= self.UpdateMapID) then		
+	end
+	local plZX, plZY = GetPlayerMapPosition ("player")
+	if (self.RMapId ~= self.UpdateMapID) then
 		plZX = 0
 		plZY = 0
 	end
@@ -4383,7 +4383,7 @@ function Nx.Map:Update (elapsed)
 --		end
 
 		self.PlyrX = x
-		self.PlyrY = y		
+		self.PlyrY = y
 		if mapId ~= rid then			-- Not in real zone?
 			if (self:IsMicroDungeon(mapId)) then
 			else

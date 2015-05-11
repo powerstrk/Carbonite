@@ -390,7 +390,7 @@ local function mapConfig ()
 							end,
 							set = function()
 								Nx.db.profile.Map.HideCombat = not Nx.db.profile.Map.HideCombat
-							end,							
+							end,
 						},
 						centerMap = {
 							order = 4,
