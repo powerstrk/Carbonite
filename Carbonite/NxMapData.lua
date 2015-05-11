@@ -1073,8 +1073,8 @@ Map.MapWorldInfo = {
 		Y = 664.58330078125,
 		Overlay = "darkmoonfaireisland",
 		Name = L["Darkmoon Island"],
-		Explored = true,		
-		MMOutside = true,		
+		Explored = true,
+		MMOutside = true,
 		MId=823,
 	},
 	[856] = {
