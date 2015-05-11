@@ -4303,8 +4303,12 @@ function Nx.Map:Update (elapsed)
 			end
 		end
 		self.Scale = self.RealScale
+	end		
+	local plZX, plZY = GetPlayerMapPosition ("player")	
+	if (self.RMapId ~= self.UpdateMapID) then		
+		plZX = 0
+		plZY = 0
 	end
-	local plZX, plZY = GetPlayerMapPosition ("player")
 	local dungeontest = GetCurrentMapDungeonLevel()
 	self.InstanceId = false
 	if self:IsInstanceMap (self.UpdateMapID) then
@@ -4379,8 +4383,7 @@ function Nx.Map:Update (elapsed)
 --		end
 
 		self.PlyrX = x
-		self.PlyrY = y
-
+		self.PlyrY = y		
 		if mapId ~= rid then			-- Not in real zone?
 			if (self:IsMicroDungeon(mapId)) then
 			else
