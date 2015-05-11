@@ -47,6 +47,7 @@ L["Bloodmaul Slag Mines"] = "Mine de scories de la masse-sanglante"
 L["Bloodmyst Isle"] = "\195\174le de Brume-Sang"
 L["Bonetown Scenario"] = "sc\195\169nario d'osville"		-- is this needed (from zhTW)
 L["Borean Tundra"] = "Toundra Bor\195\169enne"
+L["Brawl'gar Arena"] = true
 L["Brewmoon Festival"] = "Festival de Brasse-Lune"
 L["Burning Steppes"] = "Steppes Ardentes"
 L["Camp Narache"] = true

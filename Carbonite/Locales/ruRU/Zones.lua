@@ -47,6 +47,7 @@ L["Bloodmaul Slag Mines"] = "Шлаковые шахты Кровавого Мо
 L["Bloodmyst Isle"] = "Остров Кровавой Дымки"
 L["Bonetown Scenario"] = true						-- is this needed (from zhTW)
 L["Borean Tundra"] = "Борейская тундра"
+L["Brawl'gar Arena"] = true
 L["Brewmoon Festival"] = "Фестиваль Хмельнолуния"
 L["Burning Steppes"] = "Пылающие степи"
 L["Camp Narache"] = "Лагерь Нараче"

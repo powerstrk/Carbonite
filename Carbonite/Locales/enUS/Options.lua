@@ -65,6 +65,7 @@ L["Use Carbonite Map instead of Blizzards (Alt-M will open world map)"] = true
 L["When enabled, pressing 'M' will maximize the carbonite map instead of opening the world map."] = true
 L["Enable Compatability Mode"] = true
 L["Hide Map In Combat"] = true
+L["If large map is open when you enter combat attempts to hide it."] = true
 L["When Enabled, Carbonite will perform combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."] = true
 L["Center map when maximizing"] = true
 L["When enabled, the map will center on your current zone when you maximize it"] = true

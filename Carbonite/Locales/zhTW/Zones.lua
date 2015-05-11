@@ -47,6 +47,7 @@ L["Bloodmaul Slag Mines"] = "血槌熔渣礦場"
 L["Bloodmyst Isle"] = "血謎島"
 L["Bonetown Scenario"] = "骸骨鎮事件"				-- is this needed
 L["Borean Tundra"] = "北風凍原"
+L["Brawl'gar Arena"] = true
 L["Brewmoon Festival"] = "酒月節"
 L["Burning Steppes"] = "燃燒平原"
 L["Camp Narache"] = "納拉其營地"
