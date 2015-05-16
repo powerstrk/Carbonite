@@ -2655,11 +2655,14 @@ function Nx.Window:SetLayoutData (mode, x, y, w, h, layer, attachPt, scale)
 
 		local data = self.SaveData
 
---		if self.Name == "NxInfo1" and mode == "_" then
+--		if self.Name == "NxHUD" and mode == "_" then			
 --			Nx.prt ("SetLayout %s '%s' %f %f %f %f, %s",
 --					self.Name, mode, x, y, w, h, attachPt or "")
 --		end
 
+		if self.Name == "NxHUD" and not attachPt then
+			attachPt = "TOP"
+		end
 		if attachPt == "TOPLEFT" then
 			attachPt = nil			-- Don't save default
 		end

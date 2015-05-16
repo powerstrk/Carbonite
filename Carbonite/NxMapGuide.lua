@@ -1633,7 +1633,7 @@ function Nx.Map.Guide:FindClosest (findType)
 		local mapId = map.UpdateMapID
 		cont1 = map:IdToContZone (mapId)
 		cont2 = cont1
-	end
+	end	
 	local hideFac = self:GetHideFaction()
 	local close, closeMapId, closeX, closeY
 	local close2, closeMapId2, closeX2, closeY2
@@ -1663,7 +1663,7 @@ function Nx.Map.Guide:FindClosest (findType)
 											closeDist = dist
 											close = 0
 											closeMapId = mapId
-											closeX, closeY = wx, wy
+											closeX, closeY = wx, wy											
 										end
 									end
 								end
