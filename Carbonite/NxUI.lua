@@ -2660,7 +2660,7 @@ function Nx.Window:SetLayoutData (mode, x, y, w, h, layer, attachPt, scale)
 --					self.Name, mode, x, y, w, h, attachPt or "")
 --		end
 
-		if self.Name == "NxHUD" and not attachPt then
+		if self.Name == "NxHUD" and attachPt ~= "TOP" then
 			attachPt = "TOP"
 		end
 		if attachPt == "TOPLEFT" then
