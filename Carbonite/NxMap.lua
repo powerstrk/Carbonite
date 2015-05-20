@@ -10298,7 +10298,7 @@ function Nx.Map:GetZoneAchievement (always)
 end
 
 function Nx.Map:RouteToTargets (route, targetIcon)
-	if Nx.Quest.Watch then
+	if Nx.Quest and Nx.Quest.Watch then
 		Nx.Quest.Watch:ClearAutoTarget()
 	end
 	local mapId = self.MapId

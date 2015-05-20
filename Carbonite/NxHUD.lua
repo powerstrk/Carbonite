@@ -274,20 +274,18 @@ function Nx.HUD:Update (map)
 		local atPt, relTo, relPt, x, y = wfrm:GetPoint()
 
 		local w, h = win:GetSize()
-		local tw = win:GetTitleTextWidth() + 2
-
-		local d = (tw - w) / 2
-
+		local tw = win:GetTitleTextWidth() + 2		
+		local d = (tw - w) / 2		
 		if strfind (atPt, "LEFT") then
 			x = x - d
 		elseif strfind (atPt, "RIGHT") then
 			x = x + d
+		end		
+		if not InCombatLockdown() then		
+			wfrm:ClearAllPoints()
+			wfrm:SetPoint (atPt, x, y)
+			win:SetSize (tw, 0, true)
 		end
-
-		wfrm:ClearAllPoints()
-		wfrm:SetPoint (atPt, x, y)
-		win:SetSize (tw, 0, true)
-
 --PAIDS!
 		if Nx.db.profile.Track.TBut and not win:IsCombatHidden() then
 

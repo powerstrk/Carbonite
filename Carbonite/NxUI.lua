@@ -2268,7 +2268,7 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.Window:SetSize (width, height, skipChildren)
-	if InCombatLockdown() then
+	if InCombatLockdown() then	
 		return
 	end
 	self.Frm:SetWidth (width + self.BorderW * 2)
@@ -2660,9 +2660,6 @@ function Nx.Window:SetLayoutData (mode, x, y, w, h, layer, attachPt, scale)
 --					self.Name, mode, x, y, w, h, attachPt or "")
 --		end
 
-		if self.Name == "NxHUD" and attachPt ~= "TOP" then
-			attachPt = "TOP"
-		end
 		if attachPt == "TOPLEFT" then
 			attachPt = nil			-- Don't save default
 		end
