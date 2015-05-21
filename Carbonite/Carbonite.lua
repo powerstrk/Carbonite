@@ -1763,8 +1763,7 @@ function Nx:InitCharacter()
 
 		ch.Version = Nx.VERSIONCHAR
 
-		ch.E = {}	-- Events
-		ch.Q = {}	-- Quests
+		ch.E = {}	-- Events		
 	end
 
 	Nx.CurCharacter = ch
@@ -2008,32 +2007,6 @@ end
 
 function Nx:AddMineEvent (name, time, mapId, x, y)
 	self:AddEvent ("M", name, time, mapId, x, y)
-end
-
---------
--- Get status for a quest
-
-function Nx:GetQuest (qId)
-
-	local quest = Nx.CurCharacter.Q[qId]
-	if not quest then
-		return
-	end
-
-	local s1, s2, status, time = strfind (quest, "(%a)(%d+)")
-
---	Nx.prt ("GetQuest %s %d", status, time)
-
-	return status, time
-end
-
-function Nx:SetQuest (qId, qStatus, qTime)
-
-	qTime = qTime or 0
-
-	Nx.CurCharacter.Q[qId] = qStatus .. qTime
-
---	Nx.prt ("SetQuest %s", Nx.CurCharacter.Q[qId])
 end
 
 -------------------------------------------------------------------------------

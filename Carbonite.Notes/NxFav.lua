@@ -76,9 +76,7 @@ function CarboniteNotes:OnInitialize()
 		CarbNotesInit = Nx:ScheduleTimer(CarboniteNotes.OnInitialize,1)
 		return
 	end
-	Nx.fdb = LibStub("AceDB-3.0"):New("NXNotes",defaults, true)
-	Nx.fdb:SetProfile(Nx.db:GetCurrentProfile())
-	tinsert(Nx.dbs,Nx.fdb)
+	Nx.fdb = LibStub("AceDB-3.0"):New("NXNotes",defaults, true)	
 	Nx.Notes:Init()
 	CarboniteNotes:RegisterComm("carbmodule",Nx.Notes.OnChat_msg_addon)
 	local function func()
@@ -1456,7 +1454,6 @@ end
 function Nx.Notes:Menu_OnAddNote()
 	local map = Nx.Map:GetMap (1)
 	local mId = map.RMapId
-	Nx.prt(mId)
 	local wx, wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)
 	local zx, zy = self:GetZonePos (mId, wx, wy)
 	Nx.Notes:AddNote ("?", mId, zx, zy)
