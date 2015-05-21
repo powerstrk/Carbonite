@@ -886,8 +886,7 @@ end
 -- Login message
 
 function Nx:OnPlayer_login (event, ...)
-	Nx:OnParty_members_changed()
-	Nx:RecordCharacterLogin()
+	Nx:OnParty_members_changed()	
 	Nx.Com:OnEvent (event)
 	Nx.InitWins()
 
@@ -1292,6 +1291,9 @@ function Nx:NXOnUpdate (elapsed)
 
 	if Nx.Tick % 11 == 0 then
 		Nx:RecordCharacter()
+		if Nx.Warehouse then
+			Nx.Warehouse:RecordCharacter()
+		end
 	end
 end
 
@@ -1750,9 +1752,6 @@ end
 --   Time is number from time()
 
 function Nx:InitCharacter()
-
---	NxData.Characters = {}
-
 	local chars = Nx.db.global.Characters
 	local fullName = self:GetRealmCharName()
 	local ch = chars[fullName]
@@ -1777,12 +1776,7 @@ function Nx:InitCharacter()
 	if not ch["TBar"] then
 		ch["TBar"] = {}			-- Tool Bar layouts
 	end
-
-	ch["Profs"] = ch["Profs"] or {}		-- Professions
-	ch["Professions"] = nil			-- Old
-
 	self:DeleteOldEvents()
-
 	ch.NXLoggedOnNum = ch.NXLoggedOnNum or 0 + 1
 	--
 	self:CalcRealmChars()
@@ -1896,75 +1890,10 @@ end
 --------
 -- Record logged in state
 
-function Nx:RecordCharacterLogin()
-
---	Nx.prt ("Log in %d", GetMoney())
-
-	local ch = self.CurCharacter
-
-	ch["LTime"] = time()
-	ch["LvlTime"] = time()
-
-	ch["LLevel"] = UnitLevel ("player")
-	ch["Class"] = Nx:GetUnitClass()
-
-	ch["LMoney"] = GetMoney()
-
-	ch["LXP"] = UnitXP ("player")
-	ch["LXPMax"] = UnitXPMax ("player")
-	ch["LXPRest"] = GetXPExhaustion() or 0
-
-	local _, arena = GetCurrencyInfo (390)
-	local _, honor = GetCurrencyInfo (392)
-
-	ch["LArenaPts"] = arena			--V4 gone GetArenaCurrency()
-	ch["LHonor"] = honor			--V4 gone GetHonorCurrency()
-	Nx:RecordCharacter()
-end
-
 function Nx:RecordCharacter()
-
---	Nx.prt ("RecordCharacter")
-
 	local ch = self.CurCharacter
-
-	local map = self.Map:GetMap (1)
-	if map.UpdateMapID then
-		ch["Pos"] = format ("%d^%f^%f", map.UpdateMapID, map.PlyrRZX, map.PlyrRZY)
-	end
-
-	ch["Time"] = time()
-
 	ch["Level"] = UnitLevel ("player")
-
-	if ch["Level"] > ch["LLevel"] then	-- Made a level? Reset
-		ch["LLevel"] = ch["Level"]
-		ch["LvlTime"] = time()
-		ch["LXP"] = UnitXP ("player")
-		ch["LXPMax"] = UnitXPMax ("player")
-		ch["LXPRest"] = GetXPExhaustion() or 0
-	end
-
-	ch["Money"] = GetMoney()
-
-	ch["XP"] = UnitXP ("player")
-	ch["XPMax"] = UnitXPMax ("player")
-	ch["XPRest"] = GetXPExhaustion() or 0
-
-	local _, conquest = GetCurrencyInfo (390)
-	local _, honor = GetCurrencyInfo (392)	
-	local _, apexis = GetCurrencyInfo (823)
-	local _, garrison = GetCurrencyInfo (824)
-	ch["Conquest"] = conquest		--V4 gone GetArenaCurrency()
-	ch["Honor"] = honor			--V4 gone GetHonorCurrency()
-	ch["Apexis"] = apexis
-	ch["Garrison"] = garrison
-	if ch["Valor"] then
-		ch["Valor"] = nil
-	end
-	if ch["Justice"] then
-		ch["Justice"] = nil
-	end
+	ch["Class"] = Nx:GetUnitClass()
 end
 
 function Nx:DeleteOldEvents()

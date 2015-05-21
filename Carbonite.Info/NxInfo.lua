@@ -166,9 +166,13 @@ end
 
 function CarboniteInfo:PLAYER_LOGIN()
 	local ch = Nx.CurCharacter
-	Nx.InfoStats["ArenaPts"] = ch["ArenaPts"]
-	Nx.InfoStats["Honor"] = ch["Honor"]
-	Nx.InfoStats["XPRest%"] = ch["XPRest"] / ch["XPMax"] * 100
+	local _, honor = GetCurrencyInfo (392)	
+	local _, conquest = GetCurrencyInfo (390)
+	local xprest = GetXPExhaustion() or 0
+	local xpmax = UnitXPMax ("player")
+	Nx.InfoStats["ArenaPts"] = conquest	
+	Nx.InfoStats["Honor"] = honor
+	Nx.InfoStats["XPRest%"] = xprest / xpmax * 100
 end
 
 
@@ -1038,11 +1042,11 @@ function Nx.Info:CalcThreatPercent (unit)
 end
 
 function Nx.Info:CalcDur()
-
-	Nx.Info.NeedDurability = true
-
-	local dur = Nx.CurCharacter["DurLowPercent"]
-
+	if not Nx.Warehouse then
+		return
+	end
+	Nx.Info.NeedDurability = true	
+	local dur = Nx.Warehouse.CurCharacter["DurLowPercent"]
 	if dur then	-- Can be nil on login
 		if dur >= 30 then
 			return "|cffa0a0a0", format ("%d", dur)
@@ -1052,8 +1056,10 @@ function Nx.Info:CalcDur()
 end
 
 function Nx.Info:CalcLvlTime()
-
-	local ch = Nx.CurCharacter
+	if not Nx.Warehouse then
+		return "|cff808080", "?"
+	end
+	local ch = Nx.Warehouse.CurCharacter
 
 	local lvl = tonumber (ch["Level"] or 0)
 

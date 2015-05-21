@@ -565,7 +565,6 @@ function CarboniteWeekly:OnInitialize()
 	end
 	Nx.wkdb = LibStub("AceDB-3.0"):New("NXWeek",defaults, true)
 	Nx.Weekly:ConvertData()
-	tinsert(Nx.dbs,Nx.wkdb)
 	Nx.Weekly:Init()
 	Nx.Weekly:Login()
 	local function func ()

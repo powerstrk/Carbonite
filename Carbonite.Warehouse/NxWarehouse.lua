@@ -141,8 +141,8 @@ function CarboniteWarehouse:OnInitialize()
 		return
 	end
 	Nx.wdb = LibStub("AceDB-3.0"):New("NXWhouse",defaults, true)
-	Nx.wdb:SetProfile(Nx.db:GetCurrentProfile())
-	tinsert(Nx.dbs,Nx.wdb)
+	Nx.Warehouse:ConvertData()
+	Nx.Warehouse:InitWarehouseCharacter()
 	Nx.Font:ModuleAdd("Warehouse.WarehouseFont",{ "NxFontWHI", "GameFontNormal","wdb" })
 	Nx.Warehouse:Init()
 	Nx.Warehouse:Login()
@@ -220,6 +220,142 @@ function CarboniteWarehouse:OnInitialize()
 	end
 end
 
+function Nx.Warehouse:ConvertData()
+	if not Nx.wdb.global then
+		Nx.wdb.global = {}
+	end
+	if not Nx.wdb.global.Characters then
+		Nx.wdb.global.Characters = {}
+	end
+	for ch,data in pairs(Nx.db.global.Characters) do
+		if not Nx.wdb.global.Characters[ch] then
+			Nx.wdb.global.Characters[ch] = {}
+		end
+		if Nx.db.global.Characters[ch].WareBank then
+			Nx.wdb.global.Characters[ch].WareBank = Nx.db.global.Characters[ch].WareBank
+			Nx.db.global.Characters[ch].WareBank = nil					
+		end
+		if Nx.db.global.Characters[ch].WareMail then
+			Nx.wdb.global.Characters[ch].WareMail = Nx.db.global.Characters[ch].WareMail
+			Nx.db.global.Characters[ch].WareMail = nil					
+		end		
+		if Nx.db.global.Characters[ch].WareBank then
+			Nx.wdb.global.Characters[ch].WareBank = Nx.db.global.Characters[ch].WareBank
+			Nx.db.global.Characters[ch].WareBank = nil					
+		end
+		if Nx.db.global.Characters[ch].Time then
+			Nx.wdb.global.Characters[ch].Time = Nx.db.global.Characters[ch].Time
+			Nx.db.global.Characters[ch].Time = nil					
+		end		
+		if Nx.db.global.Characters[ch].LMoney then
+			Nx.wdb.global.Characters[ch].LMoney = Nx.db.global.Characters[ch].LMoney
+			Nx.db.global.Characters[ch].LMoney = nil					
+		end		
+		if Nx.db.global.Characters[ch].Profs then
+			Nx.wdb.global.Characters[ch].Profs = Nx.db.global.Characters[ch].Profs
+			Nx.db.global.Characters[ch].Profs = nil					
+		end		
+		if Nx.db.global.Characters[ch].LXP then
+			Nx.wdb.global.Characters[ch].LXP = Nx.db.global.Characters[ch].LXP
+			Nx.db.global.Characters[ch].LXP = nil					
+		end		
+		if Nx.db.global.Characters[ch].LHonor then
+			Nx.wdb.global.Characters[ch].LHonor = Nx.db.global.Characters[ch].LHonor
+			Nx.db.global.Characters[ch].LHonor = nil					
+		end		
+		if Nx.db.global.Characters[ch].DurLowPercent then
+			Nx.wdb.global.Characters[ch].DurLowPercent = Nx.db.global.Characters[ch].DurLowPercent
+			Nx.db.global.Characters[ch].DurLowPercent = nil					
+		end		
+		if Nx.db.global.Characters[ch].XPMax then
+			Nx.wdb.global.Characters[ch].XPMax = Nx.db.global.Characters[ch].XPMax
+			Nx.db.global.Characters[ch].XPMax = nil					
+		end		
+		if Nx.db.global.Characters[ch].Conquest then
+			Nx.wdb.global.Characters[ch].Conquest = Nx.db.global.Characters[ch].Conquest
+			Nx.db.global.Characters[ch].Conquest = nil					
+		end		
+		if Nx.db.global.Characters[ch].LArenaPts then
+			Nx.wdb.global.Characters[ch].LArenaPts = Nx.db.global.Characters[ch].LArenaPts
+			Nx.db.global.Characters[ch].LArenaPts = nil					
+		end		
+		if Nx.db.global.Characters[ch].TimePlayed then
+			Nx.wdb.global.Characters[ch].TimePlayed = Nx.db.global.Characters[ch].TimePlayed
+			Nx.db.global.Characters[ch].TimePlayed = nil					
+		end				
+		if Nx.db.global.Characters[ch].XP then
+			Nx.wdb.global.Characters[ch].XP = Nx.db.global.Characters[ch].XP
+			Nx.db.global.Characters[ch].XP = nil					
+		end				
+		if Nx.db.global.Characters[ch].XPRest then
+			Nx.wdb.global.Characters[ch].XPRest = Nx.db.global.Characters[ch].XPRest
+			Nx.db.global.Characters[ch].XPRest = nil					
+		end				
+		if Nx.db.global.Characters[ch].Honor then
+			Nx.wdb.global.Characters[ch].Honor = Nx.db.global.Characters[ch].Honor
+			Nx.db.global.Characters[ch].Honor = nil					
+		end				
+		if Nx.db.global.Characters[ch].Money then
+			Nx.wdb.global.Characters[ch].Money = Nx.db.global.Characters[ch].Money
+			Nx.db.global.Characters[ch].Money = nil					
+		end				
+		if Nx.db.global.Characters[ch].WareBags then
+			Nx.wdb.global.Characters[ch].WareBags = Nx.db.global.Characters[ch].WareBags
+			Nx.db.global.Characters[ch].WareBags = nil					
+		end				
+		if Nx.db.global.Characters[ch].LXPMax then
+			Nx.wdb.global.Characters[ch].LXPMax = Nx.db.global.Characters[ch].LXPMax
+			Nx.db.global.Characters[ch].LXPMax = nil					
+		end				
+		if Nx.db.global.Characters[ch].LTime then
+			Nx.wdb.global.Characters[ch].LTime = Nx.db.global.Characters[ch].LTime
+			Nx.db.global.Characters[ch].LTime = nil					
+		end				
+		if Nx.db.global.Characters[ch].LXPRest then
+			Nx.wdb.global.Characters[ch].LXPRest = Nx.db.global.Characters[ch].LXPRest
+			Nx.db.global.Characters[ch].LXPRest = nil					
+		end				
+		if Nx.db.global.Characters[ch].DurPercent then
+			Nx.wdb.global.Characters[ch].DurPercent = Nx.db.global.Characters[ch].DurPercent
+			Nx.db.global.Characters[ch].DurPercent = nil					
+		end				
+		if Nx.db.global.Characters[ch].WareInv then
+			Nx.wdb.global.Characters[ch].WareInv = Nx.db.global.Characters[ch].WareInv
+			Nx.db.global.Characters[ch].WareInv = nil					
+		end				
+		if Nx.db.global.Characters[ch].LvlTime then
+			Nx.wdb.global.Characters[ch].LvlTime = Nx.db.global.Characters[ch].LvlTime
+			Nx.db.global.Characters[ch].LvlTime = nil					
+		end				
+		if Nx.db.global.Characters[ch].Pos then
+			Nx.wdb.global.Characters[ch].Pos = Nx.db.global.Characters[ch].Pos
+			Nx.db.global.Characters[ch].Pos = nil					
+		end				
+		if Nx.db.global.Characters[ch].WHHide then
+			Nx.wdb.global.Characters[ch].WHHide = Nx.db.global.Characters[ch].WHHide
+			Nx.db.global.Characters[ch].WHHide = nil					
+		end				
+		if Nx.db.global.Characters[ch].Garrison then
+			Nx.wdb.global.Characters[ch].Garrison = Nx.db.global.Characters[ch].Garrison
+			Nx.db.global.Characters[ch].Garrison = nil					
+		end				
+		if Nx.db.global.Characters[ch].Apexis then
+			Nx.wdb.global.Characters[ch].Apexis = Nx.db.global.Characters[ch].Apexis
+			Nx.db.global.Characters[ch].Apexis = nil					
+		end				
+		if Nx.db.global.Characters[ch].WareRBank then
+			Nx.wdb.global.Characters[ch].WareRBank = Nx.db.global.Characters[ch].WareRBank
+			Nx.db.global.Characters[ch].WareRBank = nil					
+		end						
+		if Nx.db.global.Characters[ch].Class then
+			Nx.wdb.global.Characters[ch].Class = Nx.db.global.Characters[ch].Class			
+		end								
+		if Nx.db.global.Characters[ch].Level then
+			Nx.wdb.global.Characters[ch].Level = Nx.db.global.Characters[ch].Level			
+		end								
+	end
+end
+
 function CarboniteWarehouse:EventHandler(event, arg1, arg2, arg3)
 	if event == "BAG_UPDATE" then
 		Nx.Warehouse:OnBag_update()
@@ -279,7 +415,7 @@ function Nx.Warehouse:OnTime_played_msg (event, arg1, arg2)
 		Nx.prt("Time played this level: " .. Nx.Util_SecondsToDays(arg2))
 	end
 	Nx.RequestTime = false
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
 	Nx.Warehouse:GuildRecord()
 	if Nx.Warehouse.TimePlayed then
 		ch["TimePlayed"] = Nx.Warehouse.TimePlayed
@@ -371,7 +507,8 @@ end
 -------------------------------------------------------------------------------
 
 function Nx.Warehouse:Login(event, arg1)
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
+	Nx.Warehouse:RecordCharacterLogin()
 	Nx.Warehouse:GuildRecord()
 	if Nx.Warehouse.TimePlayed then
 		ch["TimePlayed"] = Nx.Warehouse.TimePlayed
@@ -531,6 +668,7 @@ function Nx.Warehouse:Menu_OnRemoveChar (item)
 
 			tremove (Nx.RealmChars, cn)
 			Nx.db.global.Characters[rc] = nil
+			Nx.wdb.global.Characters[rc] = nil
 			self.SelectedChar = 1
 		end
 	end
@@ -684,7 +822,7 @@ function Nx.Warehouse:OnListEvent (eventName, sel, val2, click)
 
 		if prof then
 
-			local ch = Nx.db.global.Characters[Nx.RealmChars[id]]
+			local ch = Nx.wdb.global.Characters[Nx.RealmChars[id]]
 			local profT = ch["Profs"][prof]
 
 			local frm = DEFAULT_CHAT_FRAME
@@ -699,7 +837,7 @@ function Nx.Warehouse:OnListEvent (eventName, sel, val2, click)
 
 		elseif id >= 1 and id <= #Nx.RealmChars then
 
-			local ch = Nx.db.global.Characters[Nx.RealmChars[id]]
+			local ch = Nx.wdb.global.Characters[Nx.RealmChars[id]]
 			if ch then
 				ch["WHHide"] = val2		-- Pressed
 			end
@@ -708,7 +846,7 @@ function Nx.Warehouse:OnListEvent (eventName, sel, val2, click)
 
 			for cnum, rc in ipairs (Nx.RealmChars) do
 
-				local ch = Nx.db.global.Characters[rc]
+				local ch = Nx.wdb.global.Characters[rc]
 				if ch then
 					ch["WHHide"] = true
 				end
@@ -823,7 +961,7 @@ function Nx.Warehouse:Update()
 
 	local Nx = Nx
 
-	if not Nx.CurCharacter then	-- Can even happen?
+	if not Nx.Warehouse.CurCharacter then	-- Can even happen?
 		return
 	end
 
@@ -888,7 +1026,7 @@ function Nx.Warehouse:Update()
 		if cname == myName then		-- Me?
 			cnameCol = "|cffdfffdf"
 		end
-		local ch = Nx.db.global.Characters[rc]
+		local ch = Nx.wdb.global.Characters[rc]
 		if ch then
 			totalChars = totalChars + 1
 			totalPlayed = totalPlayed + ch["TimePlayed"]
@@ -1073,8 +1211,8 @@ function Nx.Warehouse:UpdateItems()
 		local rname, cname = Nx.Split (".", rc)
 		list:ColumnSetName (3, format (L["%s's Items"], cname))
 
-		local ch = Nx.db.global.Characters[rc]
-
+		local ch = Nx.wdb.global.Characters[rc]
+		
 		local bank = ch["WareBank"]
 		if not bank then
 			list:ItemAdd (0)
@@ -1106,7 +1244,7 @@ function Nx.Warehouse:UpdateItems()
 		for cn = cn1, cn2 do
 
 			local rc = Nx.RealmChars[cn]
-			local ch = Nx.db.global.Characters[rc]
+			local ch = Nx.wdb.global.Characters[rc]
 
 			local inv = ch["WareInv"]
 
@@ -1152,7 +1290,7 @@ function Nx.Warehouse:UpdateItems()
 	for cn = cn1, cn2 do
 
 		local rc = Nx.RealmChars[cn]
-		local ch = Nx.db.global.Characters[rc]
+		local ch = Nx.wdb.global.Characters[rc]
 
 		local bags = ch["WareBags"]
 
@@ -1430,10 +1568,10 @@ function Nx.Warehouse:FindCharsWithItem (link, specific)
 		local mailCnt = 0
 
 		local rname, cname = Nx.Split (".", rc)
-		if not Nx.db.global.Characters[rc] then
+		if not Nx.wdb.global.Characters[rc] then
 			return "", 0, 0
 		end
-		local ch = Nx.db.global.Characters[rc]
+		local ch = Nx.wdb.global.Characters[rc]
 
 		local bags = ch["WareBags"]
 
@@ -1566,7 +1704,7 @@ function Nx.Warehouse:UpdateProfessions()
 
 	local cn1 = self.SelectedChar
 	local rc = Nx.RealmChars[cn1]
-	local ch = Nx.db.global.Characters[rc]
+	local ch = Nx.wdb.global.Characters[rc]
 
 	local rname, cname = Nx.Split (".", rc)
 	local pname = self.SelectedProf
@@ -1872,7 +2010,7 @@ function Nx.Warehouse.OnMail_inbox_update()
 		return
 	end
 
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
 
 	local inv = {}
 	ch["WareMail"] = inv
@@ -1970,7 +2108,7 @@ end
 
 function Nx.Warehouse:CaptureItems()
 
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
 
 --	ch["WareBank"] = nil
 
@@ -2141,7 +2279,7 @@ function Nx.Warehouse:CaptureInvDurabilityTimer()
 
 --	tip:Hide()
 
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
 
 	ch["DurPercent"] = durAll / durAllMax * 100
 	ch["DurLowPercent"] = durLow * 100
@@ -2267,7 +2405,7 @@ function Nx.Warehouse:RecordCharacterSkills()
 
 --	Nx.prt ("Warehouse Rec skill")
 
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
 
 	for _, v in pairs (ch["Profs"]) do
 		v.Old = true	-- Flag for delete
@@ -2418,7 +2556,7 @@ function Nx.Warehouse:RecordProfession()
 		return
 	end
 
-	local ch = Nx.CurCharacter
+	local ch = Nx.Warehouse.CurCharacter
 
 	local title = GetTradeSkillLine()
 --	Nx.prt ("Trade %s", title)
@@ -2457,6 +2595,70 @@ end
 
 function Nx.Warehouse:OnButToggleWarehouse (but)
 	Nx.Warehouse:ToggleShow()
+end
+
+function Nx.Warehouse:InitWarehouseCharacter()
+	local chars = Nx.wdb.global.Characters
+	local fullName = Nx:GetRealmCharName()
+	local ch = chars[fullName]
+	if not ch then
+		ch = {}
+	end
+	Nx.Warehouse.CurCharacter = ch
+	ch["Profs"] = ch["Profs"] or {}		-- Professions	
+end
+
+function Nx.Warehouse:RecordCharacterLogin()
+	local ch = self.CurCharacter
+	ch["LTime"] = time()
+	ch["LvlTime"] = time()
+	ch["LLevel"] = UnitLevel ("player")
+	ch["Class"] = Nx:GetUnitClass()
+	ch["LMoney"] = GetMoney()
+	ch["LXP"] = UnitXP ("player")
+	ch["LXPMax"] = UnitXPMax ("player")
+	ch["LXPRest"] = GetXPExhaustion() or 0
+	local _, arena = GetCurrencyInfo (390)
+	local _, honor = GetCurrencyInfo (392)
+	ch["LArenaPts"] = arena			--V4 gone GetArenaCurrency()
+	ch["LHonor"] = honor			--V4 gone GetHonorCurrency()
+	Nx.Warehouse:RecordCharacter()
+end
+
+function Nx.Warehouse:RecordCharacter()
+	local ch = self.CurCharacter
+	local map = Nx.Map:GetMap (1)
+	if map.UpdateMapID then
+		ch["Pos"] = format ("%d^%f^%f", map.UpdateMapID, map.PlyrRZX, map.PlyrRZY)
+	end
+	ch["Time"] = time()
+	ch["Level"] = UnitLevel ("player")
+	ch["Class"] = Nx:GetUnitClass()
+	if ch["Level"] > ch["LLevel"] then	-- Made a level? Reset
+		ch["LLevel"] = ch["Level"]
+		ch["LvlTime"] = time()
+		ch["LXP"] = UnitXP ("player")
+		ch["LXPMax"] = UnitXPMax ("player")
+		ch["LXPRest"] = GetXPExhaustion() or 0
+	end
+	ch["Money"] = GetMoney()
+	ch["XP"] = UnitXP ("player")
+	ch["XPMax"] = UnitXPMax ("player")
+	ch["XPRest"] = GetXPExhaustion() or 0
+	local _, conquest = GetCurrencyInfo (390)
+	local _, honor = GetCurrencyInfo (392)	
+	local _, apexis = GetCurrencyInfo (823)
+	local _, garrison = GetCurrencyInfo (824)
+	ch["Conquest"] = conquest		--V4 gone GetArenaCurrency()
+	ch["Honor"] = honor			--V4 gone GetHonorCurrency()
+	ch["Apexis"] = apexis
+	ch["Garrison"] = garrison
+	if ch["Valor"] then
+		ch["Valor"] = nil
+	end
+	if ch["Justice"] then
+		ch["Justice"] = nil
+	end
 end
 
 --PAIDE!
