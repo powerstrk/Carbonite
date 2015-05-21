@@ -991,25 +991,22 @@ function Nx.Warehouse:Update()
 						list:ItemSet (2, format (L[" XP: %s%s/%s (%.0f%%)|r Rest: %s%.0f%%"], hicol, ch["XP"], ch["XPMax"], ch["XP"] / ch["XPMax"] * 100, hicol, rest))
 					end
 				end
-
+				list:ItemAdd(cnum)
+				list:ItemSet (2, "|cff00ffff  ------")
 				if ch["Honor"] and ch["Conquest"] then
 					list:ItemAdd (cnum)
 					list:ItemSet (2, format (L[" Honor: %s%s|r  Conquest: %s%s"], hicol, ch["Honor"], hicol, ch["Conquest"]))
 				end
-				if ch["Valor"] and ch["Justice"] then
+				if ch["Apexis"] then
 					list:ItemAdd(cnum)
-					list:ItemSet(2, format (L[" Valor: %s%s|r  Justice: %s%s"], hicol, ch["Valor"], hicol, ch["Justice"]))
+					list:ItemSet(2, format (L[" Apexis Crystals: %s%s"], hicol, ch["Apexis"]))
 				end
---[[
-				if ch["Professions"] then
-					for n, data in ipairs (ch["Professions"]) do
-						local name, rank = Nx.Split ("^", data)
-						list:ItemAdd (cnum)
-						list:ItemSetDataEx (nil, name, 1)
-						list:ItemSet (2, format (L[" %s %s%s"], name, hicol, rank))
-					end
+				if ch["Garrison"] then
+					list:ItemAdd(cnum)
+					list:ItemSet(2, format (L[" Garrison Resources: %s%s"], hicol, ch["Garrison"]))
 				end
---]]
+				list:ItemAdd(cnum)
+				list:ItemSet (2, "|cff00ffff  ------")
 				if ch["Profs"] then
 
 					local profs = ch["Profs"]
@@ -1093,20 +1090,14 @@ function Nx.Warehouse:UpdateItems()
 		local inv = ch["WareInv"]
 
 		if inv then
-
 			list:ItemAdd (0)
 			list:ItemSet (3, L["---- Equipped ----"])
-
 			for _, data in ipairs (inv) do
-
 				local slot, link = Nx.Split ("^", data)
 				Nx.Item:Load (link)
-
 				slot = gsub (slot, L["Slot"], "")
 				slot = gsub (slot, "%d", "")
-
 				local name = GetItemInfo (link)
-
 				self:UpdateItem (format ("  %s - ", slot), name, 1, 0, 0, link, true)
 			end
 		end

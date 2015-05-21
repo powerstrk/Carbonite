@@ -1952,13 +1952,19 @@ function Nx:RecordCharacter()
 	ch["XPRest"] = GetXPExhaustion() or 0
 
 	local _, conquest = GetCurrencyInfo (390)
-	local _, honor = GetCurrencyInfo (392)
-	local _, justice = GetCurrencyInfo (395)
-	local _, valor = GetCurrencyInfo (396)
+	local _, honor = GetCurrencyInfo (392)	
+	local _, apexis = GetCurrencyInfo (823)
+	local _, garrison = GetCurrencyInfo (824)
 	ch["Conquest"] = conquest		--V4 gone GetArenaCurrency()
 	ch["Honor"] = honor			--V4 gone GetHonorCurrency()
-	ch["Valor"] = valor
-	ch["Justice"] = justice
+	ch["Apexis"] = apexis
+	ch["Garrison"] = garrison
+	if ch["Valor"] then
+		ch["Valor"] = nil
+	end
+	if ch["Justice"] then
+		ch["Justice"] = nil
+	end
 end
 
 function Nx:DeleteOldEvents()
@@ -3470,32 +3476,15 @@ end
 -- Item handling
 
 function Nx.Item:Init()
-
-	self.Needed = {}
 	self.Asked = {}
 end
 
 function Nx.Item:Load (id)
-
-	if self.Asked[id] then			-- Ask once
-
---		Nx.prt ("Asked %s", id)
-
-		if time() - self.Asked[id] > 600 then
-
-			local name = GetItemInfo (id)
-			if not name then
---				Nx.prt ("Item still missing %s", id)
-				return -1	-- Never got item. Probably bad id
-			end
+	if not self.Asked[id] then			-- Ask once
+		local name, link = GetItemInfo (id)
+		if name then			
+			self.Asked[id] = name
 		end
-
-		return
-	end
-
-	local name, link = GetItemInfo (id)
-	if not name then
---		self.Needed[id] = true
 	end
 end
 
@@ -3554,47 +3543,6 @@ function Nx.Item:ShowTooltip (id, compare)
 	if compare then
 		GameTooltip_ShowCompareItem()
 	end
-end
-
-function Nx.Item:Timer()
-
-	local id = next (self.Needed)
-
-	if id then
-
-		local tip = self.TooltipFrm
-
-		self.Needed[id] = nil
-
-		local name = GetItemInfo (id)
-		if name then
-			return .01		-- Already have
-		end
-
---		Nx.prt ("Getting item %s", id)
-
-		self.Asked[id] = time()
-
-		if not strfind (id, "item:") then
-			id = "item:" .. id
-		end
-
-		tip:SetHyperlink (id)
-
-		self.ItemsRequested = self.ItemsRequested + 1
-
-		if next (self.Needed) then		-- More?
-
-			if Nx:TimeLeft(ItemDraw) == 0 then
-				ItemDraw = Nx:ScheduleTimer ("DrawTimer",10)
-			end
-			return .1
-		end
-
-		ItemDraw = Nx:ScheduleTimer ("DrawTimer",3)
-	end
-
-	return 2
 end
 
 function Nx.Item:DrawTimer()
