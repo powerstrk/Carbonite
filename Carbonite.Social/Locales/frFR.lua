@@ -103,3 +103,4 @@ L["Punk %s added"] = "Punk %s ajout\195\169"
 L["hey"] = true
 L["|cffff2020Team:"] = "|cffff2020Equipe:"
 L["Team:"] = "Equipe"
+L["Social"] = true

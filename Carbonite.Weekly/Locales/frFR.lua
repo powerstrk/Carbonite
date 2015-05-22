@@ -74,6 +74,7 @@ L["Lei Shen Palace Key"] = "La cl\195\169 du palais de Lei Shen"
 L["Thunder King Trove"] = "Troyes du Roi-Tonnerre"
 L["MoP"] = true
 L["WoD"] = true
+L["Weekly"] = true
 
 -- No Longer Used
 L["Yes"] = "Oui"

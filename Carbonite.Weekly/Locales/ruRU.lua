@@ -74,3 +74,4 @@ L["Lei Shen Palace Key"] = "Ключ от дворца Лэй Шэня"
 L["Thunder King Trove"] = true
 L["MoP"] = true
 L["WoD"] = true
+L["Weekly"] = true

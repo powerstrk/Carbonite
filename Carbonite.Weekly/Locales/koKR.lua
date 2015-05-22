@@ -74,6 +74,7 @@ L["Lei Shen Palace Key"] = "레이 션 궁전으로 통하는 문의 열쇠"
 L["Thunder King Trove"] = "천둥왕의 발견물"
 L["MoP"] = true
 L["WoD"] = true
+L["Weekly"] = true
 
 -- No Longer Used
 L["Warforged Seals"] = "전쟁벼림 인장"

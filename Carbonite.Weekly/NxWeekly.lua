@@ -555,6 +555,7 @@ local function WeeklyOptions()
 			},
 		}
 	end
+	Nx.Opts:AddToProfileMenu(L["Weekly"],6,Nx.wkdb)
 	return weeklyopts
 end
 

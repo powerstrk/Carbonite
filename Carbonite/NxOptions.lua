@@ -36,124 +36,33 @@ local function profilesConfig()
 	if not profiles then
 		profiles = {
 			type = "group",
-			name = L["Profiles"],
+			name = L["Profiles"],			
+			childGroups	= "tab",
 			args = {
-				line1 = {
-					type = "description",
-					name = L["You can change the active database profile, so you can have different settings for every character."],
-					order = 1,
-				},
-				line2 = {
-					type = "description",
-					name = L["Reset the current profile back to it's default values, in case your configuration is broken, or you simply want to start over."],
-					order = 2,
-				},
-				bigbutton = {
-					type = "execute",
-					name = L["Reset Profile"],
-					width = "normal",
-					func = function ()
-							for a,b in pairs (Nx.dbs) do
-								b:ResetProfile(true,true)
-							end
-					end,
-					desc = L["Reset the current profile to the defaults"],
-					order = 3,
-				},
-				current = {
-					type = "description",
-					name = L["Current Profile"] .. ": |c00ffff00" .. Nx.db:GetCurrentProfile(),
-					width = "double",
-					order = 4,
-				},
-				line3 = {
-					type = "description",
-					name = L["You can either create a new profile by entering a name in the editbox, or choose one of the already existing profiles."],
-					order = 5,
-				},
-				newprof = {
-					type = "input",
-					name = L["New"],
-					desc = L["Create a new empty profile"],
-					get = false,
-					set = function (info, name)
-						for a,b in pairs(Nx.dbs) do
-							Nx.prt(name)
-							b:SetProfile(name)
-						end
-					end,
-					order = 6,
-				},
-				existing = {
-					type = "select",
-					style = "dropdown",
-					name = L["Existing Profiles"],
-					values = Nx.db:GetProfiles(),
-					get = function ()
-						return Nx.db:GetCurrentProfile()
-					end,
-					set = function (info, name)
-						for a,b in pairs (Nx.dbs) do
-							b:SetProfile(name)
-						end
-					end,
-					desc = L["Select one of your currently available profiles"],
-					order = 7,
-				},
-				linebrk = {
-					type = "description",
-					name = "",
-					width = "full",
-					order = 8,
-				},
-				line4 = {
-					type = "description",
-					name = L["Copy the settings from one existing profile into the currently active profile."],
-					order = 9,
-				},
-				copyfrom = {
-					type = "select",
-					style = "dropdown",
-					name = L["Existing Profiles"],
-					values = Nx.db:GetProfiles(),
-					get = false,
-					set = function (info, name)
-						for a,b in pairs(Nx.dbs) do
-							b:CopyProfile(name)
-						end
-					end,
-					desc = L["Copy the settings from one existing profile into the currently active profile."],
-					order = 10,
-				},
-				linebrk2 = {
-					type = "description",
-					name = "",
-					width = "full",
-					order = 11,
-				},
-				line5 = {
-					type = "description",
-					name = L["Delete existing and unused profiles from the database to save space, and cleanup the SavedVariables file."],
-					order = 12,
-				},
-				delete = {
-					type = "select",
-					style = "dropdown",
-					name = L["Delete a Profile"],
-					get = false,
-					set = function (info, name)
-						for a,b in pairs(Nx.dbs) do
-							b:DeleteProfile(name)
-						end
-					end,
-					values = Nx.db:GetProfiles(),
-					desc = L["Deletes a profile from the database."],
-					order = 13,
+				main = {
+					type = "group",
+					name = L["Main"],
+					order = 1,		
+					args = {},
 				},
 			},
 		}
 	end
+	profiles.args.main.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(Nx.db)
 	return profiles
+end
+
+function Nx.Opts:AddToProfileMenu(ProfileName,ProfileOrder,ProfileDB)
+	if not profiles then
+		return
+	end
+	profiles.args[ProfileName] = {
+		type = "group",
+		name = ProfileName,
+		order = ProfileOrder,
+		args = {},
+	}
+	profiles.args[ProfileName].args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(ProfileDB)
 end
 
 local config
@@ -4019,7 +3928,7 @@ function Nx:SetupConfig()
 	Nx:AddToConfig("Maps",mapConfig(),L["Maps"])
 	Nx:AddToConfig("Menus",menuConfig(),L["Menus"])
 	Nx:AddToConfig("Privacy",commConfig(),L["Privacy"])
---	Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
+	Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
 	Nx:AddToConfig("Skin",skinConfig(),L["Skin"])
 	Nx:AddToConfig("Tracking HUD",trackConfig(),L["Tracking HUD"])
 end

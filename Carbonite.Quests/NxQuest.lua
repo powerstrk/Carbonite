@@ -1843,6 +1843,7 @@ local function QuestOptions ()
 			},
 		}
 	end
+	Nx.Opts:AddToProfileMenu(L["Quest"],3,Nx.qdb)
 	return questoptions
 end
 

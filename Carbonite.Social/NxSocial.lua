@@ -463,6 +463,7 @@ local function socialConfig()
 			},
 		}
 	end
+	Nx.Opts:AddToProfileMenu(L["Social"],5,Nx.scdb)
 	return socialoptions
 end
 
@@ -472,8 +473,7 @@ function CarboniteSocial:OnInitialize()
 		return
 	end
 	Nx.scdb = LibStub("AceDB-3.0"):New("NXSocial",defaults, true)
-	Nx.scdb:SetProfile(Nx.db:GetCurrentProfile())
-	tinsert(Nx.dbs,Nx.scdb)
+
 	local soc = Nx.scdb.profile.SocialData
 
 	if not soc or soc.Version < Nx.VERSIONSOCIAL then

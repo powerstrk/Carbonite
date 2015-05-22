@@ -68,6 +68,7 @@ local function notesConfig()
 			},
 		}
 	end
+	Nx.Opts:AddToProfileMenu(L["Notes"],4,Nx.fdb)
 	return notesoptions
 end
 

@@ -74,6 +74,7 @@ L["Lei Shen Palace Key"] = "雷神皇宮鑰匙"
 L["Thunder King Trove"] = "雷王寶箱"
 L["MoP"] = "潘達利亞的迷霧"
 L["WoD"] = "德拉諾之霸"
+L["Weekly"] = true
 
 -- No Longer Used
 L["Yes"] = "是"

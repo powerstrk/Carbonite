@@ -39,3 +39,4 @@ L["Fifteen seconds until the Arena"] = "15 (quindici) Secondi all'avvio dell'Are
 L["Reset old info data %f"] = "Reset vecchi dati info %f"
 L[" begins? in (%d+) "] = " inizio? in (%d+) "
 L["(%d+) minutes? until the battle"] = "(%d+) minuti? all'inizio della Battaglia"
+L["Info"] = true

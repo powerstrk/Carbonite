@@ -103,3 +103,4 @@ L["Punk %s added"] = "Avversario %s aggiunto"
 L["hey"] = true
 L["|cffff2020Team:"] = true
 L["Team:"] = true
+L["Social"] = true

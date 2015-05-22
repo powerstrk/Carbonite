@@ -141,7 +141,8 @@ local function createOptions()
 				},
 			},
 		}
-	end
+	end	
+	Nx.Opts:AddToProfileMenu(L["Info"],2,Nx.idb)	
 	return options
 end
 
@@ -261,7 +262,7 @@ function Nx.Info:Init()
 	end
 
 	self:CreateMenu()
-	Nx:AddToConfig("Info Module",createOptions(),L["Info Module"])
+	Nx:AddToConfig("Info Module",createOptions(),L["Info Module"])		
 	self:OptionsUpdate()
 end
 
