@@ -1288,7 +1288,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 								local col = "|r"
 								local daily = Quest.DailyIds[qId] or Quest.DailyDungeonIds[qId]
 								anyDaily = anyDaily or daily
-								local status, qTime = Nx:GetQuest (qId)
+								local status, qTime = Nx.Quest:GetQuest (qId)
 								if daily then
 									col = "|cffa0a0ff"
 									show = true
