@@ -30,7 +30,7 @@ local _G = getfenv(0)
 CarboniteWarehouse = LibStub("AceAddon-3.0"):NewAddon("CarboniteWarehouse","AceEvent-3.0","AceComm-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Warehouse", true)
-
+local GuildBank = LibStub("LibGuildBankComm-1.0")
 Nx.VERSIONWare			= .15				-- Warehouse data
 
 -- Keybindings
@@ -175,7 +175,10 @@ function CarboniteWarehouse:OnInitialize()
 	CarboniteWarehouse:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("UNIT_SPELLCAST_FAILED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED", "EventHandler")
-
+	GuildBank.RegisterCallback(CarboniteWarehouse,"GuildBankComm_PageUpdate", "OnPageSync")
+	GuildBank.RegisterCallback(CarboniteWarehouse, "GuildBankComm_FundsUpdate", "OnMoneySync")
+	GuildBank.RegisterCallback(CarboniteWarehouse, "GuildBankComm_TabsUpdate", "OnTabSync")
+	
 	Nx.Button.TypeData["MapWarehouse"] = {
 		Up = "$INV_Misc_EngGizmos_17",
 		SizeUp = 22,
@@ -218,6 +221,50 @@ function CarboniteWarehouse:OnInitialize()
 	tinsert(Nx.BrokerMenuTemplate,{ text = L["Toggle Warehouse"], func = function() Nx.Warehouse:ToggleShow() end })
 	if Nx.RequestTime then
 		RequestTimePlayed()
+	end
+end
+
+function CarboniteWarehouse:OnPageSync(event, sender, page, guildName)
+	local ware = Nx.wdb.profile.WarehouseData
+	local rn = GetRealmName()
+	local rnGuilds = ware[rn] or {}
+	ware[rn] = rnGuilds
+	local guild = rnGuilds[guildName] or {}
+	rnGuilds[guildName] = guild							
+	if not guild["Tab" .. page] then
+			guild["Tab" .. page] = {}
+	end
+	guild["Tab" .. page]["Inv"] = {}
+	for slot, link, stack in GuildBank:IteratePage(page) do
+		guild["Tab" .. page]["Inv"][slot] = format("%s^%s",stack,link)
+	end
+	guild["Tab" .. page]["ScanTime"] = time()
+end
+
+function CarboniteWarehouse:OnMoneySync(event, sender, newFunds, guildName)
+	local ware = Nx.wdb.profile.WarehouseData
+	local rn = GetRealmName()
+	local rnGuilds = ware[rn] or {}
+	ware[rn] = rnGuilds
+	local guild = rnGuilds[guildName] or {}
+	rnGuilds[guildName] = guild		
+	guild["Money"] = newFunds	
+end
+
+function CarboniteWarehouse:OnTabSync(event, sender, numTabs, guildName)
+	local ware = Nx.wdb.profile.WarehouseData
+	local rn = GetRealmName()
+	local rnGuilds = ware[rn] or {}
+	ware[rn] = rnGuilds
+	local guild = rnGuilds[guildName] or {}
+	rnGuilds[guildName] = guild		
+	for i = 1, numTabs do
+		local name, icon = GuildBank:GetTabInfo(i)
+		if not guild["Tab" .. i] then
+			guild["Tab" .. i] = {}
+		end
+		guild["Tab" .. i].Name = name
+		guild["Tab" .. i].Icon = icon
 	end
 end
 
@@ -1951,42 +1998,49 @@ function Nx.Warehouse.OnBankframe_closed()
 end
 
 function Nx.Warehouse.OnGuildbankframe_opened()
---	Nx.prt ("GBank open %s", GetGuildBankMoney())
-
 	local self = Nx.Warehouse
-
 	if self.Enabled then
 		self:GuildRecord (true)
 	end
 end
 
 function Nx.Warehouse.OnGuildbankframe_closed()
---	Nx.prt ("GBank close %s", GetGuildBankMoney())
-
 	local self = Nx.Warehouse
-
 	if self.Enabled then
 		self:GuildRecord (true)
 	end
 end
 
 function Nx.Warehouse:GuildRecord (open)
-
 	local gName = GetGuildInfo ("player")
-
 	if gName then
-
 		local ware = Nx.wdb.profile.WarehouseData
 		local rn = GetRealmName()
-
 		local rnGuilds = ware[rn] or {}
 		ware[rn] = rnGuilds
-
 		local guild = rnGuilds[gName] or {}
 		rnGuilds[gName] = guild
-
 		if open then
 			guild["Money"] = GetGuildBankMoney()
+			local guildinv = guild["Inv"] or {}
+			guild["Inv"] = guildinv
+			local numTabs = GetNumGuildBankTabs()
+			local name, icon
+			for page = 1, numTabs do
+				guildinv["Tab" .. page] = {}
+				name, icon = GetGuildBankTabInfo(page)
+				guildinv["Tab" .. page]["Name"] = name
+				guildinv["Tab" .. page]["Icon"] = icon
+				guildinv["Tab" .. page]["ScanTime"] = time()
+				guildinv["Tab" .. page]["Inv"] = {}
+				for slot = 1, 98 do
+					if GetGuildBankItemLink(page, slot) then
+						local itemString = GetGuildBankItemLink(page, slot)
+						local _, num = GetGuildBankItemInfo(page, slot)
+						guildinv["Tab" .. page]["Inv"][slot] = format("%s^%s",num,itemString)
+					end
+				end
+			end
 		end
 	end
 end

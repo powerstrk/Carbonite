@@ -2076,7 +2076,9 @@ function Nx.Quest:InitQuestCharacter()
 	local fullName = Nx:GetRealmCharName()
 	local ch = chars[fullName]
 	if not ch then
-		ch = {}
+		ch = {}		
+	end
+	if not ch.Q then
 		ch.Q = {}
 	end
 	Nx.Quest.CurCharacter = ch
