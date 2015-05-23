@@ -45,8 +45,33 @@ local defaults = {
 			WarehouseFontSize = 11,
 			WarehouseFontSpacing = 6,
 			Enable = true,
+			SellTesting = false,
+			SellVerbose = false,
+			SellGreys = false,
+			SellWhites = false,
+			SellWhitesiLVL = false,
+			SellWhitesiLVLValue = 600,
+			SellGreens = false,
+			SellGreensBOP = false,
+			SellGreensBOE = false,
+			SellGreensiLVL = false,
+			SellGreensiLVLValue = 600,			
+			SellBlues = false,
+			SellBluesiLVL = false,
+			SellBluesiLVLValue = 600,			
+			SellBluesBOP = false,
+			SellBluesBOE = false,
+			SellPurps = false,
+			SellPurpsiLVL = false,
+			SellPurpsiLVLValue = 600,			
+			SellPurpsBOP = false,
+			SellPurpsBOE = false,
+			SellList = false,
+			SellingList = {},
+			RepairAuto = false,
+			RepairGuild = false,
 			AddTooltip = true,
-					},
+		},
 	},
 }
 
@@ -55,80 +80,593 @@ Nx.Warehouse = {}
 local warehouseopts
 local function WarehouseOptions()
 	if not warehouseopts then
-		warehouseopts = {
+		warehouseopts = {					
 			type = "group",
 			name = L["Warehouse Options"],
+			childGroups = "tab",
 			args = {
-				toolTip = {
+				main = {
+					name = L["Warehouse"],
+					type = "group",
 					order = 1,
-					type = "toggle",
-					width = "full",
-					name = L["Add Warehouse Tooltip"],
-					desc = L["When enabled, will show warehouse information in hover tooltips of items"],
-					get = function()
-						return Nx.wdb.profile.Warehouse.AddTooltip
-					end,
-					set = function()
-						Nx.wdb.profile.Warehouse.AddTooltip = not Nx.wdb.profile.Warehouse.AddTooltip
-					end,
+					args = {
+						toolTip = {
+							order = 1,
+							type = "toggle",
+							width = "full",
+							name = L["Add Warehouse Tooltip"],
+							desc = L["When enabled, will show warehouse information in hover tooltips of items"],
+							get = function()
+								return Nx.wdb.profile.Warehouse.AddTooltip
+							end,
+							set = function()
+								Nx.wdb.profile.Warehouse.AddTooltip = not Nx.wdb.profile.Warehouse.AddTooltip
+							end,
+						},
+						WareFont = {
+							order = 2,
+							type	= "select",
+							name	= L["Warehouse Font"],
+							desc	= L["Sets the font to be used for warehouse windows"],
+							get	= function()
+								local vals = Nx.Opts:CalcChoices("FontFace","Get")
+								for a,b in pairs(vals) do
+								  if (b == Nx.wdb.profile.Warehouse.WarehouseFont) then
+									 return a
+								  end
+								end
+								return ""
+							end,
+							set	= function(info, name)
+								local vals = Nx.Opts:CalcChoices("FontFace","Get")
+								Nx.wdb.profile.Warehouse.WarehouseFont = vals[name]
+								Nx.Opts:NXCmdFontChange()
+							end,
+							values	= function()
+								return Nx.Opts:CalcChoices("FontFace","Get")
+							end,
+						},
+						WareFontSize = {
+							order = 3,
+							type = "range",
+							name = L["Warehouse Font Size"],
+							desc = L["Sets the size of the warehouse font"],
+							min = 6,
+							max = 14,
+							step = 1,
+							bigStep = 1,
+							get = function()
+								return Nx.wdb.profile.Warehouse.WarehouseFontSize
+							end,
+							set = function(info,value)
+								Nx.wdb.profile.Warehouse.WarehouseFontSize = value
+								Nx.Opts:NXCmdFontChange()
+							end,
+						},
+						WareFontSpacing = {
+							order = 4,
+							type = "range",
+							name = L["Warehouse Font Spacing"],
+							desc = L["Sets the spacing of the warehouse font"],
+							min = -10,
+							max = 20,
+							step = 1,
+							bigStep = 1,
+							get = function()
+								return Nx.wdb.profile.Warehouse.WarehouseFontSpacing
+							end,
+							set = function(info,value)
+								Nx.wdb.profile.Warehouse.WarehouseFontSpacing = value
+								Nx.Opts:NXCmdFontChange()
+							end,
+						},						
+					},
 				},
-				WareFont = {
+				seller = {
+					name = L["Auto Sell"],
+					type = "group",
+					order = 2,					
+					args = {
+						sellopts = {
+							name = " ",
+							order = 1,
+							type = "group",							
+							guiInline = true,
+							args = {
+								enabletest = {							
+									order = 1,
+									type = "toggle",
+									width = "full",									
+									name = L["Test Selling"],
+									desc = L["Enabling this allows you to see what would get sold, without actually selling."],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellTesting
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellTesting = not Nx.wdb.profile.Warehouse.SellTesting
+									end,
+								},								
+								enableverb = {							
+									order = 2,
+									type = "toggle",
+									width = "full",									
+									name = L["Verbose Selling"],
+									desc = L["When enabled shows what items got sold instead of just the grand total earned."],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellVerbose
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellVerbose = not Nx.wdb.profile.Warehouse.SellVerbose
+									end,
+								},																
+							},
+						},					
+						greys = {
+							name = " ",
+							order = 2,
+							type = "group",							
+							guiInline = true,
+							args = {
+								sellgreys = {							
+									order = 1,
+									type = "toggle",
+									width = "full",									
+									name = L["Auto Sell"] .. " |cff777777" .. L["Grey"] .. "|r " .. L["Items"],
+									desc = L["When you open a merchant, will auto sell your grey items"],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellGreys
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellGreys = not Nx.wdb.profile.Warehouse.SellGreys
+									end,
+								},								
+							},
+						},
+						whites = {
+							name = " ",
+							order = 3,
+							type = "group",
+							guiInline = true,
+							args = {
+								sellwhites = {							
+									order = 1,
+									type = "toggle",
+									width = "full",									
+									name = L["Auto Sell"] .. " |cffffffff" .. L["White"] .. "|r " .. L["Items"],
+									desc = L["When you open a merchant, will auto sell your white items."],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellWhites
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellWhites = not Nx.wdb.profile.Warehouse.SellWhites
+									end,
+								},					
+								whiteilvl = {
+									order = 2,
+									type = "toggle",
+									width = "full",
+									name = L["Enable iLevel Limit"],
+									desc = L["Only sells items that are under the item level specified"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellWhites
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellWhitesiLVL
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellWhitesiLVL = not Nx.wdb.profile.Warehouse.SellWhitesiLVL
+									end,									
+								},
+								whitevalue = {
+									order = 3,
+									type = "range",
+									width = "full",
+									name = L["iLevel"],
+									desc = L["Sets the maximum item level which will be auto sold"],
+									min = 0,
+									max = 1000,
+									step = 1,
+									bigStep = 5,
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellWhites or not Nx.wdb.profile.Warehouse.SellWhitesiLVL
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellWhitesiLVLValue
+									end,
+									set = function(info, value)
+										Nx.wdb.profile.Warehouse.SellWhitesiLVLValue = value
+									end,
+								},
+							},						
+						},
+						greens = {
+							name = " ",
+							order = 4,
+							type = "group",
+							guiInline = true,
+							args = {
+								sellgreens = {							
+									order = 1,
+									type = "toggle",
+									width = "full",									
+									name = L["Auto Sell"] .. " |cff00ff00" .. L["Green"] .. "|r " .. L["Items"],
+									desc = L["When you open a merchant, will auto sell your green items."],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellGreens
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellGreens = not Nx.wdb.profile.Warehouse.SellGreens
+									end,
+								},
+								greepbop = {
+									order = 2,
+									type = "toggle",
+									width = "double",
+									name = L["Sell BOP Items"],
+									desc = L["When enabled will sell items that are BOP"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellGreens
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellGreensBOP
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellGreensBOP = not Nx.wdb.profile.Warehouse.SellGreensBOP
+									end,
+								},
+								greenboe = {
+									order = 3,
+									type = "toggle",
+									width = "double",
+									name = L["Sell BOE Items"],
+									desc = L["When enabled will sell items that are BOE"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellGreens
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellGreensBOE
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellGreensBOE = not Nx.wdb.profile.Warehouse.SellGreensBOE
+									end,								
+								},
+								greenilvl = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Enable iLevel Limit"],
+									desc = L["Only sells items that are under the item level specified"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellGreens
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellGreensiLVL
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellGreensiLVL = not Nx.wdb.profile.Warehouse.SellGreensiLVL
+									end,									
+								},
+								greenvalue = {
+									order = 5,
+									type = "range",
+									width = "full",
+									name = L["iLevel"],
+									desc = L["Sets the maximum item level which will be auto sold"],
+									min = 0,
+									max = 1000,
+									step = 1,
+									bigStep = 5,
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellGreens or not Nx.wdb.profile.Warehouse.SellGreensiLVL
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellGreensiLVLValue
+									end,
+									set = function(info, value)
+										Nx.wdb.profile.Warehouse.SellGreensiLVLValue = value
+									end,
+								},
+							},
+						},
+						blues = {
+							name = " ",
+							order = 5,
+							type = "group",
+							guiInline = true,
+							args = {
+								sellblues = {							
+									order = 1,
+									type = "toggle",
+									width = "full",									
+									name = L["Auto Sell"] .. " |cff3333ff" .. L["Blue"] .. "|r " .. L["Items"],
+									desc = L["When you open a merchant, will auto sell your blue items."],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellBlues
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellBlues = not Nx.wdb.profile.Warehouse.SellBlues
+									end,
+								},
+								bluebop = {
+									order = 2,
+									type = "toggle",
+									width = "double",
+									name = L["Sell BOP Items"],
+									desc = L["When enabled will sell items that are BOP"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellBlues
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellBluesBOP
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellBluesBOP = not Nx.wdb.profile.Warehouse.SellBluesBOP
+									end,
+								},
+								blueboe = {
+									order = 3,
+									type = "toggle",
+									width = "double",
+									name = L["Sell BOE Items"],
+									desc = L["When enabled will sell items that are BOE"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellBlues
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellBluesBOE
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellBluesBOE = not Nx.wdb.profile.Warehouse.SellBluesBOE
+									end,								
+								},
+								blueilvl = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Enable iLevel Limit"],
+									desc = L["Only sells items that are under the item level specified"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellBlues
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellBluesiLVL
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellBluesiLVL = not Nx.wdb.profile.Warehouse.SellBluesiLVL
+									end,									
+								},
+								bluevalue = {
+									order = 5,
+									type = "range",
+									width = "full",
+									name = L["iLevel"],
+									desc = L["Sets the maximum item level which will be auto sold"],
+									min = 0,
+									max = 1000,
+									step = 1,
+									bigStep = 5,
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellBlues or not Nx.wdb.profile.Warehouse.SellBluesiLVL
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellBluesiLVLValue
+									end,
+									set = function(info, value)
+										Nx.wdb.profile.Warehouse.SellBluesiLVLValue = value
+									end,
+								},
+							},						
+						},												
+						purps = {
+							name = " ",
+							order = 6,
+							type = "group",
+							guiInline = true,
+							args = {
+								sellpurps = {							
+									order = 1,
+									type = "toggle",
+									width = "full",									
+									name = L["Auto Sell"] .. " |cffff00ff" .. L["Purple"] .. "|r " .. L["Items"],
+									desc = L["When you open a merchant, will auto sell your purple items."],
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellPurps
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellPurps = not Nx.wdb.profile.Warehouse.SellPurps
+									end,
+								},
+								purpbop = {
+									order = 2,
+									type = "toggle",
+									width = "double",
+									name = L["Sell BOP Items"],
+									desc = L["When enabled will sell items that are BOP"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellPurps
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellPurpsBOP
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellPurpsBOP = not Nx.wdb.profile.Warehouse.SellPurpsBOP
+									end,
+								},
+								purpboe = {
+									order = 3,
+									type = "toggle",
+									width = "double",
+									name = L["Sell BOE Items"],
+									desc = L["When enabled will sell items that are BOE"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellPurps
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellPurpsBOE
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellPurpsBOE = not Nx.wdb.profile.Warehouse.SellPurpsBOE
+									end,								
+								},
+								purpilvl = {
+									order = 4,
+									type = "toggle",
+									width = "full",
+									name = L["Enable iLevel Limit"],
+									desc = L["Only sells items that are under the item level specified"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellPurps
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellPurpsiLVL
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellPurpsiLVL = not Nx.wdb.profile.Warehouse.SellPurpsiLVL
+									end,									
+								},
+								purpvalue = {
+									order = 5,
+									type = "range",
+									width = "full",
+									name = L["iLevel"],
+									desc = L["Sets the maximum item level which will be auto sold"],
+									min = 0,
+									max = 1000,
+									step = 1,
+									bigStep = 5,
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellPurps or not Nx.wdb.profile.Warehouse.SellPurpsiLVL
+									end,
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellPurpsiLVLValue
+									end,
+									set = function(info, value)
+										Nx.wdb.profile.Warehouse.SellPurpsiLVLValue = value
+									end,
+								},
+							},						
+						},
+						list = {
+							name = " ",
+							order = 7,
+							type = "group",
+							guiInline = true,
+							args = {
+								selllist = {
+									name = L["Sell items based on a list"],
+									order = 1,
+									desc = L["If item name matches one on the list, auto-sell it"],
+									type = "toggle",
+									width = "full",
+									descStyle = "inline",
+									get = function()
+										return Nx.wdb.profile.Warehouse.SellList
+									end,
+									set = function()
+										Nx.wdb.profile.Warehouse.SellList = not Nx.wdb.profile.Warehouse.SellList
+									end,									
+								},
+								new = {
+									type = "input",
+									order = 2,
+									name = L["New Item To Sell (Case Insensative)"],
+									desc = L["Enter the name of the item you want to auto-sell. You can drag and drop an item from your inventory aswell."],
+									width = "full",
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellList
+									end,
+									get = false,
+									set = function (info, value)
+										local name = GetItemInfo(value)
+										name = name or value
+										StaticPopupDialogs["NX_AddSell"] = {
+											text = L["Add"] .. " " .. value .. "?",
+											button1 = L["Yes"],
+											button2 = L["No"],											
+											OnAccept = function()
+												Nx.wdb.profile.Warehouse.SellingList[name] = name
+												LibStub("AceConfigRegistry-3.0"):NotifyChange("Carbonite")
+											end,
+											hideOnEscape = true,
+											whileDead = true,
+										}
+										local dlg = StaticPopup_Show("NX_AddSell")																																					
+									end,
+								},
+								delete = {
+									type = "select",									
+									order = 3,
+									style = "radio",
+									name = L["Delete Item"],
+									disabled = function()
+										return not Nx.wdb.profile.Warehouse.SellList
+									end,
+									get = false,
+									values = Nx.wdb.profile.Warehouse.SellingList,
+									set = function(info, value)
+										StaticPopupDialogs["NX_DelSell"] = {
+											text = L["Delete"] .. " " .. value .. "?",
+											button1 = L["Yes"],
+											button2 = L["No"],
+											OnAccept = function()
+												Nx.wdb.profile.Warehouse.SellingList[value] = nil
+												LibStub("AceConfigRegistry-3.0"):NotifyChange("Carbonite")
+											end,
+											hideOnEscape = true,
+											whileDead = true,
+										}
+										local dlg = StaticPopup_Show("NX_DelSell")										
+									end,
+								},
+							},
+						},
+					},
+				},
+				repair = {
+					name = L["Auto Repair"],
+					type = "group",
 					order = 3,
-					type	= "select",
-					name	= L["Warehouse Font"],
-					desc	= L["Sets the font to be used for warehouse windows"],
-					get	= function()
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						for a,b in pairs(vals) do
-						  if (b == Nx.wdb.profile.Warehouse.WarehouseFont) then
-							 return a
-						  end
-						end
-						return ""
-					end,
-					set	= function(info, name)
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						Nx.wdb.profile.Warehouse.WarehouseFont = vals[name]
-						Nx.Opts:NXCmdFontChange()
-					end,
-					values	= function()
-						return Nx.Opts:CalcChoices("FontFace","Get")
-					end,
-				},
-				WareFontSize = {
-					order = 4,
-					type = "range",
-					name = L["Warehouse Font Size"],
-					desc = L["Sets the size of the warehouse font"],
-					min = 6,
-					max = 14,
-					step = 1,
-					bigStep = 1,
-					get = function()
-						return Nx.wdb.profile.Warehouse.WarehouseFontSize
-					end,
-					set = function(info,value)
-						Nx.wdb.profile.Warehouse.WarehouseFontSize = value
-						Nx.Opts:NXCmdFontChange()
-					end,
-				},
-				WareFontSpacing = {
-					order = 5,
-					type = "range",
-					name = L["Warehouse Font Spacing"],
-					desc = L["Sets the spacing of the warehouse font"],
-					min = -10,
-					max = 20,
-					step = 1,
-					bigStep = 1,
-					get = function()
-						return Nx.wdb.profile.Warehouse.WarehouseFontSpacing
-					end,
-					set = function(info,value)
-						Nx.wdb.profile.Warehouse.WarehouseFontSpacing = value
-						Nx.Opts:NXCmdFontChange()
-					end,
-				},
+					args = {
+						autorepair = {
+							order = 1,
+							type = "toggle",
+							width = "full",
+							descStyle = "inline",
+							name = L["Auto Repair Gear"],
+							desc = L["When you open a merchant, will attempt to auto repair your gear"],
+							get = function()
+								return Nx.wdb.profile.Warehouse.RepairAuto
+							end,
+							set = function()
+								Nx.wdb.profile.Warehouse.RepairAuto = not Nx.wdb.profile.Warehouse.RepairAuto
+							end,
+						},
+						guildrepair = {
+							order = 2,
+							type = "toggle",
+							width = "full",
+							descStyle = "inline",
+							disabled = function() 
+								return not Nx.wdb.profile.Warehouse.RepairAuto
+							end,
+							name = L["Use Guild Repair First"],
+							desc = L["Will try to use guild funds to pay for repairs before your own"],
+							get = function()
+								return Nx.wdb.profile.Warehouse.RepairGuild
+							end,
+							set = function()
+								Nx.wdb.profile.Warehouse.RepairGuild = not Nx.wdb.profile.Warehouse.RepairGuild
+							end,						
+						},
+					},
+				},				
 			},
 		}
 	end
@@ -162,6 +700,7 @@ function CarboniteWarehouse:OnInitialize()
 	CarboniteWarehouse:RegisterEvent("ITEM_LOCK_CHANGED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("MAIL_INBOX_UPDATE", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("UNIT_INVENTORY_CHANGED", "EventHandler")
+	CarboniteWarehouse:RegisterEvent("MERCHANT_SHOW", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("MERCHANT_CLOSED", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("TIME_PLAYED_MSG", "EventHandler")
 	CarboniteWarehouse:RegisterEvent("LOOT_OPENED", "EventHandler")
@@ -410,7 +949,7 @@ function CarboniteWarehouse:EventHandler(event, arg1, arg2, arg3)
 	elseif event == "PLAYERBANKSLOTS_CHANGED" then
 		Nx.Warehouse:OnBag_update()
 	elseif event == "PLAYERREAGENTBANKSLOTS_CHANGED" then
-		Nx.Warehouse:OnBag_update()
+		Nx.Warehouse:ScanRBank()
 	elseif event == "PLAYERBANKBAGSLOTS_CHANGED" then
 		Nx.Warehouse:OnBag_update()
 	elseif event == "BANKFRAME_OPENED" then
@@ -427,6 +966,8 @@ function CarboniteWarehouse:EventHandler(event, arg1, arg2, arg3)
 		Nx.Warehouse:OnMail_inbox_update()
 	elseif event == "UNIT_INVENTORY_CHANGED" then
 		Nx.Warehouse:OnUnit_inventory_changed()
+	elseif event == "MERCHANT_SHOW" then
+		Nx.Warehouse:OnMerchant_show()
 	elseif event == "MERCHANT_CLOSED" then
 		Nx.Warehouse:OnMerchant_closed()
 	elseif event == "LOOT_OPENED" then
@@ -841,15 +1382,15 @@ function Nx.Warehouse:OnListEvent (eventName, sel, val2, click)
 
 	self.SelectedGuild = false
 	self.SelectedProf = false
-
+	self.SelectedChar = false
+	
 	if (id >= 1 and id <= #Nx.RealmChars) or id == 99 then
 		self.SelectedChar = id
-	end
-
+	end	
 	if eventName == "select" or eventName == "mid" or eventName == "menu" then
 
 		if id == 100 then
-			self.SelectedGuild = prof
+			self.SelectedGuild = prof			
 		else
 			self.SelectedProf = prof
 		end
@@ -1040,13 +1581,18 @@ function Nx.Warehouse:Update()
 
 	local ware = Nx.wdb.profile.WarehouseData
 	local rn = GetRealmName()
-
+	local guildlabel = false
 	for name, guilds in pairs (ware) do
-		if name == rn then
+		if not guildlabel then
+			guildlabel = true
+			list:ItemAdd(0)
+			list:ItemSet (2, "|cff999999--------- " .. L["Guilds"] .. " ---------")
+		end
+		if name == rn then			
 			for gName, guild in pairs (guilds) do
 				local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
 				list:ItemAdd (100)
-				list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
+				list:ItemSet (2, format ("|cffff7fff%s", gName))
 				list:ItemSetDataEx (nil, gName, 1)
 			end
 		end
@@ -1055,9 +1601,8 @@ function Nx.Warehouse:Update()
 			for i=1,#connectedrealms do
 				if connectedrealms[i] ~= rn and name == connectedrealms[i] then
 					for gName, guild in pairs (guilds) do
-						local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
 						list:ItemAdd (100)
-						list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
+						list:ItemSet (2, format ("|cffff7fff%s", gName))
 						list:ItemSetDataEx (nil, gName, 1)
 					end
 				end
@@ -1066,7 +1611,7 @@ function Nx.Warehouse:Update()
 	end
 
 	list:ItemAdd (0)
-	list:ItemSet (2, "-------------------------")
+	list:ItemSet (2, "|cff999999--------- " .. L["Characters"] .. " ---------")
 
 	for cnum, rc in ipairs (Nx.RealmChars) do
 		local rname, cname = Nx.Split (".", rc)
@@ -1082,11 +1627,10 @@ function Nx.Warehouse:Update()
 --			ch["Class"] = "Deathknight"	-- TEST
 			local cls = ch["Class"] or "?"
 			local money = ch["Money"]
-			totalMoney = totalMoney + (money or 0)
-			local moneyStr = Nx.Util_GetMoneyStr (money)
+			totalMoney = totalMoney + (money or 0)			
 			list:ItemAdd (cnum)
 			local s = ch["Account"] and format ("%s (%s)", cname, ch["Account"]) or cname
-			list:ItemSet (2, format ("%s%s %s %s  %s", cnameCol, s, lvl, cls, moneyStr))
+			list:ItemSet (2, format ("%s%s %s %s", cnameCol, s, lvl, cls))
 
 			local hide = ch["WHHide"]
 
@@ -1106,9 +1650,12 @@ function Nx.Warehouse:Update()
 					list:ItemAdd (cnum)
 					list:ItemSet (2, format (L[" Realm:%s %s"],hicol,rname))
 					list:ItemAdd (cnum)
+					local moneyStr = Nx.Util_GetMoneyStr (ch["Money"])
+					list:ItemSet (2, format (" " .. L["Current Funds"] .. ": %s",moneyStr))
+					list:ItemAdd (cnum)
 					list:ItemSet (2, format (L[" Time On: %s%2d:%02d:%02d|r, Played: %s%s"], hicol, hours, mins, secs % 60, hicol, played))
 					local money = (ch["Money"] or 0) - ch["LMoney"]
-					local moneyStr = Nx.Util_GetMoneyStr (money)
+					moneyStr = Nx.Util_GetMoneyStr (money)
 					local moneyHStr = Nx.Util_GetMoneyStr (money / hours)
 
 					list:ItemAdd (cnum)
@@ -1138,6 +1685,9 @@ function Nx.Warehouse:Update()
 				else
 					list:ItemAdd (cnum)
 					list:ItemSet (2, format (L[" Realm:%s %s"],hicol,rname))
+					local moneyStr = Nx.Util_GetMoneyStr (ch["Money"])
+					list:ItemAdd (cnum)					
+					list:ItemSet (2, format (" " .. L["Current Funds"] .. ": %s",moneyStr))					
 					if ch["Time"] then
 
 						local secs = difftime (time(), ch["Time"])
@@ -1147,14 +1697,10 @@ function Nx.Warehouse:Update()
 						list:ItemAdd (cnum)
 						list:ItemSet (2, format (L[" Last On: %s%s|r, Played: %s%s"], hicol, str, hicol, played))
 					end
-
 					if ch["Pos"] then
-
 						local mid, x, y = Nx.Split ("^", ch["Pos"])
-
 						local map = Nx.Map:GetMap (1)
 						local name = map:IdToName (tonumber (mid))
-
 						list:ItemAdd (cnum)
 						list:ItemSet (2, format (L[" Location: %s%s (%d, %d)"], hicol, name, x, y))
 					end
@@ -1220,20 +1766,92 @@ function Nx.Warehouse:Update()
 			end
 		end
 	end
-
-	local money = Nx.Util_GetMoneyStr (totalMoney)
-	local played = Nx.Util_GetTimeElapsedStr (totalPlayed)
-	list:ItemSet (2, format (L["|cffafdfafAll: %s. |cffafdfafPlayed: %s%s"], money, hicol, played), allIndex)
-
+	list:ItemSet (2, format ("|cffafdfaf" .. L["All Characters"]), allIndex)
 	list:Update()
 
 	-- Right side list
 
-	if not self.SelectedProf then
+	if self.SelectedProf then
+		self:UpdateProfessions()
+	elseif self.SelectedGuild then
+		self:UpdateGuild()
+	elseif self.SelectedChar then
 		self:UpdateItems()
 	else
-		self:UpdateProfessions()
+		self:UpdateBlank()
 	end
+end
+
+function Nx.Warehouse:UpdateBlank()
+	local list = self.ItemList
+	list:Empty()
+	list:ColumnSetName (3, "")
+	list:Update()
+end
+
+function Nx.Warehouse:UpdateGuild()
+	local list = self.ItemList
+	list:Empty()
+	local ware = Nx.wdb.profile.WarehouseData
+	local rn = GetRealmName()	
+	local selectedguild = {}
+	for name, guilds in pairs (ware) do
+		if name == rn then			
+			for gName, guild in pairs (guilds) do
+					if gName == self.SelectedGuild then
+						selectedguild = guild
+					end
+			end
+		end
+		if not selectedguild then
+			local connectedrealms = GetAutoCompleteRealms()
+			if connectedrealms then
+				for i=1,#connectedrealms do
+					if connectedrealms[i] ~= rn and name == connectedrealms[i] then
+						for gName, guild in pairs (guilds) do
+							if gName == self.SelectedGuild then
+								selectedguild = guild
+							end
+						end
+					end
+				end
+			end
+		end
+	end		
+	list:ColumnSetName (3, format(L["Guild Bank"] .. " -- %s",self.SelectedGuild))
+	local moneyStr = selectedguild["Money"] and Nx.Util_GetMoneyStr (selectedguild["Money"]) or "?"
+	list:ItemAdd (0)
+	list:ItemSet (3, L["Current Funds"] .. ": " .. moneyStr)		
+	list:ItemAdd (0)
+	list:ItemSet (3, "")			
+	for tab = 1,8 do		
+		if not next(selectedguild["Tab" .. tab]) then
+			list:ItemAdd(0)
+			list:ItemSet(3,"|cffff0000---- " .. L["Tab"] .. " " .. tab .. " " .. L["not opened or scanned."])
+		else
+			list:ItemAdd(0)
+			list:ItemSetButton (L["Warehouse"], false, selectedguild["Tab" .. tab].Icon)
+			list:ItemSet(3,selectedguild["Tab" .. tab].Name)
+			list:ItemAdd(0)
+			local dateStr = Nx.Util_GetTimeElapsedStr(time() - selectedguild["Tab" .. tab].ScanTime)
+			list:ItemSet(3,"|cff00ffff" .. L["Last Updated"] .. ":|r " .. dateStr .. " |cff00ffff" .. L["ago"])
+			if not next(selectedguild["Tab" .. tab].Inv) then			
+				list:ItemAdd(0)
+				list:ItemSet(3,"|cffff0000--- " .. L["Tab is empty or no access"] .. " ---")
+			else
+				for slot,item in pairs(selectedguild["Tab" .. tab].Inv) do
+					if item then
+						local stack, link = Nx.Split("^",item)
+						local name = GetItemInfo(link)
+						self:UpdateItem ("", name, stack, 0, 0, link)
+					end
+				end
+			end
+		end		
+		list:ItemAdd(0)
+		list:ItemSet(3,"")
+	end
+	list:Update()
 end
 
 function Nx.Warehouse:UpdateItems()
@@ -1487,9 +2105,9 @@ end
 function Nx.Warehouse:UpdateItem (pre, name, bagCnt, bankCnt, mailCnt, link, showILvl)
 
 	local list = self.ItemList
-
+	
 	name = name or link
-
+	
 	bagCnt = tonumber (bagCnt)
 	bankCnt = tonumber (bankCnt)
 	mailCnt = tonumber (mailCnt)
@@ -1497,24 +2115,7 @@ function Nx.Warehouse:UpdateItem (pre, name, bagCnt, bankCnt, mailCnt, link, sho
 	local total = bagCnt + bankCnt + mailCnt
 
 	local str
-
-	if bankCnt + mailCnt == 0 then
-		if bagCnt <= 1 then
-			str = format ("%s", name)
-		else
-			str = format ("%s  |r%s", name, bagCnt)
-		end
-	else
-		str = format ("%s  |r%s", name, bagCnt)
-
-		if bankCnt > 0 then
-			str = format (L["%s |cffcfcfff(%s Bank)"], str, bankCnt)
-		end
-
-		if mailCnt > 0 then
-			str = format (L["%s |cffcfffff(%s Mail)"], str, mailCnt)
-		end
-	end
+	str = format ("%s  ", name)
 
 	local iname, iLink, iRarity, lvl, minLvl, itype, subType, stackCount, equipLoc, tx = GetItemInfo (link)
 
@@ -1524,18 +2125,26 @@ function Nx.Warehouse:UpdateItem (pre, name, bagCnt, bankCnt, mailCnt, link, sho
 		minLvl = 0
 	end
 
---	str = str .. " |r" .. itype .. " " .. subType
-
 	iRarity = min (iRarity, 6)		-- Fix Blizz bug with color table only going to 6. Account bound are 6 or 7
 	local col = iRarity == 1 and "|cffe7e7e7" or ITEM_QUALITY_COLORS[iRarity]["hex"]
 
 	local show = true
 	local istr = pre .. col .. str
 
-	if showILvl and lvl then
-		istr = istr .. ",  |ri" .. lvl
+	local showilvls = {["INVTYPE_HEAD"]=1,["INVTYPE_NECK"]=1,["INVTYPE_SHOULDER"]=1,["INVTYPE_CHEST"]=1,["INVTYPE_ROBE"]=1,["INVTYPE_WAIST"]=1,["INVTYPE_LEGS"]=1,["INVTYPE_FEET"]=1,["INVTYPE_WRIST"]=1,
+						["INVTYPE_HAND"]=1,["INVTYPE_FINGER"]=1,["INVTYPE_TRINKET"]=1,["INVTYPE_CLOAK"]=1,["INVTYPE_WEAPON"]=1,["INVTYPE_SHIELD"]=1,["INVTYPE_2HWEAPON"]=1,["INVTYPE_WEAPONMAINHAND"]=1,
+						["INVTYPE_WEAPONOFFHAND"]=1,["INVTYPE_HOLDABLE"]=1,["INVTYPE_RANGED"]=1,["INVTYPE_THROWN"]=1,["INVTYPE_RANGEDRIGHT"]=1,["INVTYPE_RELIC"]=1}						
+	if lvl and showilvls[equipLoc] then
+		istr = istr .. "|c0000ff00[|rIL " .. lvl .. "|c0000ff00]"
 	end
 
+	if bankCnt > 0 then
+		istr = format (L["%s |cffcfcfff(%s Bank)"], istr, bankCnt)
+	end
+	if mailCnt > 0 then
+		istr = format (L["%s |cffcfffff(%s Mail)"], istr, mailCnt)
+	end	
+	
 	local filterStr = self.EditBox:GetText()
 
 	if filterStr ~= "" then
@@ -1823,15 +2432,6 @@ function Nx.Warehouse:UpdateProfessions()
 			end
 
 			local iStr = col .. name
-
-			if iMinLvl and iMinLvl > 0 then
-				if iMinLvl > UnitLevel ("player") then
-					iStr = format ("%s |cffff4040[%s]", iStr, iMinLvl)
-				else
-					iStr = format ("%s |cff40ff40[%s]", iStr, iMinLvl)
-				end
-			end
-
 			local show = true
 
 			if filterStr ~= "" then
@@ -1848,6 +2448,9 @@ function Nx.Warehouse:UpdateProfessions()
 				end
 
 				list:ItemAdd (itemId)		-- Neg enchant, pos item
+				if iMinLvl and iMinLvl > 0 then
+					list:ItemSet(2, "|cff777777" .. iMinLvl .. " ")
+				end					
 				list:ItemSet (3, iStr)
 				if link then
 					list:ItemSetButton ("WarehouseItem", false, iTx, "#" .. link)
@@ -2021,23 +2624,21 @@ function Nx.Warehouse:GuildRecord (open)
 		local guild = rnGuilds[gName] or {}
 		rnGuilds[gName] = guild
 		if open then
-			guild["Money"] = GetGuildBankMoney()
-			local guildinv = guild["Inv"] or {}
-			guild["Inv"] = guildinv
+			guild["Money"] = GetGuildBankMoney()						
 			local numTabs = GetNumGuildBankTabs()
 			local name, icon
 			for page = 1, numTabs do
-				guildinv["Tab" .. page] = {}
+				guild["Tab" .. page] = {}
 				name, icon = GetGuildBankTabInfo(page)
-				guildinv["Tab" .. page]["Name"] = name
-				guildinv["Tab" .. page]["Icon"] = icon
-				guildinv["Tab" .. page]["ScanTime"] = time()
-				guildinv["Tab" .. page]["Inv"] = {}
+				guild["Tab" .. page]["Name"] = name
+				guild["Tab" .. page]["Icon"] = icon
+				guild["Tab" .. page]["ScanTime"] = time()
+				guild["Tab" .. page]["Inv"] = {}
 				for slot = 1, 98 do
 					if GetGuildBankItemLink(page, slot) then
 						local itemString = GetGuildBankItemLink(page, slot)
 						local _, num = GetGuildBankItemInfo(page, slot)
-						guildinv["Tab" .. page]["Inv"][slot] = format("%s^%s",num,itemString)
+						guild["Tab" .. page]["Inv"][slot] = format("%s^%s",num,itemString)
 					end
 				end
 			end
@@ -2213,17 +2814,22 @@ function Nx.Warehouse:CaptureItems()
 
 --			self:prtdb ("Bank %d", Nx.Util_tcount (inv))
 		end
-		inv = {}
-		self:AddBag (REAGENTBANK_CONTAINER, true, inv)
-		if next (inv) then		-- Get any bank items?
-			ch["WareRBank"] = inv
-		end
+		Nx.Warehouse:ScanRBank()
 	else
 
 		if self.LockBank and self.LockBag and not self.Locked then
 --			Nx.prt ("Bank add back")
 			self:AddLink (self.LockLink, self.LockCnt, ch["WareBank"])
 		end
+	end
+end
+
+function Nx.Warehouse:ScanRBank()
+	local ch = Nx.Warehouse.CurCharacter
+	inv = {}
+	self:AddBag (REAGENTBANK_CONTAINER, true, inv)
+	if next (inv) then
+		ch["WareRBank"] = inv
 	end
 end
 
@@ -2275,6 +2881,123 @@ function Nx.Warehouse.OnUnit_inventory_changed()
 	end
 end
 
+function Nx.Warehouse.OnMerchant_show()
+	if CanMerchantRepair() and Nx.wdb.profile.Warehouse.RepairAuto then		
+		local cost, canrepair = GetRepairAllCost()		
+		local guildrepaired = false
+		if canrepair then
+			if Nx.wdb.profile.Warehouse.RepairGuild then
+				if (IsInGuild() and CanGuildBankRepair()) then
+					if cost <= GetGuildBankWithdrawMoney() or GetGuildBankWithdrawMoney == -1 then
+						RepairAllItems(1)
+						local moneyStr = Nx.Util_GetMoneyStr(cost)
+						Nx.prt(L["AUTO-REPAIR"] .. ": " .. moneyStr .. " [" .. L["GUILD WITHDRAW"] .. "]")
+						guildrepaired = true
+					end
+				end
+			end
+		end		
+		if not guildrepaired then
+			if cost <= GetMoney() then
+				RepairAllItems()
+				local moneyStr = Nx.Util_GetMoneyStr(cost)
+				Nx.prt(L["AUTO-REPAIR"] .. ": " .. moneyStr)
+			else
+				Nx.prt(L["AUTO-REPAIR"] .. ": " .. L["Not enough funds to repair."])
+			end
+		end
+	end
+	if GetMerchantNumItems() > 0 and not CursorHasItem() then
+		if Nx.wdb.profile.Warehouse.SellGreys or Nx.wdb.profile.Warehouse.SellWhites or Nx.wdb.profile.Warehouse.SellGreens or Nx.wdb.profile.Warehouse.SellBlues or Nx.wdb.profile.Warehouse.SellPurps or Nx.wdb.profile.Warehouse.SellList then
+			local totalearned = 0
+			for bag = 0, NUM_BAG_SLOTS do
+				for slot = 1, GetContainerNumSlots(bag) do
+					local sellit = false
+					local tex, stack, locked, quality, _, _, link = GetContainerItemInfo(bag, slot)
+					if not locked and tex then
+						local name, _, _, lvl, _, _, _, _, _, _, price = GetItemInfo(link)
+						if quality == 0 and Nx.wdb.profile.Warehouse.SellGreys and price > 0 then
+							sellit = true
+						end						
+						if quality == 1 and Nx.wdb.profile.Warehouse.SellWhites and price > 0 then
+							if Nx.wdb.profile.Warehouse.SellWhitesiLVL and lvl < Nx.wdb.profile.Warehouse.SellWhitesiLVLValue then								
+								sellit = true
+							elseif not Nx.wdb.profile.Warehouse.SellWhitesiLVL then
+								sellit = true
+							end
+						end
+						if quality == 2 and Nx.wdb.profile.Warehouse.SellGreens and price > 0 then
+							if Nx.wdb.profile.Warehouse.SellGreensBOE and Nx.Warehouse:GetStorageType(bag, slot, "BOE") then
+								if Nx.wdb.profile.Warehouse.SellGreensiLVL and lvl < Nx.wdb.profile.Warehouse.SellGreensiLVLValue then								
+									sellit = true
+								elseif not Nx.wdb.profile.Warehouse.SellGreensiLVL then
+									sellit = true
+								end							
+							end
+							if Nx.wdb.profile.Warehouse.SellGreensBOP and Nx.Warehouse:GetStorageType(bag, slot, "SOULBOUND") then
+								if Nx.wdb.profile.Warehouse.SellGreensiLVL and lvl < Nx.wdb.profile.Warehouse.SellGreensiLVLValue then								
+									sellit = true
+								elseif not Nx.wdb.profile.Warehouse.SellGreensiLVL then
+									sellit = true
+								end							
+							end							
+						end
+						if quality == 3 and Nx.wdb.profile.Warehouse.SellBlues and price > 0 then
+							if Nx.wdb.profile.Warehouse.SellBluesBOE and Nx.Warehouse:GetStorageType(bag, slot, "BOE") then
+								if Nx.wdb.profile.Warehouse.SellBluesiLVL and lvl < Nx.wdb.profile.Warehouse.SellBluesiLVLValue then								
+									sellit = true
+								elseif not Nx.wdb.profile.Warehouse.SellBluesiLVL then
+									sellit = true
+								end							
+							end
+							if Nx.wdb.profile.Warehouse.SellBluesBOP and Nx.Warehouse:GetStorageType(bag, slot, "SOULBOUND") then
+								if Nx.wdb.profile.Warehouse.SellBluesiLVL and lvl < Nx.wdb.profile.Warehouse.SellBluesiLVLValue then								
+									sellit = true
+								elseif not Nx.wdb.profile.Warehouse.SellBluesiLVL then
+									sellit = true
+								end							
+							end							
+						end				
+						if quality == 4 and Nx.wdb.profile.Warehouse.SellPurps and price > 0 then
+							if Nx.wdb.profile.Warehouse.SellPurpsBOE and Nx.Warehouse:GetStorageType(bag, slot, "BOE") then
+								if Nx.wdb.profile.Warehouse.SellPurpsiLVL and lvl < Nx.wdb.profile.Warehouse.SellPurpsiLVLValue then								
+									sellit = true
+								elseif not Nx.wdb.profile.Warehouse.SellPurpsiLVL then
+									sellit = true
+								end							
+							end
+							if Nx.wdb.profile.Warehouse.SellPurpsBOP and Nx.Warehouse:GetStorageType(bag, slot, "SOULBOUND") then
+								if Nx.wdb.profile.Warehouse.SellPurpsiLVL and lvl < Nx.wdb.profile.Warehouse.SellPurpsiLVLValue then								
+									sellit = true
+								elseif not Nx.wdb.profile.Warehouse.SellPurpsiLVL then
+									sellit = true
+								end							
+							end							
+						end						
+						if Nx.wdb.profile.Warehouse.SellList and Nx.wdb.profile.Warehouse.SellingList[name] then
+							sellit = true
+						end
+						if sellit then
+							if not Nx.wdb.profile.Warehouse.SellTesting then
+								UseContainerItem(bag,slot)
+							end
+							if Nx.wdb.profile.Warehouse.SellVerbose then
+								local moneyStr = Nx.Util_GetMoneyStr(stack * price)
+								Nx.prt(L["Selling"] ..  " ".. name .. " @ " .. moneyStr)
+							end
+							totalearned = totalearned + (stack * price)			
+						end							
+					end
+				end
+			end			
+			if totalearned > 0 then
+				local moneyStr = Nx.Util_GetMoneyStr(totalearned)
+				Nx.prt(L["AUTO-SELL: You Earned"] .. " " .. moneyStr)
+			end
+		end
+	end
+end
+
 function Nx.Warehouse.OnMerchant_closed()
 
 --	Nx.prt ("OnMERCHANT_CLOSED %s", arg1)
@@ -2286,6 +3009,28 @@ function Nx.Warehouse:CaptureInvDurability()
 	WarehouseDur = Nx:ScheduleTimer(self.CaptureInvDurabilityTimer,3,self)
 end
 
+function Nx.Warehouse:GetStorageType(bag, slot, checkwhich)
+	CreateFrame("GameTooltip","scan",nil,"GameTooltipTemplate")
+	scan:SetOwner(WorldFrame, "ANCHOR_NONE")
+	scan:ClearLines()
+	scan:SetBagItem(bag, slot)
+	local foundone = false
+	local scannername = scan:GetName()
+	for i = 2,6 do
+		local text = _G[scannername .. "TextLeft" .. i]
+		if text then
+			if text:GetText() == ITEM_SOULBOUND then
+				foundone = "SOULBOUND"
+			elseif text:GetText() == ITEM_BIND_ON_EQUIP then
+				foundone = "BOE"
+			end
+		end
+	end
+	if checkwhich == foundone then
+		return true
+	end
+	return false
+end
 -------------------------------------------------------------------------------
 
 function Nx.Warehouse:CaptureInvDurabilityTimer()
@@ -2715,7 +3460,6 @@ function Nx.Warehouse:RecordCharacter()
 		ch["Justice"] = nil
 	end
 end
-
 --PAIDE!
 
 -------------------------------------------------------------------------------
