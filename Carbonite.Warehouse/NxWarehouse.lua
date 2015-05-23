@@ -1825,7 +1825,7 @@ function Nx.Warehouse:UpdateGuild()
 	list:ItemAdd (0)
 	list:ItemSet (3, "")			
 	for tab = 1,8 do		
-		if not next(selectedguild["Tab" .. tab]) then
+		if selectedguild["Tab" .. tab] and not next(selectedguild["Tab" .. tab]) then
 			list:ItemAdd(0)
 			list:ItemSet(3,"|cffff0000---- " .. L["Tab"] .. " " .. tab .. " " .. L["not opened or scanned."])
 		else
@@ -1835,7 +1835,7 @@ function Nx.Warehouse:UpdateGuild()
 			list:ItemAdd(0)
 			local dateStr = Nx.Util_GetTimeElapsedStr(time() - selectedguild["Tab" .. tab].ScanTime)
 			list:ItemSet(3,"|cff00ffff" .. L["Last Updated"] .. ":|r " .. dateStr .. " |cff00ffff" .. L["ago"])
-			if not next(selectedguild["Tab" .. tab].Inv) then			
+			if selectedguild["Tab" .. tab].Inv and not next(selectedguild["Tab" .. tab].Inv) then			
 				list:ItemAdd(0)
 				list:ItemSet(3,"|cffff0000--- " .. L["Tab is empty or no access"] .. " ---")
 			else
