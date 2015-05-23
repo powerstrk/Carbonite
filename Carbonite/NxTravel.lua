@@ -696,7 +696,7 @@ function Nx.Travel:FindClosest (mapId, posX, posY)
 
 	local taxiT = Nx.db.char.Travel.Taxi["Taxi"]
 
-	local closeNode
+	local closeNode = false
 	local closeDist = 9000111222333444
 
 	for n, node in ipairs (tr) do
