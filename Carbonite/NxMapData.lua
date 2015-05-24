@@ -1252,10 +1252,10 @@ Map.MapWorldInfo = {
 		Overlay = "frostfireridge",
 	},
 	[945] = {
-		 Scale = 9.975,
-		 X = -301.25,
-		 Y = -1152.083984375,
-		 Overlay = "tanaanjungle",
+		Scale = 10.499999755859,
+		X = -341.66599121094,
+		Y = -1186.666015625,
+		Overlay = "TanaanJungle",
 	},
 	[946] = {
 		Scale = 11.924992156982,
@@ -2996,8 +2996,21 @@ Map.ZoneOverlays = {
 		["tuurem"] = "472,148,225,224",
 		["zangarra"] = "713,35,287,277",
 	},
-	["tanaanjungle"] = {			-- 945
-		["tanaanjungle"] = "0,0,1024,768",
+	["TanaanJungle"] = {			-- 945
+		["darkportal"] = "637,136,333,437",		
+		["draeneisw"] = "81,367,174,208",
+		["fangrila"] = "429,392,343,264",
+		["felforge"] = "392,187,223,183",
+		["ironfront"] = "0,264,209,245",	
+		["ironharbor"] = "303,62,189,294",		
+		["kiljaeden"] = "392,23,365,276",
+		["kranak"] = "54,94,338,254",
+		["lionswatch"] = "465,313,270,208",
+		["marshlands"] = "296,383,246,218",
+		["shanaar"] = "170,354,248,314",
+		["volmar"] = "501,171,238,229",
+		["zethgol"] = "118,194,274,251",
+		["hellfirecitadel"] = "254,262,327,241",										
 	},
 	["tanaanjungleintro"] = {		-- 970
 		["tanaanjungleintro"] = "0,0,1024,768",

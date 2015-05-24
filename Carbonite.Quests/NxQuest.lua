@@ -8825,7 +8825,7 @@ function Nx.Quest.Watch:UpdateList()
 								local _,_, numObjectives = GetTaskInfo(questId)
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
-										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
+										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, true)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
@@ -8859,7 +8859,7 @@ function Nx.Quest.Watch:UpdateList()
 								local _,_, numObjectives = GetTaskInfo(questId)
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
-										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j)
+										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, true)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0

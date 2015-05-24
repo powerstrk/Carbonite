@@ -221,8 +221,17 @@ function SetMapToCurrentZone(carbcalled)
 		end
 	else
 		if not Nx.Map.MouseOver then
+			if GetRealZoneText() == "Tanaan Jungle" then
+				blizSetMapToCurrentZone()				
+				if GetCurrentMapAreaID() == 941 then				
+					Nx.CurrentSetZone = nil
+					SetMapByID(945)				
+					Nx.Map.UpdateMapID = 945				
+					return
+				end				
+			end
 			blizSetMapToCurrentZone()
-			Nx.Map.UpdateMapID = WorldMapFrame.mapID
+			Nx.Map.UpdateMapID = WorldMapFrame.mapID			
 		end
 	end
 end
@@ -245,7 +254,7 @@ function SetMapByID(zone,level)
 			if level then
 				blizSetMapByID(zone,level)
 			else
-				blizSetMapByID(zone)
+				blizSetMapByID(zone)				
 			end
 		end
 	end
@@ -4201,7 +4210,7 @@ function Nx.Map:Update (elapsed)
 
 	local rid = self.MapId
 	local inBG = self:IsBattleGroundMap (rid)
-
+	
 	if Nx.InBG and Nx.InBG ~= rid then	-- Left or changed BG?
 
 --		Nx.prt ("Left BG %s", Nx.InBG)
@@ -4328,8 +4337,7 @@ function Nx.Map:Update (elapsed)
 
 		local x, y = self:GetWorldPos (self.UpdateMapID, 0, 0)
 
-		local lvl = max (GetCurrentMapDungeonLevel(), 1)		-- 0 if no level
-
+		local lvl = max (GetCurrentMapDungeonLevel(), 1)		-- 0 if no level		
 		if GetCurrentMapAreaID() == 937 then
 			if GetCurrentMapDungeonLevel() == 0 then
 				lvl = 1
@@ -4472,17 +4480,28 @@ function Nx.Map:Update (elapsed)
 					if midX then
 
 						local mX = (midX + self.PlyrX) * .5
-						local mY = (midY + self.PlyrY) * .5
-
-						local dx = abs (midX - self.PlyrX)
-						local dy = abs (midY - self.PlyrY)
+						local mY = (midY + self.PlyrY) * .5						
+						local dx = abs (midX - self.PlyrX)						
+						local dy = abs (midY - self.PlyrY)						
 --						Nx.prt ("Map scale target %f %f", dx, dy)
+						if dx == 0 then
+							dx = 0.1 
+						end
+						if dy == 0 then
+							dy = 0.1
+						end
 						dx = self.MapW / dx
 						dy = self.MapH / dy
 						local scale = min (dx, dy) * .5
 --						Nx.prt ("Map scales %f %f", dx, dy)
 
 --						Nx.prt ("Map scale target %f %f", dtx, dty)
+						if dtx == 0 then
+							dtx = 0.1
+						end
+						if dty == 0 then
+							dty = 0.1
+						end
 						dx = self.MapW / dtx
 						dy = self.MapH / dty
 						scale = min (min (dx, dy), scale)	-- Smaller of target rect of player to target center
@@ -6354,8 +6373,7 @@ function Nx.Map:UpdateOverlayUnexplored()
 	self.CurOverlays = rm
 	local txFolder
 
-	local mapId = self:GetCurrentMapId()
-
+	local mapId = self:GetCurrentMapId()	
 	local wzone = self:GetWorldZone (mapId)
 	if wzone then
 		if wzone.City then
@@ -6370,8 +6388,7 @@ function Nx.Map:UpdateOverlayUnexplored()
 		overlays = Nx.Map.ZoneOverlays[txFolder]
 	end
 
-	if not overlays or not self.ShowUnexplored then
-
+	if not overlays or not self.ShowUnexplored then		
 --		local overlayNum = GetNumMapOverlays()		-- Cartographer makes this return 0
 --		Nx.prt ("Overlays %s", overlayNum)
 
@@ -6416,8 +6433,7 @@ end
 
 function Nx.Map:TargetOverlayUnexplored()
 
-	local mapId = self:GetCurrentMapId()
-
+	local mapId = self:GetCurrentMapId()	
 	self:ClearTargets()		-- Will change current mapid
 
 	local wzone = self:GetWorldZone (mapId)
@@ -6471,15 +6487,13 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	if wzone and (wzone.City or self:IsMicroDungeon(mapId)) then
 		return
 	end
-	local txFolder = wzone and wzone.Overlay or ""
+	local txFolder = wzone and wzone.Overlay or ""	
 	local overlays = Nx.Map.ZoneOverlays[txFolder]
 	local unex
 	if not noUnexplored and (not overlays or not self.ShowUnexplored) then
-
 		if not (wzone and wzone.Explored) then
 			unex = true
 		end
-
 		overlays = self.CurOverlays
 		txFolder = self.CurOverlaysTexFolder
 	end
@@ -6500,8 +6514,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	local unExAl = self.LOpts.NXUnexploredAlpha
 	local zscale = self:GetWorldZoneScale (mapId) / 10
 
-	for txName, whxyStr in pairs (overlays) do
-
+	for txName, whxyStr in pairs (overlays) do		
 		local lev = 0
 		local brt = bright
 		oName = txName
@@ -6582,8 +6595,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 					end
 --]]
 					f.texture:SetTexture (mode and txName or txName .. txIndex)
-					f.texture:SetVertexColor (brt, brt, brt, alpha)
-
+					f.texture:SetVertexColor (brt, brt, brt, alpha)					
 --					if IsControlKeyDown() then
 --						Nx.prt ("Overlay %s, %s, %s %s", txName, txIndex, oX, oY)
 --					end
@@ -8679,7 +8691,7 @@ end
 function Nx.Map:GetCurrentMapId()
 	if self.RMapId == 9000 then
 		return GetCurrentMapAreaID()
-	end
+	end	
 	return self.RMapId
 end
 
@@ -8696,7 +8708,7 @@ function Nx.Map:SetCurrentMap (mapId)
 					local cont = self.MapWorldInfo[mapId].Cont
 					local zone = self.MapWorldInfo[mapId].Zone
 
-					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then
+					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then						
 						SetMapToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position
 						SetDungeonMapLevel (1)
 					else
@@ -8954,7 +8966,7 @@ end
 function Nx.Map:IdToName (mapId)
 	if not mapId then
 		return ""
-	end
+	end	
 	local name = GetMapNameByID(mapId)
 	if name then
 		return name

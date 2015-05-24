@@ -310,6 +310,7 @@ Nx.Zones = {
 	[1009] = L["Stormshield"] .. "|90|90|0|7||",
 	[1010] = L["Tarren Mill vs Southshore"] .. "|90|100|3|4||",
 	[1011] = L["Warspear"] .. "|90|90|1|7||",
+	[1026] = L["Hellfire Citadel"] .. "|100|100|3|5|945|40.4|57|1025",
 }
 
 Nx.SubNames = {

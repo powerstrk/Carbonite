@@ -396,6 +396,12 @@ L["Redemption Rise, Talador"] = true
 L["Durotan's Grasp, Talador"] = true
 L["Frostwolf Overlook, Talador"] = true
 L["Vol'jin's Pride, Talador"] = true
+--Tanaan
+L["Aktar's Post, Tanaan Jungle"] = true
+L["The Iron Front, Tanaan Jungle"] = true
+L["Sha'naari Refuge, Tanaan Jungle"] = true
+L["Vault of the Earth, Tanaan Jungle"] = true
+L["Malo's Lookout, Tanaan Jungle"] = true
 -- Translation for Flight_LOC
 L["Alliance Flight"] = "얼라이언스 와이번 조련사"
 L["Horde Flight"] = "호드 와이번 조련사"
