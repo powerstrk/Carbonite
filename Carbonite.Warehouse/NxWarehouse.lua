@@ -775,7 +775,9 @@ function CarboniteWarehouse:OnPageSync(event, sender, page, guildName)
 	end
 	guild["Tab" .. page]["Inv"] = {}
 	for slot, link, stack in GuildBank:IteratePage(page) do
-		guild["Tab" .. page]["Inv"][slot] = format("%s^%s",stack,link)
+		if stack and link then
+			guild["Tab" .. page]["Inv"][slot] = format("%s^%s",stack,link)
+		end
 	end
 	guild["Tab" .. page]["ScanTime"] = time()
 end
