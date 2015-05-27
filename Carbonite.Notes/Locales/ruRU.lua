@@ -41,6 +41,9 @@ L["Note Addons"] = "Дополнения заметок"
 L["My Notes"] = "Мои заметки"
 
 L["Reset old notes data"] = true
+L["Display Handynotes On Map"] = true
+L["If you have HandyNotes installed, allows them on the Carbonite map"] = true
+L["Handnotes Icon Size"] = true
 
 -- Keybinds
 L["Carbonite Notes"] = "Carbonite Notes"

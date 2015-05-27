@@ -420,6 +420,16 @@ end
 -- (RRGGBBAA number)
 ---------------------------------------------------------------------------------------
 
+function Nx.Util_dec2hex(input)
+	local base,key,output,remainder=16,"0123456789ABCDEF","",0
+	while input>0 do			
+		input,remainder=floor(input/base), mod(input,base)+1
+		output=strsub(key,remainder,remainder)..output
+	end
+	
+	return output..strrep("0", 2 - strlen(output))
+end
+
 function Nx.Util_str2rgba (colors)
 	local arr = { Nx.Split("|",colors) }
 	return arr[1], arr[2], arr[3], arr[4]

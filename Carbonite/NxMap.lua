@@ -1382,6 +1382,8 @@ end
 --
 
 function Nx.Map:AttachWorldMap()
+	---- THIS DOES NOT WORK, UNTIL FIXED DISABLING IT.
+--[[	
 	if not Nx.db.profile.Map.WOwn then
 		return
 	end
@@ -1393,13 +1395,9 @@ function Nx.Map:AttachWorldMap()
 		self.WorldMapFrm = f
 		self.WorldMapFrmParent = f:GetParent()
 		self.WorldMapFrmScale = f:GetScale()
-		self.WorldMapFrmGetCenter = f.GetCenter
-		f:SetParent (self.TextScFrm:GetScrollChild())
-		f:SetSize(WorldMapDetailFrame:GetSize())
-		f.GetCenter = function()
-			return WorldMapDetailFrame:GetCenter()
-		end
-		f:ClearAllPoints()
+		
+		f:SetParent (self.TextFrm)				
+		
 		f:Show()
 
 		f:EnableMouse (false)
@@ -1408,7 +1406,7 @@ function Nx.Map:AttachWorldMap()
 
 		local tipf = _G["WorldMapTooltip"]
 		if tipf then
-			tipf:SetParent (self.Frm)
+			tipf:SetParent (self.Frm)			
 		end
 
 		local af = _G["WorldMapFrameAreaFrame"]
@@ -1428,13 +1426,15 @@ function Nx.Map:AttachWorldMap()
 
 		self.WorldMapFrmMapId = 0
 	end
+]]--
 end
 
 --------
 --
 
 function Nx.Map:DetachWorldMap()
-
+	---- THIS DOES NOT WORK, UNTIL FIXED DISABLING IT
+--[[	
 	local f = self.WorldMapFrm
 
 	if f then
@@ -1466,6 +1466,7 @@ function Nx.Map:DetachWorldMap()
 		end
 
 	end
+]]--
 end
 
 --------
@@ -3509,8 +3510,8 @@ function Nx.Map:OnEvent (event, ...)
 		self.Arch:ClearAllPoints()
 		self.QuestWin:ClearAllPoints()
 	elseif event == "PLAYER_REGEN_ENABLED" then
-		self.Arch:SetParent(this.NxMap.TextScFrm:GetScrollChild())
-		self.QuestWin:SetParent(this.NxMap.TextScFrm:GetScrollChild())
+		self.Arch:SetParent(this.NxMap.TextScFrm:GetScrollChild())		
+		self.QuestWin:SetParent(this.NxMap.TextScFrm:GetScrollChild())		
 		self.Arch:Show()
 		self.QuestWin:Hide()
 	elseif event == "ZONE_CHANGED" then

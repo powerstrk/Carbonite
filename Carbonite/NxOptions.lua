@@ -340,7 +340,9 @@ local function mapConfig ()
 								Nx.db.profile.Map.MaxMouseIgnore = not Nx.db.profile.Map.MaxMouseIgnore
 							end,
 						},
-						ownMap = {
+--[[						Doesn't work for now.
+
+							ownMap = {
 							order = 7,
 							type = "toggle",
 							width = "full",
@@ -352,7 +354,8 @@ local function mapConfig ()
 							set = function()
 								Nx.db.profile.Map.WOwn = not Nx.db.profile.Map.WOwn
 							end,
-						},
+						}, 
+]]--
 						restoreMap = {
 							order = 8,
 							type = "toggle",

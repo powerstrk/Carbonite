@@ -39,6 +39,8 @@ local defaults = {
 	profile = {
 		Notes = {
 			ShowMap = true,
+			HandyNotes = true,
+			HandyNotesSize = 35,
 		},
 		Addons = {
 		},
@@ -63,6 +65,55 @@ local function notesConfig()
 					end,
 					set = function()
 						Nx.fdb.profile.Notes.ShowMap = not Nx.fdb.profile.Notes.ShowMap
+					end,
+				},
+				handy = {
+					order = 2,
+					type = "toggle",
+					width = "full",
+					name = L["Display Handynotes On Map"],
+					desc = L["If you have HandyNotes installed, allows them on the Carbonite map"],
+					get = function()
+						return Nx.fdb.profile.Notes.HandyNotes
+					end,
+					set = function()
+						local map = Nx.Map:GetMap (1)						
+						Nx.fdb.profile.Notes.HandyNotes = not Nx.fdb.profile.Notes.HandyNotes
+						if Nx.fdb.profile.Notes.HandyNotes then
+							Nx.Notes:HandyNotes(GetCurrentMapAreaID())
+						else
+							map:ClearIconType("!HANDY")
+						end
+					end,
+					disabled = function()
+						if HandyNotes then
+							return false
+						end
+						return true
+					end,
+				},
+				handysize = {
+					order = 3,
+					type = "range",
+					width = "normal",
+					min = 10,					
+					max = 60,
+					step = 5,
+					name = L["Handnotes Icon Size"],
+					get = function()
+						return Nx.fdb.profile.Notes.HandyNotesSize
+					end,
+					set = function(input,value)
+						local map = Nx.Map:GetMap (1)						
+						Nx.fdb.profile.Notes.HandyNotesSize = value
+						map:ClearIconType("!HANDY")
+						Nx.Notes:HandyNotes(GetCurrentMapAreaID())
+					end,
+					disabled = function()
+						if HandyNotes then
+							return false
+						end
+						return true
 					end,
 				},
 			},
@@ -163,6 +214,18 @@ end
 
 function Nx.Notes:GetIconFile (index)
 	return self.NoteIcons[index]
+end
+
+local handypin = {}
+
+function handypin:OnEnter(motion)
+	WorldMapBlobFrame:SetScript("OnUpdate", nil)
+	safecall(HandyNotes.plugins[self.pluginName].OnEnter, self, self.mapFile, self.coord)
+end
+
+function handypin:OnLeave(motion)
+	WorldMapBlobFrame:SetScript("OnUpdate", WorldMapBlobFrame_OnUpdate)
+	safecall(HandyNotes.plugins[self.pluginName].OnLeave, self, self.mapFile, self.coord)
 end
 
 ---------------------------------------------------------------------------------------
@@ -1435,6 +1498,57 @@ function Nx.Notes:UpdateIcons()
 				end
 			end
 		end
+		Nx.Notes:HandyNotes(mapId)		
+	end
+end
+
+function Nx.Notes:HandyNotes(mapId)
+	local map = Nx.Map:GetMap (1)
+	if (Nx.fdb.profile.Notes.HandyNotes and HandyNotes) then			
+		map:InitIconType ("!HANDY", "WP", "", Nx.fdb.profile.Notes.HandyNotesSize, Nx.fdb.profile.Notes.HandyNotesSize)
+		map:SetIconTypeChop ("!HANDY", true)
+		local mapFile, lvl = GetMapInfo(), GetCurrentMapDungeonLevel()
+		for pluginName, pluginHandler in pairs(HandyNotes.plugins) do
+			HandyNotes:UpdateWorldMapPlugin(pluginName)
+			for coord, mapFile2, iconpath, scale, alpha, level2 in pluginHandler:GetNodes(mapFile, false, lvl) do				
+				local x, y = floor(coord / 10000) / 100, (coord % 10000) / 100
+				local texture
+				local wx, wy = Nx.Map:GetWorldPos(mapId,x,y)
+				if type(iconpath) == "table" then
+					texture = iconpath.icon						
+				else
+					texture = iconpath
+				end					
+				local icon = CreateFrame("Frame", "HandyCarb", UIParent)
+				icon:SetParent(WorldMapButton)
+				icon:ClearAllPoints()
+				icon:SetHeight(scale)
+				icon:SetWidth(scale)
+				icon:SetPoint("CENTER", WorldMapButton, "TOPLEFT", x*WorldMapButton:GetWidth(), -y*WorldMapButton:GetHeight())					
+				icon:SetScript("OnEnter", handypin.OnEnter)
+				icon:SetScript("OnLeave", handypin.OnLeave)										
+				HandyNotes.plugins[pluginName].OnEnter(icon, mapFile, coord)
+				local tooltip = ""
+				local tooltipName	
+				tooltipName = "WorldMapTooltip"
+				local handynote = map:AddIconPt("!HANDY",wx, wy, "FFFFFF", texture)										
+				for i = 1,10 do
+					local text = _G[tooltipName .. "TextLeft" .. i]
+					if text and text:IsShown() then
+						local R, G, B, A = text:GetTextColor()
+						R = Nx.Util_dec2hex(R * 255)
+						G = Nx.Util_dec2hex(G * 255)
+						B = Nx.Util_dec2hex(B * 255)
+						if strlen(tooltip) == 0 then
+							tooltip = "|cFF" .. R .. G .. B .. text:GetText()
+						else
+							tooltip = tooltip .. "\n" .. "|cFF" .. R .. G .. B .. text:GetText()
+						end
+					end
+				end
+				map:SetIconTip(handynote,tooltip)
+			end
+		end
 	end
 end
 
@@ -1472,6 +1586,5 @@ function Nx.Notes:AddonNote(folder,name,icon,id,x,y)
 	addonNotes[folder]["notes"][name] = icon .. "|" .. id .. "|" .. x .. "|" .. y
 end
 -- Nx.Notes:AddonNote("Test2","Test",4,301,33.3,33.3)
-
 ---------------------------------------------------------------------------------------
 -- EOF
