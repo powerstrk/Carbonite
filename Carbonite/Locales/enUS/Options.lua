@@ -265,6 +265,17 @@ L["Herbalism"] = true
 L["Display"] = true
 L["Nodes On Map"] = true
 L["Mining"] = true
+L["Timber"] = true
+L["Delete Timber Gather Locations"] = true
+L["Small Timber"] = true
+L["Medium Timber"] = true
+L["Large Timber"] = true
+L["Show Timber Locations"] = true
+L["Lumbermill"] = true
+L["Delete"] = true
+L["Import"] = true
+L["Cancel"] = true
+
 
 -- Menu Options
 L["Menu Options"] = true
@@ -346,9 +357,6 @@ L["Reload UI"] = true
 L["Reset options"] = true
 L["Reset global options"] = true
 L["Reset window layouts"] = true
-L["Delete Herb Locations"] = true
-L["Delete Mine Locations"] = true
-L["Delete Misc Locations"] = true
 L["Import Herbs"] = true
 L["Import Mining"] = true
 L["Import Misc"] = true

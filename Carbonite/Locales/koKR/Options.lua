@@ -269,6 +269,16 @@ L["Herbalism"] = "약초 위치"
 L["Display"] = "보기"
 L["Nodes On Map"] = "지도에 경로 표시"
 L["Mining"] = "광물 위치"
+L["Timber"] = true
+L["Delete Timber Gather Locations"] = true
+L["Small Timber"] = true
+L["Medium Timber"] = true
+L["Large Timber"] = true
+L["Show Timber Locations"] = true
+L["Lumbermill"] = true
+L["Delete"] = true
+L["Import"] = true
+L["Cancel"] = true
 
 -- Menu Options
 L["Menu Options"] = "메뉴 옵션"

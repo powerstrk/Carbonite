@@ -157,6 +157,7 @@ local defaults = {
 			ShowGatherA = false,
 			ShowGatherH = false,
 			ShowGatherM = false,
+			ShowGatherL = false,
 			ShowQuestGivers = 1,
 			ShowMailboxes = true,
 			ShowCustom = true,
@@ -303,7 +304,11 @@ local defaults = {
 				[68] = true,
 				[69] = true,
 			},
-
+			ShowTimber = {
+				[1] = true,
+				[2] = true,
+				[3] = true,
+			},
 		},
 		Comm = {
 			Global = true,
@@ -1089,15 +1094,15 @@ function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)
 				Nx.UEvents:AddMine (Nx.GatherTarget)
 				Nx.GatherTarget = nil
 			end
-
 		elseif arg2 == L["Searching for Artifacts"] then
-
 			Nx.UEvents:AddOpen ("Art", arg4)
-
 		elseif arg2 == L["Extract Gas"] then
-
 			Nx.UEvents:AddOpen ("Gas", L["Extract Gas"])
-
+		elseif arg2 == L["Logging"] then
+			Nx.GatherTarget = Nx.TooltipLastText
+			if Nx.GatherTarget then
+				Nx.UEvents:AddTimber(Nx.GatherTarget)
+			end
 		elseif arg2 == L["Opening"] or arg2 == L["Opening - No Text"] then
 			Nx.GatherTarget = Nx.TooltipLastText
 
@@ -1579,6 +1584,7 @@ function Nx:InitGlobal()
 			Nx.db.profile.GatherData = gath
 			gath.NXHerb = {}
 			gath.NXMine = {}
+			gath.NXTimber = {}
 		end
 
 		gath.Version = Nx.VERSIONGATHER
@@ -1631,7 +1637,8 @@ function Nx:GetData (name, ch)
 
 	elseif name == "Herb" then
 		return Nx.db.profile.GatherData.NXHerb
-
+	elseif name == "Timber" then
+		return Nx.db.profile.GatherData.NXTimber
 	elseif name == "Mine" then
 		return Nx.db.profile.GatherData.NXMine
 
@@ -2003,6 +2010,10 @@ end
 
 function Nx:AddHerbEvent (name, time, mapId, x, y)
 	self:AddEvent ("H", name, time, mapId, x, y)
+end
+
+function Nx:AddTimberEvent(name, time, mapId, x, y)
+	self:AddEvent ("T", name, time, mapId, x, y)
 end
 
 function Nx:AddMineEvent (name, time, mapId, x, y)
@@ -2659,30 +2670,50 @@ end
 
 function Nx.UEvents:AddHerb (name)
 
-	local mapId, x, y = self:GetPlyrPos()
+	local mapId, x, y, level = self:GetPlyrPos()
 	mapId = GetCurrentMapAreaID()
 	if Nx.db.profile.Guide.GatherEnabled then
 		local id = Nx:HerbNameToId (name)
 		if id then
 			Nx:AddHerbEvent (name, Nx:Time(), mapId, x, y)
-			Nx:GatherHerb (id, mapId, x, y)
+			Nx:GatherHerb (id, mapId, x, y, level)
 		end
 		self:UpdateAll (true)
 	end
 end
 
+
+function Nx.UEvents:AddTimber(name)
+	local mapId, x, y, level = self:GetPlyrPos()
+	local size = false
+	if Nx.db.profile.Guide.GatherEnabled then		
+		if name == L["Small Timber"] then
+			size = 1
+		elseif name == L["Timber"] then
+			size = 2
+		elseif name == L["Large Timber"] then
+			size = 3
+		end
+		if size then
+			Nx.prt(size)
+			Nx:AddTimberEvent (name, Nx:Time(), mapId, x, y)
+			Nx:GatherTimber (size, mapId, x, y, level)
+		end
+		self:UpdateAll (true)
+	end
+end
 ------
 -- Add mine to list
 
 function Nx.UEvents:AddMine (name)
 
-	local mapId, x, y = self:GetPlyrPos()
+	local mapId, x, y, level = self:GetPlyrPos()
 	mapId = GetCurrentMapAreaID()
 	if Nx.db.profile.Guide.GatherEnabled then
 		local id = Nx:MineNameToId (name)
 		if id then
 			Nx:AddMineEvent (name, Nx:Time(), mapId, x, y)
-			Nx:GatherMine (id, mapId, x, y)
+			Nx:GatherMine (id, mapId, x, y, level)
 		end
 		self:UpdateAll (true)
 	end
@@ -2695,9 +2726,9 @@ function Nx.UEvents:AddOpen (typ, name)
 
 	local mapId = self:AddInfo (name)
 	if Nx.db.profile.Guide.GatherEnabled then
-		local mapId, x, y = self:GetPlyrPos()
+		local mapId, x, y, level = self:GetPlyrPos()
 		mapId = GetCurrentMapAreaID()
-		Nx:Gather ("Misc", typ, mapId, x, y)
+		Nx:Gather ("Misc", typ, mapId, x, y, level)
 		self:UpdateAll()
 	end
 end
@@ -2706,10 +2737,9 @@ end
 -- Get player map pos
 
 function Nx.UEvents:GetPlyrPos()
-
 	local mapId = Nx.Map:GetRealMapId()
-	local map = Nx.Map:GetMap (1)
-	return mapId, map.PlyrRZX, map.PlyrRZY
+	local map = Nx.Map:GetMap (1)	
+	return mapId, map.PlyrRZX, map.PlyrRZY, Nx.Map.DungeonLevel
 end
 
 --------
@@ -2901,6 +2931,11 @@ Nx.GatherInfo = {
 		["Everfrost"] = { 0, "spell_shadow_teleport", L["Everfrost"]},
 		["Gas"] = { 0, "inv_gizmo_zapthrottlegascollector",	L["Gas"]},
 	},
+	["L"] = {
+		{ 1, "INV_Tradeskillitem_03",L["Small Timber"]},
+		{ 2, "INV_Tradeskillitem_03",L["Medium Timber"]},
+		{ 3, "INV_Tradeskillitem_03",L["Large Timber"]},
+	},
 	["H"] = {	-- Herbs
 		{ 340, "INV_Misc_Herb_AncientLichen", L["Ancient Lichen"]},
 		{ 220, "INV_Misc_Herb_13", L["Arthas' Tears"]},
@@ -3084,9 +3119,9 @@ end
 -- Upgrade gather data
 
 function Nx:GatherVerUpgrade()
-
 	Nx:GatherVerUpgradeType ("NXHerb")
 	Nx:GatherVerUpgradeType ("NXMine")
+	Nx:GatherVerUpgradeType ("NXTimber")
 end
 
 function Nx:GatherVerUpgradeType (tName)
@@ -3096,22 +3131,26 @@ end
 -- Save location of gathered herb
 -- xy is zone coords
 
-function Nx:GatherHerb (id, mapId, x, y)
-	self:Gather ("NXHerb", id, mapId, x, y)
+function Nx:GatherHerb (id, mapId, x, y, level)
+	self:Gather ("NXHerb", id, mapId, x, y, level)
 end
 
+
+function Nx:GatherTimber(id, mapId, x, y, level)
+	self:Gather ("NXTimber", id, mapId, x, y, level)
+end
 --------
 -- Save location of gathered mining
 -- xy is zone coords
 
-function Nx:GatherMine (id, mapId, x, y)
-	self:Gather ("NXMine", id, mapId, x, y)
+function Nx:GatherMine (id, mapId, x, y, level)
+	self:Gather ("NXMine", id, mapId, x, y, level)
 end
 
 --------
 -- Add gathered item. xy zone coords 0-100
 
-function Nx:Gather (nodeType, id, mapId, x, y)
+function Nx:Gather (nodeType, id, mapId, x, y, level)
 
 	local remap = self.GatherRemap[nodeType]
 	if remap then
@@ -3119,6 +3158,11 @@ function Nx:Gather (nodeType, id, mapId, x, y)
 	end
 
 	local data = Nx.db.profile.GatherData[nodeType]
+	if not data then
+		Nx.db.profile.GatherData[nodeType] = {}
+		data = Nx.db.profile.GatherData[nodeType]
+	end
+	
 	local zoneT = data[mapId]
 
 	if not zoneT or not Nx.Map.MapWorldInfo[mapId] then
@@ -3134,42 +3178,48 @@ function Nx:Gather (nodeType, id, mapId, x, y)
 	zoneT[id] = nodeT
 
 	for n, node in ipairs (nodeT) do
-		local nx, ny = Nx.Split("|",node)
-		local dist = (nx - x) ^ 2 + (ny - y) ^ 2
-
---		Nx.prt ("Gather %f %f %f (%.2f %.2f) (%.2f %.2f)", dist, maxDist, id, nx, ny, x, y)
-
-		if dist < maxDist then		-- Squared compare
-			index = n
-			break
+		local nx, ny, nlevel = Nx.Split("|",node)
+		if not nlevel then
+			nlevel = 0
+		end
+		if nlevel == level then
+			local dist = (nx - x) ^ 2 + (ny - y) ^ 2
+			if dist < maxDist then		-- Squared compare
+				index = n
+				break
+			end
 		end
 	end
-
 	local cnt = 1
-
 	if not index then
 		index = #nodeT + 1
-
 	else
-		local nx,xy = Nx.Split ("|", nodeT[index])
+		local nx,xy, level = Nx.Split ("|", nodeT[index])
 	end
-
-	nodeT[index] = format ("%f|%f", x, y)
+	nodeT[index] = format ("%f|%f|%d", x, y, level)
 end
 
 --------
 
 function Nx:GatherUnpack (item)
-	local x,y = Nx.Split ("|", item)
+	local x,y, level = Nx.Split ("|", item)
+	if not level then
+		level = 0
+	end
 	local x = tonumber (x)
 	local y = tonumber (y)
-	return x, y
+	local level = tonumber(level)
+	return x, y, level
 end
 
 --------
 
 function Nx:GatherDeleteHerb()
 	Nx.db.profile.GatherData.NXHerb = {}
+end
+
+function Nx:GatherDeleteTimber()
+	Nx.db.profile.GatherData.NXTimber = {}
 end
 
 function Nx:GatherDeleteMine()

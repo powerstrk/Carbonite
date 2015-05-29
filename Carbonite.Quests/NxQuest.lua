@@ -9415,7 +9415,7 @@ function Nx.Quest.Watch:Add (curi)
 	local qId = cur.QId > 0 and cur.QId or cur.Title
 	local qStatus = Nx.Quest:GetQuest (qId)
 
-	if not qStatus or qStatus ~= "W" then		-- Pointless compare?
+	if not qStatus then
 
 		Nx.Quest:SetQuest (qId, "W")
 		Quest:PartyStartSend()

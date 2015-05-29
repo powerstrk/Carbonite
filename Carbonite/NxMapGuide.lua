@@ -283,6 +283,11 @@ Nx.GuideInfo = {
 			Persist = "ShowGatherM",
 		},
 		{
+			Name = L["Timber"],
+			Tx = "INV_Tradeskillitem_03",
+			Persist = "ShowGatherL",
+		},
+		{
 			Name = L["Artifacts"],
 			T = "$ A",
 			Id = "Art",
@@ -835,6 +840,21 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			f.Id = a
 			folder[a] = f
 		end
+	elseif folder.Name == L["Timber"] then
+		for a,b in pairs(Nx.GatherInfo["L"]) do
+			local name, tx, skill = Nx:GetGather ("L", a)
+			if not name then
+				break
+			end
+			local f = {}
+			f.Name = name	
+			f.Column2 = format("Level %d", skill)
+			f.Column3 = "Lumbermill"
+			f.T = "$L" .. a
+			f.Tx = tx
+			f.Id = a
+			folder[a] = f
+		end		
 	elseif folder.Name == L["Ore"] then
 		for a,b in pairs(Nx.GatherInfo["M"]) do
 			local name, tx, skill = Nx:GetGather ("M", a)
@@ -943,7 +963,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 end
 function Nx.Map.Guide:CalcType (folder)
 	local typ = type (folder) == "table" and folder.T
-	if typ then
+	if typ then		
 		local s1, s2 = Nx.Split ("^", typ)
 		if s2 then
 			local s21 = strsub (s2, 1, 1)
@@ -1001,6 +1021,10 @@ function Nx.Map.Guide:ClearShowFolders()
 	end
 	if Nx.db.char.Map.ShowGatherM then
 		local folder = self:FindFolder (L["Ore"], gFolder)
+		self:AddShowFolders (folder)
+	end
+	if Nx.db.char.Map.ShowGatherL then
+		local folder = self:FindFolder (L["Timber"], gFolder)		
 		self:AddShowFolders (folder)
 	end
 	if Nx.db.char.Map.ShowGatherA then
@@ -1221,25 +1245,38 @@ function Nx.Map.Guide:UpdateMapIcons()
 		local tx = "Interface\\Icons\\" .. (folder.Tx or "")
 		if mode == 36 then
 			local typ = strsub (showType, 2, 2)
-			local longType = typ == "H" and "Herb" or typ == "M" and "Mine"
+			local longType			
+			if typ == "H" then
+				longType = "Herb"
+			elseif typ == "M" then
+				longType = "Mine" 
+			elseif typ == "L" then
+				longType = "Timber"
+			end
 			local fid = folder.Id
 			local data = longType and Nx:GetData (longType) or Nx.db.profile.GatherData["Misc"]
 			local carbMapId = mapId
 			local zoneT = data[carbMapId]
 			if zoneT then
-				if (typ == "M" and Nx.db.profile.Guide.ShowMines[fid]) or (typ == "H" and Nx.db.profile.Guide.ShowHerbs[fid]) then
+				if (typ == "M" and Nx.db.profile.Guide.ShowMines[fid]) or (typ == "H" and Nx.db.profile.Guide.ShowHerbs[fid]) or (typ == "L" and Nx.db.profile.Guide.ShowTimber[fid]) then
 				local nodeT = zoneT[fid]
 				if nodeT then
 					local iconType = fid == "Art" and "!G" or "!Ga"
 					for k, node in pairs (nodeT) do
-						local x, y = Nx:GatherUnpack (node)
+						local x, y, level = Nx:GatherUnpack (node)
 						local name, tex, skill = Nx:GetGather (typ, fid)
-						local wx, wy = Map:GetWorldPos (mapId, x, y)
-						icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
-						if skill > 0 then
-							name = name .. " [" .. L["Skill"] .. ": " .. skill .. "]"
+						local wx, wy = Map:GetWorldPos (mapId, x, y)						
+						if level == Nx.Map.DungeonLevel then							
+							icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
+							if skill > 0 then
+								if typ == "L" then
+									name = name .. "\nL" .. skill .. " " .. L["Lumbermill"]
+								else
+									name = name .. " [" .. L["Skill"] .. ": " .. skill .. "]"
+								end
+							end							
+							map:SetIconTip (icon, name)
 						end
-						map:SetIconTip (icon, name)
 					end
 				end
 				end
@@ -1676,7 +1713,14 @@ function Nx.Map.Guide:FindClosest (findType)
 			local mode = strbyte (showType)
 			if mode == 36 then
 				local type = strsub (showType, 2, 2)
-				local longType = type == "H" and "Herb" or type == "M" and "Mine"
+				local longType
+				if type == "H" then
+					longType = "Herb"
+				elseif type == "M" then
+					longType = "Mine" 
+				elseif type == "L" then
+					longType = "Timber"
+				end
 				if longType then
 					local fid = folder.Id
 					local data = Nx:GetData (longType)
@@ -1688,14 +1732,16 @@ function Nx.Map.Guide:FindClosest (findType)
 								local nodeT = zoneT[fid]
 								if nodeT then
 									for k, node in ipairs (nodeT) do
-										local x, y = Nx:GatherUnpack (node)
+										local x, y, level = Nx:GatherUnpack (node)
 										local wx, wy = Map:GetWorldPos (mapId, x, y)
-										local dist = (wx - px) ^ 2 + (wy - py) ^ 2
-										if dist < closeDist then
-											closeDist = dist
-											close = 0
-											closeMapId = mapId
-											closeX, closeY = wx, wy
+										if level == Nx.Map.DungeonLevel then
+											local dist = (wx - px) ^ 2 + (wy - py) ^ 2
+											if dist < closeDist then
+												closeDist = dist
+												close = 0
+												closeMapId = mapId
+												closeX, closeY = wx, wy
+											end
 										end
 									end
 								end

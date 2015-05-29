@@ -218,6 +218,7 @@ function SetMapToCurrentZone(carbcalled)
 			Nx.CurrentDetectedZone = GetRealZoneText()
 			blizSetMapToCurrentZone()
 			Nx.Map.UpdateMapID = WorldMapFrame.mapID
+			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
 		end
 	else
 		if not Nx.Map.MouseOver then
@@ -232,6 +233,7 @@ function SetMapToCurrentZone(carbcalled)
 			end
 			blizSetMapToCurrentZone()
 			Nx.Map.UpdateMapID = WorldMapFrame.mapID			
+			Nx.Map.DungeonlLevel = GetCurrentMapDungeonLevel()
 		end
 	end
 end
@@ -240,7 +242,7 @@ function SetMapByID(zone,level)
 	if Nx.Map.MouseOver then
 		if Nx.Map.MouseIsOverMap then
 			zone = Nx.Map.MouseIsOverMap
-			Nx.Map.RMapId = zone
+			Nx.Map.RMapId = zone			
 		else
 			Nx.Map.RMapId = zone
 			return
@@ -252,11 +254,12 @@ function SetMapByID(zone,level)
 		if zone then
 			Nx.CurrentSetZone = zone
 			if level then
-				blizSetMapByID(zone,level)
+				blizSetMapByID(zone,level)				
 			else
 				blizSetMapByID(zone)				
 			end
-		end
+			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
+		end		
 	end
 end
 
@@ -783,11 +786,12 @@ function Nx.Map:Create (index)
 	local item = showMenu:AddItem (0, L["Show Herb Locations"], func, m)
 	m.MenuIShowHerb = item
 	item:SetChecked (Nx.db.char.Map, "ShowGatherH")
-
 	local item = showMenu:AddItem (0, L["Show Mining Locations"], func, m)
 	m.MenuIShowMine = item
 	item:SetChecked (Nx.db.char.Map, "ShowGatherM")
-
+	local item = showMenu:AddItem(0, L["Show Timber Locations"], func, m)
+	m.MenuIShowTimber = item
+	item:SetChecked (Nx.db.char.Map, "ShowGatherL")
 	local item = showMenu:AddItem (0, L["Show Artifact Locations"], func, m)
 --	m.MenuIShowArt = item
 	item:SetChecked (Nx.db.char.Map, "ShowGatherA")
@@ -3424,6 +3428,13 @@ end
 --------
 -- Key binding toggle mining
 -- global func
+
+function Nx:NXMapKeyTogTimber()
+	local map = Nx.Map:GetMap (1)
+	Nx.db.char.Map.ShowGatherL = not Nx.db.char.Map.ShowGatherL
+	map.MenuIShowTimber:SetChecked (Nx.db.char.Map, "ShowGatherL")
+	map.Guide:UpdateGatherFolders()
+end
 
 function Nx:NXMapKeyTogMine()
 	local map = Nx.Map:GetMap (1)

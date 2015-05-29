@@ -269,6 +269,16 @@ L["Herbalism"] = true
 L["Display"] = true
 L["Nodes On Map"] = true
 L["Mining"] = true
+L["Timber"] = true
+L["Delete Timber Gather Locations"] = true
+L["Small Timber"] = true
+L["Medium Timber"] = true
+L["Large Timber"] = true
+L["Show Timber Locations"] = true
+L["Lumbermill"] = true
+L["Delete"] = true
+L["Import"] = true
+L["Cancel"] = true
 
 -- Menu Options
 L["Menu Options"] = true

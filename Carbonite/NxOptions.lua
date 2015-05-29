@@ -1871,8 +1871,17 @@ local function guidegatherConfig ()
 								Nx.Opts:NXCmdDeleteMine()
 							end,
 						},
-						CmdDelMisc = {
+						CmdDelTimber = {
 							order = 5,
+							type = "execute",
+							width = "full",
+							name = L["Delete Timber Gather Locations"],
+							func = function ()
+								Nx.Opts:NXCmdDeleteTimber()
+							end,						
+						},
+						CmdDelMisc = {
+							order = 6,
 							type = "execute",
 							width = "full",
 							name = L["Delete Misc Gather Locations"],
@@ -1881,12 +1890,12 @@ local function guidegatherConfig ()
 							end,
 						},
 						spacer2 = {
-							order = 2,
+							order = 7,
 							type = "description",
 							name = "\n",
 						},
 						CmdImportHerb = {
-							order = 7,
+							order = 8,
 							type = "execute",
 							width = "full",
 							name = L["Import Herbs From GatherMate2_Data"],
@@ -1895,7 +1904,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						CmdImportMine = {
-							order = 8,
+							order = 9,
 							type = "execute",
 							width = "full",
 							name = L["Import Mines From GatherMate2_Data"],
@@ -1904,7 +1913,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						CmdImportMisc = {
-							order = 9,
+							order = 10,
 							type = "execute",
 							width = "full",
 							name = L["Import Misc From GatherMate2_Data"],
@@ -3406,6 +3415,52 @@ local function guidegatherConfig ()
 						},
 					},
 				},
+				TimberDisp = {
+					type = "group",
+					name = L["Timber"],
+					order = 4,
+					args = {
+						small = {
+							order = 1,
+							type = "toggle",
+							width = "full",
+							name = L["Small Timber"],
+							desc = L["Display"] .. " " .. L["Small Timber"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowTimber[1]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowTimber[1] = not Nx.db.profile.Guide.ShowTimber[1]
+							end,
+						},
+						med = {
+							order = 2,
+							type = "toggle",
+							width = "full",
+							name = L["Medium Timber"],
+							desc = L["Display"] .. " " .. L["Medium Timber"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowTimber[2]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowTimber[2] = not Nx.db.profile.Guide.ShowTimber[2]
+							end,
+						},						
+						large = {
+							order = 3,
+							type = "toggle",
+							width = "full",
+							name = L["Large Timber"],
+							desc = L["Display"] .. " " .. L["Large Timber"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowTimber[3]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowTimber[3] = not Nx.db.profile.Guide.ShowTimber[3]
+							end,
+						},						
+					},
+				},				
 			},
 		}
 	end
@@ -4158,7 +4213,14 @@ function Nx.Opts:NXCmdDeleteHerb()
 	local function func()
 		Nx:GatherDeleteHerb()
 	end
-	Nx:ShowMessage (L["Delete Herb Locations"] .. "?", "Delete", func, "Cancel")
+	Nx:ShowMessage (L["Delete Herbalism Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
+end
+
+function Nx.Opts:NXCmdDeleteTimber()
+	local function func()
+		Nx.GatherDeleteTimber()
+	end
+	Nx:ShowMessage (L["Delete Timber Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdDeleteMine()
@@ -4166,7 +4228,7 @@ function Nx.Opts:NXCmdDeleteMine()
 	local function func()
 		Nx:GatherDeleteMine()
 	end
-	Nx:ShowMessage (L["Delete Mine Locations"] .. "?", "Delete", func, "Cancel")
+	Nx:ShowMessage (L["Delete Mining Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdDeleteMisc()
@@ -4174,7 +4236,7 @@ function Nx.Opts:NXCmdDeleteMisc()
 	local function func()
 		Nx:GatherDeleteMisc()
 	end
-	Nx:ShowMessage (L["Delete Misc Locations"] .. "?", "Delete", func, "Cancel")
+	Nx:ShowMessage (L["Delete Misc Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdImportCarbHerb()
@@ -4182,7 +4244,7 @@ function Nx.Opts:NXCmdImportCarbHerb()
 	local function func()
 		Nx:GatherImportCarbHerb()
 	end
-	Nx:ShowMessage (L["Import Herbs"] .. "?", "Import", func, "Cancel")
+	Nx:ShowMessage (L["Import Herbs"] .. "?", L["Import"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdImportCarbMine()
@@ -4190,7 +4252,7 @@ function Nx.Opts:NXCmdImportCarbMine()
 	local function func()
 		Nx:GatherImportCarbMine()
 	end
-	Nx:ShowMessage (L["Import Mining"] .. "?", "Import", func, "Cancel")
+	Nx:ShowMessage (L["Import Mining"] .. "?", L["Import"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdImportCarbMisc()
@@ -4198,7 +4260,7 @@ function Nx.Opts:NXCmdImportCarbMisc()
 	local function func()
 		Nx:GatherImportCarbMisc()
 	end
-	Nx:ShowMessage (L["Import Misc"] .. "?", "Import", func, "Cancel")
+	Nx:ShowMessage (L["Import Misc"] .. "?", L["Import"], func, L["Cancel"])
 end
 
 --[[

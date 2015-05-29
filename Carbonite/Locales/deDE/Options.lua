@@ -269,6 +269,16 @@ L["Herbalism"] = "Kr\195\164uterkunde"
 L["Display"] = "Zeige"
 L["Nodes On Map"] = "Sammelpunkte auf der Karte"
 L["Mining"] = "Bergbau"
+L["Timber"] = true
+L["Delete Timber Gather Locations"] = true
+L["Small Timber"] = true
+L["Medium Timber"] = true
+L["Large Timber"] = true
+L["Show Timber Locations"] = true
+L["Lumbermill"] = true
+L["Delete"] = true
+L["Import"] = true
+L["Cancel"] = true
 
 -- Menu Options
 L["Menu Options"] = "Men\195\188einstellungen"

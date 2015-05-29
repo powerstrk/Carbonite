@@ -32,6 +32,9 @@
 	<Binding name="NxMAPTOGMINE" category="ADDONS">
 		Nx:NXMapKeyTogMine()
 	</Binding>
+	<Binding name="NxMAPTOGTIMBER" category="ADDONS">
+		Nx:NXMapKeyTogTimber()
+	</Binding>
 	<!-- Carbonite\NxMapGuide.lua -->
 	<Binding name="NxTOGGLEGUIDE" category="ADDONS">
 		Nx:NXGuideKeyToggleShow()

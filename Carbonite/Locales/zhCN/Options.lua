@@ -269,6 +269,16 @@ L["Herbalism"] = "草药"
 L["Display"] = "显示"
 L["Nodes On Map"] = "采集点在地图上"
 L["Mining"] = "矿石"
+L["Timber"] = true
+L["Delete Timber Gather Locations"] = true
+L["Small Timber"] = true
+L["Medium Timber"] = true
+L["Large Timber"] = true
+L["Show Timber Locations"] = true
+L["Lumbermill"] = true
+L["Delete"] = true
+L["Import"] = true
+L["Cancel"] = true
 
 -- Menu Options
 L["Menu Options"] = "菜单选项"

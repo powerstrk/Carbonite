@@ -269,6 +269,16 @@ L["Herbalism"] = "Травничество"
 L["Display"] = "Отображать"
 L["Nodes On Map"] = "Точки на карте"
 L["Mining"] = "Горное дело"
+L["Timber"] = true
+L["Delete Timber Gather Locations"] = true
+L["Small Timber"] = true
+L["Medium Timber"] = true
+L["Large Timber"] = true
+L["Show Timber Locations"] = true
+L["Lumbermill"] = true
+L["Delete"] = true
+L["Import"] = true
+L["Cancel"] = true
 
 -- Menu Options
 L["Menu Options"] = "Настройки меню"
