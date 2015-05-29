@@ -1233,9 +1233,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 	local cont1 = 1
 	local cont2 = Map.ContCnt
 	local mapId = map:GetCurrentMapId()
-	if not mapId then return end
-	if Nx.Map:IsMicroDungeon(mapId) then return end
-	if Nx.Map:IsInstanceMap(Nx.Map:GetRealMapId()) then	return end
+	if not mapId then return end		
 	if not self.ShowAllCont then
 		cont1 = map:IdToContZone (mapId)
 		cont2 = cont1
@@ -1265,9 +1263,9 @@ function Nx.Map.Guide:UpdateMapIcons()
 					for k, node in pairs (nodeT) do
 						local x, y, level = Nx:GatherUnpack (node)
 						local name, tex, skill = Nx:GetGather (typ, fid)
-						local wx, wy = Map:GetWorldPos (mapId, x, y)						
+						local wx, wy = Map:GetWorldPos (mapId, x, y)
 						if level == Nx.Map.DungeonLevel then							
-							icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex)
+							icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex, level)
 							if skill > 0 then
 								if typ == "L" then
 									name = name .. "\nL" .. skill .. " " .. L["Lumbermill"]

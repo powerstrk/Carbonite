@@ -233,7 +233,7 @@ function SetMapToCurrentZone(carbcalled)
 			end
 			blizSetMapToCurrentZone()
 			Nx.Map.UpdateMapID = WorldMapFrame.mapID			
-			Nx.Map.DungeonlLevel = GetCurrentMapDungeonLevel()
+			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
 		end
 	end
 end
@@ -4185,7 +4185,7 @@ function Nx.Map:Update (elapsed)
 
 	self:MouseEnable (self.Win:IsSizeMax())
 
-	if self.NeedWorldUpdate then
+	if self.NeedWorldUpdate then		
 		self:UpdateWorld()
 	end
 

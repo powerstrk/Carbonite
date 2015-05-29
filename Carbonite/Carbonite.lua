@@ -3206,9 +3206,9 @@ function Nx:GatherUnpack (item)
 	if not level then
 		level = 0
 	end
-	local x = tonumber (x)
-	local y = tonumber (y)
-	local level = tonumber(level)
+	x = tonumber (x)
+	y = tonumber (y)	
+	level = tonumber(level)
 	return x, y, level
 end
 
