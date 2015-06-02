@@ -41,9 +41,9 @@ L["Note Addons"] = "Notes add-on(s)"
 L["My Notes"] = "Mes Notes"
 
 L["Reset old notes data"] = "R\195\169initialiser anciennes donn\195\169s de vos Notes"
-L["Display Handynotes On Map"] = true
-L["If you have HandyNotes installed, allows them on the Carbonite map"] = true
-L["Handnotes Icon Size"] = true
+L["Display Handynotes On Map"] = "Afficher Handynotes sur la Map"
+L["If you have HandyNotes installed, allows them on the Carbonite map"] = "Si vous avez Handynotes install\195\169, autorise celui-ci \195\160 afficher sur la map Carbonite"
+L["Handnotes Icon Size"] = "Taille de l'ic\195\180ne Handynotes"
 
 -- Keybinds
 L["Carbonite Notes"] = "Carbonite Notes"
