@@ -269,16 +269,16 @@ L["Herbalism"] = "Herboristerie"
 L["Display"] = "Affichage"
 L["Nodes On Map"] = "Noeuds sur la Map"
 L["Mining"] = "Minage"
-L["Timber"] = true
-L["Delete Timber Gather Locations"] = true
-L["Small Timber"] = true
-L["Medium Timber"] = true
-L["Large Timber"] = true
-L["Show Timber Locations"] = true
-L["Lumbermill"] = true
-L["Delete"] = true
-L["Import"] = true
-L["Cancel"] = true
+L["Timber"] = "Bois"
+L["Delete Timber Gather Locations"] = "Effacer noeuds de r\195\169coltes Bois"
+L["Small Timber"] = "Petit Bois"
+L["Medium Timber"] = "Bois Moyen"
+L["Large Timber"] = "Grand bois"
+L["Show Timber Locations"] = "Afficher emplacements Bois"
+L["Lumbermill"] = "Scierie"
+L["Delete"] = "Effacer"
+L["Import"] = "+Importer"
+L["Cancel"] = "Annuler"
 
 -- Menu Options
 L["Menu Options"] = "Options du Menu"
