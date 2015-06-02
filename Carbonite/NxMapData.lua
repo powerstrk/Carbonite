@@ -1317,6 +1317,15 @@ Map.MapWorldInfo = {
 		MapBaseName = "garrisonsmvalliance_tier",
 		Overlay = "garrisonsmvalliance_tier1",
 	},
+	[973] = {
+		BaseMap = 971,
+	},
+	[974] = {
+		BaseMap = 971,
+	},
+	[975] = {
+		BaseMap = 971,
+	},
 	[976] = {
 		Scale = 1.404166015625,
 		X = -977.083203125,
@@ -1335,6 +1344,21 @@ Map.MapWorldInfo = {
 		Explored = true,
 		Overlay = "ashran",
 	},
+	[980] = {
+		BaseMap = 976
+	},
+	[981] = {
+		BaseMap = 976
+	},	
+	[982] = {
+		BaseMap = 976
+	},	
+	[990] = {
+		BaseMap = 976,
+	},
+	[991] = {
+		BaseMap = 971,
+	},	
 	[1009] = {
 		Scale = 1.375,
 		X = 725,

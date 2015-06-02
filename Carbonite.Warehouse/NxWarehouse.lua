@@ -30,7 +30,9 @@ local _G = getfenv(0)
 CarboniteWarehouse = LibStub("AceAddon-3.0"):NewAddon("CarboniteWarehouse","AceEvent-3.0","AceComm-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite.Warehouse", true)
+
 local GuildBank = LibStub("LibGuildBankComm-1.0")
+
 Nx.VERSIONWare			= .15				-- Warehouse data
 
 -- Keybindings
@@ -2617,6 +2619,9 @@ function Nx.Warehouse.OnGuildbankframe_closed()
 end
 
 function Nx.Warehouse:GuildRecord (open)
+	if not IsInGuild() then
+		return
+	end
 	local gName = GetGuildInfo ("player")
 	if gName then
 		local ware = Nx.wdb.profile.WarehouseData
