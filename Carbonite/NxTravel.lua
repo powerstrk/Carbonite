@@ -108,9 +108,12 @@ function Nx.Travel:CaptureTaxi()
 
 --		local locName = Nx.Split (",", TaxiNodeName (n))
 		local locName = TaxiNodeName (n)
-
-		taxiT[locName] = true
-
+		local locStatus = TaxiNodeGetType(n)
+		if locStatus == "CURRENT" or locStatus == "REACHABLE" then
+			taxiT[locName] = true
+		else
+			taxiT[locName] = false
+		end
 		if TaxiNodeGetType (n) == "CURRENT" then
 
 			self.TaxiNameStart = locName
