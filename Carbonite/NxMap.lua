@@ -201,7 +201,7 @@ function Nx.Map:Init()
 	if Nx.db.profile.Track.EmuTomTom and not Nx.RealTom then
 		TomTom = {}
 		Nx.EmulateTomTom()
-	end
+	end	
 	Nx.Map.UpdateMapID = WorldMapFrame.mapID
 	SetMapByID(Nx.Map.UpdateMapID)
 end
@@ -216,8 +216,7 @@ function SetMapToCurrentZone(carbcalled)
 	if carbcalled then
 		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
 			Nx.CurrentDetectedZone = GetRealZoneText()
-			blizSetMapToCurrentZone()
-			Nx.Map.UpdateMapID = WorldMapFrame.mapID
+			blizSetMapToCurrentZone()			
 			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
 		end
 	else
@@ -241,7 +240,7 @@ end
 function SetMapByID(zone,level)
 	if Nx.Map.MouseOver then
 		if Nx.Map.MouseIsOverMap then
-			zone = Nx.Map.MouseIsOverMap
+			zone = Nx.Map.MouseIsOverMap			
 			Nx.Map.RMapId = zone			
 		else
 			Nx.Map.RMapId = zone
@@ -255,7 +254,7 @@ function SetMapByID(zone,level)
 			Nx.CurrentSetZone = zone
 			if level then
 				blizSetMapByID(zone,level)				
-			else
+			else					
 				blizSetMapByID(zone)				
 			end
 			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
@@ -3899,16 +3898,15 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 		if winy >= map.TitleH then
 
-			local wx, wy = map:FramePosToWorldPos (winx, winy)
-
+			local wx, wy = map:FramePosToWorldPos (winx, winy)			
 			if not menuOpened then
 --				local tm = GetTime()
 				map:CheckWorldHotspots (wx, wy)
 --				Nx.prt ("CheckWorldHotspots Time %s", GetTime() - tm)
 			end
 
-			local x, y = map:GetZonePos (map.MapId, wx, wy)
-
+			local x, y = map:GetZonePos (Nx.Map.RMapId, wx, wy)
+			
 			x = floor (x * 10) / 10	-- Chop fraction to tenths
 			y = floor (y * 10) / 10
 			local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ .5 * 4.575
@@ -3962,6 +3960,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 				if map.UpdateMapID ~= rid then
 					if map:IsBattleGroundMap (rid) then
 						SetMapToCurrentZone()
+						Nx.Map.UpdateMapID = WorldMapFrame.mapID
 					else
 						map:SetCurrentMap (rid)
 					end
@@ -4318,7 +4317,7 @@ function Nx.Map:Update (elapsed)
 				self:SwitchOptions (rid, true)
 			end
 			if not Nx.Menu:IsAnyOpened() then
-				SetMapByID(rid)
+				SetMapByID(rid)				
 				self:SwitchOptions (rid)
 				self:SwitchRealMap (rid)
 			end
@@ -5228,7 +5227,7 @@ function Nx.Map:ScanContinents()
 	-- Restore
 
 	if(isMicroDungeon)then
-		SetMapToCurrentZone()
+		SetMapToCurrentZone()		
 	else
 		SetMapZoom (oldCont, oldZone)
 		SetDungeonMapLevel (mapLvl)
@@ -5981,7 +5980,7 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 			if spot.MapId ~= curId then
 
 --				Nx.prt ("hotspot %s %s %s %s %s", spot.MapId, spot.WX1, spot.WX2, spot.WY1, spot.WY2)
-				self:SetCurrentMap (spot.MapId)
+				self:SetCurrentMap (spot.MapId)			
 			end
 			Nx.Map.MouseIsOverMap = spot.MapId
 			self.WorldHotspotTipStr = spot.NxTipBase .. "\n"
@@ -8721,11 +8720,11 @@ function Nx.Map:SetCurrentMap (mapId)
 					local zone = self.MapWorldInfo[mapId].Zone
 
 					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then						
-						SetMapToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position
+						SetMapToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position						
 						SetDungeonMapLevel (1)
 					else
 --						SetMapZoom (cont, i)
-						SetMapByID(mapId)
+						SetMapByID(mapId)						
 					end
 
 					return
@@ -8744,14 +8743,14 @@ function Nx.Map:SetCurrentMap (mapId)
 				self.MapId = 0				-- Force change (needed?)
 
 				if mapId == self:GetRealBaseMapId() then
-					SetMapToCurrentZone()
+					SetMapToCurrentZone()					
 
 				else
 					local caid = GetCurrentMapAreaID()
 
 					if caid ~= aid then
 --						Nx.prt ("SetCurrentMap dif %s", caid)
-						SetMapByID (aid)
+						SetMapByID (aid)						
 						SetDungeonMapLevel (1)
 					end
 				end
@@ -8761,7 +8760,7 @@ function Nx.Map:SetCurrentMap (mapId)
 				if mapId == self:GetRealBaseMapId() then
 
 					self.MapId = 0				-- Force change
-					SetMapToCurrentZone()
+					SetMapToCurrentZone()					
 				else
 					self.MapId = mapId
 					SetMapZoom (-1)			-- Cosmic map. Has no POIs

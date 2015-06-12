@@ -3730,6 +3730,19 @@ function Nx.Quest:ScanBlizzQuestData()
 	QScanBlizz = Nx:ScheduleTimer(self.ScanBlizzQuestDataTimer,1,self)
 end
 
+function Nx.Quest:IsDaily(checkID)
+	local isdaily = false
+	for qn = 1, GetNumQuestLogEntries() do
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
+		if questID == checkID then
+			if frequency == LE_QUEST_FREQUENCY_DAILY or frequency == LE_QUEST_FREQUENCY_WEEKLY then
+				isdaily = true
+			end
+		end
+	end
+	return isdaily
+end
+
 function Nx.Quest:ScanBlizzQuestDataTimer()
 	if IS_BACKGROUND_WORLD_CACHING then
 		return
@@ -6540,7 +6553,7 @@ function Nx.Quest.List:LogUpdate()
 		Quest.QIdsNew[cur.QId] = time()
 
 		if Nx.qdb.profile.QuestWatch.AddNew and not Quest.DailyPVPIds[cur.QId] then
-			Quest.Watch:Add (curi)
+			Quest.Watch:Add (curi,true)
 		end
 		Quest:Capture (curi)
 
@@ -8780,8 +8793,8 @@ function Nx.Quest.Watch:UpdateList()
 							list:ItemSetButton("QuestWatch",false)
 						end
 						local bonusSteps = C_Scenario.GetBonusSteps() or {}
-						for i = 1, #bonusSteps do
-							local title, task, _, completed = C_Scenario.GetStepInfo(bonusSteps[i])
+						if #bonusSteps >= 1 then						
+							local title, task, _, completed = C_Scenario.GetStepInfo(bonusSteps[1])
 							local tasktexts = { "Bonus |cff00ff00" }
 							task:gsub('%S+%s*', function(word)
 								if (#tasktexts[#tasktexts] + #word) < (Nx.qdb.profile.QuestWatch.OMaxLen + 10) then
@@ -9407,16 +9420,18 @@ end
 -- (CurQ number)
 -------------------------------------------------------------------------------
 
-function Nx.Quest.Watch:Add (curi)
+function Nx.Quest.Watch:Add (curi,addnew)
 
 	local Quest = Nx.Quest
 	local cur = Quest.CurQ[curi]
 
-	local qId = cur.QId > 0 and cur.QId or cur.Title
-	local qStatus = Nx.Quest:GetQuest (qId)
-
+	local qId = cur.QId > 0 and cur.QId or cur.Title	
+	if Nx.Quest:IsDaily(qId) and addnew then
+		Nx.Quest:SetQuest (qId, "W")
+		Quest:PartyStartSend()
+	end	
+	local qStatus = Nx.Quest:GetQuest (qId)		
 	if not qStatus then
-
 		Nx.Quest:SetQuest (qId, "W")
 		Quest:PartyStartSend()
 	end
