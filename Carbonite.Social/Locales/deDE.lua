@@ -103,4 +103,4 @@ L["Punk %s added"] = "Gengner %s hinzugef\195\188gt"
 L["hey"] = "hey"
 L["|cffff2020Team:"] = "|cffff2020Team:"
 L["Team:"] = "Team:"
-L["Social"] = true
+L["Social"] = "Gesellschaft"

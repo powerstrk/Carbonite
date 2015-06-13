@@ -269,16 +269,16 @@ L["Herbalism"] = "Kr\195\164uterkunde"
 L["Display"] = "Zeige"
 L["Nodes On Map"] = "Sammelpunkte auf der Karte"
 L["Mining"] = "Bergbau"
-L["Timber"] = true
-L["Delete Timber Gather Locations"] = true
-L["Small Timber"] = true
-L["Medium Timber"] = true
-L["Large Timber"] = true
-L["Show Timber Locations"] = true
-L["Lumbermill"] = true
-L["Delete"] = true
-L["Import"] = true
-L["Cancel"] = true
+L["Timber"] = "Baum"
+L["Delete Timber Gather Locations"] = "gespeicherte Baumvorkommen l\195\182schen"
+L["Small Timber"] = "kleiner Baum"
+L["Medium Timber"] = "Baum"
+L["Large Timber"] = "gro\195\159er Baum"
+L["Show Timber Locations"] = "Zeige Baumvorkommen"
+L["Lumbermill"] = "S\195\164gewerk"
+L["Delete"] = "l\195\182schen"
+L["Import"] = "Importieren"
+L["Cancel"] = "abbrechen"
 
 -- Menu Options
 L["Menu Options"] = "Men\195\188einstellungen"
