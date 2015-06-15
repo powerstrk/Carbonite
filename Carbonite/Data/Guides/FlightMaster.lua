@@ -409,11 +409,13 @@ local FLIGHT_DATA = {
 	["2,946,61.4,10.6"]=L["Frostwolf Overlook, Talador"],
 	["2,946,70.8,29.4"]=L["Vol'jin's Pride, Talador"],
 	--Tanaan
-	["0,945,26.1,38.9"]=L["Aktar's Post, Tanaan Jungle"],
+	["0,945,57.6,58.8"]=L["Lion's Watch, Tanaan Jungle"],
 	["0,945,10.0,53.1"]=L["The Iron Front, Tanaan Jungle"],
-	["0,945,29.6,63.1"]=L["Sha'naari Refuge, Tanaan Jungle"],
-	["0,945,47.0,70.2"]=L["Vault of the Earth, Tanaan Jungle"],
-	["0,945,43.4,42.2"]=L["Malo's Lookout, Tanaan Jungle"],	
+	["1,945,60.4,46.4"]=L["Vol'mar, Tanaan Jungle"],
+	["2,945,26.1,38.9"]=L["Aktar's Post, Tanaan Jungle"],
+	["2,945,29.6,63.1"]=L["Sha'naari Refuge, Tanaan Jungle"],
+	["2,945,47.0,70.2"]=L["Vault of the Earth, Tanaan Jungle"],
+	["2,945,43.4,42.2"]=L["Malo's Lookout, Tanaan Jungle"],	
 }
 local NX_FLIGHT_LOC = { ["1"] = L["Alliance Flight"], ["2"] = L["Horde Flight"], ["0"] = L["Neutral Flight"], }
 Nx.NPCData={}
