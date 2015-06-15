@@ -397,8 +397,10 @@ L["Durotan's Grasp, Talador"] = true
 L["Frostwolf Overlook, Talador"] = true
 L["Vol'jin's Pride, Talador"] = true
 --Tanaan
-L["Aktar's Post, Tanaan Jungle"] = true
+L["Lion's Watch, Tanaan Jungle"] = true
 L["The Iron Front, Tanaan Jungle"] = true
+L["Vol'mar, Tanaan Jungle"] = true
+L["Aktar's Post, Tanaan Jungle"] = true
 L["Sha'naari Refuge, Tanaan Jungle"] = true
 L["Vault of the Earth, Tanaan Jungle"] = true
 L["Malo's Lookout, Tanaan Jungle"] = true

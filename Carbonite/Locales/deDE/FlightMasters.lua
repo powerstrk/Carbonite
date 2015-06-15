@@ -397,11 +397,13 @@ L["Durotan's Grasp, Talador"] = "Durotans Br\195\188ckenkopf, Talador"
 L["Frostwolf Overlook, Talador"] = "Frostwolfwarte, Talador"
 L["Vol'jin's Pride, Talador"] = "Vol'jins Stolz, Talador"
 --Tanaan
-L["Aktar's Post, Tanaan Jungle"] = true
-L["The Iron Front, Tanaan Jungle"] = true
-L["Sha'naari Refuge, Tanaan Jungle"] = true
-L["Vault of the Earth, Tanaan Jungle"] = true
-L["Malo's Lookout, Tanaan Jungle"] = true
+L["Lion's Watch, Tanaan Jungle"] = "L\195\182wenwacht, Tanaandschungel"
+L["The Iron Front, Tanaan Jungle"] = "Die Eiserne Front, Tanaandschungel"
+L["Vol'mar, Tanaan Jungle"] = "Vol'mar, Tanaandschungel" 
+L["Aktar's Post, Tanaan Jungle"] = "Aktars Posten, Tanaandschungel" 
+L["Sha'naari Refuge, Tanaan Jungle"] = "Die Scha'naarizuflucht, Tanaandschungel"
+L["Vault of the Earth, Tanaan Jungle"] = "Das Erdgew/195/182lbe, Tanaandschungel"
+L["Malo's Lookout, Tanaan Jungle"] = "Malos Ausblick, Tanaandschungel"
 -- Translation for Flight_LOC
 L["Alliance Flight"] = "Allianz Flugpunkt"
 L["Horde Flight"] = "Horde Flugpunkt"
