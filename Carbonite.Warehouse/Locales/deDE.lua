@@ -16,6 +16,7 @@ L["ItemTypes"] = {
 	"Munition",
 	"Quest",
 	"K\195\182cher",
+	"Zutat",
 	"Rezept",
 	"Handelsware",
 	"Waffe",
