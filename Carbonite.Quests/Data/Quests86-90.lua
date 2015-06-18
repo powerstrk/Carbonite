@@ -38257,7 +38257,7 @@ local ModQuests={
 	[34586] = {
 		Quest = [[Establish Your Garrison|1|90|90|0|0]],
 		Start = "3550|947|32|29.00|16.20",
-		End = "3550|971|32|32.00|31.40",
+		End = "3550|971|32|41.30|49.40",
 	},
 	[34587] = {
 		Quest = [[Build Your Barracks|1|90|90|0|0]],
