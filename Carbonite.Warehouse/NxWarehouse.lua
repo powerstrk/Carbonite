@@ -745,7 +745,7 @@ function CarboniteWarehouse:OnInitialize()
 		SizeDn = 14,
 		UpUV = { 0, 1, 0, .5 },
 	}
-	tinsert (Nx.BarData,{"MapWarehouse", L["-Warehouse-"], Nx.Warehouse.OnButToggleWarehouse, false })
+	tinsert (Nx.BarData,{"MapWarehouse", "-Warehouse-", Nx.Warehouse.OnButToggleWarehouse, false })
 	Nx.Map.Maps[1]:CreateToolBar()
 
 	local ttHooks = {
@@ -1580,7 +1580,7 @@ function Nx.Warehouse:Update()
 	list:Empty()
 
 	list:ItemAdd (99)
-	list:ItemSetButton (L["Warehouse"], false, "Interface\\Icons\\INV_Misc_GroupNeedMore")
+	list:ItemSetButton ("Warehouse", false, "Interface\\Icons\\INV_Misc_GroupNeedMore")
 	local allIndex = list:ItemGetNum()
 
 	local ware = Nx.wdb.profile.WarehouseData
@@ -1639,7 +1639,7 @@ function Nx.Warehouse:Update()
 			local hide = ch["WHHide"]
 
 			if self.ClassIcons[ch["Class"]] then
-				list:ItemSetButton (L["Warehouse"], hide, "Interface\\Icons\\" .. self.ClassIcons[ch["Class"]])
+				list:ItemSetButton ("Warehouse", hide, "Interface\\Icons\\" .. self.ClassIcons[ch["Class"]])
 			end
 
 			if not hide then
@@ -1834,7 +1834,7 @@ function Nx.Warehouse:UpdateGuild()
 			list:ItemSet(3,"|cffff0000---- " .. L["Tab"] .. " " .. tab .. " " .. L["not opened or scanned."])
 		else
 			list:ItemAdd(0)
-			list:ItemSetButton (L["Warehouse"], false, selectedguild["Tab" .. tab].Icon)
+			list:ItemSetButton ("Warehouse", false, selectedguild["Tab" .. tab].Icon)
 			list:ItemSet(3,selectedguild["Tab" .. tab].Name)
 			list:ItemAdd(0)
 			local dateStr = Nx.Util_GetTimeElapsedStr(time() - selectedguild["Tab" .. tab].ScanTime)
