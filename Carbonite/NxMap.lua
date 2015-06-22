@@ -7437,7 +7437,7 @@ end
 -- Add point icon to map data
 -- ret: icon
 
-function Nx.Map:AddIconPt (iconType, x, y, color, texture, tx1, ty1, tx2, ty2)
+function Nx.Map:AddIconPt (iconType, x, y, level, color, texture, tx1, ty1, tx2, ty2)
 	local d = self.Data
 
 	assert (d[iconType])
@@ -7450,6 +7450,7 @@ function Nx.Map:AddIconPt (iconType, x, y, color, texture, tx1, ty1, tx2, ty2)
 
 	icon.X = x
 	icon.Y = y
+	icon.Level = level
 	icon.Color = color
 	icon.Tex = texture
 	if tx1 and ty1 and tx2 and ty2 then
@@ -7477,7 +7478,9 @@ end
 function Nx.Map:GetIconPt (iconType, index)
 
 	local icon = self.Data[iconType][index]
-	return icon.X, icon.Y
+	if (icon.Level == Nx.Map.DungeonLevel) then
+		return icon.X, icon.Y
+	end	
 end
 
 --------
@@ -7570,32 +7573,31 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 
 				local scale = self.IconScale
 				local w = v.W * scale
-				local h = v.H * scale
-
+				local h = v.H * scale				
 				for n = 1, v.Num do
+					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+						local icon = v[n]
+						local f = self:GetIconStatic (v.Lvl)
 
-					local icon = v[n]
-					local f = self:GetIconStatic (v.Lvl)
+						if self:ClipFrameZ (f, icon.X, icon.Y, w, h, 0) then
+	
+							f.NxTip = icon.Tip
 
-					if self:ClipFrameZ (f, icon.X, icon.Y, w, h, 0) then
+	--						assert (icon.Tex or v.Tex or icon.Color)
 
-						f.NxTip = icon.Tip
-
---						assert (icon.Tex or v.Tex or icon.Color)
-
-						if icon.Tex then
-							f.texture:SetTexture (icon.Tex)
-							if icon.Color then
-								f.texture:SetVertexColor (c2rgb (icon.Color))
+							if icon.Tex then
+								f.texture:SetTexture (icon.Tex)
+								if icon.Color then
+									f.texture:SetVertexColor (c2rgb (icon.Color))
+								end
+							elseif v.Tex then
+								f.texture:SetTexture (v.Tex)
+							else
+								f.texture:SetTexture (c2rgb (icon.Color))
 							end
-						elseif v.Tex then
-							f.texture:SetTexture (v.Tex)
-
-						else
-							f.texture:SetTexture (c2rgb (icon.Color))
-						end
-						if icon.TX1 then
-							f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
+							if icon.TX1 then
+								f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
+							end
 						end
 					end
 				end
@@ -7619,101 +7621,92 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 					local aNear = v.AlphaNear * (abs (GetTime() % .7 - .35) / .7 + .5)	-- 50% to 100% pulse
 
 					for n = 1, v.Num do
-
-						local icon = v[n]
-						local f = self:GetIconStatic (v.Lvl)
-
-						if v.ClipFunc (self, f, icon.X, icon.Y, w, h, 0) then
-
-							f.NxTip = icon.Tip
-							f.NXType = 3000
-							f.NXData = icon
-
-							if icon.Tex then
-								f.texture:SetTexture (icon.Tex)
-								if icon.Color then
-									f.texture:SetVertexColor (c2rgb (icon.Color))
+						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+							local icon = v[n]
+							local f = self:GetIconStatic (v.Lvl)
+							if v.ClipFunc (self, f, icon.X, icon.Y, w, h, 0) then
+								f.NxTip = icon.Tip
+								f.NXType = 3000
+								f.NXData = icon
+								if icon.Tex then
+									f.texture:SetTexture (icon.Tex)
+									if icon.Color then
+										f.texture:SetVertexColor (c2rgb (icon.Color))
+									end
+								elseif v.Tex then
+									f.texture:SetTexture (v.Tex)
+								else
+									f.texture:SetTexture (c2rgb (icon.Color))
 								end
-							elseif v.Tex then
-								f.texture:SetTexture (v.Tex)
-
-							else
-								f.texture:SetTexture (c2rgb (icon.Color))
+								local a = v.Alpha
+								local dist = (icon.X - self.PlyrX) ^ 2 + (icon.Y - self.PlyrY) ^ 2
+								if dist < 306 then	-- 80 yards * 4.575 ^ 2
+									a = aNear
+	--								Nx.prt ("fade %s %s", dist ^ .5, a)
+								end
+								f.texture:SetVertexColor (1, 1, 1, a)
 							end
-
-							local a = v.Alpha
-
-							local dist = (icon.X - self.PlyrX) ^ 2 + (icon.Y - self.PlyrY) ^ 2
-							if dist < 306 then	-- 80 yards * 4.575 ^ 2
-								a = aNear
---								Nx.prt ("fade %s %s", dist ^ .5, a)
-							end
-
-							f.texture:SetVertexColor (1, 1, 1, a)
 						end
 					end
-
 				else
 					for n = 1, v.Num do
-						local icon = v[n]
-						local f = self:GetIconStatic(v.Lvl)
-						local actuallyIcon = false
-						if type(icon.Tex) == "table" then
-							actuallyIcon = true
-							f = icon.Tex
-						end
-						if v.ClipFunc (self, f, icon.X, icon.Y, w, h, 0) then
-							f.NxTip = icon.Tip
-							f.NXType = 3000
-							f.NXData = icon
-
-							if actuallyIcon then
-								f:SetFrameLevel(self.Level + (v.Lvl or 0))
-							elseif icon.Tex then
-								f.texture:SetTexture (icon.Tex)
-								if icon.Color then
-									f.texture:SetVertexColor (c2rgb (icon.Color))
+						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+							local icon = v[n]
+							local f = self:GetIconStatic(v.Lvl)
+							local actuallyIcon = false
+							if type(icon.Tex) == "table" then
+								actuallyIcon = true
+								f = icon.Tex
+							end
+							if v.ClipFunc (self, f, icon.X, icon.Y, w, h, 0) then
+								f.NxTip = icon.Tip
+								f.NXType = 3000
+								f.NXData = icon
+								if actuallyIcon then
+									f:SetFrameLevel(self.Level + (v.Lvl or 0))
+								elseif icon.Tex then
+									f.texture:SetTexture (icon.Tex)
+									if icon.Color then
+										f.texture:SetVertexColor (c2rgb (icon.Color))
+									end
+								elseif v.Tex then
+									f.texture:SetTexture (v.Tex)
+								else
+									f.texture:SetTexture (c2rgb (icon.Color))
 								end
-							elseif v.Tex then
-								f.texture:SetTexture (v.Tex)
-
-							else
-								f.texture:SetTexture (c2rgb (icon.Color))
-							end
-							if v.Alpha and not actuallyIcon then
-								f.texture:SetVertexColor (1, 1, 1, v.Alpha)
-							end
-							if icon.TX1 then
-								f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
+								if v.Alpha and not actuallyIcon then
+									f.texture:SetVertexColor (1, 1, 1, v.Alpha)
+								end
+								if icon.TX1 then
+									f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
+								end
 							end
 						end
 					end
 				end
-
 			elseif v.DrawMode == "ZR" then	-- Zone rectangle
-
 				local x, y, x2, y2
 --				local x0, y0, x2, y2 = self:GetWorldRect (self.MapId, 0, 0, 100, 100)
 
 				for n = 1, v.Num do
+					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then				
+						local icon = v[n]
+						local f = self:GetIconStatic (v.Lvl)
+--						Nx.prt ("ZR #%d %f %f %f %f", n, icon.X, icon.Y, icon.X2, icon.Y2)
 
-					local icon = v[n]
-					local f = self:GetIconStatic (v.Lvl)
+						f.NxTip = icon.Tip
 
---					Nx.prt ("ZR #%d %f %f %f %f", n, icon.X, icon.Y, icon.X2, icon.Y2)
+						x, y = self:GetWorldPos (icon.MapId, icon.X, icon.Y)
+						x2, y2 = self:GetWorldPos (icon.MapId, icon.X2, icon.Y2)
 
-					f.NxTip = icon.Tip
+	--					Nx.prt ("%f %f %f %f", x, y, x2, y2)
 
-					x, y = self:GetWorldPos (icon.MapId, icon.X, icon.Y)
-					x2, y2 = self:GetWorldPos (icon.MapId, icon.X2, icon.Y2)
-
---					Nx.prt ("%f %f %f %f", x, y, x2, y2)
-
-					if self:ClipFrameTL (f, x, y, x2-x, y2-y) then
-						if v.Texture then
-							f.texture:SetTexture (v.Tex)
-						else
-							f.texture:SetTexture (c2rgba (icon.Color))
+						if self:ClipFrameTL (f, x, y, x2-x, y2-y) then
+							if v.Texture then
+								f.texture:SetTexture (v.Tex)
+							else
+								f.texture:SetTexture (c2rgba (icon.Color))
+							end
 						end
 					end
 				end
@@ -8647,6 +8640,7 @@ end
 -- self: not used
 
 function Nx.Map:ConnectionUnpack (str)
+	-- File needs dungeon level updates
 	local flags, typ, nam1, z1, x1, y1, nam2, z2, x2, y2 = Nx.Split ("|",str)
 	if not nam1 then
 		nam1 = ""
@@ -8654,7 +8648,7 @@ function Nx.Map:ConnectionUnpack (str)
 	if not nam2 then
 		nam2 = ""
 	end
-	return tonumber(flags), tonumber(typ), nam1, tonumber(z1), tonumber(x1), tonumber(y1), nam2, tonumber(z2), tonumber(x2), tonumber(y2)
+	return tonumber(flags), tonumber(typ), nam1, tonumber(z1), tonumber(x1), tonumber(y1), 0, nam2, tonumber(z2), tonumber(x2), tonumber(y2), 0
 end
 
 --------
@@ -9636,18 +9630,18 @@ function Nx.MapInitIconType (iconType, drawMode)
 	map:InitIconType (iconType, drawMode)
 end
 
-function Nx.MapAddIconPoint (iconType, mapName, x, y, texture)
+function Nx.MapAddIconPoint (iconType, mapName, x, y, texture, level)
 
 	local map = Nx.Map:GetMap (1)
 	local mapId = Nx.MapNameToId[mapName]
 
 	if mapId then
 		local wx, wy = map:GetWorldPos (mapId, x, y)
-		map:AddIconPt (iconType, wx, wy, nil, texture)
+		map:AddIconPt (iconType, wx, wy, level, nil, texture)
 	end
 end
 
-function Nx.MapAddIcon (name, mapId, x, y, tip, texture, tx1, ty1, tx2, ty2)
+function Nx.MapAddIcon (name, mapId, x, y, level, tip, texture, tx1, ty1, tx2, ty2)
 	if not Nx.CustomIcons then
 		Nx.CustomIcons = {}
 	end
@@ -9659,6 +9653,7 @@ function Nx.MapAddIcon (name, mapId, x, y, tip, texture, tx1, ty1, tx2, ty2)
 	Nx.CustomIcons[mapId][name] = {}
 	Nx.CustomIcons[mapId][name].x = wx
 	Nx.CustomIcons[mapId][name].y = wy
+	Nx.CustomIcons[mapId][name].Level = level
 	Nx.CustomIcons[mapId][name].tip = tip
 	Nx.CustomIcons[mapId][name].texture = texture
 	if tx1 and ty1 and tx2 and ty2 then
@@ -9672,12 +9667,12 @@ function Nx.MapAddIcon (name, mapId, x, y, tip, texture, tx1, ty1, tx2, ty2)
 		return
 	end
 	if tx1 then
-		local icon = map:AddIconPt("!CUSTOM",wx, wy, "FF0000", texture, tx1, ty1, tx2, ty2)
+		local icon = map:AddIconPt("!CUSTOM",wx, wy, level, "FF0000", texture, tx1, ty1, tx2, ty2)
 		if tip then
 			map:SetIconTip(icon,tip)
 		end
 	else
-		local icon = map:AddIconPt("!CUSTOM",wx, wy, "FF0000", texture)
+		local icon = map:AddIconPt("!CUSTOM",wx, wy, level, "FF0000", texture)
 		if tip then
 			map:SetIconTip(icon,tip)
 		end

@@ -796,7 +796,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			["The Jade Forest"] = "Spell_Arcane_TeleportShattrath",
 		}
 		for i, str in ipairs (Nx.ZoneConnections) do
-			local flags, conTime, name1, mapId1, x1, y1, name2, mapId2, x2, y2 = Nx.Map:ConnectionUnpack (str)
+			local flags, conTime, name1, mapId1, x1, y1, level1, name2, mapId2, x2, y2, level2 = Nx.Map:ConnectionUnpack (str)
 			if conTime ~= 1 then
 				local fac = bit.band (flags, 6) / 2
 				local facStr = fac == 1 and "^FA" or fac == 2 and "^FH" or ""
@@ -1265,7 +1265,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 						local name, tex, skill = Nx:GetGather (typ, fid)
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
 						if level == Nx.Map.DungeonLevel then							
-							icon = map:AddIconPt (iconType, wx, wy, nil, "Interface\\Icons\\"..tex, level)
+							icon = map:AddIconPt (iconType, wx, wy, level, nil, "Interface\\Icons\\"..tex, level)
 							if skill > 0 then
 								if typ == "L" then
 									name = name .. "\nL" .. skill .. " " .. L["Lumbermill"]
@@ -1285,7 +1285,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 			local winfo = Map.MapWorldInfo[mapId]
 			local wx = winfo.X
 			local wy = winfo.Y
-			local icon = map:AddIconPt ("!GIn", wx, wy, nil, tx)
+			local icon = map:AddIconPt ("!GIn", wx, wy, 0, nil, tx)
 			map:SetIconTip (icon, folder.InstTip)
 			map:SetIconUserData (icon, folder.InstMapId)
 		elseif mode == 38 then
@@ -1371,10 +1371,10 @@ function Nx.Map.Guide:UpdateMapIcons()
 						if show or showComplete then
 							local qId = tonumber (strsub (qdata, 1, 4), 16)
 							local quest = Nx.Quests[qId]
-							local startName, zone, x, y = Quest:GetSEPos (quest["Start"])
+							local startName, zone, x, y, level = Quest:GetSEPos (quest["Start"])
 							local wx, wy = Map:GetWorldPos (mapId, x, y)
 							local tx = anyDaily and "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaimB" or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaim"
-							local icon = map:AddIconPt (show and "!GQ" or "!GQC", wx, wy, nil, tx)
+							local icon = map:AddIconPt (show and "!GQ" or "!GQC", wx, wy, level, nil, tx)
 							map:SetIconTip (icon, s)
 							icon.UDataQuestGiverD = qdata
 						end
@@ -1382,12 +1382,12 @@ function Nx.Map.Guide:UpdateMapIcons()
 				end
 			end
 		elseif mode == 40 then
-			local mapId, x, y = Nx.Split ("^", folder.VendorPos)
+			local mapId, x, y, level = Nx.Split ("^", folder.VendorPos)
 			mapId = tonumber (mapId)
 			x = tonumber (x)
 			y = tonumber (y)
 			local wx, wy = Map:GetWorldPos (mapId, x, y)
-			local icon = map:AddIconPt ("!G", wx, wy, nil, tx)
+			local icon = map:AddIconPt ("!G", wx, wy, level, nil, tx)
 			map:SetIconTip (icon, folder.Name)
 		elseif mode == 41 then
 			local vv = Nx.db.profile.VendorV.Vendors
@@ -1396,12 +1396,12 @@ function Nx.Map.Guide:UpdateMapIcons()
 				local npc = vv[npcName]
 				if npc then
 					local links = npc["POS"]
-					local mapId, x, y = Nx.Split ("^", links)
+					local mapId, x, y, level = Nx.Split ("^", links)
 					mapId = tonumber (mapId)
 					x = tonumber (x)
 					y = tonumber (y)
 					local wx, wy = Map:GetWorldPos (mapId, x, y)
-					local icon = map:AddIconPt ("!G", wx, wy, nil, tx)
+					local icon = map:AddIconPt ("!G", wx, wy, level, nil, tx)
 					local tag, name = Nx.Split ("~", npcName)
 					local iname = Nx.Split ("\n", folder.Name)
 					map:SetIconTip (icon, format ("%s\n%s\n%s", name, tag, iname))
@@ -1409,12 +1409,12 @@ function Nx.Map.Guide:UpdateMapIcons()
 			end
 		elseif mode == 42 then
 			local conStr = Nx.ZoneConnections[folder.ConIndex]
-			local flags, conTime, name1, mapId1, x1, y1, name2, mapId2, x2, y2 = Nx.Map:ConnectionUnpack (conStr)
+			local flags, conTime, name1, mapId1, x1, y1, level1, name2, mapId2, x2, y2, level2 = Nx.Map:ConnectionUnpack (conStr)
 			if folder.Con2 then
-				mapId1, x1, y1, name1 = mapId2, x2, y2, name2
+				mapId1, x1, y1, name1, level1 = mapId2, x2, y2, name2, level2
 			end
 			local wx, wy = Map:GetWorldPos (mapId1, x1, y1)
-			local icon = map:AddIconPt ("!G", wx, wy, nil, tx)
+			local icon = map:AddIconPt ("!G", wx, wy, level1, nil, tx)
 			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, GetMapNameByID(mapId1), x1, y1))
 		else
 			for cont = cont1, cont2 do
@@ -1445,7 +1445,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 				if not npcStr then
 					Nx.prt ("%s", name)
 				end
-				local fac,name,locName,zone,x,y = Nx.Split("|",npcStr)
+				local fac,name,locName,zone,x,y,level = Nx.Split("|",npcStr)
 				fac,zone,x,y = tonumber(fac),tonumber(zone),tonumber(x),tonumber(y)
 				if fac ~= hideFac then
 					local mapId = zone
@@ -1457,7 +1457,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 					elseif not showMapId or mapId == showMapId then
 						local mapName = GetMapNameByID(mapId)
 						local wx, wy = map:GetWorldPos (mapId, x, y)
-						local icon = map:AddIconPt (iconType, wx, wy, nil, tx)
+						local icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
 						local str = format ("%s\n%s\n%s %.1f %.1f", name, locName:gsub("\239\188\140.*$",""), mapName, x, y)
 						map:SetIconTip (icon, str)
 					end
@@ -1472,14 +1472,14 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 						if not showMapid or mapId == showMapId then
 							local temp_arr = { Nx.Split("|",b) }
 							for c,d in pairs(temp_arr) do
-								local fac,x,y = Nx.Split(",",d)
+								local fac,x,y,level = Nx.Split(",",d)
 								fac,x,y = tonumber(fac), tonumber(x), tonumber(y)
 								if fac ~= hideFac then
 									if mapId == 748 then
 										Nx.prt(showType)
 									end
 									local wx, wy = map:GetWorldPos(mapId, x, y)
-									local icon = map:AddIconPt (iconType, wx, wy, nil, tx)
+									local icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
 									if not GetMapNameByID(mapId) then
 										Nx.prt("Guide Icon Err: " .. mapId)
 									end
@@ -1570,7 +1570,7 @@ function Nx.Map.Guide:UpdateInstanceIcons (cont)
 			if winfo and winfo.EntryMId == map.MapId then
 				local wx = winfo.X
 				local wy = winfo.Y
-				local icon = map:AddIconPt ("!POIIn", wx, wy, nil, "Interface\\Icons\\INV_Misc_ShadowEgg")
+				local icon = map:AddIconPt ("!POIIn", wx, wy, level, nil, "Interface\\Icons\\INV_Misc_ShadowEgg")
 				map:SetIconTip (icon, folder.InstTip)
 				map:SetIconUserData (icon, folder.InstMapId)
 			end
@@ -1594,12 +1594,12 @@ function Nx.Map.Guide:UpdateCustomIcons()
 		for c,d in pairs(b) do
 		end
 		if b.tx1 then
-			local icon = map:AddIconPt("!CUSTOM",b.x, b.y, nil, b.texture, b.tx1, b.ty1, b.tx2, b.ty2)
+			local icon = map:AddIconPt("!CUSTOM",b.x, b.y, b.Level, nil, b.texture, b.tx1, b.ty1, b.tx2, b.ty2)
 			if b.tip then
 				map:SetIconTip(icon,b.tip)
 			end
 		else
-			local icon = map:AddIconPt("!CUSTOM",b.x, b.y, nil, b.texture)
+			local icon = map:AddIconPt("!CUSTOM",b.x, b.y, b.Level, nil, b.texture)
 			if b.tip then
 				map:SetIconTip(icon,b.tip)
 			end
@@ -1615,12 +1615,12 @@ function Nx.Map.Guide:UpdateTravelIcons (hideFac)
 	for showType, folder in ipairs (folder) do
 		if folder.MapId == mapId and folder.Fac ~= hideFac then
 			local conStr = Nx.ZoneConnections[folder.ConIndex]
-			local flags, conTime, name1, mapId1, x1, y1, name2, mapId2, x2, y2 = Nx.Map:ConnectionUnpack (conStr)
+			local flags, conTime, name1, mapId1, x1, y1, level1, name2, mapId2, x2, y2, level2 = Nx.Map:ConnectionUnpack (conStr)
 			if folder.Con2 then
-				mapId1, x1, y1, name1 = mapId2, x2, y2, name2
+				mapId1, x1, y1, name1, level1 = mapId2, x2, y2, name2, level2
 			end
 			local wx, wy = Map:GetWorldPos (mapId1, x1, y1)
-			local icon = map:AddIconPt ("!POI", wx, wy, nil, "Interface\\Icons\\" .. (folder.Tx or "INV_Misc_Note_02"))
+			local icon = map:AddIconPt ("!POI", wx, wy, level1, nil, "Interface\\Icons\\" .. (folder.Tx or "INV_Misc_Note_02"))
 			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, GetMapNameByID(mapId1), x1, y1))
 		end
 	end
@@ -1630,10 +1630,10 @@ function Nx.Map.Guide:UpdateTravelIcons (hideFac)
 			for id, zcon in pairs (winfo.Connections) do
 				for n, con in ipairs (zcon) do
 					local wx, wy = con.StartX, con.StartY
-					local icon = map:AddIconPt ("!POI", wx, wy, nil, "Interface\\Icons\\Spell_Nature_FarSight")
+					local icon = map:AddIconPt ("!POI", wx, wy, 0, nil, "Interface\\Icons\\Spell_Nature_FarSight")
 					map:SetIconTip (icon, L["Connection to"] .. " " .. Nx.MapIdToName[con.EndMapId])
 					local wx, wy = con.EndX, con.EndY
-					local icon = map:AddIconPt ("!POI", wx, wy, nil, "Interface\\Icons\\Spell_Nature_FarSight")
+					local icon = map:AddIconPt ("!POI", wx, wy, 0, nil, "Interface\\Icons\\Spell_Nature_FarSight")
 				end
 			end
 		end
@@ -1790,9 +1790,9 @@ function Nx.Map.Guide:FindClosest (findType)
 			elseif mode == 42 then
 
 			local conStr = Nx.ZoneConnections[folder.ConIndex]
-			local flags, conTime, name1, mapId1, x1, y1, name2, mapId2, x2, y2 = Nx.Map:ConnectionUnpack (conStr)
+			local flags, conTime, name1, mapId1, x1, y1, level1, name2, mapId2, x2, y2, level2 = Nx.Map:ConnectionUnpack (conStr)
 			if folder.Con2 then
-				mapId1, x1, y1, name1, mapId2, x2, y2, name2 = mapId2, x2, y2, name2, mapId1, x1, y1, name1
+				mapId1, x1, y1, name1, level1, mapId2, x2, y2, name2, level2 = mapId2, x2, y2, name2, level2, mapId1, x1, y1, name1, level1
 			end
 			local wx, wy = Map:GetWorldPos (mapId1, x1, y1)
 			local wx2, wy2 = Map:GetWorldPos (mapId2, x2, y2)

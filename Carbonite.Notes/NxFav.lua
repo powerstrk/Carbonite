@@ -623,8 +623,8 @@ function Nx.Notes:SetIconAccept (name, sel)
 		flags = strbyte (flags) - 35
 
 		if typ == "N" then
-			local icon, id, x, y = self:ParseItemNote (data)
-			fav[index] = self:CreateItem ("N", flags, name, sel, id, x, y)
+			local icon, id, x, y, level = self:ParseItemNote (data)
+			fav[index] = self:CreateItem ("N", flags, name, sel, id, x, y, level)
 
 			self:Update()
 		end
@@ -875,7 +875,7 @@ function Nx.Notes:UpdateItems (selectI)
 						for a,b in pairs (addonNotes[self.CurFav]["notes"]) do
 							local name, data = a,b
 							list:ItemAdd(item)
-							local icon, id, x, y = self:ParseItemNote (data)
+							local icon, id, x, y, level = self:ParseItemNote (data)
 							icon = self:GetIconInline (icon)
 							id = GetMapNameByID(id) or "?"
 							list:ItemSet (2, "Note:")
@@ -898,7 +898,7 @@ function Nx.Notes:UpdateItems (selectI)
 
 				elseif typ == "N" then			-- Note
 
-					local icon, id, x, y = self:ParseItemNote (data)
+					local icon, id, x, y, level = self:ParseItemNote (data)
 					icon = self:GetIconInline (icon)
 					local newid = GetMapNameByID(id) or "?"
 					list:ItemSet (2, L["Note"] .. ":")
@@ -1101,7 +1101,7 @@ function Nx.Notes:AddItem (fav, index, item)
 	end
 end
 
-function Nx.Notes:CreateItem (typ, flags, name, p1, p2, p3, p4)
+function Nx.Notes:CreateItem (typ, flags, name, p1, p2, p3, p4, p5)
 
 	flags = flags + 35
 
@@ -1112,10 +1112,9 @@ function Nx.Notes:CreateItem (typ, flags, name, p1, p2, p3, p4)
 		return format ("~%c~%s", flags, name)
 
 	elseif typ == "N" then	-- Note
-		return format ("N~%c~%s~%s|%s|%s|%s", flags, name, p1, p2, p3,p4)
-	elseif typ == "T" or typ == "t" then	-- Target
-		Nx.prt(p1)
-		return format ("%s~%c~%s~%s|%s|%s", typ, flags, name, p1, p2, p3)
+		return format ("N~%c~%s~%s|%s|%s|%s|%s", flags, name, p1, p2, p3,p4, p5)
+	elseif typ == "T" or typ == "t" then	-- Target		
+		return format ("%s~%c~%s~%s|%s|%s|%s", typ, flags, name, p1, p2, p3, p5)
 	end
 end
 
@@ -1209,7 +1208,7 @@ end
 
 ---------------------------------------------------------------------------------------
 
-function Nx.Notes:Record (typ, name, id, x, y)
+function Nx.Notes:Record (typ, name, id, x, y, level)
 	if self.InUpdateTarget then
 		return
 	end
@@ -1219,12 +1218,12 @@ function Nx.Notes:Record (typ, name, id, x, y)
 	self.RecId = id
 	self.RecX = x
 	self.RecY = y
-
+	self.RecL = level
 	if typ == "Note" then
 
 		local function func (name, self)
 			local fav = self.Recording or self:GetNoteFav (self.RecId)
-			local s = self:CreateItem ("N", 0, name, 1, self.RecId, self.RecX, self.RecY)
+			local s = self:CreateItem ("N", 0, name, 1, self.RecId, self.RecX, self.RecY, self.RecL)
 			self:AddItem (fav, self.CurItemI, s)
 			self:Update()
 		end
@@ -1235,7 +1234,7 @@ function Nx.Notes:Record (typ, name, id, x, y)
 
 		local fav = self.Recording
 		if fav then
-			local s = self:CreateItem ("T", 0, name, self.RecId, self.RecX, self.RecY)
+			local s = self:CreateItem ("T", 0, name, self.RecId, self.RecX, self.RecY, self.RecL)
 			self:AddItem (fav, self.CurItemI, s)
 			self:Update()
 		end
@@ -1244,7 +1243,7 @@ function Nx.Notes:Record (typ, name, id, x, y)
 
 		local fav = self.Recording
 		if fav then
-			local s = self:CreateItem ("t", 0, name, self.RecId, self.RecX, self.RecY)
+			local s = self:CreateItem ("t", 0, name, self.RecId, self.RecX, self.RecY, self.RecL)
 			self:AddItem (fav, self.CurItemI, s)
 			self:Update()
 		end
@@ -1316,14 +1315,15 @@ function Nx.Notes:SetNoteAtStr (str)
 
 	local mId = map.RMapId
 	local zx, zy = map.PlyrRZX, map.PlyrRZY
-
+	local level = map.DungeonLevel
+	
 	if #words > 1 then
 		mId, zx, zy = map:ParseTargetStr (table.concat (words, " ", 2))
 	end
 
 	if mId then
 		local fav = self.Recording or self:GetNoteFav (mId)
-		local s = self:CreateItem ("N", 0, words[1] or "", 1, mId, zx, zy)
+		local s = self:CreateItem ("N", 0, words[1] or "", 1, mId, zx, zy, level)
 		self:AddItem (fav, nil, s)
 		self:Update()
 	end
@@ -1425,11 +1425,11 @@ function Nx.Notes:UpdateIcons()
 
 		if typ == "N" then
 
-			local icon, mapId, x, y = self:ParseItemNote (data)
+			local icon, mapId, x, y, level = self:ParseItemNote (data)
 			icon = self:GetIconFile (icon)
 			local wx, wy = Map:GetWorldPos (mapId, x, y)
 
-			local icon = map:AddIconPt ("!Fav2", wx, wy, nil, icon)
+			local icon = map:AddIconPt ("!Fav2", wx, wy, level, nil, icon)
 			map:SetIconTip (icon, L["Note"] .. ": " .. name)
 			map:SetIconFavData (icon, self.CurFav, self.CurItemI)
 
@@ -1473,11 +1473,11 @@ function Nx.Notes:UpdateIcons()
 					local typ, flags, name, data = self:ParseItem (str)
 
 					if typ == "N" then
-						local icon, _, x, y = self:ParseItemNote (data)
+						local icon, _, x, y, level = self:ParseItemNote (data)
 						icon = self:GetIconFile (icon)
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
 
-						local icon = map:AddIconPt ("!Fav", wx, wy, nil, icon)
+						local icon = map:AddIconPt ("!Fav", wx, wy, level, nil, icon)
 						map:SetIconTip (icon, L["Note"] .. ": " .. name)
 						map:SetIconFavData (icon, fav, n)
 					end
@@ -1487,11 +1487,11 @@ function Nx.Notes:UpdateIcons()
 		for a,b in pairs(addonNotes) do
 			if a ~= "Hide" then
 				for c,d in pairs(addonNotes[a]["notes"]) do
-					local icon, zoneid, x, y = self:ParseItemNote(d)
+					local icon, zoneid, x, y, level = self:ParseItemNote(d)
 					if zoneid == mapId then
 						icon = self:GetIconFile (icon)
 						local wx, wy = Map:GetWorldPos(mapId,x,y)
-						local icon = map:AddIconPt("!Fav", wx, wy, nil, icon)
+						local icon = map:AddIconPt("!Fav", wx, wy, level, nil, icon)
 						map:SetIconTip(icon, L["Note"] .. ": " .. c)
 						map:SetIconFavData(icon, fav, d)
 					end
@@ -1531,7 +1531,7 @@ function Nx.Notes:HandyNotes(mapId)
 				local tooltip = ""
 				local tooltipName	
 				tooltipName = "WorldMapTooltip"
-				local handynote = map:AddIconPt("!HANDY",wx, wy, "FFFFFF", texture)										
+				local handynote = map:AddIconPt("!HANDY",wx, wy, level2, "FFFFFF", texture)										
 				for i = 1,10 do
 					local text = _G[tooltipName .. "TextLeft" .. i]
 					if text and text:IsShown() then
@@ -1571,11 +1571,12 @@ function Nx.Notes:Menu_OnAddNote()
 	local mId = map.RMapId
 	local wx, wy = self:FramePosToWorldPos (self.ClickFrmX, self.ClickFrmY)
 	local zx, zy = self:GetZonePos (mId, wx, wy)
-	Nx.Notes:AddNote ("?", mId, zx, zy)
+	local level = map.DungeonLevel
+	Nx.Notes:AddNote ("?", mId, zx, zy, level)
 end
 
-function Nx.Notes:AddNote (name, id, x, y)
-		Nx.Notes:Record ("Note", name, id, x, y)
+function Nx.Notes:AddNote (name, id, x, y, level)
+		Nx.Notes:Record ("Note", name, id, x, y, level)
 end
 
 function Nx.Notes:AddonNote(folder,name,icon,id,x,y)
