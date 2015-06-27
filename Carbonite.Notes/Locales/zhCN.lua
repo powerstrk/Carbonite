@@ -37,9 +37,9 @@ L["Note Addons"] = "标记插件"
 L["My Notes"] = "我的标记"
 
 L["Reset old notes data"] = "重置旧标记数据"
-L["Display Handynotes On Map"] = true
-L["If you have HandyNotes installed, allows them on the Carbonite map"] = true
-L["Handnotes Icon Size"] = true
+L["Display Handynotes On Map"] = "地图上显示Handynotes"
+L["If you have HandyNotes installed, allows them on the Carbonite map"] = "允许Handynotes图标显示在Carbonite地图上"
+L["Handnotes Icon Size"] = "Handynotes图标大小"
 
 -- Keybinds
 L["Carbonite Notes"] = "Carbonite 标记模块"
