@@ -4710,6 +4710,7 @@ local ModQuests={
   },
   [27793] = {
 	Quest = [[Ancient Protectors|1|46|44|27912|0]],
+	Start = "47760|17|32|49.20|37.00",
 	Objectives = {
 	  [1] = {
 		 "nil|17|35|50|52|5.01|10.02",
