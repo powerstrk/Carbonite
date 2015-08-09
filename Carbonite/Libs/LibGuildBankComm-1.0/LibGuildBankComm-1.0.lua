@@ -150,9 +150,8 @@ lib:RegisterComm("LGBC")
 function lib.eventFrame:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	waitingForReply = true
-	if IsInGuild() then
-		lib:SendCommMessage("LGBC", "ANNOUNCE ", "GUILD", nil, "BULK") --Hey, I need fresh data!
-	end
+	lib:SendCommMessage("LGBC", "ANNOUNCE ", "GUILD", nil, "BULK") --Hey, I need fresh data!
+	
 	--register the guild events now, since they fire so often before this event
 	self:RegisterEvent("PLAYER_GUILD_UPDATE")
 	self:RegisterEvent("GUILDBANK_UPDATE_WITHDRAWMONEY")
