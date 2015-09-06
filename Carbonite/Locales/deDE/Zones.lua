@@ -206,7 +206,7 @@ L["Stratholme"] = "Stratholme"
 L["Sunstrider Isle"] = "Insel der Sonnenwanderer"
 L["Sunwell Plateau"] = "Sonnenbrunnenplateau"
 L["Swamp of Sorrows"] = "S\195\188mpfe des Elends"
-L["Talador"] = "Talandor"
+L["Talador"] = "Talador"
 L["Tanaan Jungle"] = "Tanaandschungel"
 L["Tanaris"] = "Tanaris"
 L["Tarren Mill vs Southshore"] = "Tarrens M\195\188hle vs S\195\188derstade"	-- http://de.wowhead.com/zone=7107 failure on wowhead
