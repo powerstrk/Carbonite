@@ -1,6 +1,6 @@
 ## Interface: 60200
-## Title: Carbonite Warehouse 6.2.0
-## Version: 6.2.0
+## Title: Carbonite Warehouse 6.2.1
+## Version: 6.2.1
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

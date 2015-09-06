@@ -153,3 +153,6 @@ L["Delete Item"] = "Gegenstand l\195\182schen"
 L["Delete"] = "L\195\182schen"
 L["Yes"] = "Ja"
 L["No"] = "Nein"
+
+L["Show coin count in warehouse list"] = true
+L["Restores the coin totals after character names in warehouse listing"] = true

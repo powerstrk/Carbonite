@@ -279,7 +279,7 @@ local function mapConfig ()
 							order = 2,
 							type = "toggle",
 							width = "full",
-							name = L["Enable Compatability Mode"],
+							name = L["Enable Combat Compatability Mode"],
 							desc = L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."],
 							get = function()
 								return Nx.db.profile.Map.Compatability
@@ -288,8 +288,26 @@ local function mapConfig ()
 								Nx.db.profile.Map.Compatability = not Nx.db.profile.Map.Compatability
 							end,
 						},
-						hidecombat = {
+						takecontrol = {
 							order = 3,
+							type = "toggle",
+							width = "full",
+							name = L["Take Map Function Control"],
+							desc = L["When enabled Carbonite takes control of 2 blizzard map functions to help prevent map flickers, and unneccsary lag causing calls to change the map."],
+							get = function()
+								return Nx.db.profile.Map.TakeFunctions
+							end,
+							set = function()
+								Nx.db.profile.Map.TakeFunctions = not Nx.db.profile.Map.TakeFunctions
+								if Nx.db.profile.Map.TakeFunctions then
+									Nx.carbTakeMapFunctions(true)
+								else
+									Nx.carbTakeMapFunctions()
+								end
+							end,
+						},
+						hidecombat = {
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Hide Map In Combat"],
@@ -302,7 +320,7 @@ local function mapConfig ()
 							end,
 						},
 						centerMap = {
-							order = 4,
+							order = 5,
 							type = "toggle",
 							width = "full",
 							name = L["Center map when maximizing"] .. "\n",
@@ -315,7 +333,7 @@ local function mapConfig ()
 							end,
 						},
 						mouseIgnore = {
-							order = 5,
+							order = 6,
 							type = "toggle",
 							width = "full",
 							name = L["Ignore mouse on map except when ALT is pressed"] .. "\n",
@@ -328,7 +346,7 @@ local function mapConfig ()
 							end,
 						},
 						maxMouseIgnore = {
-							order = 6,
+							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Ignore mouse on full-sized map except when ALT is pressed"] .. "\n",
