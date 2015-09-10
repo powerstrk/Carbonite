@@ -26,7 +26,7 @@ Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
 Nx.VERMAJOR			= 6.2
-Nx.VERMINOR			= .0				-- Not 0 is a test version
+Nx.VERMINOR			= .1				-- Not 0 is a test version
 Nx.BUILD			= 118
 
 Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
@@ -363,7 +363,7 @@ local defaults = {
 			But4 = L["Show Selected Zone"],
 			But4Alt = L["Add Note"],
 			But4Ctrl = L["None"],
-			Compatability = false,
+			Compatability = false,			
 			DetailSize = 6,
 			IconPOIAlpha = 1,
 			IconGatherA = 0.7,
@@ -391,6 +391,7 @@ local defaults = {
 			ShowTitle2 = false,
 			ShowToolBar = true,
 			ShowTrail = true,
+			TakeFunctions = false,
 			TrailCnt = 100,
 			TrailDist = 2,
 			TrailTime = 90,
@@ -3730,24 +3731,27 @@ function Nx.Split(d, p)
 	if p and not string.find(p,d) then
 		return p
 	end
+	if not p then
+		return nil
+	end
 	if p and #p <= 1 then return p end
 	if TempTable[p] then
 		return unpack(TempTable[p],1,table.maxn(TempTable[p]))
 	else
-	local TempNum = 0
-	local Tossaway = {}
-	while true do
-		l=string.find(p,d,TempNum,true)
-		if l~=nil then
-			table.insert(Tossaway, string.sub(p,TempNum,l-1))
-			TempNum=l+1
-		else
-			table.insert(Tossaway, string.sub(p,TempNum))
-			break
+		local TempNum = 0
+		local Tossaway = {}
+		while true do
+			l=string.find(p,d,TempNum,true)
+			if l~=nil then
+				table.insert(Tossaway, string.sub(p,TempNum,l-1))
+				TempNum=l+1
+			else
+				table.insert(Tossaway, string.sub(p,TempNum))
+				break
+			end
 		end
-	end
-	TempTable[p] = Tossaway
-	return unpack(Tossaway)
+		TempTable[p] = Tossaway
+		return unpack(Tossaway)
 	end
 end
 

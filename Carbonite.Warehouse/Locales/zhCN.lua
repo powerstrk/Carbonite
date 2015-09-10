@@ -149,3 +149,7 @@ L["Delete Item"] = "删除列表上的物品"
 L["Delete"] = "删除"
 L["Yes"] = "是"
 L["No"] = "否"
+
+L["Show coin count in warehouse list"] = true
+L["Restores the coin totals after character names in warehouse listing"] = true
+
