@@ -154,5 +154,5 @@ L["Delete"] = "L\195\182schen"
 L["Yes"] = "Ja"
 L["No"] = "Nein"
 
-L["Show coin count in warehouse list"] = true
-L["Restores the coin totals after character names in warehouse listing"] = true
+L["Show coin count in warehouse list"] = "Zeige Goldbestand in der Lagerliste an"
+L["Restores the coin totals after character names in warehouse listing"] = "Zeigt den Goldbestand hinter den Charackternamen in der Lager\195\188bersicht wieder an"
