@@ -1799,7 +1799,7 @@ function Nx.Warehouse:Update()
 	end
 	local money = Nx.Util_GetMoneyStr (totalMoney)
 	if Nx.wdb.profile.Warehouse.ShowGold then
-		list:ItemSet (2, format ("|cffafdfaf %s" .. L["All Characters"]), allIndex, money)
+		list:ItemSet (2, format ("|cffafdfaf %s" .. L["All Characters"],money), allIndex)
 	else
 		list:ItemSet (2, format ("|cffafdfaf" .. L["All Characters"]), allIndex)
 	end
