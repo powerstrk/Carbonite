@@ -4212,8 +4212,7 @@ function Nx.Quest:RecordQuestAcceptOrFinish()
 	self.AcceptGiver = giver
 
 	local qname = GetTitleText()		-- Also works for auto accept
-	self.AcceptQName = qname
-
+	self.AcceptQName = qname	
 	local id = Nx.Map:GetRealMapId()
 	self.AcceptAId = id or 0
 	self.AcceptDLvl = 0
@@ -6440,18 +6439,18 @@ end
 -- On quest updates
 -------------------------------------------------------------------------------
 
-function Nx.Quest.List:OnQuestUpdate (event)
+function Nx.Quest.List:OnQuestUpdate (event, ...)
 --QD		Nx.prt ("OnQuestUpdate %s", event)
 	local Quest = Nx.Quest
-
+	local arg1, arg2, arg3 = select (1, ...)
+	
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
 	elseif event == "WORLD_MAP_UPDATE" then
 		Nx.Quest:MapChanged()
 	elseif event == "QUEST_PROGRESS" then
-
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
-
+		
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
@@ -6462,27 +6461,30 @@ function Nx.Quest.List:OnQuestUpdate (event)
 		end
 
 		return
-
 	elseif event == "QUEST_COMPLETE" then
-
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
-
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
-
 		if auto then
 			if GetNumQuestChoices() == 0 then
 				GetQuestReward()
 --				Nx.prt ("Auto turn in choice")
 			end
 		end
-
 		return
-	elseif event == "QUEST_ACCEPTED" then
+	elseif event == "QUEST_ACCEPTED" then		
 		if QuestGetAutoAccept() then
 			QuestFrameDetailPanel:Hide();
 			CloseQuest();
+		end
+		if arg1 and Nx.qdb.profile.QuestWatch.AddNew then
+			local qId = Nx.Quest:GetQuestID (arg1)			
+			local qStatus = Nx.Quest:GetQuest (qId)
+			if Nx.Quest:IsDaily(qId) then
+				Nx.Quest:SetQuest (qId, "W")
+				Quest:PartyStartSend()
+			end			
 		end
 	elseif event == "QUEST_DETAIL" then		-- Happens when auto accept quest is given
 
@@ -10945,5 +10947,9 @@ function Nx.Quest:SetQuest (qId, qStatus, qTime)
 	Nx.Quest.CurCharacter.Q[qId] = qStatus .. qTime
 end
 
+function Nx.Quest:GetQuestID (loc)
+	local _, _, _, _, _, _, _, questId, _, _, _, _, _, _ = GetQuestLogTitle(loc)
+	return questId
+end
 -------------------------------------------------------------------------------
 -- EOF

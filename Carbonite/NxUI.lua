@@ -2876,7 +2876,7 @@ function Nx.Window:OnEvent (event, ...)
 --	Nx.prt ("Win Event %s %s", win.Name, event)
 
 	if win.Events and win.Events[event] then
-		win.Events[event] (win.User, event)
+		win.Events[event] (win.User, event, ...)
 	end
 end
 
