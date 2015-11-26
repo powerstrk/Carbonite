@@ -81,6 +81,7 @@ L["Tiger Lily"] = "참나리"
 L["Twilight Jasmine"] = "황혼의 말리꽃"
 L["Whiptail"] = "채찍꼬리"
 L["Wild Steelbloom"] = "야생 철쭉"
+L["Withered Herb"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "아다만타이트 광맥"
