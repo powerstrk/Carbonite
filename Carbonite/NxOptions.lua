@@ -1233,7 +1233,7 @@ local function mapConfig ()
 							name = L["Minimap Dock X-Offset"],
 							desc = L["Sets the X - offset the minimap draws while docked"],
 							min = 0,
-							max = 200,
+							max = 2000,
 							step = 1,
 							bigStep = 1,
 							get = function()
@@ -1249,7 +1249,7 @@ local function mapConfig ()
 							name = L["Minimap Dock Y-Offset"],
 							desc = L["Sets the Y - offset the minimap draws while docked"],
 							min = 0,
-							max = 200,
+							max = 2000,
 							step = 1,
 							bigStep = 1,
 							get = function()
