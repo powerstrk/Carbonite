@@ -1232,10 +1232,10 @@ local function mapConfig ()
 							type = "range",
 							name = L["Minimap Dock X-Offset"],
 							desc = L["Sets the X - offset the minimap draws while docked"],
-							min = 0,
+							min = -2000,
 							max = 2000,
 							step = 1,
-							bigStep = 1,
+							bigStep = 25,
 							get = function()
 								return Nx.db.profile.MiniMap.DXO
 							end,
@@ -1248,10 +1248,10 @@ local function mapConfig ()
 							type = "range",
 							name = L["Minimap Dock Y-Offset"],
 							desc = L["Sets the Y - offset the minimap draws while docked"],
-							min = 0,
+							min = -2000,
 							max = 2000,
 							step = 1,
-							bigStep = 1,
+							bigStep = 25,
 							get = function()
 								return Nx.db.profile.MiniMap.DYO
 							end,
