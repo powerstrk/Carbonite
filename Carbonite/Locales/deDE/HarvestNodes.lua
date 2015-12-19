@@ -81,7 +81,7 @@ L["Tiger Lily"] = "Tigerlilie"
 L["Twilight Jasmine"] = "Schattenjasmin"
 L["Whiptail"] = "Gertenrohr"
 L["Wild Steelbloom"] = "Wildstahlblume"
-L["Withered Herb"] = true
+L["Withered Herb"] = "Verwelktes Kraut"
 
 -- Mines
 L["Adamantite Deposit"] = "Adamantitvorkommen"
