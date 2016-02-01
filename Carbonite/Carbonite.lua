@@ -303,6 +303,7 @@ local defaults = {
 				[67] = true,
 				[68] = true,
 				[69] = true,
+				[70] = true,
 			},
 			ShowTimber = {
 				[1] = true,
@@ -3007,6 +3008,7 @@ Nx.GatherInfo = {
 		{ 600, "inv_misc_herb_arrowbloom",L["Nagrand Arrowbloom"]},
 		{ 600, "inv_misc_herb_taladororchid",L["Talador Orchid"]},
 		{ 600, "inv_misc_herb_fireweed",L["Fireweed"]},
+		{ 600, "inv_farm_pumpkinseed_yellow",L["Withered Herb"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"INV_Ore_Adamantium", L["Adamantite Deposit"]},
@@ -3380,6 +3382,7 @@ function Nx:GatherNodeToCarb (id)
 		[472] = 65,
 		[473] = 69,
 		[474] = 64,
+		[475] = 70,
 	}
 	return gatherIDs[id]
 end

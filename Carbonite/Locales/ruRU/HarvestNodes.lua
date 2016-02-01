@@ -81,6 +81,7 @@ L["Tiger Lily"] = "Тигровая лилия"
 L["Twilight Jasmine"] = "Сумеречный жасмин"
 L["Whiptail"] = "Хлыстохвост"
 L["Wild Steelbloom"] = "Дикий сталецвет"
+L["Withered Herb"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "Залежи адамантита"

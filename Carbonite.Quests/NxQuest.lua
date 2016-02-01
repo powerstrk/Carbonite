@@ -2755,6 +2755,9 @@ function Nx.Quest:Init()
 			end
 		else
 			if self.IsOpen then
+				self.IsOpen = QuestMapFrame:IsShown()
+			end
+			if self.IsOpen then
 				HideUIPanel(QuestMapFrame)
 			else
 				ShowUIPanel(QuestMapFrame)
@@ -5651,7 +5654,7 @@ function Nx.Quest:HideUIPanel (frame)
 		end
 		self:RestoreExpandQuests()		-- Hide window first, then restore
 		self.LHAttached = nil
-	end
+	end	
 end
 
 function Nx.Quest:LightHeadedAttach (frm, attach, onlyLevels)

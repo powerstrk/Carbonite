@@ -3468,6 +3468,9 @@ end
 function Nx.Warehouse:RecordCharacter()
 	local ch = self.CurCharacter
 	local map = Nx.Map:GetMap (1)
+	if not ch or not map then
+		return
+	end
 	if map.UpdateMapID then
 		ch["Pos"] = format ("%d^%f^%f", map.UpdateMapID, map.PlyrRZX, map.PlyrRZY)
 	end

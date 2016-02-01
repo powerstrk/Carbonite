@@ -1232,10 +1232,10 @@ local function mapConfig ()
 							type = "range",
 							name = L["Minimap Dock X-Offset"],
 							desc = L["Sets the X - offset the minimap draws while docked"],
-							min = 0,
-							max = 200,
+							min = -2000,
+							max = 2000,
 							step = 1,
-							bigStep = 1,
+							bigStep = 25,
 							get = function()
 								return Nx.db.profile.MiniMap.DXO
 							end,
@@ -1248,10 +1248,10 @@ local function mapConfig ()
 							type = "range",
 							name = L["Minimap Dock Y-Offset"],
 							desc = L["Sets the Y - offset the minimap draws while docked"],
-							min = 0,
-							max = 200,
+							min = -2000,
+							max = 2000,
 							step = 1,
-							bigStep = 1,
+							bigStep = 25,
 							get = function()
 								return Nx.db.profile.MiniMap.DYO
 							end,
@@ -1949,10 +1949,10 @@ local function guidegatherConfig ()
 						enableall = {
 							order = 1,
 							type = "execute",
-							width = "half",
+							width = "double",
 							name = "Enable All",
 							func = function()
-								for i = 1,69 do
+								for i = 1,70 do
 									Nx.db.profile.Guide.ShowHerbs[i] = true
 								end
 							end,
@@ -1960,10 +1960,10 @@ local function guidegatherConfig ()
 						disableall = {
 							order = 2,
 							type = "execute",
-							width = "half",
+							width = "double",
 							name = "Disable All",
 							func = function()
-								for i = 1,69 do
+								for i = 1,70 do
 									Nx.db.profile.Guide.ShowHerbs[i] = false
 								end
 							end,
@@ -2865,6 +2865,19 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowHerbs[69] = not Nx.db.profile.Guide.ShowHerbs[69]
 							end,
 						},
+						withered = {
+							order = 72,
+							type = "toggle",
+							width = "full",
+							name = L["Withered Herb"],
+							desc = L["Display"] .. " " .. L["Withered Herb"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[70]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[70] = not Nx.db.profile.Guide.ShowHerbs[70]
+							end,
+						},
 					},
 				},
 				MinesDisp = {
@@ -2872,8 +2885,30 @@ local function guidegatherConfig ()
 					name = L["Mining"],
 					order = 3,
 					args = {
-						adamantite = {
+						menableall = {
 							order = 1,
+							type = "execute",
+							width = "double",
+							name = "Enable All",
+							func = function()
+								for i = 1,43 do
+									Nx.db.profile.Guide.ShowMines[i] = true
+								end
+							end,
+						},
+						mdisableall = {
+							order = 2,
+							type = "execute",
+							width = "double",
+							name = "Disable All",
+							func = function()
+								for i = 1,43 do
+									Nx.db.profile.Guide.ShowMines[i] = false
+								end
+							end,
+						},					
+						adamantite = {
+							order = 3,
 							type = "toggle",
 							width = "full",
 							name = L["Adamantite Deposit"],
@@ -2886,7 +2921,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richadamantite = {
-							order = 2,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Adamantite Deposit"],
@@ -2899,7 +2934,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						gemvein = {
-							order = 3,
+							order = 5,
 							type = "toggle",
 							width = "full",
 							name = L["Ancient Gem Vein"],
@@ -2912,7 +2947,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						copper = {
-							order = 4,
+							order = 6,
 							type = "toggle",
 							width = "full",
 							name = L["Copper Vein"],
@@ -2925,7 +2960,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						darkiron = {
-							order = 5,
+							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Dark Iron Deposit"],
@@ -2938,7 +2973,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						feliron = {
-							order = 6,
+							order = 8,
 							type = "toggle",
 							width = "full",
 							name = L["Fel Iron Deposit"],
@@ -2951,7 +2986,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						gold = {
-							order = 7,
+							order = 9,
 							type = "toggle",
 							width = "full",
 							name = L["Gold Vein"],
@@ -2964,7 +2999,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						incendicite = {
-							order = 8,
+							order = 10,
 							type = "toggle",
 							width = "full",
 							name = L["Incendicite Mineral Vein"],
@@ -2977,7 +3012,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						indurium = {
-							order = 9,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Indurium Mineral Vein"],
@@ -2990,7 +3025,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						iron = {
-							order = 10,
+							order = 12,
 							type = "toggle",
 							width = "full",
 							name = L["Iron Deposit"],
@@ -3003,7 +3038,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						korium = {
-							order = 11,
+							order = 13,
 							type = "toggle",
 							width = "full",
 							name = L["Khorium Vein"],
@@ -3016,7 +3051,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						smallobsi = {
-							order = 12,
+							order = 14,
 							type = "toggle",
 							width = "full",
 							name = L["Small Obsidian Chunk"],
@@ -3029,7 +3064,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						largeobs = {
-							order = 13,
+							order = 15,
 							type = "toggle",
 							width = "full",
 							name = L["Large Obsidian Chunk"],
@@ -3042,7 +3077,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						bloodstone = {
-							order = 14,
+							order = 16,
 							type = "toggle",
 							width = "full",
 							name = L["Lesser Bloodstone Deposit"],
@@ -3055,7 +3090,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						mithril = {
-							order = 15,
+							order = 17,
 							type = "toggle",
 							width = "full",
 							name = L["Mithril Deposit"],
@@ -3068,7 +3103,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						nethercite = {
-							order = 16,
+							order = 18,
 							type = "toggle",
 							width = "full",
 							name = L["Nethercite Deposit"],
@@ -3081,7 +3116,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						smallthor = {
-							order = 17,
+							order = 19,
 							type = "toggle",
 							width = "full",
 							name = L["Small Thorium Vein"],
@@ -3094,7 +3129,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richthor = {
-							order = 18,
+							order = 20,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Thorium Vein"],
@@ -3107,7 +3142,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						silver = {
-							order = 19,
+							order = 21,
 							type = "toggle",
 							width = "full",
 							name = L["Silver Vein"],
@@ -3120,7 +3155,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						tin = {
-							order = 20,
+							order = 22,
 							type = "toggle",
 							width = "full",
 							name = L["Tin Vein"],
@@ -3133,7 +3168,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						truesilver = {
-							order = 21,
+							order = 23,
 							type = "toggle",
 							width = "full",
 							name = L["Truesilver Deposit"],
@@ -3146,7 +3181,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						cobalt = {
-							order = 22,
+							order = 24,
 							type = "toggle",
 							width = "full",
 							name = L["Cobalt Deposit"],
@@ -3159,7 +3194,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richcobalt = {
-							order = 23,
+							order = 25,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Cobalt Deposit"],
@@ -3172,7 +3207,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						saronite = {
-							order = 24,
+							order = 26,
 							type = "toggle",
 							width = "full",
 							name = L["Saronite Deposit"],
@@ -3185,7 +3220,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richsaron = {
-							order = 25,
+							order = 27,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Saronite Deposit"],
@@ -3198,7 +3233,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						titan = {
-							order = 26,
+							order = 28,
 							type = "toggle",
 							width = "full",
 							name = L["Titanium Vein"],
@@ -3211,7 +3246,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						obsid = {
-							order = 27,
+							order = 29,
 							type = "toggle",
 							width = "full",
 							name = L["Obsidium Deposit"],
@@ -3224,7 +3259,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richobs = {
-							order = 28,
+							order = 30,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Obsidium Deposit"],
@@ -3237,7 +3272,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						elemen = {
-							order = 29,
+							order = 31,
 							type = "toggle",
 							width = "full",
 							name = L["Elementium Vein"],
@@ -3250,7 +3285,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richelem = {
-							order = 30,
+							order = 32,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Elementium Vein"],
@@ -3263,7 +3298,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						pyrite = {
-							order = 31,
+							order = 33,
 							type = "toggle",
 							width = "full",
 							name = L["Pyrite Deposit"],
@@ -3276,7 +3311,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richpyr = {
-							order = 32,
+							order = 34,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Pyrite Deposit"],
@@ -3289,7 +3324,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						ghost = {
-							order = 33,
+							order = 35,
 							type = "toggle",
 							width = "full",
 							name = L["Ghost Iron Deposit"],
@@ -3302,7 +3337,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richghost = {
-							order = 34,
+							order = 36,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Ghost Iron Deposit"],
@@ -3315,7 +3350,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						kypar = {
-							order = 35,
+							order = 37,
 							type = "toggle",
 							width = "full",
 							name = L["Kyparite Deposit"],
@@ -3328,7 +3363,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richkyp = {
-							order = 36,
+							order = 38,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Kyparite Deposit"],
@@ -3341,7 +3376,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						trill = {
-							order = 37,
+							order = 39,
 							type = "toggle",
 							width = "full",
 							name = L["Trillium Vein"],
@@ -3354,7 +3389,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richtrill = {
-							order = 38,
+							order = 40,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Trillium Vein"],
@@ -3367,7 +3402,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richtrueiron = {
-							order = 39,
+							order = 41,
 							type = "toggle",
 							width = "full",
 							name = L["Rich True Iron Deposit"],
@@ -3380,7 +3415,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						smolderingtrueiron = {
-							order = 40,
+							order = 42,
 							type = "toggle",
 							width = "full",
 							name = L["Smoldering True Iron Deposit"],
@@ -3393,7 +3428,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						trueiron = {
-							order = 41,
+							order = 43,
 							type = "toggle",
 							width = "full",
 							name = L["True Iron Deposit"],
@@ -3406,7 +3441,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						blackrock = {
-							order = 42,
+							order = 44,
 							type = "toggle",
 							width = "full",
 							name = L["Blackrock Deposit"],
@@ -3419,7 +3454,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						richblackrock = {
-							order = 43,
+							order = 45,
 							type = "toggle",
 							width = "full",
 							name = L["Rich Blackrock Deposit"],
@@ -3438,8 +3473,30 @@ local function guidegatherConfig ()
 					name = L["Timber"],
 					order = 4,
 					args = {
-						small = {
+						tenableall = {
 							order = 1,
+							type = "execute",
+							width = "double",
+							name = "Enable All",
+							func = function()
+								for i = 1,3 do
+									Nx.db.profile.Guide.ShowTimber[i] = true
+								end
+							end,
+						},
+						tdisableall = {
+							order = 2,
+							type = "execute",
+							width = "double",
+							name = "Disable All",
+							func = function()
+								for i = 1,3 do
+									Nx.db.profile.Guide.ShowTimber[i] = false
+								end
+							end,
+						},					
+						small = {
+							order = 3,
 							type = "toggle",
 							width = "full",
 							name = L["Small Timber"],
@@ -3452,7 +3509,7 @@ local function guidegatherConfig ()
 							end,
 						},
 						med = {
-							order = 2,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Medium Timber"],
@@ -3465,7 +3522,7 @@ local function guidegatherConfig ()
 							end,
 						},						
 						large = {
-							order = 3,
+							order = 5,
 							type = "toggle",
 							width = "full",
 							name = L["Large Timber"],
