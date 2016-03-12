@@ -73,6 +73,7 @@ local defaults = {
 			RepairAuto = false,
 			RepairGuild = false,
 			AddTooltip = true,
+			ShowGold = false,
 		},
 	},
 }
@@ -105,8 +106,21 @@ local function WarehouseOptions()
 								Nx.wdb.profile.Warehouse.AddTooltip = not Nx.wdb.profile.Warehouse.AddTooltip
 							end,
 						},
-						WareFont = {
+						showGold = {
 							order = 2,
+							type = "toggle",
+							width = "full",
+							name = L["Show coin count in warehouse list"],
+							desc = L["Restores the coin totals after character names in warehouse listing"],
+							get = function()
+								return Nx.wdb.profile.Warehouse.ShowGold
+							end,
+							set = function()
+								Nx.wdb.profile.Warehouse.ShowGold = not Nx.wdb.profile.Warehouse.ShowGold
+							end,						
+						},
+						WareFont = {
+							order = 3,
 							type	= "select",
 							name	= L["Warehouse Font"],
 							desc	= L["Sets the font to be used for warehouse windows"],
@@ -129,7 +143,7 @@ local function WarehouseOptions()
 							end,
 						},
 						WareFontSize = {
-							order = 3,
+							order = 4,
 							type = "range",
 							name = L["Warehouse Font Size"],
 							desc = L["Sets the size of the warehouse font"],
@@ -146,7 +160,7 @@ local function WarehouseOptions()
 							end,
 						},
 						WareFontSpacing = {
-							order = 4,
+							order = 5,
 							type = "range",
 							name = L["Warehouse Font Spacing"],
 							desc = L["Sets the spacing of the warehouse font"],
@@ -1596,7 +1610,11 @@ function Nx.Warehouse:Update()
 			for gName, guild in pairs (guilds) do
 				local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
 				list:ItemAdd (100)
-				list:ItemSet (2, format ("|cffff7fff%s", gName))
+				if Nx.wdb.profile.Warehouse.ShowGold then
+					list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
+				else
+					list:ItemSet (2, format ("|cffff7fff%s", gName))
+				end
 				list:ItemSetDataEx (nil, gName, 1)
 			end
 		end
@@ -1605,8 +1623,13 @@ function Nx.Warehouse:Update()
 			for i=1,#connectedrealms do
 				if connectedrealms[i] ~= rn and name == connectedrealms[i] then
 					for gName, guild in pairs (guilds) do
+						local moneyStr = guild["Money"] and Nx.Util_GetMoneyStr (guild["Money"]) or "?"
 						list:ItemAdd (100)
-						list:ItemSet (2, format ("|cffff7fff%s", gName))
+						if Nx.wdb.profile.Warehouse.ShowGold then
+							list:ItemSet (2, format ("|cffff7fff%s %s", gName, moneyStr))
+						else
+							list:ItemSet (2, format ("|cffff7fff%s", gName))
+						end
 						list:ItemSetDataEx (nil, gName, 1)
 					end
 				end
@@ -1631,11 +1654,15 @@ function Nx.Warehouse:Update()
 --			ch["Class"] = "Deathknight"	-- TEST
 			local cls = ch["Class"] or "?"
 			local money = ch["Money"]
-			totalMoney = totalMoney + (money or 0)			
+			totalMoney = totalMoney + (money or 0)
+			local moneyStr = Nx.Util_GetMoneyStr (money)
 			list:ItemAdd (cnum)
 			local s = ch["Account"] and format ("%s (%s)", cname, ch["Account"]) or cname
-			list:ItemSet (2, format ("%s%s %s %s", cnameCol, s, lvl, cls))
-
+			if Nx.wdb.profile.Warehouse.ShowGold then
+				list:ItemSet (2, format ("%s%s %s %s %s", cnameCol, s, lvl, cls, moneyStr))
+			else
+				list:ItemSet (2, format ("%s%s %s %s", cnameCol, s, lvl, cls))
+			end
 			local hide = ch["WHHide"]
 
 			if self.ClassIcons[ch["Class"]] then
@@ -1770,7 +1797,13 @@ function Nx.Warehouse:Update()
 			end
 		end
 	end
-	list:ItemSet (2, format ("|cffafdfaf" .. L["All Characters"]), allIndex)
+	local money = Nx.Util_GetMoneyStr (totalMoney)
+	if Nx.wdb.profile.Warehouse.ShowGold then
+		list:ItemSet (2, format ("|cffafdfaf %s" .. L["All Characters"],money), allIndex)
+	else
+		list:ItemSet (2, format ("|cffafdfaf" .. L["All Characters"]), allIndex)
+	end
+	
 	list:Update()
 
 	-- Right side list
@@ -3435,6 +3468,9 @@ end
 function Nx.Warehouse:RecordCharacter()
 	local ch = self.CurCharacter
 	local map = Nx.Map:GetMap (1)
+	if not ch or not map then
+		return
+	end
 	if map.UpdateMapID then
 		ch["Pos"] = format ("%d^%f^%f", map.UpdateMapID, map.PlyrRZX, map.PlyrRZY)
 	end

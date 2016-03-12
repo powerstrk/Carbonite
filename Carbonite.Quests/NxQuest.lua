@@ -538,7 +538,7 @@ local function QuestOptions ()
 							name = " ",
 						},
 						qmcolperq = {
-							order = 29,
+							order = 30,
 							type = "toggle",
 							name = L["Use One Color Per Quest"],
 							width = "full",
@@ -551,7 +551,7 @@ local function QuestOptions ()
 							end,
 						},
 						qttlcols = {
-							order = 30,
+							order = 31,
 							type = "range",
 							name = L["Total Colors To Use"],
 							desc = L["Sets the number of possible colors to use for quest watching"],
@@ -568,7 +568,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol1 = {
-							order = 31,
+							order = 32,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 1"],
@@ -587,7 +587,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol2 = {
-							order = 32,
+							order = 33,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 2"],
@@ -606,7 +606,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol3 = {
-							order = 33,
+							order = 34,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 3"],
@@ -625,7 +625,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol4 = {
-							order = 34,
+							order = 35,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 4"],
@@ -644,7 +644,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol5 = {
-							order = 35,
+							order = 36,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 5"],
@@ -663,7 +663,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol6 = {
-							order = 36,
+							order = 37,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 6"],
@@ -682,7 +682,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol7 = {
-							order = 37,
+							order = 38,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 7"],
@@ -701,7 +701,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol8 = {
-							order = 38,
+							order = 39,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 8"],
@@ -720,7 +720,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol9 = {
-							order = 39,
+							order = 40,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 9"],
@@ -739,7 +739,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol10 = {
-							order = 40,
+							order = 41,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 10"],
@@ -758,7 +758,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol11 = {
-							order = 41,
+							order = 42,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 11"],
@@ -777,7 +777,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol12 = {
-							order = 42,
+							order = 43,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 12"],
@@ -796,13 +796,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer5 = {
-							order = 43,
+							order = 44,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						QuestFont = {
-							order = 44,
+							order = 45,
 							type = "select",
 							name = L["Quest Font"],
 							desc = L["Sets the font to be used on the quest window"],
@@ -825,7 +825,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestFontSize = {
-							order = 45,
+							order = 46,
 							type = "range",
 							name = L["Quest Font Size"],
 							desc = L["Sets the size of the quest window font"],
@@ -842,7 +842,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestFontSpacing = {
-							order = 46,
+							order = 47,
 							type = "range",
 							name = L["Quest Font Spacing"],
 							desc = L["Sets the spacing of the quest window font"],
@@ -2755,6 +2755,9 @@ function Nx.Quest:Init()
 			end
 		else
 			if self.IsOpen then
+				self.IsOpen = QuestMapFrame:IsShown()
+			end
+			if self.IsOpen then
 				HideUIPanel(QuestMapFrame)
 			else
 				ShowUIPanel(QuestMapFrame)
@@ -4212,8 +4215,7 @@ function Nx.Quest:RecordQuestAcceptOrFinish()
 	self.AcceptGiver = giver
 
 	local qname = GetTitleText()		-- Also works for auto accept
-	self.AcceptQName = qname
-
+	self.AcceptQName = qname	
 	local id = Nx.Map:GetRealMapId()
 	self.AcceptAId = id or 0
 	self.AcceptDLvl = 0
@@ -5652,7 +5654,7 @@ function Nx.Quest:HideUIPanel (frame)
 		end
 		self:RestoreExpandQuests()		-- Hide window first, then restore
 		self.LHAttached = nil
-	end
+	end	
 end
 
 function Nx.Quest:LightHeadedAttach (frm, attach, onlyLevels)
@@ -6440,18 +6442,18 @@ end
 -- On quest updates
 -------------------------------------------------------------------------------
 
-function Nx.Quest.List:OnQuestUpdate (event)
+function Nx.Quest.List:OnQuestUpdate (event, ...)
 --QD		Nx.prt ("OnQuestUpdate %s", event)
 	local Quest = Nx.Quest
-
+	local arg1, arg2, arg3 = select (1, ...)
+	
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
 	elseif event == "WORLD_MAP_UPDATE" then
 		Nx.Quest:MapChanged()
 	elseif event == "QUEST_PROGRESS" then
-
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
-
+		
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
@@ -6462,27 +6464,30 @@ function Nx.Quest.List:OnQuestUpdate (event)
 		end
 
 		return
-
 	elseif event == "QUEST_COMPLETE" then
-
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
-
 		if IsShiftKeyDown() and IsControlKeyDown() then
 			auto = not auto
 		end
-
 		if auto then
 			if GetNumQuestChoices() == 0 then
 				GetQuestReward()
 --				Nx.prt ("Auto turn in choice")
 			end
 		end
-
 		return
-	elseif event == "QUEST_ACCEPTED" then
+	elseif event == "QUEST_ACCEPTED" then		
 		if QuestGetAutoAccept() then
 			QuestFrameDetailPanel:Hide();
 			CloseQuest();
+		end
+		if arg1 and Nx.qdb.profile.QuestWatch.AddNew then
+			local qId = Nx.Quest:GetQuestID (arg1)			
+			local qStatus = Nx.Quest:GetQuest (qId)
+			if Nx.Quest:IsDaily(qId) then
+				Nx.Quest:SetQuest (qId, "W")
+				Quest:PartyStartSend()
+			end			
 		end
 	elseif event == "QUEST_DETAIL" then		-- Happens when auto accept quest is given
 
@@ -8838,7 +8843,7 @@ function Nx.Quest.Watch:UpdateList()
 								local _,_, numObjectives = GetTaskInfo(questId)
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
-										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, true)
+										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
@@ -8872,7 +8877,7 @@ function Nx.Quest.Watch:UpdateList()
 								local _,_, numObjectives = GetTaskInfo(questId)
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
-										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, true)
+										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
 											local percent = GetQuestProgressBarPercent(questId) or 0
@@ -10945,5 +10950,9 @@ function Nx.Quest:SetQuest (qId, qStatus, qTime)
 	Nx.Quest.CurCharacter.Q[qId] = qStatus .. qTime
 end
 
+function Nx.Quest:GetQuestID (loc)
+	local _, _, _, _, _, _, _, questId, _, _, _, _, _, _ = GetQuestLogTitle(loc)
+	return questId
+end
 -------------------------------------------------------------------------------
 -- EOF

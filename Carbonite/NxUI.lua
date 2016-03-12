@@ -1662,18 +1662,15 @@ function Nx.Window:CreateButtons (closer, maxer, miner)
 	if self.Closer then
 		self.ButClose.Frm:Show()
 	end
-
-	x = x - 15			-- Always reserve space
-
-	if self.Sizeable and self.Maxer then
-		self.ButMaxer = Nx.Button:Create (self.Frm, "Max", nil, nil, x, -self.BorderH, "TOPRIGHT", 12, 12, self.OnMaxBut, self)
+	
+	local y = self.Sizeable and -self.BorderH or -3
+	y = y + 4
+	if self.Sizeable and self.Maxer then	
+		self.ButMaxer = Nx.Button:Create (self.Frm, "Max", nil, nil, x, y, "TOPRIGHT", 12, 12, self.OnMaxBut, self)
 		x = x - 15
 	end
 
-	if self.Miner then
-
---		self.ButMiner = Nx.Button:Create (self.Frm, "Max", nil, nil, x, -self.BorderH, "TOPRIGHT", 12, 12, self.OnMaxBut, self)
-		local y = self.Sizeable and -self.BorderH or -3
+	if self.Miner then		
 		self.ButMiner = Nx.Button:Create (self.Frm, "Min", nil, nil, x, y, "TOPRIGHT", 12, 12, self.OnMinBut, self)
 		x = x - 15
 	end
@@ -2503,7 +2500,7 @@ function Nx.Window:SetLayoutMode (mode)
 
 	if not x then
 
-		if mode == "Min" then
+		if mode == "Min" then			
 			self:SetLayoutData (mode, sw * .9, sh * .4, 1, 1)	-- Hardcoded for quest watch
 		else
 --			Nx.prt ("SetLayoutMode %s '%s' missing!", self.Name, mode)
@@ -2876,7 +2873,7 @@ function Nx.Window:OnEvent (event, ...)
 --	Nx.prt ("Win Event %s %s", win.Name, event)
 
 	if win.Events and win.Events[event] then
-		win.Events[event] (win.User, event)
+		win.Events[event] (win.User, event, ...)
 	end
 end
 

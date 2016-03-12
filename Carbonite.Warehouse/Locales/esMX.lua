@@ -153,3 +153,6 @@ L["Delete Item"] = true
 L["Delete"] = true
 L["Yes"] = true
 L["No"] = true
+
+L["Show coin count in warehouse list"] = true
+L["Restores the coin totals after character names in warehouse listing"] = true

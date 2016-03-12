@@ -81,6 +81,7 @@ L["Tiger Lily"] = "虎百合"
 L["Twilight Jasmine"] = "暮光茉莉"
 L["Whiptail"] = "鞭尾蜥草"
 L["Wild Steelbloom"] = "野鋼花"
+L["Withered Herb"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "堅鋼礦床"

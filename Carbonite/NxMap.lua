@@ -202,6 +202,9 @@ function Nx.Map:Init()
 		TomTom = {}
 		Nx.EmulateTomTom()
 	end	
+	if Nx.db.profile.Map.TakeFunctions then
+		Nx.carbTakeMapFunctions(true)
+	end
 	Nx.Map.UpdateMapID = WorldMapFrame.mapID
 	SetMapByID(Nx.Map.UpdateMapID)
 end
@@ -212,58 +215,60 @@ end
 local blizSetMapToCurrentZone = SetMapToCurrentZone
 local blizSetMapByID = SetMapByID
 
-function SetMapToCurrentZone(carbcalled)
-	if carbcalled then
-		if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
-			Nx.CurrentDetectedZone = GetRealZoneText()
-			blizSetMapToCurrentZone()			
-			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
+function Nx.carbTakeMapFunctions(takerestore)
+	if takerestore then
+		function SetMapToCurrentZone(carbcalled)
+			if carbcalled then
+				if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
+					Nx.CurrentDetectedZone = GetRealZoneText()
+					blizSetMapToCurrentZone()			
+					Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
+				end
+			else
+				if not Nx.Map.MouseOver then
+					if GetRealZoneText() == "Tanaan Jungle" then
+						blizSetMapToCurrentZone()				
+						if GetCurrentMapAreaID() == 941 then				
+							Nx.CurrentSetZone = nil
+							SetMapByID(945)				
+							Nx.Map.UpdateMapID = 945				
+							return
+						end				
+					end
+					local blizreturn = blizSetMapToCurrentZone()
+					return blizreturn
+				end
+			end	
 		end
-	else
-		if not Nx.Map.MouseOver then
-			if GetRealZoneText() == "Tanaan Jungle" then
-				blizSetMapToCurrentZone()				
-				if GetCurrentMapAreaID() == 941 then				
-					Nx.CurrentSetZone = nil
-					SetMapByID(945)				
-					Nx.Map.UpdateMapID = 945				
-					return
-				end				
-			end
-			blizSetMapToCurrentZone()
-			Nx.Map.UpdateMapID = WorldMapFrame.mapID			
-			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
-		end
-	end
-end
 
-function SetMapByID(zone,level)
-	if Nx.Map.MouseOver then
-		if Nx.Map.MouseIsOverMap then
-			zone = Nx.Map.MouseIsOverMap			
-			Nx.Map.RMapId = zone			
-		else
-			Nx.Map.RMapId = zone
-			return
+		function SetMapByID(zone,level)
+			if Nx.Map.MouseOver then
+				if Nx.Map.MouseIsOverMap then
+					zone = Nx.Map.MouseIsOverMap			
+					Nx.Map.RMapId = zone			
+				else
+					Nx.Map.RMapId = zone
+					return
+				end
+			else
+				Nx.Map.RMapId = zone
+			end
+			if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
+				if zone then
+					Nx.CurrentSetZone = zone					
+					local blizreturn = blizSetMapByID(zone,level)					
+					Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
+					return blizreturn
+				end		
+			end
 		end
 	else
-		Nx.Map.RMapId = zone
-	end
-	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
-		if zone then
-			Nx.CurrentSetZone = zone
-			if level then
-				blizSetMapByID(zone,level)				
-			else					
-				blizSetMapByID(zone)				
-			end
-			Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
-		end		
+		SetMapToCurrentZone = blizSetMapToCurrentZone
+		SetMapByID = blizSetMapByID
 	end
 end
 
 function Nx.Map:Open()
-
 	local Map = Nx.Map
 
 	local m = self.Maps[1]
@@ -1152,8 +1157,8 @@ function Nx.Map:Create (index)
 	m.Arch:SetBorderTexture( [[Interface\WorldMap\UI-ArchaeologyBlob-Outside]] )
 	m.Arch:SetBorderScalar( 0.15 )
 
-	self.RMapId = 9000		-- Safe default
-	self.UpdateMapID = 9000
+	Nx.Map.RMapId = 9000		-- Safe default
+	Nx.Map.UpdateMapID = 9000
 
 	m:SwitchOptions (-1, true)
 
@@ -2329,7 +2334,7 @@ function Nx.Map:MinimapUpdate()
 	local lOpts = self.LOpts
 
 	local scales = self.MMScales
-	local info = self.MapWorldInfo[self.UpdateMapID]
+	local info = self.MapWorldInfo[Nx.Map.UpdateMapID]
 	if not info then
 		info = {}
 	end
@@ -3137,7 +3142,7 @@ end
 function Nx.Map:BGMenu_Send (msg)
 
 	local id, tx, ty, str = Nx.Split ("~", self.BGMsg)
-	tx, ty = self:GetWorldPos (self.UpdateMapID, tonumber (tx), tonumber (ty))
+	tx, ty = self:GetWorldPos (Nx.Map.UpdateMapID, tonumber (tx), tonumber (ty))
 
 	local members = MAX_PARTY_MEMBERS
 	local unitName = "party"
@@ -3157,7 +3162,7 @@ function Nx.Map:BGMenu_Send (msg)
 
 		if (pX > 0 or pY > 0) and not UnitIsDeadOrGhost (unit) then
 
-			local x, y = self:GetWorldPos (self.UpdateMapID, pX * 100, pY * 100)
+			local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, pX * 100, pY * 100)
 			local dist = (tx - x) ^ 2 + (ty - y) ^ 2
 
 --			Nx.prt ("%s %s %s = %s", unit, pX, pY, sqrt (dist) * 4.575)
@@ -3905,8 +3910,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 --				Nx.prt ("CheckWorldHotspots Time %s", GetTime() - tm)
 			end
 
-			local x, y = map:GetZonePos (Nx.Map.RMapId, wx, wy)
-			
+			local x, y = map:GetZonePos (Nx.Map.RMapId, wx, wy)			
 			x = floor (x * 10) / 10	-- Chop fraction to tenths
 			y = floor (y * 10) / 10
 			local dist = ((wx - map.PlyrX) ^ 2 + (wy - map.PlyrY) ^ 2) ^ .5 * 4.575
@@ -3960,7 +3964,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 				if map.UpdateMapID ~= rid then
 					if map:IsBattleGroundMap (rid) then
 						SetMapToCurrentZone()
-						Nx.Map.UpdateMapID = WorldMapFrame.mapID
+						Nx.Map.UpdateMapID = WorldMapFrame.mapID										
 					else
 						map:SetCurrentMap (rid)
 					end
@@ -4220,6 +4224,7 @@ function Nx.Map:Update (elapsed)
 	end
 
 	local rid = self.MapId
+	Nx.Map.UpdateMapID = rid
 	local inBG = self:IsBattleGroundMap (rid)
 	
 	if Nx.InBG and Nx.InBG ~= rid then	-- Left or changed BG?
@@ -4308,16 +4313,18 @@ function Nx.Map:Update (elapsed)
 
 	-- Real map switch
 
-	if self.RMapId ~= rid then
+	if Nx.Map.RMapId ~= rid then
 		if rid ~= 9000 then
 --			Nx.prt ("Map zone changed %d, %d", rid, mapId)
 
-			if self.RMapId == 9000 then	-- Loading?
+			if Nx.Map.RMapId == 9000 then	-- Loading?
 				self.CurOpts = nil
 				self:SwitchOptions (rid, true)
 			end
 			if not Nx.Menu:IsAnyOpened() then
-				SetMapByID(rid)				
+				SetMapByID(rid)						
+				Nx.Map.RMapId = rid
+				Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
 				self:SwitchOptions (rid)
 				self:SwitchRealMap (rid)
 			end
@@ -4325,16 +4332,14 @@ function Nx.Map:Update (elapsed)
 		self.Scale = self.RealScale
 	end
 	local plZX, plZY = GetPlayerMapPosition ("player")
-	if (self.RMapId ~= self.UpdateMapID) then
+	if (Nx.Map.RMapId ~= Nx.Map.UpdateMapID) then
 		plZX = 0
 		plZY = 0
 	end
 	local dungeontest = GetCurrentMapDungeonLevel()
 	self.InstanceId = false
-	if self:IsInstanceMap (self.UpdateMapID) then
-
-		self.InstanceId = self.UpdateMapID
-
+	if self:IsInstanceMap (Nx.Map.UpdateMapID) then
+		self.InstanceId = Nx.Map.UpdateMapID
 		plZX = plZX * 100
 		plZY = plZY * 100
 
@@ -4346,7 +4351,7 @@ function Nx.Map:Update (elapsed)
 		self.PlyrRZX = plZX
 		self.PlyrRZY = plZY
 
-		local x, y = self:GetWorldPos (self.UpdateMapID, 0, 0)
+		local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, 0, 0)
 
 		local lvl = max (GetCurrentMapDungeonLevel(), 1)		-- 0 if no level		
 		if GetCurrentMapAreaID() == 937 then
@@ -4376,7 +4381,7 @@ function Nx.Map:Update (elapsed)
 		plZX = plZX * 100
 		plZY = plZY * 100
 
-		local x, y = self:GetWorldPos (self.UpdateMapID, plZX, plZY)
+		local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, plZX, plZY)
 
 		if elapsed > 0 then
 
@@ -4662,16 +4667,17 @@ function Nx.Map:Update (elapsed)
 			end
 		end
 	end
-
-	local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(self.UpdateMapID);
-	if taskInfo then
-		for i=1,#taskInfo do
-			local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
-			local f = self:GetIcon (3)
-			f.NxTip = "Bonus Task"
-			f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")
-			self:ClipFrameZ (f, x, y, 16, 16, 0)
-			f.texture:SetTexCoord (0.125, 0.25, 0.75, 0.875)
+	if Nx.Map.UpdateMapID ~= 9000 then
+		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Nx.Map.UpdateMapID);
+			if taskInfo then
+				for i=1,#taskInfo do
+				local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
+				local f = self:GetIcon (3)
+				f.NxTip = "Bonus Task"
+				f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")
+				self:ClipFrameZ (f, x, y, 16, 16, 0)
+				f.texture:SetTexCoord (0.125, 0.25, 0.75, 0.875)
+			end
 		end
 	end
 	-- POI's (Points of interest)
@@ -5738,7 +5744,7 @@ function Nx.Map:CalcTracking()
 
 	local srcX = self.PlyrX
 	local srcY = self.PlyrY
-	local srcMapId = self.UpdateMapID
+	local srcMapId = Nx.Map.UpdateMapID
 
 	for n, tar in ipairs (self.Targets) do
 		Travel:MakePath (tr, srcMapId, srcX, srcY, tar.MapId, tar.TargetMX, tar.TargetMY, tar.TargetType)
@@ -6105,8 +6111,8 @@ function Nx.Map:MoveCurZoneTiles (clear)
 		wzone = {}
 	end
 	if not clear and
-			(not wzone or wzone.City or (wzone.StartZone and self.RMapId == mapId) or
-			self:IsBattleGroundMap (self.RMapId)) or self:IsMicroDungeon(self.RMapId) then
+			(not wzone or wzone.City or (wzone.StartZone and Nx.Map.RMapId == mapId) or
+			self:IsBattleGroundMap (Nx.Map.RMapId)) or self:IsMicroDungeon(Nx.Map.RMapId) then
 
 --		Nx.prt ("MoveCurZoneTiles %d", mapId)
 		local alpha = self.BackgndAlpha * (wzone.Alpha or 1)
@@ -6292,9 +6298,9 @@ function Nx.Map:UpdateZones()
 
 	if freeOrScale or
 		winfo.City or
-		(winfo.StartZone and self.UpdateMapID == mapId) or
-		self:IsBattleGroundMap (self.UpdateMapID) or
-		self:IsMicroDungeon(self.UpdateMapID) then
+		(winfo.StartZone and Nx.Map.UpdateMapID == mapId) or
+		self:IsBattleGroundMap (Nx.Map.UpdateMapID) or
+		self:IsMicroDungeon(Nx.Map.UpdateMapID) then
 
 --		if freeOrScale and self.MapIdOld and self.MapIdOld ~= mapId then
 --			self:UpdateOverlay (id, .8, true)
@@ -6666,7 +6672,7 @@ function Nx.Map:UpdateMiniFrames()
 
 --	or winfo.City
 
-	if self.ScaleDraw <= s or opts.NXDetailAlpha <= 0 or self:IsBattleGroundMap (self.UpdateMapID) or self:IsMicroDungeon(self.UpdateMapID) then
+	if self.ScaleDraw <= s or opts.NXDetailAlpha <= 0 or self:IsBattleGroundMap (Nx.Map.UpdateMapID) or self:IsMicroDungeon(Nx.Map.UpdateMapID) then
 		self:HideMiniFrames()
 		return
 	end
@@ -8668,7 +8674,7 @@ end
 -- Get the real player location map id without map level calculation
 
 function Nx.Map:GetRealBaseMapId()
-		return self.UpdateMapID
+		return Nx.Map.UpdateMapID
 end
 
 --------
@@ -8694,10 +8700,10 @@ end
 -- Do not call SetMapToCurrentZone() here or crash
 
 function Nx.Map:GetCurrentMapId()
-	if self.RMapId == 9000 then
+	if Nx.Map.RMapId == 9000 then
 		return GetCurrentMapAreaID()
 	end	
-	return self.RMapId
+	return Nx.Map.RMapId
 end
 
 --------
@@ -9077,7 +9083,9 @@ end
 -- (cont #, zone #)
 
 function Nx.Map:GetWorldZoneInfo (cont, zone)
-
+	if not cont or not zone then
+		return "unknown", 0, 0, 1002, 668
+	end
 	local name = GetMapNameByID(zone)
 --	local cont = self.MapWorldInfo[zone].Cont
 	local info = self.MapInfo[cont]
@@ -9137,6 +9145,9 @@ end
 -- (id, x (0-100), y (0-100)
 
 function Nx.Map:GetWorldPos (mapId, mapX, mapY)
+	if mapId == 9000 then
+		return 0,0
+	end
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo then
 		if winfo.BaseMap then
@@ -9461,7 +9472,7 @@ function Nx.Map:ParseTargetStr (str)
 		end
 	end
 
-	local mid = self.UpdateMapID
+	local mid = Nx.Map.UpdateMapID
 
 	if zone then
 		mid = nil

@@ -152,3 +152,6 @@ L["Delete Item"] = "Effacer Objet"
 L["Delete"] = "Effacer"
 L["Yes"] = "Oui"
 L["No"] = "Non"
+
+L["Show coin count in warehouse list"] = true
+L["Restores the coin totals after character names in warehouse listing"] = true
