@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxSocial - Social Window (friends, guild)
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -428,7 +428,7 @@ local function socialConfig()
 							end,
 						},
 						teamhide = {
-							order = 1,
+							order = 2,
 							type = "toggle",
 							width = "full",
 							name = L["Hide the team button window"],
@@ -442,7 +442,7 @@ local function socialConfig()
 							end,
 						},
 						teamtargets = {
-							order = 2,
+							order = 3,
 							type = "range",
 							name = L["number of target buttons"],
 							desc = L["Sets the number of buttons for team members in the teamhud (RELOAD REQUIRED)"],
