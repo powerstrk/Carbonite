@@ -1657,22 +1657,20 @@ function Nx.Window:CreateButtons (closer, maxer, miner)
 	self.Maxer = maxer
 	self.Miner = miner		-- No buts can be set while min is on
 
-	local x = -self.BorderW
+	local x = self.BorderW -26.5
 
 	if self.Closer then
 		self.ButClose.Frm:Show()
 	end
 	
-	local y = self.Sizeable and -self.BorderH or -3
-	y = y + 4
+	local y = self.Sizeable and -self.BorderH
+	
 	if self.Sizeable and self.Maxer then	
 		self.ButMaxer = Nx.Button:Create (self.Frm, "Max", nil, nil, x, y, "TOPRIGHT", 12, 12, self.OnMaxBut, self)
-		x = x - 15
 	end
 
 	if self.Miner then		
 		self.ButMiner = Nx.Button:Create (self.Frm, "Min", nil, nil, x, y, "TOPRIGHT", 12, 12, self.OnMinBut, self)
-		x = x - 15
 	end
 
 	self.ButW = -x - self.BorderW
