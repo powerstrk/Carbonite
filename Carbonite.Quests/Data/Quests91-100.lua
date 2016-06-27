@@ -22020,6 +22020,10 @@ local ModQuests={
 			 },
 		},
 	},
+	[37968] = {
+		Quest = [[Assault on the Temple of Sha'naar|1|100|100|0|0]],
+		End = "90309|945|32|58.4|60.2",
+	},
 	[37996] = {
 	Quest = [[The Silent Skull: Taking from the Taker|2|100|100|0|0]],
 	Start = "239791|941|32|40.00|56.20|6.02|6.02",
@@ -22261,6 +22265,10 @@ local ModQuests={
 				"nil|945|32|43.40|42.00|6.02|6.02",
 			 },
 		},
+	},
+	[38449] = {
+		Quest = [[Assault on the Temple of Sha'naar|2|100|100|0|0]],
+		End = "90481|945|32|61.40|45.80|6.02|6.02",
 	},
 	[38453] = {
 	Quest = [[Garrison Campaign: The Bane of the Bleeding Hollow|2|100|100|0|0]],
