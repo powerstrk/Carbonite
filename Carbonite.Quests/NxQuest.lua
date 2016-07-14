@@ -538,7 +538,7 @@ local function QuestOptions ()
 							name = " ",
 						},
 						qmcolperq = {
-							order = 29,
+							order = 30,
 							type = "toggle",
 							name = L["Use One Color Per Quest"],
 							width = "full",
@@ -551,7 +551,7 @@ local function QuestOptions ()
 							end,
 						},
 						qttlcols = {
-							order = 30,
+							order = 31,
 							type = "range",
 							name = L["Total Colors To Use"],
 							desc = L["Sets the number of possible colors to use for quest watching"],
@@ -568,7 +568,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol1 = {
-							order = 31,
+							order = 32,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 1"],
@@ -587,7 +587,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol2 = {
-							order = 32,
+							order = 33,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 2"],
@@ -606,7 +606,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol3 = {
-							order = 33,
+							order = 34,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 3"],
@@ -625,7 +625,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol4 = {
-							order = 34,
+							order = 35,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 4"],
@@ -644,7 +644,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol5 = {
-							order = 35,
+							order = 36,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 5"],
@@ -663,7 +663,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol6 = {
-							order = 36,
+							order = 37,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 6"],
@@ -682,7 +682,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol7 = {
-							order = 37,
+							order = 38,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 7"],
@@ -701,7 +701,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol8 = {
-							order = 38,
+							order = 39,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 8"],
@@ -720,7 +720,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol9 = {
-							order = 39,
+							order = 40,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 9"],
@@ -739,7 +739,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol10 = {
-							order = 40,
+							order = 41,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 10"],
@@ -758,7 +758,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol11 = {
-							order = 41,
+							order = 42,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 11"],
@@ -777,7 +777,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol12 = {
-							order = 42,
+							order = 43,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 12"],
@@ -796,13 +796,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer5 = {
-							order = 43,
+							order = 44,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						QuestFont = {
-							order = 44,
+							order = 45,
 							type = "select",
 							name = L["Quest Font"],
 							desc = L["Sets the font to be used on the quest window"],
@@ -825,7 +825,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestFontSize = {
-							order = 45,
+							order = 46,
 							type = "range",
 							name = L["Quest Font Size"],
 							desc = L["Sets the size of the quest window font"],
@@ -842,7 +842,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestFontSpacing = {
-							order = 46,
+							order = 47,
 							type = "range",
 							name = L["Quest Font Spacing"],
 							desc = L["Sets the spacing of the quest window font"],
@@ -2754,6 +2754,9 @@ function Nx.Quest:Init()
 				ShowUIPanel(QuestMapFrame)
 			end
 		else
+			if self.IsOpen then
+				self.IsOpen = QuestMapFrame:IsShown()
+			end
 			if self.IsOpen then
 				HideUIPanel(QuestMapFrame)
 			else
@@ -5651,7 +5654,7 @@ function Nx.Quest:HideUIPanel (frame)
 		end
 		self:RestoreExpandQuests()		-- Hide window first, then restore
 		self.LHAttached = nil
-	end
+	end	
 end
 
 function Nx.Quest:LightHeadedAttach (frm, attach, onlyLevels)

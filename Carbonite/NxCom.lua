@@ -754,8 +754,7 @@ end
 -- Join a channel
 ---------------------------------------------------------------------------------------
 
-function Nx.Com:JoinChan (chanId)
-
+function Nx.Com:JoinChan (chanId)	
 	if chanId == "A" then		-- Addon channel (global)
 
 		if Nx.db.profile.Comm.Global then
@@ -821,6 +820,7 @@ function Nx.Com:OnJoinChanZTimer ()
 		return
 	end
 
+	Nx.Com:LeaveChan("Z")
 	JoinChannelByName (name)
 
 	return 3

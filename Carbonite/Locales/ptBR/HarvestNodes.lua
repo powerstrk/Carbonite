@@ -81,6 +81,7 @@ L["Tiger Lily"] = true
 L["Twilight Jasmine"] = true
 L["Whiptail"] = true
 L["Wild Steelbloom"] = true
+L["Withered Herb"] = true
 
 -- Mines
 L["Adamantite Deposit"] = true
