@@ -288,24 +288,6 @@ local function mapConfig ()
 								Nx.db.profile.Map.Compatability = not Nx.db.profile.Map.Compatability
 							end,
 						},
-						takecontrol = {
-							order = 3,
-							type = "toggle",
-							width = "full",
-							name = L["Take Map Function Control"],
-							desc = L["When enabled Carbonite takes control of 2 blizzard map functions to help prevent map flickers, and unneccsary lag causing calls to change the map."],
-							get = function()
-								return Nx.db.profile.Map.TakeFunctions
-							end,
-							set = function()
-								Nx.db.profile.Map.TakeFunctions = not Nx.db.profile.Map.TakeFunctions
-								if Nx.db.profile.Map.TakeFunctions then
-									Nx.carbTakeMapFunctions(true)
-								else
-									Nx.carbTakeMapFunctions()
-								end
-							end,
-						},
 						hidecombat = {
 							order = 4,
 							type = "toggle",

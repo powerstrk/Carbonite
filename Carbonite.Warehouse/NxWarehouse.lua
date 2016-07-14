@@ -764,7 +764,7 @@ function CarboniteWarehouse:OnInitialize()
 
 	local ttHooks = {
 		"SetAction", "SetAuctionItem", "SetBagItem", "SetGuildBankItem", "SetHyperlink", "SetInboxItem", "SetInventoryItem", "SetLootItem",
-		"SetLootRollItem", "SetMerchantItem", "SetQuestItem", "SetQuestLogItem", "SetTradeSkillItem", "SetTradeTargetItem",
+		"SetLootRollItem", "SetMerchantItem", "SetQuestItem", "SetQuestLogItem", "SetTradeTargetItem",
 	}
 
 	for k, name in ipairs (ttHooks) do
@@ -1081,6 +1081,7 @@ function Nx.Warehouse:Init()
 		["Warrior"] = "INV_Sword_27",
 		["Death Knight"] = "Spell_Deathknight_ClassIcon",
 		["Monk"] = "class_monk",
+		["Demon Hunter"] = "class_demonhunter",		
 	}
 
 	self.InvNames = {

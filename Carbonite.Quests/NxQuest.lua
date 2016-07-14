@@ -2708,7 +2708,7 @@ function Nx.Quest:Init()
 
 	local ttHooks = {
 		"SetAction", "SetAuctionItem", "SetBagItem", "SetGuildBankItem", "SetHyperlink", "SetInboxItem", "SetInventoryItem", "SetLootItem",
-		"SetLootRollItem", "SetMerchantItem", "SetQuestItem", "SetQuestLogItem", "SetTradeSkillItem","SetTradeTargetItem",
+		"SetLootRollItem", "SetMerchantItem", "SetQuestItem", "SetQuestLogItem", "SetTradeTargetItem",
 	}
 
 	for k, name in ipairs (ttHooks) do
@@ -2717,7 +2717,7 @@ function Nx.Quest:Init()
 
 	local unitNames = {	-- 5 letter and shorter words are already blocked
 		"Hunter", "Paladin", "Priest",
-		"Shaman", "Warlock", "Warrior", "Deathknight"
+		"Shaman", "Warlock", "Warrior", "Deathknight", "Demonhunter"
 	}
 
 	self.TTIgnore = {
