@@ -202,71 +202,14 @@ function Nx.Map:Init()
 		TomTom = {}
 		Nx.EmulateTomTom()
 	end	
-	if Nx.db.profile.Map.TakeFunctions then
-		Nx.carbTakeMapFunctions(true)
-	end
 	Nx.Map.UpdateMapID = WorldMapFrame.mapID
-	SetMapByID(Nx.Map.UpdateMapID)
+	if Nx.Map.UpdateMapID then
+		SetMapByID(Nx.Map.UpdateMapID)
+	end
 end
 
 --------
 -- Open and init
-
-local blizSetMapToCurrentZone = SetMapToCurrentZone
-local blizSetMapByID = SetMapByID
-
-function Nx.carbTakeMapFunctions(takerestore)
-	if takerestore then
-		function SetMapToCurrentZone(carbcalled)
-			if carbcalled then
-				if not Nx.CurrentDetectedZone or Nx.CurrentDetectedZone ~= GetRealZoneText() then
-					Nx.CurrentDetectedZone = GetRealZoneText()
-					blizSetMapToCurrentZone()			
-					Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
-				end
-			else
-				if not Nx.Map.MouseOver then
-					if GetRealZoneText() == "Tanaan Jungle" then
-						blizSetMapToCurrentZone()				
-						if GetCurrentMapAreaID() == 941 then				
-							Nx.CurrentSetZone = nil
-							SetMapByID(945)				
-							Nx.Map.UpdateMapID = 945				
-							return
-						end				
-					end
-					local blizreturn = blizSetMapToCurrentZone()
-					return blizreturn
-				end
-			end	
-		end
-
-		function SetMapByID(zone,level)
-			if Nx.Map.MouseOver then
-				if Nx.Map.MouseIsOverMap then
-					zone = Nx.Map.MouseIsOverMap			
-					Nx.Map.RMapId = zone			
-				else
-					Nx.Map.RMapId = zone
-					return
-				end
-			else
-				Nx.Map.RMapId = zone
-			end
-			if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
-				if zone then
-					Nx.CurrentSetZone = zone					
-					local blizreturn = blizSetMapByID(zone,level)					
-					Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
-					return blizreturn
-				end		
-			end
-		end
-	else
-		SetMapToCurrentZone = blizSetMapToCurrentZone
-		SetMapByID = blizSetMapByID
-	end
-end
 
 function Nx.Map:Open()
 	local Map = Nx.Map
@@ -1788,6 +1731,7 @@ function Nx.Map:InitFrames()
 		{ 1,1,1,0, 1,1,1,0, 1,1,1,0 },
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
 		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },
+		{ 1,1,1,1, 1,1,1,1, 1,1,1,1 },		
 	}
 
 	self.ContFrms = {}
@@ -4105,7 +4049,9 @@ function Nx.Map:UpdateWorld()
 	end
 
 	self.NeedWorldUpdate = false
-
+	if not Nx.Map.MouseOver then
+		SetMapToCurrentZone()
+	end
 	local mapId = self:GetCurrentMapId()
 	local winfo = self.MapWorldInfo[mapId]
 	if not winfo then
@@ -4153,7 +4099,7 @@ function Nx.Map:UpdateWorld()
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
 	if winfo.Garrison and not isMicro then
-		local level, mapname, x, y = C_Garrison.GetGarrisonInfo()
+		local level, mapname, x, y = C_Garrison.GetGarrisonInfo(LE_GARRISON_TYPE_6_0)
 		if not level then
 			level = "1"
 		end
@@ -4194,8 +4140,7 @@ function Nx.Map:Update (elapsed)
 
 	self.MapW = self.Frm:GetWidth() - self.PadX * 2
 	self.MapH = self.Frm:GetHeight() - self.TitleH
-	self.Level = self.Frm:GetFrameLevel() + 1
-
+	self.Level = self.Frm:GetFrameLevel() + 1	
 	local mapId = GetCurrentMapAreaID()
 	self.Cont, self.Zone = self:IdToContZone (mapId)
 
@@ -4323,7 +4268,7 @@ function Nx.Map:Update (elapsed)
 			end
 			if not Nx.Menu:IsAnyOpened() then
 				SetMapByID(rid)						
-				Nx.Map.RMapId = rid
+				Nx.Map.RMapId = rid				
 				Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
 				self:SwitchOptions (rid)
 				self:SwitchRealMap (rid)
@@ -4689,20 +4634,20 @@ function Nx.Map:Update (elapsed)
 		oldLev = oldLev - 4
 		self.Level = self.Level + 16
 	end
-
 	local name, description, txIndex, pX, pY
 	local txX1, txX2, txY1, txY2
-
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
 		name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
+		if not pX then			
+			return
+		end
 		if txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
 			if desc then
 				tip = format ("%s\n%s", name, desc)
-			end
-
+			end			
 			pX = pX * 100
 			pY = pY * 100
 
@@ -5045,6 +4990,9 @@ function Nx.Map:SetInstanceMap (mapId)
 		self.InstMapId = mapId
 		self.InstMapInfo = info
 		local winfo = Map.MapWorldInfo[mapId]
+		if winfo.BaseMap then
+			winfo = Map.MapWorldInfo[winfo.BaseMap]
+		end
 		local wx = winfo.X
 		local wy = winfo.Y
 		self.InstMapWX1 = wx
@@ -5068,12 +5016,23 @@ function Nx.Map:GetInstanceMapTextures(mapId)
 		if (areaId == 937) then
 			levels = 2
 			first = 0
-		end
+		end		
 		if (areaId == 687) then
 			levels = 1
 			first = 1
 		end
+		if (areaId == 1076) then
+			levels = 3
+			first = 1
+		end
+		if (areaId == 1100) then
+			levels = 4
+			first = 1
+		end
 		Nx.Map.InstanceInfo[mapId] = {}
+		if not first then 
+			first = 1
+		end
 		for i=first,max(first,first+levels-1) do
 			SetDungeonMapLevel(i)
 			local level = useTerrainMap and i-1 or i
@@ -5159,7 +5118,10 @@ function Nx.Map:ScanContinents()
 
 		for n = 1, poiNum do
 			name, desc, txIndex, pX, pY = GetMapLandmarkInfo (n)
-
+            if not pX then
+				return
+			end
+				
 			if name and not hideT[txIndex] then
 
 				local poi = {}
@@ -8222,7 +8184,9 @@ function Nx.Map:UpdateInstanceMap()
 	local Map = Nx.Map
 	local winfo = Map.MapWorldInfo[mapId]
 	local info = self.InstMapInfo				-- Valid if Id not nil
-
+	if Map.MapWorldInfo[mapId].BaseMap then
+	  winfo = Map.MapWorldInfo[Map.MapWorldInfo[mapId].BaseMap]
+	end
 --	Nx.prt ("Inst id %s", mapId)
 
 	if self.InstMapAtlas then
@@ -8353,7 +8317,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {13,14,466,485,751,862,962,0,0,-1},
+		 [0] = {13,14,466,485,751,862,962,1007,0,-1},
 		 [1] = {772,894,43,181,464,476,890,42,381,101,4,141,891,182,121,795,241,606,9,11,321,888,261,607,81,161,41,471,61,362,720,201,889,281},
 		 [2] = {614,16,17,19,29,866,32,892,27,34,23,30,462,463,545,611,24,341,499,610,35,895,37,864,36,684,685,28,615,480,21,301,689,893,38,673,26,502,20,708,709,700,382,613,22,39,40},
 		 [3] = {475,465,477,479,473,481,478,467},
@@ -8361,6 +8325,7 @@ function Nx.Map:InitTables()
 		 [5] = {640,605,544,737,823},
 		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807},
 		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
+		 [8] = {1014,1015,1017,1018,1021,1024, 1028, 1033},
 		 [90] = {401,461,482,540,860,512,856,736,626,443,935,1010},
 		 [100] = {},
 	}
@@ -8378,8 +8343,8 @@ function Nx.Map:InitTables()
 
 	-- Support maps with multiple level
 
-	self.ContCnt = 7
-	continentNums = { 1, 2, 3, 4, 5, 6, 7, 90 }
+	self.ContCnt = 8
+	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 90 }
 	for n = 1, 1999 do
 		local winfo = worldInfo[mapId]
 		if not winfo then
@@ -8523,6 +8488,7 @@ function Nx.Map:InitTables()
 			assert (entryId)
 
 			if entryId == "0" then
+				Nx.prt("Instance " .. name .. " trying entryId 0")
 				entryId = "125"
 			end
 --[[
@@ -8542,7 +8508,9 @@ function Nx.Map:InitTables()
 --			Nx.MapIdToName[mid] = name
 
 			local emid = tonumber(entryId)
-
+			if self.MapWorldInfo[mid] and self.MapWorldInfo[mid].BaseMap then
+				mid = self.MapWorldInfo[mid].BaseMap
+			end
 			if self.MapWorldInfo[mid] then			-- Adjustment exists?
 				ex = ex + self.MapWorldInfo[mid].X
 				ey = ey + self.MapWorldInfo[mid].Y
@@ -9018,6 +8986,9 @@ end
 
 function Nx.Map:IsInstanceMap (mapId)
 	if (GetCurrentMapAreaID() == 20) then return false end
+	if (Nx.Map.MapWorldInfo[mapId] and Nx.Map.MapWorldInfo[mapId].BaseMap) then
+	   mapId = Nx.Map.MapWorldInfo[mapId].BaseMap
+	end
 	for _,map in pairs(Nx.Map.MapZones[100]) do
 		if map == mapId then
 			return true

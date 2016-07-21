@@ -80,9 +80,9 @@ local function WeeklyOptions()
 			childGroups	= "tab",
 			args = {
 				general = {
+					order = 1,
 					type = "group",
 					name = L["General"],
-					order = 1,
 					args = {
 						dateset = {
 							order = 1,
@@ -102,14 +102,14 @@ local function WeeklyOptions()
 					},
 				},
 				Mobs = {
+					order = 2,
 					type = "group",
 					name = L["Mobs"],
-					order = 2,
 					args = {
 						WodMobs = {
+							order = 1,
 							type = "group",
 							name = L["WoD"],
-							order = 1,
 							args = {
 								mdesc = {
 									order = 1,
@@ -158,9 +158,9 @@ local function WeeklyOptions()
 							},
 						},
 						MopMobs = {
+							order = 2,
 							type = "group",
 							name = L["MoP"],
-							order = 2,
 							args = {
 								mdesc = {
 									order = 1,
@@ -244,14 +244,14 @@ local function WeeklyOptions()
 					},
 				},
 				Loot = {
+					order = 3,
 					type = "group",
 					name = L["Lootables"],
-					order = 3,
 					args = {
 						WodLoot = {
+							order = 1,
 							type = "group",
 							name = "WoD",
-							order = 1,
 							args = {
 								ldesc = {
 									order = 1,
@@ -261,9 +261,9 @@ local function WeeklyOptions()
 							},
 						},
 						MopLoot = {
+							order = 2,
 							type = "group",
 							name = "MoP",
-							order = 2,
 							args = {
 								ldesc = {
 									order = 1,
@@ -311,14 +311,14 @@ local function WeeklyOptions()
 					},
 				},
 				Quests = {
+					order = 4,
 					type = "group",
 					name = L["Quests"],
-					order = 4,
 					args = {
 						WodQuests = {
+							order = 1,
 							type = "group",
 							name = L["WoD"],
-							order = 1,
 							args = {
 								qdesc = {
 									order = 1,
@@ -352,9 +352,9 @@ local function WeeklyOptions()
 							},
 						},
 						MopQuests = {
+							order = 2,
 							type = "group",
 							name = "MoP",
-							order = 2,
 							args = {
 								qdesc = {
 									order = 1,
@@ -378,14 +378,14 @@ local function WeeklyOptions()
 					},
 				},
 				Raids = {
+					order = 5,
 					type = "group",
 					name = "Raids",
-					order = 5,
 					args = {
 						Difficulties = {
+							order = 1,
 							type = "group",
 							name = "Difficulties",
-							order = 1,
 							args = {
 								rdesc = {
 									order = 1,
@@ -443,9 +443,9 @@ local function WeeklyOptions()
 							},
 						},
 						MopRaids = {
+							order = 2,
 							type = "group",
 							name = "MoP",
-							order = 1,
 							args = {
 								rdesc = {
 									order = 1,
@@ -515,9 +515,9 @@ local function WeeklyOptions()
 							},
 						},
 						WodRaids = {
+							order = 3,
 							type = "group",
 							name = "WoD",
-							order = 2,
 							args = {
 								rdesc = {
 									order = 1,

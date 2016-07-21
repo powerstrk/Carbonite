@@ -258,9 +258,9 @@ local function mapConfig ()
 			childGroups	= "tab",
 			args = {
 				mainMap = {
+					order = 1,
 					type = "group",
 					name = L["Map Options"],
-					order = 1,
 					args = {
 						maxMap = {
 							order = 1,
@@ -288,26 +288,8 @@ local function mapConfig ()
 								Nx.db.profile.Map.Compatability = not Nx.db.profile.Map.Compatability
 							end,
 						},
-						takecontrol = {
-							order = 3,
-							type = "toggle",
-							width = "full",
-							name = L["Take Map Function Control"],
-							desc = L["When enabled Carbonite takes control of 2 blizzard map functions to help prevent map flickers, and unneccsary lag causing calls to change the map."],
-							get = function()
-								return Nx.db.profile.Map.TakeFunctions
-							end,
-							set = function()
-								Nx.db.profile.Map.TakeFunctions = not Nx.db.profile.Map.TakeFunctions
-								if Nx.db.profile.Map.TakeFunctions then
-									Nx.carbTakeMapFunctions(true)
-								else
-									Nx.carbTakeMapFunctions()
-								end
-							end,
-						},
 						hidecombat = {
-							order = 4,
+							order = 3,
 							type = "toggle",
 							width = "full",
 							name = L["Hide Map In Combat"],
@@ -320,7 +302,7 @@ local function mapConfig ()
 							end,
 						},
 						centerMap = {
-							order = 5,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Center map when maximizing"] .. "\n",
@@ -333,7 +315,7 @@ local function mapConfig ()
 							end,
 						},
 						mouseIgnore = {
-							order = 6,
+							order = 5,
 							type = "toggle",
 							width = "full",
 							name = L["Ignore mouse on map except when ALT is pressed"] .. "\n",
@@ -346,7 +328,7 @@ local function mapConfig ()
 							end,
 						},
 						maxMouseIgnore = {
-							order = 7,
+							order = 6,
 							type = "toggle",
 							width = "full",
 							name = L["Ignore mouse on full-sized map except when ALT is pressed"] .. "\n",
@@ -375,7 +357,7 @@ local function mapConfig ()
 						}, 
 ]]--
 						restoreMap = {
-							order = 8,
+							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Close Map instead of minimize"] .. "\n",
@@ -388,12 +370,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer1 = {
-							order = 9,
+							order = 8,
 							type = "description",
 							name = "\n",
 						},
 						showPals = {
-							order = 10,
+							order = 9,
 							type = "toggle",
 							name = L["Show Friends/Guildmates in Cities"],
 							width = "full",
@@ -406,7 +388,7 @@ local function mapConfig ()
 							end,
 						},
 						showOthers = {
-							order = 11,
+							order = 10,
 							type = "toggle",
 							width = "full",
 							name = L["Show Other people in Cities"],
@@ -419,7 +401,7 @@ local function mapConfig ()
 							end,
 						},
 						showOthersZ = {
-							order = 12,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Show Other people In Zone"],
@@ -432,12 +414,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer2 = {
-							order = 13,
+							order = 12,
 							type = "description",
 							name = "\n",
 						},
 						restoreScale = {
-							order = 14,
+							order = 13,
 							type = "toggle",
 							name = L["Restore map scale after track"],
 							width = "full",
@@ -450,7 +432,7 @@ local function mapConfig ()
 							end,
 						},
 						useRoute = {
-							order = 15,
+							order = 14,
 							type = "toggle",
 							name = L["Use Travel Routing"],
 							width = "full",
@@ -463,12 +445,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer3 = {
-							order = 16,
+							order = 15,
 							type = "description",
 							name = "\n",
 						},
 						showTrail = {
-							order = 17,
+							order = 16,
 							type = "toggle",
 							name = L["Show Movement Trail"],
 							width = "full",
@@ -481,7 +463,7 @@ local function mapConfig ()
 							end,
 						},
 						trailDist = {
-							order = 18,
+							order = 17,
 							type = "range",
 							name = L["Movement trail distance"],
 							desc = L["sets the distance of movement between the trail marks"],
@@ -497,7 +479,7 @@ local function mapConfig ()
 							end,
 						},
 						trailCnt = {
-							order = 19,
+							order = 18,
 							type = "range",
 							name = L["Movement dot count"],
 							desc = L["sets the number of movement dots to draw on the map"],
@@ -513,7 +495,7 @@ local function mapConfig ()
 							end,
 						},
 						trailTime = {
-							order = 20,
+							order = 19,
 							type = "range",
 							name = L["Movement trail fade time"],
 							desc = L["sets the time trail marks last on the map (in seconds)"],
@@ -529,12 +511,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer4 = {
-							order = 21,
+							order = 20,
 							type = "description",
 							name = "\n",
 						},
 						showToolBar = {
-							order = 22,
+							order = 21,
 							type = "toggle",
 							name = L["Show Map Toolbar"],
 							width = "full",
@@ -548,10 +530,10 @@ local function mapConfig ()
 							end,
 						},
 						TooltipAnchor = {
-							order = 23,
-							type = "select",
-							name = "  " .. L["Map Tooltip Anchor"],
-							desc = L["Sets the anchor point for tooltips on the map"],
+							order = 22,
+							type	= "select",
+							name	= "  " .. L["Map Tooltip Anchor"],
+							desc	= L["Sets the anchor point for tooltips on the map"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("Anchor0")
 								for a,b in pairs(vals) do
@@ -570,10 +552,10 @@ local function mapConfig ()
 							end,
 						},
 						TooltipAnchorRel = {
-							order = 24,
-							type = "select",
-							name = "  " .. L["Map Tooltip Anchor To Map"],
-							desc = L["Sets the secondary anchor point for tooltips on the map"],
+							order = 23,
+							type	= "select",
+							name	= "  " .. L["Map Tooltip Anchor To Map"],
+							desc	= L["Sets the secondary anchor point for tooltips on the map"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("Anchor0")
 								for a,b in pairs(vals) do
@@ -592,7 +574,7 @@ local function mapConfig ()
 							end,
 						},
 						TopToolTip = {
-							order = 25,
+							order = 24,
 							type = "toggle",
 							name = L["Show All Tooltips Above Map"],
 							width = "full",
@@ -605,7 +587,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitleName = {
-							order = 26,
+							order = 25,
 							type = "toggle",
 							name = L["Show Map Name"],
 							desc = L["When enabled, shows current map zone name in the titlebar."],
@@ -617,7 +599,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitleXY = {
-							order = 27,
+							order = 26,
 							type = "toggle",
 							name = L["Show Coordinates"],
 							desc = L["When enabled, Shows your current coordinates in the titlebar."],
@@ -629,7 +611,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitleSpeed = {
-							order = 28,
+							order = 27,
 							type = "toggle",
 							name = L["Show Speed"],
 							desc = L["When enabled, Shows your current movement speed in the titlebar."],
@@ -641,7 +623,7 @@ local function mapConfig ()
 							end,
 						},
 						showTitle2 = {
-							order = 29,
+							order = 28,
 							type = "toggle",
 							name = L["Show Second Title Line"],
 							width = "full",
@@ -655,12 +637,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer5 = {
-							order = 30,
+							order = 29,
 							type = "description",
 							name = "\n",
 						},
 						showPOI = {
-							order = 31,
+							order = 30,
 							type = "toggle",
 							name = L["Show Map POI"],
 							width = "full",
@@ -673,12 +655,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer6 = {
-							order = 32,
+							order = 31,
 							type = "description",
 							name = "\n",
 						},
 						plyrArrowSize = {
-							order = 33,
+							order = 32,
 							type = "range",
 							name = L["Player Arrow Size"],
 							width = "double",
@@ -695,7 +677,7 @@ local function mapConfig ()
 							end,
 						},
 						iconScaleMin = {
-							order = 34,
+							order = 33,
 							type = "range",
 							width = "double",
 							name = L["Icon Scale Min"],
@@ -712,7 +694,7 @@ local function mapConfig ()
 							end,
 						},
 						mapLineThick = {
-							order = 35,
+							order = 34,
 							type = "range",
 							width = "double",
 							name = L["Map Health Bar Thickness"],
@@ -729,7 +711,7 @@ local function mapConfig ()
 							end,
 						},
 						zoneDrawCnt = {
-							order = 36,
+							order = 35,
 							type = "range",
 							width = "double",
 							name = L["Maximum Zones To Draw At Once"],
@@ -746,7 +728,7 @@ local function mapConfig ()
 							end,
 						},
 						detailSize = {
-							order = 37,
+							order = 36,
 							type = "range",
 							name = L["Detail Graphics Visible Area"],
 							width = "double",
@@ -764,17 +746,17 @@ local function mapConfig ()
 							end,
 						},
 						spacer7 = {
-							order = 38,
+							order = 37,
 							type = "description",
 							name = "\n",
 						},
 						header = {
-							order = 39,
+							order = 38,
 							type = "header",
 							name = L["Map Mouse Button Binds"],
 						},
 						ButLAlt = {
-							order = 40,
+							order = 39,
 							type = "select",
 							name = "           " .. L["Alt Left Click"],
 							desc = L["Sets the action performed when left clicking holding ALT"],
@@ -796,10 +778,10 @@ local function mapConfig ()
 							end,
 						},
 						ButLCtrl = {
-							order = 41,
-							type = "select",
-							name = "           " .. L["Ctrl Left Click"],
-							desc = L["Sets the action performed when left clicking holding CTRL"],
+							order = 40,
+							type	= "select",
+							name	= "           " .. L["Ctrl Left Click"],
+							desc	= L["Sets the action performed when left clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -818,10 +800,10 @@ local function mapConfig ()
 							end,
 						},
 						ButM = {
-							order = 42,
-							type = "select",
-							name = "           " .. L["Middle Click"],
-							desc = L["Sets the action performed when clicking your middle mouse button"],
+							order = 41,
+							type	= "select",
+							name	= "           " .. L["Middle Click"],
+							desc	= L["Sets the action performed when clicking your middle mouse button"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -840,10 +822,10 @@ local function mapConfig ()
 							end,
 						},
 						ButMAlt = {
-							order = 43,
-							type = "select",
-							name = "           " .. L["Alt Middle Click"],
-							desc = L["Sets the action performed when middle clicking holding ALT"],
+							order = 42,
+							type	= "select",
+							name	= "           " .. L["Alt Middle Click"],
+							desc	= L["Sets the action performed when middle clicking holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -862,10 +844,10 @@ local function mapConfig ()
 							end,
 						},
 						ButMCtrl = {
-							order = 44,
-							type = "select",
-							name = "           " .. L["Ctrl Left Click"],
-							desc = L["Sets the action performed when middle clicking holding CTRL"],
+							order = 43,
+							type	= "select",
+							name	= "           " .. L["Ctrl Left Click"],
+							desc	= L["Sets the action performed when middle clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -884,10 +866,10 @@ local function mapConfig ()
 							end,
 						},
 						ButR = {
-							order = 45,
-							type = "select",
-							name = "           " .. L["Right Click"],
-							desc = L["Sets the action performed when right clicking the map"],
+							order = 44,
+							type	= "select",
+							name	= "           " .. L["Right Click"],
+							desc	= L["Sets the action performed when right clicking the map"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -906,10 +888,10 @@ local function mapConfig ()
 							end,
 						},
 						ButRAlt = {
-							order = 46,
-							type = "select",
-							name = "           " .. L["Alt Right Click"],
-							desc = L["Sets the action performed when Right clicking holding ALT"],
+							order = 45,
+							type	= "select",
+							name	= "           " .. L["Alt Right Click"],
+							desc	= L["Sets the action performed when Right clicking holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -928,10 +910,10 @@ local function mapConfig ()
 							end,
 						},
 						ButRCtrl = {
-							order = 47,
-							type = "select",
-							name = "           " .. L["Ctrl Right Click"],
-							desc = L["Sets the action performed when right clicking holding CTRL"],
+							order = 46,
+							type	= "select",
+							name	= "           " .. L["Ctrl Right Click"],
+							desc	= L["Sets the action performed when right clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -950,10 +932,10 @@ local function mapConfig ()
 							end,
 						},
 						But4 = {
-							order = 48,
-							type = "select",
-							name = "           " .. L["Button 4 Click"],
-							desc = L["Sets the action performed when clicking mouse button 4"],
+							order = 47,
+							type	= "select",
+							name	= "           " .. L["Button 4 Click"],
+							desc	= L["Sets the action performed when clicking mouse button 4"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -972,10 +954,10 @@ local function mapConfig ()
 							end,
 						},
 						But4Alt = {
-							order = 49,
-							type = "select",
-							name = "           " .. L["Alt Button 4 Click"],
-							desc = L["Sets the action performed when pressing mouse 4 while holding ALT"],
+							order = 48,
+							type	= "select",
+							name	= "           " .. L["Alt Button 4 Click"],
+							desc	= L["Sets the action performed when pressing mouse 4 while holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -994,10 +976,10 @@ local function mapConfig ()
 							end,
 						},
 						But4Ctrl = {
-							order = 50,
-							type = "select",
-							name = "           " .. L["Ctrl Button 4 Click"],
-							desc = L["Sets the action performed when clicking 4th mouse button holding CTRL"],
+							order = 49,
+							type	= "select",
+							name	= "           " .. L["Ctrl Button 4 Click"],
+							desc	= L["Sets the action performed when clicking 4th mouse button holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -1018,9 +1000,9 @@ local function mapConfig ()
 					},
 				},
 				miniMap = {
+					order = 2,
 					type = "group",
 					name = L["MiniMap Options"],
-					order = 2,
 					args = {
 						MMOwn = {
 							order = 1,
@@ -1328,9 +1310,9 @@ local function mapConfig ()
 					},
 				},
 				buttonFrame = {
+					order = 3,
 					type = "group",
 					name = L["Minimap Button Options"],
-					order = 3,
 					args = {
 						MMButOwn = {
 							order = 1,
@@ -1420,9 +1402,9 @@ local function mapConfig ()
 						},
 						ButCorner = {
 							order = 8,
-							type = "select",
-							name = L["Corner For First Button"],
-							desc = L["Sets the anchor point in multi-column setups for first minimap button"],
+							type	= "select",
+							name	= L["Corner For First Button"],
+							desc	= L["Sets the anchor point in multi-column setups for first minimap button"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("Corner")
 								for a,b in pairs(vals) do
@@ -1688,9 +1670,9 @@ local function fontConfig()
 					end,
 				},
 				spacer = {
+					order = 10,
 					type = "description",
 					name = "",
-					order = 10,
 				},
 				MapLocFont = {
 					order = 11,
@@ -1750,9 +1732,9 @@ local function fontConfig()
 					end,
 				},
 				spacer2 = {
+					order = 14,
 					type = "description",
 					name = "",
-					order = 14,
 				},
 				MenuFont = {
 					order = 15,
@@ -1826,9 +1808,9 @@ local function guidegatherConfig ()
 			childGroups	= "tab",
 			args = {
 				guideOpts = {
+					order = 1,
 					type = "group",
 					name = L["Guide Options"],
-					order = 1,
 					args = {
 						GuideVendorVMax = {
 							order = 1,
@@ -1849,9 +1831,9 @@ local function guidegatherConfig ()
 					},
 				},
 				gatherOpts = {
+					order = 2,
 					type = "group",
 					name = L["Gather Options"],
-					order = 2,
 					args = {
 						gatherEnable = {
 							order = 1,
@@ -1942,9 +1924,9 @@ local function guidegatherConfig ()
 					},
 				},
 				HerbDisp = {
+					order = 3,
 					type = "group",
 					name = L["Herbalism"],
-					order = 3,
 					args = {
 						enableall = {
 							order = 1,
@@ -2881,9 +2863,9 @@ local function guidegatherConfig ()
 					},
 				},
 				MinesDisp = {
+					order = 4,
 					type = "group",
 					name = L["Mining"],
-					order = 3,
 					args = {
 						menableall = {
 							order = 1,
@@ -3469,9 +3451,9 @@ local function guidegatherConfig ()
 					},
 				},
 				TimberDisp = {
+					order = 5,
 					type = "group",
 					name = L["Timber"],
-					order = 4,
 					args = {
 						tenableall = {
 							order = 1,
