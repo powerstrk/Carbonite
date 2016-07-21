@@ -6476,8 +6476,9 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			end
 		end
 		return
-	elseif event == "QUEST_ACCEPTED" then		
-		if QuestGetAutoAccept() then
+	elseif event == "QUEST_ACCEPTED" then
+		local auto = Nx.qdb.profile.Quest.AutoAccept
+		if auto and QuestGetAutoAccept() then
 			QuestFrameDetailPanel:Hide();
 			CloseQuest();
 		end
@@ -6494,7 +6495,10 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if QuestGetAutoAccept() and QuestIsFromAreaTrigger() then
 
 			Quest:RecordQuestAcceptOrFinish()
-			CloseQuest();
+			local auto = Nx.qdb.profile.Quest.AutoAccept
+			if auto then
+				CloseQuest();
+			end
 --			Quest.AcceptQId = GetQuestID()
 --			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
 		end
