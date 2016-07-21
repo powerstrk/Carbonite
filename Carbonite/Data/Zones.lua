@@ -320,7 +320,7 @@ Nx.Zones = {
 	[1026] = L["Hellfire Citadel"] .. "|100|100|3|5|945|40.4|57|1025",
 	[1028] = L["Mardum, the Shattered Abyss"] .. "|100|100|2|8||",
 	[1033] = L["Suramar"] .. "|100|110|2|8||",	
-	[1040] = L["Netherlight Temple"] .. "|100|110|3|5|0|50|50|0",
+	[1040] = L["Netherlight Temple"] .. "|100|110|3|5|1007|50|50|0",
 }
 
 Nx.SubNames = {

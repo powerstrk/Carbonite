@@ -4099,7 +4099,7 @@ function Nx.Map:UpdateWorld()
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
 	if winfo.Garrison and not isMicro then
-		local level, mapname, x, y = C_Garrison.GetGarrisonInfo()
+		local level, mapname, x, y = C_Garrison.GetGarrisonInfo(LE_GARRISON_TYPE_6_0)
 		if not level then
 			level = "1"
 		end
@@ -8488,6 +8488,7 @@ function Nx.Map:InitTables()
 			assert (entryId)
 
 			if entryId == "0" then
+				Nx.prt("Instance " .. name .. " trying entryId 0")
 				entryId = "125"
 			end
 --[[
