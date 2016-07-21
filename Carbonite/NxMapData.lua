@@ -1436,9 +1436,11 @@ Map.MapWorldInfo = {
 	},
 	[1028] = {
 		 Scale = 7.487501968,
-		 X = -805.8334,
+		 X = -3105.8334,
 		 Y = -514.5834,
 		 Overlay = "mardumtheshatteredabyss",
+		Name = L["Mardum, The Shattered Abyss"],
+		Explored = true,
 	},
 	[1033] = {
 		 Scale = 11.10416,
@@ -3193,6 +3195,9 @@ Map.ZoneOverlays = {
 		["ruinsofeluneeth"] = "264,226,221,224",
 		["suramarcity"] = "390,331,470,337",
 		["telanor"] = "327,0,387,372",
+	},
+	["mardumtheshatteredabyss"] = {
+		["mardumtheshatteredabyss"] = "0,0,1024,768",
 	},
 }
 
