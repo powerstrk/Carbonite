@@ -89,9 +89,9 @@ local function WarehouseOptions()
 			childGroups = "tab",
 			args = {
 				main = {
+					order = 1,
 					name = L["Warehouse"],
 					type = "group",
-					order = 1,
 					args = {
 						toolTip = {
 							order = 1,
@@ -179,13 +179,13 @@ local function WarehouseOptions()
 					},
 				},
 				seller = {
+					order = 2,
 					name = L["Auto Sell"],
 					type = "group",
-					order = 2,					
 					args = {
 						sellopts = {
-							name = " ",
 							order = 1,
+							name = " ",
 							type = "group",							
 							guiInline = true,
 							args = {
@@ -220,8 +220,8 @@ local function WarehouseOptions()
 							},
 						},					
 						greys = {
-							name = " ",
 							order = 2,
+							name = " ",
 							type = "group",							
 							guiInline = true,
 							args = {
@@ -242,8 +242,8 @@ local function WarehouseOptions()
 							},
 						},
 						whites = {
-							name = " ",
 							order = 3,
+							name = " ",
 							type = "group",
 							guiInline = true,
 							args = {
@@ -300,8 +300,8 @@ local function WarehouseOptions()
 							},						
 						},
 						greens = {
-							name = " ",
 							order = 4,
+							name = " ",
 							type = "group",
 							guiInline = true,
 							args = {
@@ -390,8 +390,8 @@ local function WarehouseOptions()
 							},
 						},
 						blues = {
-							name = " ",
 							order = 5,
+							name = " ",
 							type = "group",
 							guiInline = true,
 							args = {
@@ -480,8 +480,8 @@ local function WarehouseOptions()
 							},						
 						},												
 						purps = {
-							name = " ",
 							order = 6,
+							name = " ",
 							type = "group",
 							guiInline = true,
 							args = {
@@ -570,14 +570,14 @@ local function WarehouseOptions()
 							},						
 						},
 						list = {
-							name = " ",
 							order = 7,
+							name = " ",
 							type = "group",
 							guiInline = true,
 							args = {
 								selllist = {
-									name = L["Sell items based on a list"],
 									order = 1,
+									name = L["Sell items based on a list"],
 									desc = L["If item name matches one on the list, auto-sell it"],
 									type = "toggle",
 									width = "full",
@@ -590,8 +590,8 @@ local function WarehouseOptions()
 									end,									
 								},
 								new = {
-									type = "input",
 									order = 2,
+									type = "input",
 									name = L["New Item To Sell (Case Insensative)"],
 									desc = L["Enter the name of the item you want to auto-sell. You can drag and drop an item from your inventory aswell."],
 									width = "full",
@@ -617,8 +617,8 @@ local function WarehouseOptions()
 									end,
 								},
 								delete = {
-									type = "select",									
 									order = 3,
+									type = "select",									
 									style = "radio",
 									name = L["Delete Item"],
 									disabled = function()
@@ -646,9 +646,9 @@ local function WarehouseOptions()
 					},
 				},
 				repair = {
+					order = 3,
 					name = L["Auto Repair"],
 					type = "group",
-					order = 3,
 					args = {
 						autorepair = {
 							order = 1,

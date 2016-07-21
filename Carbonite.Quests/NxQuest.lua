@@ -164,9 +164,9 @@ local function QuestOptions ()
 			childGroups	= "tab",
 			args = {
 				quest = {
+					order = 1,
 					type = "group",
 					name = L["Quest Options"],
-					order = 1,
 					args = {
 						name = {
 							order = 1,
@@ -861,9 +861,9 @@ local function QuestOptions ()
 					},
 				},
 				watch = {
+					order = 2,
 					type = "group",
 					name = L["Watch Options"],
-					order = 2,
 					args = {
 						qwhide = {
 							order = 1,
@@ -1454,9 +1454,9 @@ local function QuestOptions ()
 					},
 				},
 				sounds = {
+					order = 3,
 					type = "group",
 					name = L["Sound Options"],
-					order = 3,
 					args = {
 						sndEnable = {
 							order = 1,
@@ -1600,9 +1600,9 @@ local function QuestOptions ()
 					},
 				},
 				database = {
+					order = 4,
 					type = "group",
 					name = L["Databases"],
-					order = 4,
 					args = {
 						title = {
 							order = 1,
