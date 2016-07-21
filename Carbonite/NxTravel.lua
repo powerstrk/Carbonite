@@ -171,7 +171,7 @@ function Nx.Travel:TaxiCalcTime (dest)
 
 	if num > 0 then
 
-		TaxiNodeSetCurrent (dest)
+--		TaxiNodeSetCurrent (dest)
 
 		local rCnt = GetNumRoutes (dest)
 
