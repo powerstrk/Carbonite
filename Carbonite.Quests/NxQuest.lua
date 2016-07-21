@@ -2812,6 +2812,8 @@ function Nx.Quest:LoadQuestDB()
 
 	local qMaxLevel = 999
 
+	local grp = {}
+
 	--DeaTHCorE - follow Vars are no required, they was not used...
 	--local qCnt = 0
 	--local maxid = 0
@@ -2824,20 +2826,20 @@ function Nx.Quest:LoadQuestDB()
 		--qCnt = qCnt + 1
 		--maxid = max (id, maxid)
 
-		local name, side, level = self:Unpack (q["Quest"])
-		--if side == enFact or level > 0 and level < qLoadLevel or level > qMaxLevel then
-		if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
+		local name, side, lvl, minlvl, nextId = self:Unpack (q["Quest"])
+		--if side == enFact or lvl > 0 and lvl < qLoadLevel or lvl > qMaxLevel then
+		if side == enFact or lvl > 0 and (maxLoadLevel and lvl < qLoadLevel) or lvl > qMaxLevel then
 			Nx.Quests[mungeId] = nil
 			--if side ~= enFact then -- DEBUG
-			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", level, qLoadLevel)
+			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", lvl, qLoadLevel)
 			--end
 		else
-			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
-			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
---				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
-				--DeaTHCorE - follow are no required, was not used...
-				--sameCnt = sameCnt + 1
-			end
+			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", lvl, qLoadLevel)
+-- 			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
+-- --				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
+-- 				--DeaTHCorE - follow are no required, was not used...
+-- 				--sameCnt = sameCnt + 1
+-- 			end
 			self:CheckQuestSE (q, 3)
 			for n = 1, 99 do
 				if not q[n] then
@@ -2846,81 +2848,63 @@ function Nx.Quest:LoadQuestDB()
 
 				self:CheckQuestObj (q, n)
 			end
-		end
-	end
 
-	for mungeId, q in pairs (Nx.Quests) do
+			if not q.CNum and nextId > 0 then
+				local clvlmax = lvl
 
-		local name, side, lvl, minlvl, next = self:Unpack (q["Quest"])
-		if not q.CNum and next > 0 then
+				local qc = q
+				local cnum = 0
+				while qc do
+					cnum = cnum + 1
+					qc.CNum = cnum
 
-			local clvlmax = lvl
+	--				if strfind (name, "Vile Famil") then
+	--					Nx.prt ("%s %d %d %d", name, mungeId, nextId, cnum)
+	--				end
 
-			local qc = q
-			local cnum = 0
-			while qc do
-				cnum = cnum + 1
-				qc.CNum = cnum
+					name, side, lvl, minlvl, nextId = self:Unpack (qc["Quest"])
 
---				if strfind (name, "Vile Famil") then
---					Nx.prt ("%s %d %d %d", name, mungeId, next, cnum)
---				end
+					clvlmax = max (clvlmax, lvl)
 
-				name, side, lvl, minlvl, next = self:Unpack (qc["Quest"])
-
-				clvlmax = max (clvlmax, lvl)
-
---				next = self:UnpackNext (qc[1])
-				if next == 0 then
-					break
-				end
-
-				qc = Nx.Quests[next]
-			end
-
-			q.CLvlMax = clvlmax		-- Max level in chain
-		end
-	end
-
-
-	for lvl = 0, 100 do
-
-		local grp = {}
-
-		for id, q in pairs (Nx.Quests) do
-			local name, side, level = self:Unpack (q["Quest"])
-			if level == lvl then
-				if side ~= enFact then
-
-					if not q.CNum then
-						tinsert (grp, format ("%s^%d", name, id))
-
-					elseif q.CNum == 1 then
-						local qc = q
-						while qc do
-							local pname, side, _, _, next = self:Unpack (qc["Quest"])
---							if strfind (name, "Load Lightening") then
---								Nx.prt ("%s %d %d (%d %d)", pname, id, side, next, qc.CNum)
---							end
-
-							tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
-							qc = Nx.Quests[next]
-							id = next
-						end
+	--				nextId = self:UnpackNext (qc[1])
+					if nextId == 0 then
+						break
 					end
 
---					Nx.prt ("Quest "..id.." "..level)
+					qc = Nx.Quests[nextId]
+				end
+
+				q.CLvlMax = clvlmax		-- Max level in chain
+			end
+
+			if not q.CNum then
+				tinsert (grp, format ("%s^%d", name, mungeId))
+			elseif q.CNum == 1 then
+				local qc = q
+				while qc do
+					local pname, side, _, _, nextId = self:Unpack (qc["Quest"])
+--					if strfind (name, "Load Lightening") then
+--						Nx.prt ("%s %d %d (%d %d)", pname, mungeId, side, nextId, qc.CNum)
+--					end
+
+					tinsert (grp, format ("%s%2d^%d", name, qc.CNum, mungeId))
+					qc = Nx.Quests[nextId]
+					mungeId = nextId
 				end
 			end
-		end
 
---		table.sort (grp)
-
-		for _, v in ipairs (grp) do
-			local name, id = Nx.Split ("^", v)
-			tinsert (self.Sorted, tonumber (id))
+			-- Nx.prt ("Quest "..mungeId.." "..lvl)
 		end
 	end
+
+	-- table.sort (grp)
+
+	for _, v in ipairs (grp) do
+		local name, id = Nx.Split ("^", v)
+		tinsert (self.Sorted, tonumber (id))
+	end
+
+	grp = nil
 
 	-- Create quest givers
 
@@ -6476,8 +6460,9 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			end
 		end
 		return
-	elseif event == "QUEST_ACCEPTED" then		
-		if QuestGetAutoAccept() then
+	elseif event == "QUEST_ACCEPTED" then
+		local auto = Nx.qdb.profile.Quest.AutoAccept
+		if auto and QuestGetAutoAccept() then
 			QuestFrameDetailPanel:Hide();
 			CloseQuest();
 		end
@@ -6494,7 +6479,10 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if QuestGetAutoAccept() and QuestIsFromAreaTrigger() then
 
 			Quest:RecordQuestAcceptOrFinish()
-			CloseQuest();
+			local auto = Nx.qdb.profile.Quest.AutoAccept
+			if auto then
+				CloseQuest();
+			end
 --			Quest.AcceptQId = GetQuestID()
 --			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
 		end
