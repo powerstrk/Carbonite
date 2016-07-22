@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxSocial - Social Window (friends, guild)
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -76,9 +76,9 @@ local function socialConfig()
 			childGroups	= "tab",
 			args = {
 				socialWin = {
+					order = 1,
 					type = "group",
 					name = L["Social Options"],
-					order = 1,
 					args = {
 						socenable = {
 							order = 1,
@@ -97,9 +97,9 @@ local function socialConfig()
 					},
 				},
 				punkWin = {
+					order = 2,
 					type = "group",
 					name = L["Punk Options"],
-					order = 2,
 					args = {
 						pnkenable = {
 							order = 1,
@@ -409,9 +409,9 @@ local function socialConfig()
 					},
 				},
 				teamWin = {
+					order = 3,
 					type = "group",
 					name = L["Team Options"],
-					order = 3,
 					args = {
 						teamenable = {
 							order = 1,
@@ -428,7 +428,7 @@ local function socialConfig()
 							end,
 						},
 						teamhide = {
-							order = 1,
+							order = 2,
 							type = "toggle",
 							width = "full",
 							name = L["Hide the team button window"],
@@ -442,7 +442,7 @@ local function socialConfig()
 							end,
 						},
 						teamtargets = {
-							order = 2,
+							order = 3,
 							type = "range",
 							name = L["number of target buttons"],
 							desc = L["Sets the number of buttons for team members in the teamhud (RELOAD REQUIRED)"],

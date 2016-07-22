@@ -1873,9 +1873,9 @@ function Nx.Map.Guide:GetSecondaryTrainer (profName)
 	return " " .. L["Trainer"]
 end
 function Nx.Map.Guide:SavePlayerNPCTarget()
-	local visible = GameTooltip:IsVisible()
-	GameTooltip:SetOwner(MerchantFrame)
-	GameTooltip:SetUnit("NPC")
+	-- local visible = GameTooltip:IsVisible()
+	-- GameTooltip:SetOwner(MerchantFrame)
+	-- GameTooltip:SetUnit("NPC")
 	local tag = GameTooltipTextLeft2:GetText() or ""
 	local lvl = GameTooltipTextLeft3:GetText() or ""
 	local faction = GameTooltipTextLeft4:GetText() or ""
@@ -1885,9 +1885,9 @@ function Nx.Map.Guide:SavePlayerNPCTarget()
 	end
 	local str=format("%s~%s~%s",tag,GameTooltipTextLeft1:GetText() or "",faction)
 	self.PlayerNPCTarget = str
-	if not visible then
-		GameTooltip:Hide()
-	end
+	-- if not visible then
+	-- 	GameTooltip:Hide()
+	-- end
 
 
 	local map = Nx.Map:GetMap (1)
