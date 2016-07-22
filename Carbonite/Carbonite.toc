@@ -1,6 +1,6 @@
-## Interface: 60200
-## Title: Carbonite 6.2.1
-## Version: 6.2.1
+## Interface: 70000
+## Title: Carbonite 7.0.0
+## Version: 7.0.0
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

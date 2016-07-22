@@ -44,9 +44,10 @@ function Nx.Travel:Init()
 --		taxiT[""] = true
 --	end
 
-	self.ColdFlyName = GetSpellInfo (54197) or ""
+	self.WrathFlyName = GetSpellInfo (54197) or ""
 	self.AzerothFlyName = GetSpellInfo (90267) or ""
-	self.FlySkillPandaria=115913
+	self.PandariaFlyName = GetSpellInfo(115913) or ""
+	self.DraenorFlyName = GetSpellInfo(191645) or "" 
 end
 
 function Nx.Travel:Add (typ)
@@ -170,7 +171,7 @@ function Nx.Travel:TaxiCalcTime (dest)
 
 	if num > 0 then
 
-		TaxiNodeSetCurrent (dest)
+--		TaxiNodeSetCurrent (dest)
 
 		local rCnt = GetNumRoutes (dest)
 
@@ -409,22 +410,21 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 	self.FlyingMount = false
 
 	if riding >= 225 then
-
 		if cont1 == 1 or cont1 == 2 or cont1 == 5 then
 			self.FlyingMount = GetSpellInfo (self.AzerothFlyName)
-
 		elseif cont1 == 3 then
 			self.FlyingMount = true
-
 		elseif cont1 == 4 then
-			self.FlyingMount = GetSpellInfo (self.ColdFlyName)
+			self.FlyingMount = GetSpellInfo(self.WrathFlyName)
 		elseif cont1 == 6 then
-			self.FlyingMount = IsSpellKnown(self.FlySkillPandaria)
-
+			self.FlyingMount = GetSpellInfo(self.PandariaFlyName)
+        elseif cont1 == 7 then
+			local _,_,_,complete = GetAchievementInfo(10018)
+			if complete then
+				self.FlyingMount = GetSpellInfo(self.DraenorFlyName)
+			end
 		end
 	end
-
---	self.FlyingMount = riding >= 225 and (cont1 == 3 or cont1 == 4 and coldFly)		-- Don't use connections
 
 	local speed = 2 / 4.5
 	if riding < 75 then

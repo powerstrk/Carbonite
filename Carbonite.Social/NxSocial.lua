@@ -76,9 +76,9 @@ local function socialConfig()
 			childGroups	= "tab",
 			args = {
 				socialWin = {
+					order = 1,
 					type = "group",
 					name = L["Social Options"],
-					order = 1,
 					args = {
 						socenable = {
 							order = 1,
@@ -97,9 +97,9 @@ local function socialConfig()
 					},
 				},
 				punkWin = {
+					order = 2,
 					type = "group",
 					name = L["Punk Options"],
-					order = 2,
 					args = {
 						pnkenable = {
 							order = 1,
@@ -409,9 +409,9 @@ local function socialConfig()
 					},
 				},
 				teamWin = {
+					order = 3,
 					type = "group",
 					name = L["Team Options"],
-					order = 3,
 					args = {
 						teamenable = {
 							order = 1,
