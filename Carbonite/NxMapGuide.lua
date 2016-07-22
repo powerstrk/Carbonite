@@ -33,6 +33,7 @@ Nx.GuideAbr = {
 	["M"] = L["The Maelstrom"],
 	["P"] = L["Pandaria"],
 	["D"] = L["Draenor"],
+	["B"] = L["Broken Isles"],
 }
 Nx.GuideInfo = {
 	Name = L["All"],
@@ -143,6 +144,10 @@ Nx.GuideInfo = {
 		{
 			T = L["Monk Trainer"],
 			Tx = "Class_Monk",
+		},
+		{
+			T = L["Demon Hunter Trainer"],
+			Tx = "Class_Demonhunter",
 		},
 	},
 	{
@@ -373,6 +378,10 @@ Nx.GuideInfo = {
 		{
 			Name = "@D",
 			Map = 7
+		},
+		{
+			Name = "@B",
+			Map = 8
 		},
 	},
 	{
@@ -909,7 +918,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 		local n = 1
 		for nxid, v in pairs (Nx.Zones) do
 			local longname, minLvl, maxLvl, faction, typ, owner, posx, posy, numPlyr = Nx.Split ("|", v)
-			if faction == "3" and typ == "5" then
+			if faction == "3" and typ == "5" and tonumber(numPlyr) > 0 then				
 				local mapId = nxid
 				if mapId then
 					local cont = Nx.Map:IdToContZone (mapId)
@@ -1864,9 +1873,9 @@ function Nx.Map.Guide:GetSecondaryTrainer (profName)
 	return " " .. L["Trainer"]
 end
 function Nx.Map.Guide:SavePlayerNPCTarget()
-	local visible = GameTooltip:IsVisible()
-	GameTooltip:SetOwner(MerchantFrame)
-	GameTooltip:SetUnit("NPC")
+	-- local visible = GameTooltip:IsVisible()
+	-- GameTooltip:SetOwner(MerchantFrame)
+	-- GameTooltip:SetUnit("NPC")
 	local tag = GameTooltipTextLeft2:GetText() or ""
 	local lvl = GameTooltipTextLeft3:GetText() or ""
 	local faction = GameTooltipTextLeft4:GetText() or ""
@@ -1876,9 +1885,9 @@ function Nx.Map.Guide:SavePlayerNPCTarget()
 	end
 	local str=format("%s~%s~%s",tag,GameTooltipTextLeft1:GetText() or "",faction)
 	self.PlayerNPCTarget = str
-	if not visible then
-		GameTooltip:Hide()
-	end
+	-- if not visible then
+	-- 	GameTooltip:Hide()
+	-- end
 
 
 	local map = Nx.Map:GetMap (1)
@@ -2533,6 +2542,10 @@ Nx.Map.Guide.ItemCats = {
 				T = "Monk",
 				Item = -9,
 			},
+			{
+				T = "Demon Hunter",
+				Item = -9,			
+			},
 		},
 		{
 			Name = "Necklaces",
@@ -2817,6 +2830,7 @@ Nx.Map.Guide.ItemStatAllowableClass = {
 	"Warlock",
 	"Warrior",
 	"Monk",
+	"Demon Hunter",
 }
 Nx.Map.Guide.ItemStatRequiredSkill = {
 	"Alchemy",
@@ -2895,6 +2909,7 @@ Nx.Map.Guide.ItemTypeNames = {
 	"Warlock",
 	"Warrior",
 	"Monk",
+	"Demon Hunter",
 	"Red",
 	"Yellow",
 	"Blue",
