@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxInfo - Information window
 -- Copyright 2008-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -84,9 +84,9 @@ local function createOptions()
 				},
 				InfoFont = {
 					order = 3,
-					type	= "select",
-					name	= L["Info Font"],
-					desc	= L["Sets the font to be used for info windows"],
+					type = "select",
+					name = L["Info Font"],
+					desc = L["Sets the font to be used for info windows"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
 						for a,b in pairs(vals) do

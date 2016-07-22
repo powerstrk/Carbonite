@@ -1,4 +1,4 @@
-﻿---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 -- NxOptions - Options
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -189,9 +189,9 @@ local function generalOptions()
 				},
 				chatWindow = {
 					order = 5,
-					type	= "select",
-					name	= L["Default Chat Channel"],
-					desc	= L["Allows selection of which chat window to display Carbonite messages"],
+					type = "select",
+					name = L["Default Chat Channel"],
+					desc = L["Allows selection of which chat window to display Carbonite messages"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("Chat")
 						for a,b in pairs(vals) do
@@ -549,9 +549,9 @@ local function mapConfig ()
 						},
 						TooltipAnchor = {
 							order = 23,
-							type	= "select",
-							name	= "  " .. L["Map Tooltip Anchor"],
-							desc	= L["Sets the anchor point for tooltips on the map"],
+							type = "select",
+							name = "  " .. L["Map Tooltip Anchor"],
+							desc = L["Sets the anchor point for tooltips on the map"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("Anchor0")
 								for a,b in pairs(vals) do
@@ -571,9 +571,9 @@ local function mapConfig ()
 						},
 						TooltipAnchorRel = {
 							order = 24,
-							type	= "select",
-							name	= "  " .. L["Map Tooltip Anchor To Map"],
-							desc	= L["Sets the secondary anchor point for tooltips on the map"],
+							type = "select",
+							name = "  " .. L["Map Tooltip Anchor To Map"],
+							desc = L["Sets the secondary anchor point for tooltips on the map"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("Anchor0")
 								for a,b in pairs(vals) do
@@ -769,15 +769,15 @@ local function mapConfig ()
 							name = "\n",
 						},
 						header = {
-							order	= 39,
-							type	= "header",
-							name	= L["Map Mouse Button Binds"],
+							order = 39,
+							type = "header",
+							name = L["Map Mouse Button Binds"],
 						},
 						ButLAlt = {
 							order = 40,
-							type	= "select",
-							name	= "           " .. L["Alt Left Click"],
-							desc	= L["Sets the action performed when left clicking holding ALT"],
+							type = "select",
+							name = "           " .. L["Alt Left Click"],
+							desc = L["Sets the action performed when left clicking holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -797,9 +797,9 @@ local function mapConfig ()
 						},
 						ButLCtrl = {
 							order = 41,
-							type	= "select",
-							name	= "           " .. L["Ctrl Left Click"],
-							desc	= L["Sets the action performed when left clicking holding CTRL"],
+							type = "select",
+							name = "           " .. L["Ctrl Left Click"],
+							desc = L["Sets the action performed when left clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -819,9 +819,9 @@ local function mapConfig ()
 						},
 						ButM = {
 							order = 42,
-							type	= "select",
-							name	= "           " .. L["Middle Click"],
-							desc	= L["Sets the action performed when clicking your middle mouse button"],
+							type = "select",
+							name = "           " .. L["Middle Click"],
+							desc = L["Sets the action performed when clicking your middle mouse button"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -841,9 +841,9 @@ local function mapConfig ()
 						},
 						ButMAlt = {
 							order = 43,
-							type	= "select",
-							name	= "           " .. L["Alt Middle Click"],
-							desc	= L["Sets the action performed when middle clicking holding ALT"],
+							type = "select",
+							name = "           " .. L["Alt Middle Click"],
+							desc = L["Sets the action performed when middle clicking holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -863,9 +863,9 @@ local function mapConfig ()
 						},
 						ButMCtrl = {
 							order = 44,
-							type	= "select",
-							name	= "           " .. L["Ctrl Left Click"],
-							desc	= L["Sets the action performed when middle clicking holding CTRL"],
+							type = "select",
+							name = "           " .. L["Ctrl Left Click"],
+							desc = L["Sets the action performed when middle clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -885,9 +885,9 @@ local function mapConfig ()
 						},
 						ButR = {
 							order = 45,
-							type	= "select",
-							name	= "           " .. L["Right Click"],
-							desc	= L["Sets the action performed when right clicking the map"],
+							type = "select",
+							name = "           " .. L["Right Click"],
+							desc = L["Sets the action performed when right clicking the map"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -907,9 +907,9 @@ local function mapConfig ()
 						},
 						ButRAlt = {
 							order = 46,
-							type	= "select",
-							name	= "           " .. L["Alt Right Click"],
-							desc	= L["Sets the action performed when Right clicking holding ALT"],
+							type = "select",
+							name = "           " .. L["Alt Right Click"],
+							desc = L["Sets the action performed when Right clicking holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -929,9 +929,9 @@ local function mapConfig ()
 						},
 						ButRCtrl = {
 							order = 47,
-							type	= "select",
-							name	= "           " .. L["Ctrl Right Click"],
-							desc	= L["Sets the action performed when right clicking holding CTRL"],
+							type = "select",
+							name = "           " .. L["Ctrl Right Click"],
+							desc = L["Sets the action performed when right clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -951,9 +951,9 @@ local function mapConfig ()
 						},
 						But4 = {
 							order = 48,
-							type	= "select",
-							name	= "           " .. L["Button 4 Click"],
-							desc	= L["Sets the action performed when clicking mouse button 4"],
+							type = "select",
+							name = "           " .. L["Button 4 Click"],
+							desc = L["Sets the action performed when clicking mouse button 4"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -973,9 +973,9 @@ local function mapConfig ()
 						},
 						But4Alt = {
 							order = 49,
-							type	= "select",
-							name	= "           " .. L["Alt Button 4 Click"],
-							desc	= L["Sets the action performed when pressing mouse 4 while holding ALT"],
+							type = "select",
+							name = "           " .. L["Alt Button 4 Click"],
+							desc = L["Sets the action performed when pressing mouse 4 while holding ALT"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -995,9 +995,9 @@ local function mapConfig ()
 						},
 						But4Ctrl = {
 							order = 50,
-							type	= "select",
-							name	= "           " .. L["Ctrl Button 4 Click"],
-							desc	= L["Sets the action performed when clicking 4th mouse button holding CTRL"],
+							type = "select",
+							name = "           " .. L["Ctrl Button 4 Click"],
+							desc = L["Sets the action performed when clicking 4th mouse button holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								for a,b in pairs(vals) do
@@ -1037,12 +1037,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer1 = {
-							order = 3,
+							order = 2,
 							type = "description",
 							name = "\n",
 						},
 						MMSquare = {
-							order = 4,
+							order = 3,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap Shape is Square"],
@@ -1055,7 +1055,7 @@ local function mapConfig ()
 							end,
 						},
 						MMAboveIcons = {
-							order = 5,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap is drawn above icons"],
@@ -1068,7 +1068,7 @@ local function mapConfig ()
 							end,
 						},
 						MMIconScale = {
-							order = 6,
+							order = 5,
 							type = "range",
 							name = L["Minimap Icon Scale"],
 							desc = L["Sets the scale of the icons drawn in the minimap portion of the map"],
@@ -1084,7 +1084,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockIScale = {
-							order = 7,
+							order = 6,
 							type = "range",
 							name = L["Docked Minimap Icon Scale"],
 							desc = L["Sets the scale of the icons drawn in the minimap portion of the map while docked"],
@@ -1101,7 +1101,7 @@ local function mapConfig ()
 						},
 
 						MMGlow = {
-							order = 8,
+							order = 7,
 							type = "range",
 							name = L["Minimap Node Glow Delay"],
 							desc = L["Sets the delay (in seconds) between the glow change on gathering nodes (0 is off)"],
@@ -1118,12 +1118,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer2 = {
-							order = 9,
+							order = 8,
 							type = "description",
 							name = "\n",
 						},
 						MMDockAlways = {
-							order = 10,
+							order = 9,
 							type = "toggle",
 							width = "full",
 							name = L["Always dock minimap"],
@@ -1136,7 +1136,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockIndoors = {
-							order = 11,
+							order = 10,
 							type = "toggle",
 							width = "full",
 							name = L["Dock The Minimap when indoors"],
@@ -1149,7 +1149,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockBugged = {
-							order = 12,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Dock The Minimap in Bugged Zones"],
@@ -1162,7 +1162,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockOnMax = {
-							order = 13,
+							order = 12,
 							type = "toggle",
 							width = "full",
 							name = L["Dock The Minimap when Fullsized"],
@@ -1175,7 +1175,7 @@ local function mapConfig ()
 							end,
 						},
 						MMHideOnMax = {
-							order = 14,
+							order = 13,
 							type = "toggle",
 							width = "full",
 							name = L["Hide The Minimap when Fullsized"],
@@ -1189,7 +1189,7 @@ local function mapConfig ()
 						},
 
 						MMDockSquare = {
-							order = 15,
+							order = 14,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap Docked Shape is Square"],
@@ -1202,7 +1202,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockBottom = {
-							order = 16,
+							order = 15,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap Docks Bottom"],
@@ -1215,7 +1215,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockRight = {
-							order = 17,
+							order = 16,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap Docks Right"],
@@ -1228,7 +1228,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDXO = {
-							order = 18,
+							order = 17,
 							type = "range",
 							name = L["Minimap Dock X-Offset"],
 							desc = L["Sets the X - offset the minimap draws while docked"],
@@ -1244,7 +1244,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDYO = {
-							order = 19,
+							order = 18,
 							type = "range",
 							name = L["Minimap Dock Y-Offset"],
 							desc = L["Sets the Y - offset the minimap draws while docked"],
@@ -1260,7 +1260,7 @@ local function mapConfig ()
 							end,
 						},
 						MMIndoorTogFullSize = {
-							order = 20,
+							order = 19,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap goes full sized Indoors"],
@@ -1273,7 +1273,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockBuggedTogFullSize = {
-							order = 21,
+							order = 20,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap goes full sized in bugged areas"],
@@ -1286,7 +1286,7 @@ local function mapConfig ()
 							end,
 						},
 						MMDockInstanceTogFullSize = {
-							order = 22,
+							order = 21,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap goes full sized in instances"],
@@ -1299,7 +1299,7 @@ local function mapConfig ()
 							end,
 						},
 						MMMoveCapBars = {
-							order = 23,
+							order = 22,
 							type = "toggle",
 							width = "full",
 							name = L["Move capture bars under map"],
@@ -1312,7 +1312,7 @@ local function mapConfig ()
 							end,
 						},
 						MMShowOldNameplate = {
-							order = 24,
+							order = 23,
 							type = "toggle",
 							width = "full",
 							name = L["Show Old Nameplates"],
@@ -1347,12 +1347,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer1 = {
-							order = 3,
+							order = 2,
 							type = "description",
 							name = "\n",
 						},
 						MMButHide = {
-							order = 4,
+							order = 3,
 							type = "toggle",
 							width = "full",
 							name = L["Hide Minimap Button Window"],
@@ -1366,7 +1366,7 @@ local function mapConfig ()
 							end,
 						},
 						MMButLock = {
-							order = 5,
+							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Lock Minimap Button Window"],
@@ -1380,12 +1380,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer2 = {
-							order = 6,
+							order = 5,
 							type = "description",
 							name = "\n",
 						},
 						MMButColumns = {
-							order = 7,
+							order = 6,
 							type = "range",
 							name = L["# Of Minimap Button Columns"],
 							width = "double",
@@ -1402,7 +1402,7 @@ local function mapConfig ()
 							end,
 						},
 						MMButSpacing = {
-							order = 8,
+							order = 7,
 							type = "range",
 							name = L["Minimap Button Spacing"],
 							width = "double",
@@ -1419,10 +1419,10 @@ local function mapConfig ()
 							end,
 						},
 						ButCorner = {
-							order = 9,
-							type	= "select",
-							name	= L["Corner For First Button"],
-							desc	= L["Sets the anchor point in multi-column setups for first minimap button"],
+							order = 8,
+							type = "select",
+							name = L["Corner For First Button"],
+							desc = L["Sets the anchor point in multi-column setups for first minimap button"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("Corner")
 								for a,b in pairs(vals) do
@@ -1441,12 +1441,12 @@ local function mapConfig ()
 							end,
 						},
 						spacer3 = {
-							order = 10,
+							order = 9,
 							type = "description",
 							name = "\n",
 						},
 						MMButShowCarb = {
-							order = 11,
+							order = 10,
 							type = "toggle",
 							width = "full",
 							name = L["Enable Carbonite Minimap Button"],
@@ -1460,7 +1460,7 @@ local function mapConfig ()
 							end,
 						},
 						MMButShowCalendar = {
-							order = 12,
+							order = 11,
 							type = "toggle",
 							width = "full",
 							name = L["Enable Calendar Minimap Button"],
@@ -1474,7 +1474,7 @@ local function mapConfig ()
 							end,
 						},
 						MMButShowClock = {
-							order = 13,
+							order = 12,
 							type = "toggle",
 							width = "full",
 							name = L["Enable Clock Minimap Button"],
@@ -1488,7 +1488,7 @@ local function mapConfig ()
 							end,
 						},
 						MMButShowWorldMap = {
-							order = 14,
+							order = 13,
 							type = "toggle",
 							width = "full",
 							name = L["Enable World Map Minimap Button"],
@@ -1518,9 +1518,9 @@ local function fontConfig()
 			args = {
 				SmallFont = {
 					order = 1,
-					type	= "select",
-					name	= L["Small Font"],
-					desc	= L["Sets the font to be used for small text"],
+					type = "select",
+					name = L["Small Font"],
+					desc = L["Sets the font to be used for small text"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
 						for a,b in pairs(vals) do
@@ -1575,9 +1575,9 @@ local function fontConfig()
 				},
 				MediumFont = {
 					order = 4,
-					type	= "select",
-					name	= L["Normal Font"],
-					desc	= L["Sets the font to be used for normal text"],
+					type = "select",
+					name = L["Normal Font"],
+					desc = L["Sets the font to be used for normal text"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
 						for a,b in pairs(vals) do
@@ -1632,9 +1632,9 @@ local function fontConfig()
 				},
 				MapFont = {
 					order = 7,
-					type	= "select",
-					name	= L["Map Font"],
-					desc	= L["Sets the font to be used on the map"],
+					type = "select",
+					name = L["Map Font"],
+					desc = L["Sets the font to be used on the map"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
 						for a,b in pairs(vals) do
@@ -1694,9 +1694,9 @@ local function fontConfig()
 				},
 				MapLocFont = {
 					order = 11,
-					type	= "select",
-					name	= L["Map Location Tip Font"],
-					desc	= L["Sets the font to be used on the map tooltip"],
+					type = "select",
+					name = L["Map Location Tip Font"],
+					desc = L["Sets the font to be used on the map tooltip"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
 						for a,b in pairs(vals) do
@@ -1756,9 +1756,9 @@ local function fontConfig()
 				},
 				MenuFont = {
 					order = 15,
-					type	= "select",
-					name	= L["Menu Font"],
-					desc	= L["Sets the font to be used on the memus"],
+					type = "select",
+					name = L["Menu Font"],
+					desc = L["Sets the font to be used on the memus"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("FontFace","Get")
 						for a,b in pairs(vals) do
@@ -3683,9 +3683,9 @@ local function skinConfig()
 			args = {
 				SkinSelect = {
 					order = 1,
-					type	= "select",
-					name	= L["Current Skin"],
-					desc	= L["Sets the current skin for carbonite windows"],
+					type = "select",
+					name = L["Current Skin"],
+					desc = L["Sets the current skin for carbonite windows"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("Skins")
 						for a,b in pairs(vals) do
@@ -3821,9 +3821,9 @@ local function trackConfig()
 				},
 				TrackArrow = {
 					order = 4,
-					type	= "select",
-					name	= L["Tracking HUD Arrow Graphic"],
-					desc	= L["Sets the current arrow to be used in the tracking hud"],
+					type = "select",
+					name = L["Tracking HUD Arrow Graphic"],
+					desc = L["Sets the current arrow to be used in the tracking hud"],
 					get	= function()
 						local vals = Nx.Opts:CalcChoices("HUDAGfx")
 						for a,b in pairs(vals) do
