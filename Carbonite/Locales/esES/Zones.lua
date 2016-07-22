@@ -24,7 +24,8 @@ L["Assault on Zan'vess"] = "Asalto a Zan'vess"				-- http://es.wowhead.com/zone=
 L["Auchenai Crypts"] = "Criptas Auchenai"
 L["Auchindoun"] = "Auchindoun"						-- http://es.wowhead.com/zone=6912
 L["Azjol-Nerub"] = "Azjol-Nerub"					-- http://es.wowhead.com/zone=4277
-L["Azshara"] = "Azshara"						-- http://es.wowhead.com/zone=16
+L["Azshara"] = "Azshara"							-- http://es.wowhead.com/zone=16
+L["Azsuna"] = true						
 L["Azuremyst Isle"] = "Isla Bruma Azur"
 L["Badlands"] = "Tierras Inhóspitas"
 L["Baradin Hold"] = "Bastión de Baradin"
@@ -50,6 +51,7 @@ L["Bonetown Scenario"] = true						-- is this needed (from zhTW)
 L["Borean Tundra"] = "Tundra Boreal"
 L["Brawl'gar Arena"] = true
 L["Brewmoon Festival"] = "Festival de la Cerveza Lunar"			-- http://es.wowhead.com/zone=6426
+L["Broken Shore"] = true
 L["Burning Steppes"] = "Las Estepas Ardientes"
 L["Camp Narache"] = "Campamento Narache"
 L["Celestial Tournament"] = "Torneo Celestial"				-- http://es.wowhead.com/zone=6771
@@ -109,9 +111,12 @@ L["Halls of Origination"] = "Cámaras de los Orígenes"
 L["Halls of Reflection"] = "Cámaras de Reflexión"
 L["Halls of Stone"] = "Cámaras de Piedra"
 L["Heart of Fear"] = "Corazón del Miedo"				-- http://es.wowhead.com/zone=6297
+L["Helheim"] = true
+L["Hellfire Citadel"] = true
 L["Hellfire Peninsula"] = "Península del Fuego Infernal"
 L["Hellfire Ramparts"] = "Murallas del Fuego Infernal"
 L["Highmaul"] = "Ogrópolis"						-- http://es.wowhead.com/zone=6996
+L["Highmountain"] = true
 L["Hillsbrad Foothills"] = "Laderas de Trabalomas"
 L["Hour of Twilight"] = "Hora del Crepúsculo"				-- http://es.wowhead.com/zone=5844
 L["Howling Fjord"] = "Fiordo Aquilonal"
@@ -140,6 +145,7 @@ L["Magisters' Terrace"] = "Bancal del Magister"
 L["Magtheridon's Lair"] = "Guarida de Magtheridon"
 L["Mana-Tombs"] = "Tumbas de Maná"
 L["Maraudon"] = "Maraudon"						-- http://es.wowhead.com/zone=6514
+L["Mardum, the Shattered Abyss"] = true
 L["Mogu'shan Palace"] = "Palacio Mogu'shan"				-- http://es.wowhead.com/zone=6182
 L["Mogu'shan Vaults"] = "Cámaras Mogu'shan"				-- http://es.wowhead.com/zone=6125
 L["Molten Front"] = "Frente de Magma"					-- http://es.wowhead.com/zone=5733
@@ -150,6 +156,7 @@ L["Nagrand Arena"] = "Arena de Nagrand"
 L["Nagrand"] = "Nagrand"						-- http://es.wowhead.com/zone=3518 & http://es.wowhead.com/zone=6755
 L["Naxxramas"] = "Naxxramas"						-- http://es.wowhead.com/zone=3456
 L["Netherstorm"] = "Tormenta Abisal"
+L["Netherlight Temple"] = true
 L["New Tinkertown"] = "Nueva Ciudad Manitas"
 L["Northern Barrens"] = "Los Baldíos del Norte"
 L["Northern Stranglethorn"] = "Norte de la Vega de Tuercespina"
@@ -198,6 +205,7 @@ L["Southern Barrens"] = "Los Baldíos del Sur"
 L["Spires of Arak"] = "Cumbres de Arak"					-- http://es.wowhead.com/zone=6722
 L["Stonetalon Mountains"] = "Sierra Espolón"
 L["Stormshield"] = "Escudo de Tormenta"					-- http://es.wowhead.com/zone=7332
+L["Stormheim"] = true
 L["Stormstout Brewery"] = "Cervecería del Trueno"			-- http://es.wowhead.com/zone=5963
 L["Stormwind City"] = "Ciudad de Ventormenta"
 L["The Stockade"] = "Las Mazmorras"					-- Replaces Stormwind Stockade http://es.wowhead.com/zone=717
@@ -206,6 +214,7 @@ L["Stranglethorn Vale"] = "Vega de Tuercespina"
 L["Stratholme"] = "Stratholme"						-- http://es.wowhead.com/zone=2017
 L["Sunstrider Isle"] = "Isla del Caminante del Sol"
 L["Sunwell Plateau"] = "Meseta de La Fuente del Sol"
+L["Suramar"] = true
 L["Swamp of Sorrows"] = "Pantano de las Penas"
 L["Talador"] = "Talador"						-- http://es.wowhead.com/zone=6662
 L["Tanaan Jungle"] = "Selva de Tanaan"					-- http://es.wowhead.com/zone=7025
@@ -279,6 +288,7 @@ L["Unknown Zone"] = true
 L["Upper Blackrock Spire"] = "Cumbre de Roca Negra Superior"		-- http://es.wowhead.com/zone=7307
 L["Utgarde Keep"] = "Fortaleza de Utgarde"
 L["Utgarde Pinnacle"] = "Pináculo de Utgarde"
+L["Val'Sharah"] = true
 L["Vale of Eternal Blossoms"] = "Valle de la Flor Eterna"
 L["Valley of the Four Winds"] = "Valle de los Cuatro Vientos"
 L["Valley of Trials"] = "Valle de los Retos"

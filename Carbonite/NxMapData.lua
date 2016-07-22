@@ -1409,30 +1409,35 @@ Map.MapWorldInfo = {
 		 X = -1966.25,
 		 Y = -361.25,
 		 Overlay = "azsuna",
+		 Name = L["Azsuna"],
 	},
 	[1017] = {
 		 Scale = 11.60416,
 		 X = -1006.666,
 		 Y = -1035.416,
 		 Overlay = "stormheim",
+		 Name = L["Stormheim"],
 	},
 	[1018] = {
 		 Scale = 11.020834,
 		 X = -1921.25,
 		 Y = -992.9166,
 		 Overlay = "valsharah",
+		 Name = L["Val'Sharah"]
 	},
 	[1021] = {
 		 Scale = 7.7,
 		 X = -983.334,
 		 Y = 0.833204,
 		 Overlay = "brokenshore",
+		 Name = L["Broken Shore"],
 	},
 	[1024] = {
 		 Scale = 14.141666,
 		 X = -1537.9166,
 		 Y = -1392.5,
 		 Overlay = "highmountain",
+		 Name = L["Highmountain"],
 	},
 	[1028] = {
 		 Scale = 7.487501968,
@@ -1447,6 +1452,7 @@ Map.MapWorldInfo = {
 		 X = -1331.666,
 		 Y = -689.166,
 		 Overlay = "suramar",
+		 Name = L["Suramar"],
 	},
 	[1076] = {
 		BaseMap = 529,
