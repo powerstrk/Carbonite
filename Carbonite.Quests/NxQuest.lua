@@ -47,6 +47,9 @@ BINDING_HEADER_CarboniteQuests	= "|cffc0c0ff" .. L["Carbonite Quests"] .. "|r"
 BINDING_NAME_NxTOGGLEWATCHMINI	= L["NxTOGGLEWATCHMINI"]
 BINDING_NAME_NxWATCHUSEITEM	= L["NxWATCHUSEITEM"]
 
+CBQUEST_TEMPLATE = QUEST_TEMPLATE_LOG
+CBQUEST_TEMPLATE.canHaveSealMaterial = nil
+
 local defaults = {
 	profile = {
 		Quest = {
@@ -164,9 +167,9 @@ local function QuestOptions ()
 			childGroups	= "tab",
 			args = {
 				quest = {
-					order = 1,
 					type = "group",
 					name = L["Quest Options"],
+					order = 1,
 					args = {
 						name = {
 							order = 1,
@@ -861,9 +864,9 @@ local function QuestOptions ()
 					},
 				},
 				watch = {
-					order = 2,
 					type = "group",
 					name = L["Watch Options"],
+					order = 2,
 					args = {
 						qwhide = {
 							order = 1,
@@ -1454,9 +1457,9 @@ local function QuestOptions ()
 					},
 				},
 				sounds = {
-					order = 3,
 					type = "group",
 					name = L["Sound Options"],
+					order = 3,
 					args = {
 						sndEnable = {
 							order = 1,
@@ -1600,9 +1603,9 @@ local function QuestOptions ()
 					},
 				},
 				database = {
-					order = 4,
 					type = "group",
 					name = L["Databases"],
+					order = 4,
 					args = {
 						title = {
 							order = 1,
@@ -2812,8 +2815,6 @@ function Nx.Quest:LoadQuestDB()
 
 	local qMaxLevel = 999
 
-	local grp = {}
-
 	--DeaTHCorE - follow Vars are no required, they was not used...
 	--local qCnt = 0
 	--local maxid = 0
@@ -2826,20 +2827,20 @@ function Nx.Quest:LoadQuestDB()
 		--qCnt = qCnt + 1
 		--maxid = max (id, maxid)
 
-		local name, side, lvl, minlvl, nextId = self:Unpack (q["Quest"])
-		--if side == enFact or lvl > 0 and lvl < qLoadLevel or lvl > qMaxLevel then
-		if side == enFact or lvl > 0 and (maxLoadLevel and lvl < qLoadLevel) or lvl > qMaxLevel then
+		local name, side, level = self:Unpack (q["Quest"])
+		--if side == enFact or level > 0 and level < qLoadLevel or level > qMaxLevel then
+		if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
 			Nx.Quests[mungeId] = nil
 			--if side ~= enFact then -- DEBUG
-			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", lvl, qLoadLevel)
+			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", level, qLoadLevel)
 			--end
 		else
-			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", lvl, qLoadLevel)
--- 			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
--- --				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
--- 				--DeaTHCorE - follow are no required, was not used...
--- 				--sameCnt = sameCnt + 1
--- 			end
+			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
+			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
+--				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
+				--DeaTHCorE - follow are no required, was not used...
+				--sameCnt = sameCnt + 1
+			end
 			self:CheckQuestSE (q, 3)
 			for n = 1, 99 do
 				if not q[n] then
@@ -2848,63 +2849,81 @@ function Nx.Quest:LoadQuestDB()
 
 				self:CheckQuestObj (q, n)
 			end
-
-			if not q.CNum and nextId > 0 then
-				local clvlmax = lvl
-
-				local qc = q
-				local cnum = 0
-				while qc do
-					cnum = cnum + 1
-					qc.CNum = cnum
-
-	--				if strfind (name, "Vile Famil") then
-	--					Nx.prt ("%s %d %d %d", name, mungeId, nextId, cnum)
-	--				end
-
-					name, side, lvl, minlvl, nextId = self:Unpack (qc["Quest"])
-
-					clvlmax = max (clvlmax, lvl)
-
-	--				nextId = self:UnpackNext (qc[1])
-					if nextId == 0 then
-						break
-					end
-
-					qc = Nx.Quests[nextId]
-				end
-
-				q.CLvlMax = clvlmax		-- Max level in chain
-			end
-
-			if not q.CNum then
-				tinsert (grp, format ("%s^%d", name, mungeId))
-			elseif q.CNum == 1 then
-				local qc = q
-				while qc do
-					local pname, side, _, _, nextId = self:Unpack (qc["Quest"])
---					if strfind (name, "Load Lightening") then
---						Nx.prt ("%s %d %d (%d %d)", pname, mungeId, side, nextId, qc.CNum)
---					end
-
-					tinsert (grp, format ("%s%2d^%d", name, qc.CNum, mungeId))
-					qc = Nx.Quests[nextId]
-					mungeId = nextId
-				end
-			end
-
-			-- Nx.prt ("Quest "..mungeId.." "..lvl)
 		end
 	end
 
-	-- table.sort (grp)
+	for mungeId, q in pairs (Nx.Quests) do
 
-	for _, v in ipairs (grp) do
-		local name, id = Nx.Split ("^", v)
-		tinsert (self.Sorted, tonumber (id))
+		local name, side, lvl, minlvl, next = self:Unpack (q["Quest"])
+		if not q.CNum and next > 0 then
+
+			local clvlmax = lvl
+
+			local qc = q
+			local cnum = 0
+			while qc do
+				cnum = cnum + 1
+				qc.CNum = cnum
+
+--				if strfind (name, "Vile Famil") then
+--					Nx.prt ("%s %d %d %d", name, mungeId, next, cnum)
+--				end
+
+				name, side, lvl, minlvl, next = self:Unpack (qc["Quest"])
+
+				clvlmax = max (clvlmax, lvl)
+
+--				next = self:UnpackNext (qc[1])
+				if next == 0 then
+					break
+				end
+
+				qc = Nx.Quests[next]
+			end
+
+			q.CLvlMax = clvlmax		-- Max level in chain
+		end
 	end
 
-	grp = nil
+
+	for lvl = 0, 100 do
+
+		local grp = {}
+
+		for id, q in pairs (Nx.Quests) do
+			local name, side, level = self:Unpack (q["Quest"])
+			if level == lvl then
+				if side ~= enFact then
+
+					if not q.CNum then
+						tinsert (grp, format ("%s^%d", name, id))
+
+					elseif q.CNum == 1 then
+						local qc = q
+						while qc do
+							local pname, side, _, _, next = self:Unpack (qc["Quest"])
+--							if strfind (name, "Load Lightening") then
+--								Nx.prt ("%s %d %d (%d %d)", pname, id, side, next, qc.CNum)
+--							end
+
+							tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
+							qc = Nx.Quests[next]
+							id = next
+						end
+					end
+
+--					Nx.prt ("Quest "..id.." "..level)
+				end
+			end
+		end
+
+--		table.sort (grp)
+
+		for _, v in ipairs (grp) do
+			local name, id = Nx.Split ("^", v)
+			tinsert (self.Sorted, tonumber (id))
+		end
+	end
 
 	-- Create quest givers
 
@@ -3118,25 +3137,8 @@ end
 -------------------------------------------------------------------------------
 
 function Nx.Quest:SelectBlizz (qi)
-
 	if qi > 0 then
-
 		SelectQuestLogEntry (qi)
-
---		QuestLog_SetSelection (qi)
---		QuestLog_Update()
-
---[[
-		local lh = getglobal ("LightHeaded")
-		if lh then
-
-			if lh["SelectQuestLogEntry"] then
-				lh["SelectQuestLogEntry"](lh)
-			elseif lh["QuestLogTitleButton_OnClick"] then
-				lh["QuestLogTitleButton_OnClick"](lh)
-			end
-		end
---]]
 	end
 end
 
@@ -5446,12 +5448,10 @@ function Nx.Quest.List:Open()
 	f.NxSetSize = self.OnDetailsSetSize
 
 	f:SetMovable (true)
-	f:EnableMouse (true)
-
-	f:SetFrameStrata ("MEDIUM")
-
+	f:EnableMouse (true)	
+	f:SetFrameStrata ("MEDIUM")	
 	local t = f:CreateTexture()
-	t:SetTexture (.7, .7, .5, 1)
+	t:SetTexture ("Interface\\QuestFrame\\QuestBG",true)
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -6460,9 +6460,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			end
 		end
 		return
-	elseif event == "QUEST_ACCEPTED" then
-		local auto = Nx.qdb.profile.Quest.AutoAccept
-		if auto and QuestGetAutoAccept() then
+	elseif event == "QUEST_ACCEPTED" then		
+		if QuestGetAutoAccept() then
 			QuestFrameDetailPanel:Hide();
 			CloseQuest();
 		end
@@ -6479,10 +6478,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if QuestGetAutoAccept() and QuestIsFromAreaTrigger() then
 
 			Quest:RecordQuestAcceptOrFinish()
-			local auto = Nx.qdb.profile.Quest.AutoAccept
-			if auto then
-				CloseQuest();
-			end
+			CloseQuest();
 --			Quest.AcceptQId = GetQuestID()
 --			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
 		end
@@ -7272,6 +7268,7 @@ function Nx.Quest.List:Update()
 		if data > 0 then
 			Nx.Quest:SelectBlizz (bit.band (data, 0xff))
 			NxQuestD:Show()
+			
 			Quest:UpdateQuestDetails()
 		else
 			NxQuestD:Hide()
@@ -7728,24 +7725,17 @@ end
 
 function Nx.Quest:UpdateQuestDetailsTimer()
 
---	Nx.prt ("UpdateQuestDetails")
-
-	QuestInfo_Display (QUEST_TEMPLATE_LOG, NXQuestLogDetailScrollChildFrame, nil, nil, "Carb")
+	--	Nx.prt ("UpdateQuestDetails")	
+	QuestInfo_Display (CBQUEST_TEMPLATE, NXQuestLogDetailScrollChildFrame,nil,nil,"Carb")
 
 	local r, g, b, a = Nx.Util_str2rgba (Nx.qdb.profile.Quest.DetailBC)
-	self.List.DetailsFrm.texture:SetTexture (r, g, b, a)
-
+	
 	-- 0.18, 0.12, 0.06 parchment
 	local r, g, b = Nx.Util_str2rgba (Nx.qdb.profile.Quest.DetailTC)
 
 	local t = {
 			"QuestInfoTitleHeader", "QuestInfoDescriptionHeader", "QuestInfoObjectivesHeader",
 			"QuestInfoDescriptionText", "QuestInfoObjectivesText", "QuestInfoGroupSize", "QuestInfoRewardText",
---V4 fix!!!!!!!!!!!! replace???
---			"QuestInfoHonorFrameReceiveText",
---			"QuestInfoArenaPointsFrameReceiveText",
---			"QuestInfoTalentFrameReceiveText",
---			"QuestInfoXPFrameReceiveText",
 	}
 
 	for k, name in ipairs (t) do
@@ -7770,7 +7760,7 @@ function Nx.Quest:UpdateQuestDetailsTimer()
 
 	MapQuestInfoRewardsFrame["ItemChooseText"]:SetTextColor(r, g, b)
 	MapQuestInfoRewardsFrame["ItemReceiveText"]:SetTextColor(r, g, b)
-	MapQuestInfoRewardsFrame["SpellLearnText"]:SetTextColor(r, g, b)
+--	MapQuestInfoRewardsFrame["SpellLearnText"]:SetTextColor(r, g, b)
 	MapQuestInfoRewardsFrame["PlayerTitleText"]:SetTextColor(r, g, b)
 
 	for n = 1, 10 do
@@ -7778,158 +7768,6 @@ function Nx.Quest:UpdateQuestDetailsTimer()
 			_G["QuestInfoObjective" .. n]:SetTextColor (r, g, b)
 		end
 	end
-
---[[
-	-- 3.2
-
-	QuestFrame_SetAsLastShown (NxQuestDSC, NxQuestDSCSpacerFrame)
-
-	Nx.Quest:FrameItems_Update()
-
-	local questID = GetQuestLogSelection()
-	local questTitle = GetQuestLogTitle (questID) or ""
-
-	if IsCurrentQuestFailed() then
-		questTitle = questTitle.." - ("..FAILED..")"
-	end
-
---	Nx.prt ("UpdateQuestDetails %s %s", questID or "nil", questTitle or "nil")
-
-	local title = NxQuestDSCQuestTitle
-	title:SetText (questTitle)
-
-	local _, relTo = NxQuestDSCSpacerFrame:GetPoint()
-	local corner = relTo == NxQuestDSC and "TOP" or "BOTTOM"
-	title:ClearAllPoints()
-	title:SetPoint ("TOP", relTo, corner, 0, -10)
-	title:SetPoint ("LEFT", NxQuestDSC, "LEFT", 0, 0)
-
-	local questDescription, questObjectives = GetQuestLogQuestText()
-	NxQuestDSCObjectivesText:SetText (questObjectives)
-
-	local questTimer = GetQuestLogTimeLeft()
-	if questTimer then
---		QuestMapFrame.hasTimer = 1
---		QuestMapFrame.timePassed = 0
-		NxQuestDSCTimerText:Show()
-		NxQuestDSCTimerText:SetText (TIME_REMAINING.." "..SecondsToTime (questTimer))
-		NxQuestDSCObjective1:SetPoint ("TOPLEFT", "NxQuestDSCTimerText", "BOTTOMLEFT", 0, -10)
-	else
---		QuestLogFrame.hasTimer = nil
-		NxQuestDSCTimerText:Hide()
-		NxQuestDSCObjective1:SetPoint ("TOPLEFT", "NxQuestDSCObjectivesText", "BOTTOMLEFT", 0, -10)
-	end
-
-	-- Show Quest Watch if track quest is checked
-	local numObjectives = GetNumQuestLeaderBoards()
-
-	for i = 1, numObjectives do
-		local string = getglobal ("NxQuestDSCObjective"..i)
-		local text, typ, finished = GetQuestLogLeaderBoard (i)
-		if not text or strlen (text) == 0 then
-			text = typ
-		end
-		if finished then
-			string:SetTextColor (.2, .2, .2)
-			text = text.." ("..COMPLETE..")"
-		else
-			string:SetTextColor (0, 0, 0)
-		end
-		string:SetText(text)
-		string:Show()
-		QuestFrame_SetAsLastShown (string, NxQuestDSCSpacerFrame)
-	end
-
-	for i = numObjectives + 1, MAX_OBJECTIVES, 1 do
-		getglobal ("NxQuestDSCObjective"..i):Hide()
-	end
-
-	-- If there's money required then anchor and display it
-
-	if GetQuestLogRequiredMoney() > 0 then
-
-		if numObjectives > 0 then
-			NxQuestDSCRequiredMoneyText:SetPoint("TOPLEFT", "NxQuestDSCObjective"..numObjectives, "BOTTOMLEFT", 0, -4)
-		else
-			NxQuestDSCRequiredMoneyText:SetPoint("TOPLEFT", "NxQuestDSCObjectivesText", "BOTTOMLEFT", 0, -10)
-		end
-
-		MoneyFrame_Update("NxQuestDSCRequiredMoneyFrame", GetQuestLogRequiredMoney())
-
-		if GetQuestLogRequiredMoney() > GetMoney() then
-			-- Not enough cash
-			NxQuestDSCRequiredMoneyText:SetTextColor (0, 0, 0)
-			SetMoneyFrameColor ("NxQuestDSCRequiredMoneyFrame", 1, .1, .1)
-		else
-			NxQuestDSCRequiredMoneyText:SetTextColor (.2, .2, .2)
-			SetMoneyFrameColor ("NxQuestDSCRequiredMoneyFrame", 1, 1, 1)
-		end
-		NxQuestDSCRequiredMoneyText:Show()
-		NxQuestDSCRequiredMoneyFrame:Show()
-	else
-		NxQuestDSCRequiredMoneyText:Hide()
-		NxQuestDSCRequiredMoneyFrame:Hide()
-	end
-
-	if GetQuestLogGroupNum() > 0 then
-
-		local suggestedGroupString = format (QUEST_SUGGESTED_GROUP_NUM, GetQuestLogGroupNum())
-		NxQuestDSCSuggestedGroupNum:SetText (suggestedGroupString)
-		NxQuestDSCSuggestedGroupNum:Show()
-		NxQuestDSCSuggestedGroupNum:ClearAllPoints()
-
-		if GetQuestLogRequiredMoney() > 0 then
-			NxQuestDSCSuggestedGroupNum:SetPoint ("TOPLEFT", "NxQuestDSCRequiredMoneyText", "BOTTOMLEFT", 0, -4)
-		elseif numObjectives > 0 then
-			NxQuestDSCSuggestedGroupNum:SetPoint ("TOPLEFT", "NxQuestDSCObjective"..numObjectives, "BOTTOMLEFT", 0, -4)
-		elseif questTimer then
-			NxQuestDSCSuggestedGroupNum:SetPoint ("TOPLEFT", "NxQuestDSCTimerText", "BOTTOMLEFT", 0, -10)
-		else
-			NxQuestDSCSuggestedGroupNum:SetPoint ("TOPLEFT", "NxQuestDSCObjectivesText", "BOTTOMLEFT", 0, -10)
-		end
-	else
-		NxQuestDSCSuggestedGroupNum:Hide()
-	end
-
-	if GetQuestLogGroupNum() > 0 then
-		NxQuestDSCDescriptionTitle:SetPoint("TOPLEFT", "NxQuestDSCSuggestedGroupNum", "BOTTOMLEFT", 0, -10)
-
-	elseif GetQuestLogRequiredMoney() > 0 then
-		NxQuestDSCDescriptionTitle:SetPoint("TOPLEFT", "NxQuestDSCRequiredMoneyText", "BOTTOMLEFT", 0, -10)
-
-	elseif numObjectives > 0 then
-		NxQuestDSCDescriptionTitle:SetPoint("TOPLEFT", "NxQuestDSCObjective"..numObjectives, "BOTTOMLEFT", 0, -10)
-
-	else
-		if questTimer then
-			NxQuestDSCDescriptionTitle:SetPoint ("TOPLEFT", "NxQuestDSCTimerText", "BOTTOMLEFT", 0, -10)
-		else
-			NxQuestDSCDescriptionTitle:SetPoint ("TOPLEFT", "NxQuestDSCObjectivesText", "BOTTOMLEFT", 0, -10)
-		end
-	end
-
-	if questDescription then
-		NxQuestDSCQuestDescription:SetText (questDescription)
-		QuestFrame_SetAsLastShown (NxQuestDSCQuestDescription, NxQuestDSCSpacerFrame)
-	end
-
-	local numRewards = GetNumQuestLogRewards()
-	local numChoices = GetNumQuestLogChoices()
-	local money = GetQuestLogRewardMoney()
-
-	if numRewards + numChoices + money > 0 then
-		NxQuestDSCRewardTitleText:Show()
---		QuestFrame_SetAsLastShown (NxQuestDSCRewardTitleText, NxQuestDSCSpacerFrame)
-
-	else
-		NxQuestDSCRewardTitleText:Hide()
-	end
-
-	NxQuestDScrollBar:SetValue (0)
-	NxQuestD:UpdateScrollChildRect()
-
---]]
-
 end
 
 -------------------------------------------------------------------------------
