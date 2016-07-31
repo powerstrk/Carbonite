@@ -3007,7 +3007,7 @@ function Nx.Map:GMenu_OnGoto()
 		local y = icon.Y
 		local name = icon.Tip and Nx.Split ("\n", icon.Tip) or ""
 
-		self:SetTarget ("Goto", x, y, x, y, false, 0, name)
+		self:SetTarget ("Goto", x, y, x, y, false, 0, name, IsShiftKeyDown())
 	end
 end
 
