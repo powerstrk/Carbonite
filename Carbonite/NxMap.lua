@@ -4639,10 +4639,7 @@ function Nx.Map:Update (elapsed)
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
 		name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
-		if not pX then			
-			return
-		end
-		if txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
+		if pX and txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
 			if desc then
