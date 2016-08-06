@@ -5005,6 +5005,9 @@ end
 function Nx.Map:GetNumDungeonMapLevels()
 	local maps = { GetNumDungeonMapLevels() }
 	local first = GetNumDungeonMapLevels()
+	if not first then
+		return 1, 0
+	end
 	local count = 0
 	for _ in pairs(maps) do 
 		count = count + 1
