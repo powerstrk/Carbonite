@@ -7487,7 +7487,7 @@ function Nx.Quest:UpdateIcons (map)
 					break
 				end
 
-				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj[n])
+				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj)
 
 				if objZone and objZone ~= 9000 then
 
@@ -7519,7 +7519,7 @@ function Nx.Quest:UpdateIcons (map)
 							if cnt > 1 then
 								sz = map:GetWorldZoneScale (mapId) / 10.02 * ptSz
 							end
-							local x, y = Nx.Quest:UnpackLocPtOff (obj[n])
+							local x, y = Nx.Quest:UnpackLocPtOff (obj)
 							local wx, wy = map:GetWorldPos (mapId, x, y)
 
 							local f = map:GetIconStatic (4)
