@@ -4039,7 +4039,7 @@ function Nx.EditBox:Create (parentFrm, user, func, maxLetters)
 	f:SetFontObject ("NxFontS")
 
 	local t = f:CreateTexture()
-	t:SetTexture (.1, .2, .3, 1)
+	t:SetColorTexture (.1, .2, .3, 1)
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -4645,7 +4645,7 @@ function Nx.Menu:Update()
 					itemF:SetScript ("OnMouseUp", self.Item_OnMouseUp)
 
 					local t = itemF:CreateTexture()
-					t:SetTexture (1, 1, 1, 1)
+					t:SetColorTexture (1, 1, 1, 1)
 					t:SetAllPoints (itemF)
 					itemF.texture = t
 				end
@@ -4717,7 +4717,7 @@ function Nx.Menu:Update()
 
 						frm.texture = frm:CreateTexture()
 						frm.texture:SetAllPoints (frm)
-						frm.texture:SetTexture (0, 0, 0, .5)
+						frm.texture:SetColorTexture (0, 0, 0, .5)
 					end
 
 					local tfrm = item.SliderThumbFrm
@@ -4732,7 +4732,7 @@ function Nx.Menu:Update()
 
 						tfrm.texture = tfrm:CreateTexture()
 						tfrm.texture:SetAllPoints (tfrm)
-						tfrm.texture:SetTexture (.5, 1, .5, 1)
+						tfrm.texture:SetColorTexture (.5, 1, .5, 1)
 					end
 
 					frm:SetPoint ("TOPLEFT", 12, -itemH - 1)
@@ -5195,7 +5195,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 
 	frm.texture = frm:CreateTexture()
 	frm.texture:SetAllPoints (frm)
-	frm.texture:SetTexture (0, 0, 0, .3)
+	frm.texture:SetColorTexture (0, 0, 0, .3)
 
 	frm:SetPoint ("TOPLEFT", xpos, ypos)
 	frm:Show()
@@ -5217,7 +5217,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 
 		hfrm.texture = hfrm:CreateTexture()
 		hfrm.texture:SetAllPoints (hfrm)
-		hfrm.texture:SetTexture (.2, .2, .3, 1)
+		hfrm.texture:SetColorTexture (.2, .2, .3, 1)
 		hfrm:SetPoint ("TOPLEFT", 0, 0)
 		hfrm:Show()
 	end
@@ -5230,7 +5230,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 
 	sfrm.texture = sfrm:CreateTexture()
 	sfrm.texture:SetAllPoints (sfrm)
-	sfrm.texture:SetTexture (.4, .4, .5, .4)
+	sfrm.texture:SetColorTexture (.4, .4, .5, .4)
 	sfrm.texture:SetBlendMode ("Add")
 
 --	sfrm:SetHeight (inst:GetLineH() + 1)
@@ -7273,7 +7273,7 @@ function Nx.Slider:Create (parentFrm, typ, size, tlOff)
 
 	frm.texture = frm:CreateTexture()
 	frm.texture:SetAllPoints (frm)
-	frm.texture:SetTexture (.3, .3, .4, .6)
+	frm.texture:SetColorTexture (.3, .3, .4, .6)
 
 	frm:SetPoint ("TOPRIGHT", parentFrm, "TOPRIGHT", 0, -tlOff)
 	frm:SetPoint ("BOTTOMRIGHT", parentFrm, "BOTTOMRIGHT", 0, 0)
@@ -7290,7 +7290,7 @@ function Nx.Slider:Create (parentFrm, typ, size, tlOff)
 
 	tfrm.texture = tfrm:CreateTexture()
 	tfrm.texture:SetAllPoints (tfrm)
-	tfrm.texture:SetTexture (.3, .3, .7, .9)
+	tfrm.texture:SetColorTexture (.3, .3, .7, .9)
 
 	tfrm:SetPoint ("TOPLEFT", 1, 1)
 	tfrm:Show()

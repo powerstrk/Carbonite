@@ -676,7 +676,7 @@ local function Constructor()
 	if IsLegion then
 		scrollbg:SetColorTexture(0,0,0,0.4)
 	else
-		scrollbg:SetTexture(0,0,0,0.4)
+		scrollbg:SetColorTexture(0,0,0,0.4)
 	end
 
 	local border = CreateFrame("Frame",nil,frame)
