@@ -6575,7 +6575,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 						alpha = .2
 					end
 --]]
-					f.texture:SetColorTexture (mode and txName or txName .. txIndex)
+					f.texture:SetTexture (mode and txName or txName .. txIndex)
 					f.texture:SetVertexColor (brt, brt, brt, alpha)					
 --					if IsControlKeyDown() then
 --						Nx.prt ("Overlay %s, %s, %s %s", txName, txIndex, oX, oY)
