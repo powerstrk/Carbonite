@@ -2392,7 +2392,7 @@ function Nx.Combat:Open()
 	f:SetFrameStrata ("MEDIUM")
 
 	local t = f:CreateTexture()
-	t:SetTexture (.2, .2, .2, .5)
+	t:SetColorTexture (.2, .2, .2, .5)
 	t:SetAllPoints (f)
 	f.texture = t
 
