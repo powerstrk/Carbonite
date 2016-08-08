@@ -4730,7 +4730,7 @@ function Nx.Map:Update (elapsed)
 						blue = .3
 					end
 
-					f2.texture:SetTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
+					f2.texture:SetColorTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
 
 					local per = leftDur / doneDur
 					local vper = per > .1 and 1 or per * 10
@@ -5486,7 +5486,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 							tEnPlayer = true
 							tStr = format ("\n|cffff4040%s %d %s %d%%", tName, tLvl, tCls, th)
-							f.texture:SetTexture (redGlow, .1, 0, 1)
+							f.texture:SetColorTexture (redGlow, .1, 0, 1)
 
 						elseif UnitIsEnemy ("player", unitTarget) then
 
@@ -7566,7 +7566,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 							elseif v.Tex then
 								f.texture:SetTexture (v.Tex)
 							else
-								f.texture:SetTexture (c2rgb (icon.Color))
+								f.texture:SetColorTexture (c2rgb (icon.Color))
 							end
 							if icon.TX1 then
 								f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
@@ -7609,7 +7609,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								elseif v.Tex then
 									f.texture:SetTexture (v.Tex)
 								else
-									f.texture:SetTexture (c2rgb (icon.Color))
+									f.texture:SetColorTexture (c2rgb (icon.Color))
 								end
 								local a = v.Alpha
 								local dist = (icon.X - self.PlyrX) ^ 2 + (icon.Y - self.PlyrY) ^ 2
@@ -7645,7 +7645,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								elseif v.Tex then
 									f.texture:SetTexture (v.Tex)
 								else
-									f.texture:SetTexture (c2rgb (icon.Color))
+									f.texture:SetColorTexture (c2rgb (icon.Color))
 								end
 								if v.Alpha and not actuallyIcon then
 									f.texture:SetVertexColor (1, 1, 1, v.Alpha)
@@ -7678,7 +7678,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 							if v.Texture then
 								f.texture:SetTexture (v.Tex)
 							else
-								f.texture:SetTexture (c2rgba (icon.Color))
+								f.texture:SetColorTexture (c2rgba (icon.Color))
 							end
 						end
 					end
