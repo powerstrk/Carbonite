@@ -1578,7 +1578,7 @@ function Nx.Window:Create (name, minResizeW, minResizeH, secure, titleLines, bor
 	if not win.Border then
 
 		local t = f:CreateTexture()
-		t:SetTexture (c2rgba (".125|.125|.125|.75"))
+		t:SetColorTexture (c2rgba (".125|.125|.125|.75"))
 		t:SetAllPoints (f)
 		f.texture = t
 	end
@@ -2238,7 +2238,7 @@ end
 
 function Nx.Window:SetBGColor (r, g, b, a)
 	if self.Frm.texture then
-		self.Frm.texture:SetTexture (r, g, b, a or 1)
+		self.Frm.texture:SetColorTexture (r, g, b, a or 1)
 	end
 end
 
@@ -3414,7 +3414,7 @@ function Nx.Button:Init()
 	f:Hide()
 
 	local t = f:CreateTexture()
-	t:SetTexture (Nx.Util_str2rgba ("0.06|0.06|0.250|1"))
+	t:SetColorTexture (Nx.Util_str2rgba ("0.06|0.06|0.250|1"))
 	t:SetAllPoints (f)
 	t:SetBlendMode ("ADD")
 	f.texture = t
@@ -3852,7 +3852,11 @@ function Nx.Button:Update()
 				if type (txName) == "string" then
 					txName = gsub (txName, "%$", "Interface\\Icons\\")
 				else
-					tx:SetTexture (Nx.Util_str2rgba (txName))
+					if (strmatch(txName,"|")) then
+						tx:SetColorTexture (Nx.Util_str2rgba (txName))
+					else
+						tx:SetTexture (txName)
+					end
 					txName = nil
 				end
 			end
@@ -3863,7 +3867,7 @@ function Nx.Button:Update()
 		else
 			local rgb = stateT.RGB
 			if rgb then
-				tx:SetTexture (Nx.Util_str2rgb (rgb))
+				tx:SetColorTexture (Nx.Util_str2rgb (rgb))
 			end
 		end
 
@@ -3892,7 +3896,11 @@ function Nx.Button:Update()
 					if type (txName) == "string" then
 						txName = gsub (txName, "%$", "Interface\\Icons\\")
 					else
-						tx:SetTexture (Nx.Util_str2rgba (txName))
+						if (strmatch(txName,"|")) then
+							tx:SetColorTexture (Nx.Util_str2rgba (txName))
+						else
+							tx:SetTexture (txName)
+						end
 						txName = nil
 					end
 				end
@@ -3903,7 +3911,7 @@ function Nx.Button:Update()
 			else
 				local rgb = typ.RGBDn
 				if rgb then
-					tx:SetTexture (Nx.Util_str2rgb (rgb))
+					tx:SetColorTexture (Nx.Util_str2rgb (rgb))
 				end
 			end
 
@@ -3929,9 +3937,12 @@ function Nx.Button:Update()
 				if txName then
 					if type (txName) == "string" then
 						txName = gsub (txName, "%$", "Interface\\Icons\\")
-					else
---						Nx.prt ("But %s", txName)
-						tx:SetTexture (Nx.Util_str2rgba (txName))
+					else						
+						if (strmatch(txName,"|")) then
+							tx:SetColorTexture (Nx.Util_str2rgba (txName))
+						else
+							tx:SetTexture (txName)
+						end
 						txName = nil
 					end
 				end
@@ -3946,7 +3957,7 @@ function Nx.Button:Update()
 			else
 				local rgb = typ.RGBUp
 				if rgb then
-					tx:SetTexture (Nx.Util_str2rgb (rgb))
+					tx:SetColorTexture (Nx.Util_str2rgb (rgb))
 				end
 			end
 
@@ -3981,9 +3992,9 @@ function Nx.Button:Update()
 		of:SetHeight (f:GetHeight() + 2)
 
 		if self.Pressed then
-			of.texture:SetTexture (Nx.Util_str2rgba (".188|.188|.5|1"))
+			of.texture:SetColorTexture (Nx.Util_str2rgba (".188|.188|.5|1"))
 		else
-			of.texture:SetTexture (Nx.Util_str2rgba ("0.06|0.06|.250|1"))
+			of.texture:SetColorTexture (Nx.Util_str2rgba ("0.06|0.06|.250|1"))
 		end
 
 --		local lev = f:GetFrameLevel()
@@ -4039,7 +4050,7 @@ function Nx.EditBox:Create (parentFrm, user, func, maxLetters)
 	f:SetFontObject ("NxFontS")
 
 	local t = f:CreateTexture()
-	t:SetTexture (.1, .2, .3, 1)
+	t:SetColorTexture (.1, .2, .3, 1)
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -4645,7 +4656,7 @@ function Nx.Menu:Update()
 					itemF:SetScript ("OnMouseUp", self.Item_OnMouseUp)
 
 					local t = itemF:CreateTexture()
-					t:SetTexture (1, 1, 1, 1)
+					t:SetColorTexture (1, 1, 1, 1)
 					t:SetAllPoints (itemF)
 					itemF.texture = t
 				end
@@ -4717,7 +4728,7 @@ function Nx.Menu:Update()
 
 						frm.texture = frm:CreateTexture()
 						frm.texture:SetAllPoints (frm)
-						frm.texture:SetTexture (0, 0, 0, .5)
+						frm.texture:SetColorTexture (0, 0, 0, .5)
 					end
 
 					local tfrm = item.SliderThumbFrm
@@ -4732,7 +4743,7 @@ function Nx.Menu:Update()
 
 						tfrm.texture = tfrm:CreateTexture()
 						tfrm.texture:SetAllPoints (tfrm)
-						tfrm.texture:SetTexture (.5, 1, .5, 1)
+						tfrm.texture:SetColorTexture (.5, 1, .5, 1)
 					end
 
 					frm:SetPoint ("TOPLEFT", 12, -itemH - 1)
@@ -5195,7 +5206,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 
 	frm.texture = frm:CreateTexture()
 	frm.texture:SetAllPoints (frm)
-	frm.texture:SetTexture (0, 0, 0, .3)
+	frm.texture:SetColorTexture (0, 0, 0, .3)
 
 	frm:SetPoint ("TOPLEFT", xpos, ypos)
 	frm:Show()
@@ -5217,7 +5228,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 
 		hfrm.texture = hfrm:CreateTexture()
 		hfrm.texture:SetAllPoints (hfrm)
-		hfrm.texture:SetTexture (.2, .2, .3, 1)
+		hfrm.texture:SetColorTexture (.2, .2, .3, 1)
 		hfrm:SetPoint ("TOPLEFT", 0, 0)
 		hfrm:Show()
 	end
@@ -5230,7 +5241,7 @@ function Nx.List:Create (saveName, xpos, ypos, width, height, parentFrm, showAll
 
 	sfrm.texture = sfrm:CreateTexture()
 	sfrm.texture:SetAllPoints (sfrm)
-	sfrm.texture:SetTexture (.4, .4, .5, .4)
+	sfrm.texture:SetColorTexture (.4, .4, .5, .4)
 	sfrm.texture:SetBlendMode ("Add")
 
 --	sfrm:SetHeight (inst:GetLineH() + 1)
@@ -5301,7 +5312,7 @@ end
 
 function Nx.List:SetBGColor (r, g, b, a, noFade)
 	if self.Frm.texture then
-		self.Frm.texture:SetTexture (r, g, b, a or 1)
+		self.Frm.texture:SetColorTexture (r, g, b, a or 1)
 	end
 
 	self.NoBGFade = noFade
@@ -6693,7 +6704,7 @@ function Nx.TabBar:Create (name, parentFrm, width, height)
 --	f:SetScript ("OnUpdate", self.OnUpdate)
 
 	local t = f:CreateTexture()
-	t:SetTexture (c2rgba ("0|0|0|.5"))
+	t:SetColorTexture (c2rgba ("0|0|0|.5"))
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -6725,7 +6736,7 @@ function Nx.TabBar:CreateBorders()
 	f:SetHeight (4)
 
 	local t = f:CreateTexture()
-	t:SetTexture (c2rgba (".313|.313|.313|1"))
+	t:SetColorTexture (c2rgba (".313|.313|.313|1"))
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -7273,7 +7284,7 @@ function Nx.Slider:Create (parentFrm, typ, size, tlOff)
 
 	frm.texture = frm:CreateTexture()
 	frm.texture:SetAllPoints (frm)
-	frm.texture:SetTexture (.3, .3, .4, .6)
+	frm.texture:SetColorTexture (.3, .3, .4, .6)
 
 	frm:SetPoint ("TOPRIGHT", parentFrm, "TOPRIGHT", 0, -tlOff)
 	frm:SetPoint ("BOTTOMRIGHT", parentFrm, "BOTTOMRIGHT", 0, 0)
@@ -7290,7 +7301,7 @@ function Nx.Slider:Create (parentFrm, typ, size, tlOff)
 
 	tfrm.texture = tfrm:CreateTexture()
 	tfrm.texture:SetAllPoints (tfrm)
-	tfrm.texture:SetTexture (.3, .3, .7, .9)
+	tfrm.texture:SetColorTexture (.3, .3, .7, .9)
 
 	tfrm:SetPoint ("TOPLEFT", 1, 1)
 	tfrm:Show()
@@ -7584,7 +7595,7 @@ function Nx.Graph:Create (width, height, parentFrm)
 	f:SetPoint ("TOPLEFT", 0, 0)
 
 	local t = f:CreateTexture()
-	t:SetTexture (c2rgba (".125|.125|.125|.625"))
+	t:SetColorTexture (c2rgba (".125|.125|.125|.625"))
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -7715,7 +7726,7 @@ function Nx.Graph:UpdateLine (pos)
 			f:SetPoint ("BOTTOMLEFT", x, 1)
 
 			local colorStr = self.Values[pos + 0x1000000]
-			f.texture:SetTexture (c2rgb (colorStr))
+			f.texture:SetColorTexture (c2rgb (colorStr))
 
 			f:Show()
 		end

@@ -620,7 +620,7 @@ function Nx.Map:Create (index)
 	f:SetMinResize (50, 50)
 
 	local t = f:CreateTexture()
-	t:SetTexture (0, 0, 0, .2)
+	t:SetColorTexture (0, 0, 0, .2)
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -1210,7 +1210,7 @@ function Nx.Map:CreateLocationTip()
 	local t = f:CreateTexture()
 	f.texture = t
 	t:SetAllPoints (f)
-	t:SetTexture (0, 0, 0, .85)
+	t:SetColorTexture (0, 0, 0, .85)
 
 	-- Font strings
 
@@ -1773,7 +1773,7 @@ function Nx.Map:InitFrames()
 	local t = cf:CreateTexture()
 	t:SetAllPoints (cf)
 	cf.texture = t
---	t:SetTexture (.5, .5, .45, .99)
+--	t:SetColorTexture (.5, .5, .45, .99)
 	t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\HBlend")
 	t:SetVertexColor (1, 1, 1, .7)
 --]]
@@ -4697,7 +4697,7 @@ function Nx.Map:Update (elapsed)
 
 					local f2 = self:GetIcon (0)
 					self:ClipFrameZTLO (f2, pX, pY, sz, sz, -15, -15)
-					f2.texture:SetTexture (0, 0, 0, .35)
+					f2.texture:SetColorTexture (0, 0, 0, .35)
 
 					f2.NXType = 2000
 					f2.NxTip = tip
@@ -4713,14 +4713,14 @@ function Nx.Map:Update (elapsed)
 
 							local f3 = self:GetIconNI (2)
 							self:ClipFrameZTLO (f3, pX, pY, sz * (10 - leftDur) * .1, 3 / self.ScaleDraw, -15, -15)
-							f3.texture:SetTexture (.5, 1, .5, al)
+							f3.texture:SetColorTexture (.5, 1, .5, al)
 
 							local f3 = self:GetIconNI (2)
 							self:ClipFrameZTLO (f3, pX, pY, sz * (10 - leftDur) * .1, 3 / self.ScaleDraw, -15, 12)
-							f3.texture:SetTexture (.5, 1, .5, al)
+							f3.texture:SetColorTexture (.5, 1, .5, al)
 						end
 
---						f2.texture:SetTexture (.5, 1, .5, abs (GetTime() % .6 - .3) / .3 * .7 + .3)
+--						f2.texture:SetColorTexture (.5, 1, .5, abs (GetTime() % .6 - .3) / .3 * .7 + .3)
 					end
 
 					local red = .3
@@ -4730,7 +4730,7 @@ function Nx.Map:Update (elapsed)
 						blue = .3
 					end
 
-					f2.texture:SetTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
+					f2.texture:SetColorTexture (red, .3, blue, abs (GetTime() % 2 - 1) * .5 + .5)
 
 					local per = leftDur / doneDur
 					local vper = per > .1 and 1 or per * 10
@@ -4760,13 +4760,13 @@ function Nx.Map:Update (elapsed)
 --					Nx.prtCtrl ("I %s %s %s", name, txIndex, iconType or "nil")
 
 					if iconType == 1 then	-- Ally?
-						f2.texture:SetTexture (0, 0, 1, .3)
+						f2.texture:SetColorTexture (0, 0, 1, .3)
 --						Nx.prtCtrl ("Blue")
 					elseif iconType == 2 then	-- Horde?
-						f2.texture:SetTexture (1, 0, 0, .3)
+						f2.texture:SetColorTexture (1, 0, 0, .3)
 --						Nx.prtCtrl ("Red")
 					else
-						f2.texture:SetTexture (0, 0, 0, .3)
+						f2.texture:SetColorTexture (0, 0, 0, .3)
 					end
 
 					f2.NXType = 2000
@@ -4817,7 +4817,7 @@ function Nx.Map:Update (elapsed)
 
 --	for n = 0, 100 do
 --		local f = self:GetIcon()
---		f.texture:SetTexture (1, 1, .5, 1)
+--		f.texture:SetColorTexture (1, 1, .5, 1)
 --		self:ClipFrameZ (f, n, 50, 2, 2)
 --	end
 
@@ -5005,11 +5005,14 @@ end
 function Nx.Map:GetNumDungeonMapLevels()
 	local maps = { GetNumDungeonMapLevels() }
 	local first = GetNumDungeonMapLevels()
+	if not first then
+		return 1, 1
+	end
 	local count = 0
 	for _ in pairs(maps) do 
 		count = count + 1
 	end	
-	return count, first
+	return count, 1
 end
 
 function Nx.Map:GetInstanceMapTextures(mapId)
@@ -5422,19 +5425,19 @@ function Nx.Map:UpdateGroup (plX, plY)
 					local sc = self.ScaleDraw
 					self:ClipFrameTL (f, wx - 9 / sc, wy - 10 / sc, 16 * per / sc, 1 / sc)
 --					self:ClipFrameZTLO (f, pX, pY, 12 * per / self.ScaleDraw, .9 / self.ScaleDraw, -7, -7)
-					f.texture:SetTexture (1, 1, 1, 1)
+					f.texture:SetColorTexture (1, 1, 1, 1)
 
 				else
 					self:ClipFrameW (f, wx, wy, 7, 7, 0)
 --					self:ClipFrameZ (f, pX, pY, 7, 7, 0)
 
 					if per > 0 then
-						f.texture:SetTexture (1, .1, .1, 1 - per * 2)
+						f.texture:SetColorTexture (1, .1, .1, 1 - per * 2)
 					else
 						if inactive then
-							f.texture:SetTexture (1, 0, 1, .7)	-- Punk
+							f.texture:SetColorTexture (1, 0, 1, .7)	-- Punk
 						else
-							f.texture:SetTexture (0, 0, 0, .5)	-- Dead
+							f.texture:SetColorTexture (0, 0, 0, .5)	-- Dead
 						end
 					end
 				end
@@ -5469,7 +5472,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 						-- Horizontal green bar
 						self:ClipFrameTL (f, wx - 9 / sc, wy - 2 / sc, 16 * per / sc, 1 / sc)
-						f.texture:SetTexture (0, 1, 0, 1)
+						f.texture:SetColorTexture (0, 1, 0, 1)
 
 						tStr = format ("\n|cff80ff80%s %d %s %d", tName, tLvl, tCls, th)
 
@@ -5483,21 +5486,21 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 							tEnPlayer = true
 							tStr = format ("\n|cffff4040%s %d %s %d%%", tName, tLvl, tCls, th)
-							f.texture:SetTexture (redGlow, .1, 0, 1)
+							f.texture:SetColorTexture (redGlow, .1, 0, 1)
 
 						elseif UnitIsEnemy ("player", unitTarget) then
 
 							tStr = format ("\n|cffffff40%s %d %s %d%%", tName, tLvl, tCls, th)
 
 							if Nx:UnitIsPlusMob (unitTarget) then
-								f.texture:SetTexture (1, .4, 1, 1)
+								f.texture:SetColorTexture (1, .4, 1, 1)
 							else
-								f.texture:SetTexture (1, 1, 0, 1)
+								f.texture:SetColorTexture (1, 1, 0, 1)
 							end
 
 						else
 							tStr = format ("\n|cffc0c0ff%s %d %s %d%%", tName, tLvl, tCls, th)
-							f.texture:SetTexture (.7, .7, 1, 1)
+							f.texture:SetColorTexture (.7, .7, 1, 1)
 						end
 					end
 				end
@@ -6568,7 +6571,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 				if self:ClipFrameTL (f, wx, wy, txFileW * zscale, txFileH * zscale) then
 
 --					if IsShiftKeyDown() then
---						f.texture:SetTexture (1, 0, 0)
+--						f.texture:SetColorTexture (1, 0, 0)
 --					end
 --[[
 					if IsAltKeyDown() then		-- DEBUG!
@@ -7563,7 +7566,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 							elseif v.Tex then
 								f.texture:SetTexture (v.Tex)
 							else
-								f.texture:SetTexture (c2rgb (icon.Color))
+								f.texture:SetColorTexture (c2rgb (icon.Color))
 							end
 							if icon.TX1 then
 								f.texture:SetTexCoord(icon.TX1, icon.TY1, icon.TX2, icon.TY2)
@@ -7606,7 +7609,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								elseif v.Tex then
 									f.texture:SetTexture (v.Tex)
 								else
-									f.texture:SetTexture (c2rgb (icon.Color))
+									f.texture:SetColorTexture (c2rgb (icon.Color))
 								end
 								local a = v.Alpha
 								local dist = (icon.X - self.PlyrX) ^ 2 + (icon.Y - self.PlyrY) ^ 2
@@ -7642,7 +7645,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 								elseif v.Tex then
 									f.texture:SetTexture (v.Tex)
 								else
-									f.texture:SetTexture (c2rgb (icon.Color))
+									f.texture:SetColorTexture (c2rgb (icon.Color))
 								end
 								if v.Alpha and not actuallyIcon then
 									f.texture:SetVertexColor (1, 1, 1, v.Alpha)
@@ -7675,7 +7678,7 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 							if v.Texture then
 								f.texture:SetTexture (v.Tex)
 							else
-								f.texture:SetTexture (c2rgba (icon.Color))
+								f.texture:SetColorTexture (c2rgba (icon.Color))
 							end
 						end
 					end
