@@ -2111,7 +2111,6 @@ function Nx.Warehouse:UpdateItems()
 			end
 		end
 	end
-
 	list:Update()
 end
 

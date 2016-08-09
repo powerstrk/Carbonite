@@ -3852,7 +3852,11 @@ function Nx.Button:Update()
 				if type (txName) == "string" then
 					txName = gsub (txName, "%$", "Interface\\Icons\\")
 				else
-					tx:SetColorTexture (Nx.Util_str2rgba (txName))
+					if (strmatch(txName,"|")) then
+						tx:SetColorTexture (Nx.Util_str2rgba (txName))
+					else
+						tx:SetTexture (txName)
+					end
 					txName = nil
 				end
 			end
@@ -3892,7 +3896,11 @@ function Nx.Button:Update()
 					if type (txName) == "string" then
 						txName = gsub (txName, "%$", "Interface\\Icons\\")
 					else
-						tx:SetColorTexture (Nx.Util_str2rgba (txName))
+						if (strmatch(txName,"|")) then
+							tx:SetColorTexture (Nx.Util_str2rgba (txName))
+						else
+							tx:SetTexture (txName)
+						end
 						txName = nil
 					end
 				end
@@ -3929,9 +3937,12 @@ function Nx.Button:Update()
 				if txName then
 					if type (txName) == "string" then
 						txName = gsub (txName, "%$", "Interface\\Icons\\")
-					else
---						Nx.prt ("But %s", txName)
-						tx:SetColorTexture (Nx.Util_str2rgba (txName))
+					else						
+						if (strmatch(txName,"|")) then
+							tx:SetColorTexture (Nx.Util_str2rgba (txName))
+						else
+							tx:SetTexture (txName)
+						end
 						txName = nil
 					end
 				end
