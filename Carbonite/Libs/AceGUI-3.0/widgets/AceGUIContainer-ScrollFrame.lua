@@ -181,7 +181,7 @@ local function Constructor()
 	if IsLegion then
 		scrollbg:SetColorTexture(0, 0, 0, 0.4)
 	else
-		scrollbg:SetColorTexture(0, 0, 0, 0.4)
+		scrollbg:SetTexture(0, 0, 0, 0.4)
 	end
 
 	--Container Support

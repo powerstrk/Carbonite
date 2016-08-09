@@ -1014,7 +1014,7 @@ function Nx.Social.List:Create()
 	f:SetFrameStrata ("MEDIUM")
 
 	local t = f:CreateTexture()
-	t:SetColorTexture (.2, .2, .2, .5)
+	t:SetTexture (.2, .2, .2, .5)
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -2144,7 +2144,7 @@ function Nx.Social.PunksHUD:Create()
 		but:RegisterForClicks ("LeftButtonDown", "RightButtonDown")
 
 		local t = but:CreateTexture()
-		t:SetColorTexture (1, 1, 1, 1)
+		t:SetTexture (1, 1, 1, 1)
 		t:SetAllPoints (but)
 		but.texture = t
 
@@ -2416,7 +2416,7 @@ function Nx.Social.TeamHUD:Create()
 		but:RegisterForClicks ("LeftButtonDown", "RightButtonDown")
 
 		local t = but:CreateTexture()
-		t:SetColorTexture (0, .1, 0, .9)
+		t:SetTexture (0, .1, 0, .9)
 		t:SetAllPoints (but)
 		but.texture = t
 
@@ -2429,7 +2429,7 @@ function Nx.Social.TeamHUD:Create()
 		f:SetPoint ("TOPLEFT", 0, 0)
 
 		local t = f:CreateTexture()
---		t:SetColorTexture (0, .1, 0, .4)
+--		t:SetTexture (0, .1, 0, .4)
 		t:SetAllPoints (f)
 		f.texture = t
 
@@ -2605,7 +2605,7 @@ function Nx.Social.TeamHUD:Update()
 --	Nx.prt ("%s %s", h, per)
 	local f = self.HealthFrms[1]
 	f:SetWidth (per * cw + 1)
-	f.texture:SetColorTexture (1 - per, per, 0, .5)
+	f.texture:SetTexture (1 - per, per, 0, .5)
 
 	local plTarget = UnitName ("target")
 
@@ -2621,7 +2621,7 @@ function Nx.Social.TeamHUD:Update()
 
 			local f = player.HealthFrm
 			f:SetWidth (per * cw + 1)
-			f.texture:SetColorTexture (.6 - per * .6, per * .6, 0, .7)
+			f.texture:SetTexture (.6 - per * .6, per * .6, 0, .7)
 
 			local name = player.Name
 --			local cls = UnitClass (unit) or ""

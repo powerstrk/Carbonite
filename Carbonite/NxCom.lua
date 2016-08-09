@@ -1744,15 +1744,15 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 
 					local sc = map.ScaleDraw
 					map:ClipFrameTL (f, wx - 8 / sc, wy - 8 / sc, 14 * per / sc, 1 / sc)
-					f.texture:SetColorTexture (1, 1, 1, 1)
+					f.texture:SetTexture (1, 1, 1, 1)
 
 				else
 					map:ClipFrameW (f, wx, wy, 8, 8, 0)
 
 					if per > 0 then
-						f.texture:SetColorTexture (1, .1, .1, 1 - per * 2)
+						f.texture:SetTexture (1, .1, .1, 1 - per * 2)
 					else
-						f.texture:SetColorTexture (0, 0, 0, .5)
+						f.texture:SetTexture (0, 0, 0, .5)
 					end
 				end
 
@@ -1768,20 +1768,20 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 					if tt == 1 then
 						-- Horizontal green bar
 						map:ClipFrameTL (f, wx - 8 / sc, wy - 2 / sc, 14 * per / sc, 1 / sc)
-						f.texture:SetColorTexture (0, 1, 0, 1)
+						f.texture:SetTexture (0, 1, 0, 1)
 
 					else	-- Vertical bar
 
 						map:ClipFrameTL (f, wx - 8 / sc, wy - 7 / sc, 1 / sc, 13 * per / sc)
 
 						if tt == 2 then
-							f.texture:SetColorTexture (redGlow, .1, 0, 1)
+							f.texture:SetTexture (redGlow, .1, 0, 1)
 						elseif tt == 3 then
-							f.texture:SetColorTexture (1, 1, 0, 1)
+							f.texture:SetTexture (1, 1, 0, 1)
 						elseif tt == 4 then
-							f.texture:SetColorTexture (1, .4, 1, 1)
+							f.texture:SetTexture (1, .4, 1, 1)
 						else
-							f.texture:SetColorTexture (.7, .7, 1, 1)
+							f.texture:SetTexture (.7, .7, 1, 1)
 						end
 					end
 				end

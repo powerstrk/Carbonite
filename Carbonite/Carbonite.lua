@@ -25,8 +25,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 Nx.WebSite = "wowinterface.com"
 NXTITLEFULL = L["Carbonite"]
 
-Nx.VERMAJOR			= 7.0
-Nx.VERMINOR			= .3				-- Not 0 is a test version
+Nx.VERMAJOR			= 6.2
+Nx.VERMINOR			= .1				-- Not 0 is a test version
 Nx.BUILD			= 118
 
 Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
@@ -2392,7 +2392,7 @@ function Nx.Combat:Open()
 	f:SetFrameStrata ("MEDIUM")
 
 	local t = f:CreateTexture()
-	t:SetColorTexture (.2, .2, .2, .5)
+	t:SetTexture (.2, .2, .2, .5)
 	t:SetAllPoints (f)
 	f.texture = t
 

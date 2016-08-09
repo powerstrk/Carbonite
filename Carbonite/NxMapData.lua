@@ -8424,7 +8424,7 @@ Map.MiniMapBlks = {
 		Map.BrokenIslesMapBlks,
 		1117,
 		11, 17,
-		Map.MapWorldInfo[1007].X + Map.MapInfo[8].X + 380, Map.MapWorldInfo[1007].Y + Map.MapInfo[8].Y - 147.5,
+		Map.MapWorldInfo[1007].X + Map.MapInfo[8].X + 500, Map.MapWorldInfo[1007].Y + Map.MapInfo[8].Y,
 		"World\\Minimaps\\Troll Raid"
 	},
 	[464] = {

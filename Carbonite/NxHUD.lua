@@ -107,7 +107,7 @@ function Nx.HUD:Create()
 	local t = but:CreateTexture()
 	t:SetAllPoints (but)
 	t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
---	t:SetColorTexture (1, 1, 1, 1)
+--	t:SetTexture (1, 1, 1, 1)
 	but.texture = t
 
 	but:SetWidth (10)

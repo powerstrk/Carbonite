@@ -1,4 +1,4 @@
----------------------------------------------------------------------------------------
+﻿---------------------------------------------------------------------------------------
 -- NxQuest - Quest stuff
 -- Copyright 2007-2012 Carbon Based Creations, LLC
 ---------------------------------------------------------------------------------------
@@ -5275,7 +5275,7 @@ function Nx.Quest.List:Open()
 	f:SetFontObject ("NxFontS")
 
 	local t = f:CreateTexture()
-	t:SetColorTexture (.1, .2, .3, 1)
+	t:SetTexture (.1, .2, .3, 1)
 	t:SetAllPoints (f)
 	f.texture = t
 
@@ -5451,10 +5451,8 @@ function Nx.Quest.List:Open()
 	f:EnableMouse (true)	
 	f:SetFrameStrata ("MEDIUM")	
 	local t = f:CreateTexture()
-	t:SetTexture ("Interface\\QuestFrame\\QuestBG", true, true)
+	t:SetTexture ("Interface\\QuestFrame\\QuestBG",true)
 	t:SetAllPoints (f)
---	t:SetInside()
---	t:SetTexCoord(0, .585, 0.02, .655)
 	f.texture = t
 
 	f:Show()
@@ -5483,7 +5481,7 @@ function Nx.Quest.List:Open()
 --	win:Attach (qdf, 0, 1, .6, 1)
 --[[
 	local t = qdf:CreateTexture()
-	t:SetColorTexture (.7, .7, .5, .7)
+	t:SetTexture (.7, .7, .5, .7)
 	t:SetAllPoints (qdf)
 	qdf.texture = t
 --]]
@@ -7631,11 +7629,11 @@ function Nx.Quest:UpdateIcons (map)
 											f.NxTip = tip
 
 											if hover then
-												f.texture:SetColorTexture (hovR, hovG, hovB, hovA)
+												f.texture:SetTexture (hovR, hovG, hovB, hovA)
 											elseif tracking then
-												f.texture:SetColorTexture (trkR, trkG, trkB, trkA)
+												f.texture:SetTexture (trkR, trkG, trkB, trkA)
 											else
-												f.texture:SetColorTexture (r, g, b, col[4])
+												f.texture:SetTexture (r, g, b, col[4])
 											end
 										end
 
