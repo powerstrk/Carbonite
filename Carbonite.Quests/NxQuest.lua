@@ -5453,8 +5453,7 @@ function Nx.Quest.List:Open()
 	local t = f:CreateTexture()
 	t:SetTexture ("Interface\\QuestFrame\\QuestBG", true, true)
 	t:SetAllPoints (f)
---	t:SetInside()
---	t:SetTexCoord(0, .585, 0.02, .655)
+	t:SetTexCoord(0, .585, 0.02, .655)
 	f.texture = t
 
 	f:Show()
