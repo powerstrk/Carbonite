@@ -3733,7 +3733,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		map.Scrolling = false
 	end
 
-	if map.InstanceId then
+	if map.InstanceId then		
 		winx = nil
 	end
 
@@ -3751,12 +3751,10 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	-- Scroll map with mouse
 
-	if map.Scrolling then
-
+	if map.Scrolling then		
 		local cx, cy = GetCursorPosition()
 		cx = cx / map.EffScale
-		cy = cy / map.EffScale
-
+		cy = cy / map.EffScale		
 		local x = cx - map.ScrollingX
 		local y = cy - map.ScrollingY
 
@@ -6597,7 +6595,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 		end
 	end
 
-	self.Level = self.Level + 2
+	self.Level = self.Level + 2	
 end
 
 --------
@@ -6658,7 +6656,7 @@ function Nx.Map:UpdateMiniFrames()
 
 	local level = self.Level
 	self.Level = self.Level + 1
-
+	
 	local f
 	local frmNum = 1
 
@@ -7324,7 +7322,7 @@ function Nx.Map:ClipZoneFrm (cont, zone, frm, alpha)
 			vy1 = vy1 / sc
 			frm:SetPoint ("TOPLEFT", vx1, -vy1 - self.TitleH)
 			frm:SetScale (sc)
---			frm:SetFrameLevel (level)
+			frm:SetFrameLevel (level)
 
 			frm:Show()
 
