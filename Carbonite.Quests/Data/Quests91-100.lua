@@ -22917,6 +22917,25 @@ local ModQuests={
 	Start = "100866|4|32|45.7|15.9",
 	End = "95234|321|32|53.2|58.3",
 	},
+	[40593] = {
+	Quest = [[Demons Among Us|1|100|100|0|0]],
+	Start = "100675|301|32|85.4|32.2",
+	End = "100429|301|32|85.8|31.7",
+	Objectives = {
+			[1] = {
+				"Learn what Joe Darkweaver Knows|301|32|85.4|32.2|6.02|6.02",
+			 },
+			[2] = {
+				"Kill Infiltrators|301|32|85.4|32.2|6.02|6.02",
+			 },
+			[3] = {
+				"Destroy the Courtyard Legion Portal|301|32|82.4|28.0|6.02|6.02",
+			 },
+			[4] = {
+				"Destroy the Petitioner's Chamber Legion Portal|301|32|80.6|33.1|6.02|6.02",
+			 },
+		},
+	},
 	[40607] = {
 	Quest = [[Demons Among Us|2|100|100|0|0]],
 	Start = "100873|4|32|45.8|15.1",
@@ -22929,6 +22948,11 @@ local ModQuests={
 				"Demons Slain|4|32|46.1|15.8|6.02|6.02",
 			 },
 		},
+	},
+	[40661] = {
+	Quest = [[Protect the Home Front|1|100|100|0|0]],
+	Start = "101004|301|32|40.3|77.7",
+	End = "101004|301|32|40.3|77.7",
 	},
 	[40760] = {
 	Quest = [[Emissary|2|100|100|0|0]],
@@ -22972,6 +22996,11 @@ local ModQuests={
 	Quest = [[Protect the Home Front|2|100|100|0|0]],
 	Start = "95234|321|32|53.2|58.3",
 	End = "95234|321|32|53.2|58.3",
+	},
+	[44120] = {
+	Quest = [[Illidari Allies|1|100|100|0|0]],
+	Start = "100429|301|32|85.8|31.7",
+	End = "101004|301|32|40.3|77.7",
 	},
 	[44281] = {
 	Quest = [[To Be Prepared|2|100|100|0|0]],
