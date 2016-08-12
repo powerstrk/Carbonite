@@ -1848,70 +1848,71 @@ function Nx.Window:Adjust (skipChildren)
 
 			local child = self.ChildFrms[n]
 			local cf = child.Frm
+			
+			if cf then			
+				x = child.PosX1
+				if x < 0 then
+					x = w + x	-- Offset from right edge
+				elseif x <= 1 then
+					x = w * x	-- Percent
+				end
 
-			x = child.PosX1
-			if x < 0 then
-				x = w + x	-- Offset from right edge
-			elseif x <= 1 then
-				x = w * x	-- Percent
-			end
+				local x2 = child.PosX2
+				if x2 < 0 then
+					x2 = w + x2	-- Offset from right edge
+				elseif x2 <= 1 then
+					x2 = w * x2	-- Percent
+				end
 
-			local x2 = child.PosX2
-			if x2 < 0 then
-				x2 = w + x2	-- Offset from right edge
-			elseif x2 <= 1 then
-				x2 = w * x2	-- Percent
-			end
+				y = child.PosY1
+				if y <= -10000 then
+					y = y + 10000
+				elseif y < 0 then
+					y = h + y
+				elseif y <= 1 then
+					y = h * y
+				end
 
-			y = child.PosY1
-			if y <= -10000 then
-				y = y + 10000
-			elseif y < 0 then
-				y = h + y
-			elseif y <= 1 then
-				y = h * y
-			end
+				local y2 = child.PosY2
+				if y2 <= -10000 then
+					y2 = y2 + 10000
+				elseif y2 < 0 then
+					y2 = h + y2
+				elseif y2 <= 1 then
+					y2 = h * y2
+				end
 
-			local y2 = child.PosY2
-			if y2 <= -10000 then
-				y2 = y2 + 10000
-			elseif y2 < 0 then
-				y2 = h + y2
-			elseif y2 <= 1 then
-				y2 = h * y2
-			end
+				cf:SetPoint ("TOPLEFT", f, "TOPLEFT", x + self.BorderW, -y - self.TopH)
 
-			cf:SetPoint ("TOPLEFT", f, "TOPLEFT", x + self.BorderW, -y - self.TopH)
+				local childW = x2 - x
+				local childH = y2 - y
 
-			local childW = x2 - x
-			local childH = y2 - y
+				if child.ScaleW then
 
-			if child.ScaleW then
+					local sw = childW / child.ScaleW
+					local sh = childH / child.ScaleH
+					local scale = max (min (sw, sh), .001)
+					cf:SetScale (scale)
 
-				local sw = childW / child.ScaleW
-				local sh = childH / child.ScaleH
-				local scale = max (min (sw, sh), .001)
-				cf:SetScale (scale)
+					cf:SetPoint ("TOPLEFT", f, "TOPLEFT", (self.BorderW + w * child.PosX1) / scale, (-self.TopH - h * child.PosY1) / scale)
 
-				cf:SetPoint ("TOPLEFT", f, "TOPLEFT", (self.BorderW + w * child.PosX1) / scale, (-self.TopH - h * child.PosY1) / scale)
-
-			else
-
-				local inst = cf.NxInst
-
-				if inst and inst.SetSize then
-					inst:SetSize (childW, childH)
 				else
-					cf:SetWidth (childW)
-					cf:SetHeight (childH)
+
+					local inst = cf.NxInst
+
+					if inst and inst.SetSize then
+						inst:SetSize (childW, childH)
+					else
+						cf:SetWidth (childW)
+						cf:SetHeight (childH)
+					end
+				end
+
+				if cf.NxSetSize then
+					cf:NxSetSize (childW, childH)
 				end
 			end
-
-			if cf.NxSetSize then
-				cf:NxSetSize (childW, childH)
-			end
-
---			prtFrame ("Adj"..n, cf)
+			--			prtFrame ("Adj"..n, cf)
 		end
 	end
 end
