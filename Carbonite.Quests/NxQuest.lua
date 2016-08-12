@@ -8663,11 +8663,13 @@ function Nx.Quest.Watch:UpdateList()
 					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
 					if taskInfo then
 						for i=1,#taskInfo do
-							local inArea, onMap, numObjectives = GetTaskInfo(taskInfo[i].questId)
+							local questId = taskInfo[i].questId;
+							local inArea, onMap, numObjectives = GetTaskInfo(questId)
 							if inArea then
 								list:ItemAdd(0)
 								list:ItemSet(2,"----[ " .. L["BONUS TASK"] .. " ]----")
-								local _,_, numObjectives = GetTaskInfo(questId)
+								-- There is no need to do that again: 
+								-- local _,_, numObjectives = GetTaskInfo(questId) 
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
