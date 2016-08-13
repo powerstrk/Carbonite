@@ -6443,7 +6443,7 @@ function Nx.List:OnMouseDown (click)
 
 			local id = inst:ColumnHitTest (x)
 
-			if id and inst.UserFunc then
+			if id and inst.UserFunc then				
 				inst.UserFunc (inst.User, Nx.List.ClickToName[click], inst.Selected, id)
 			end
 
@@ -6480,8 +6480,7 @@ function Nx.List:OnBut (but, id, click)
 
 	self.ButData[-id] = but:GetPressed()
 
---	prt ("List but %d %s", id, tostring (self.ButData[-id]))
-
+--	prt ("List but %d %s", id, tostring (self.ButData[-id]))	
 	if self.UserFunc then
 		self.UserFunc (self.User, "button", id, self.ButData[-id], click, but)
 	end

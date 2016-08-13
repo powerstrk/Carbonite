@@ -8834,11 +8834,6 @@ function Nx.Quest.Watch:UpdateList()
 							else
 								list:ItemSetButton ("QuestWatchTip", false)		-- QuestWatchTip  >  QuestWatch?
 							end
-							-- DeaTHCorE - fix for item button. 'not isComplete' is commented out to delete quest itembutton only
-							-- if the quest is to release by questgiver, this is usefull for many quests who the questitem can help
-							-- after quest completed ( the way out of a cave as a example, the questitem will be used for many mobs
-							-- on the way) and this reduce the risk for not :Hide() the quest itembutton by InCombatLockdown...
-							-- if not isComplete and cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 							if cur.ItemLink and Nx.qdb.profile.QuestWatch.ItemScale >= 1 then
 								list:ItemSetFrame ("WatchItem~" .. cur.QI .. "~" .. cur.ItemImg .. "~" .. cur.ItemCharges)
 							end
