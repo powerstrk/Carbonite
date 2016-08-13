@@ -3767,9 +3767,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 				IS_BACKGROUND_WORLD_CACHING = false
 				return
 			end
-			if mapId ~= curMapId then
-				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
-			end
+			SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
 			end
@@ -3815,7 +3813,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()
+		local mapId = GetCurrentMapAreaID()
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
@@ -7505,7 +7503,7 @@ function Nx.Quest:UpdateIcons (map)
 					break
 				end
 
-				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj[n])
+				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj)
 
 				if objZone and objZone ~= 9000 then
 
@@ -7537,7 +7535,7 @@ function Nx.Quest:UpdateIcons (map)
 							if cnt > 1 then
 								sz = map:GetWorldZoneScale (mapId) / 10.02 * ptSz
 							end
-							local x, y = Nx.Quest:UnpackLocPtOff (obj[n])
+							local x, y = Nx.Quest:UnpackLocPtOff (obj)
 							local wx, wy = map:GetWorldPos (mapId, x, y)
 
 							local f = map:GetIconStatic (4)
