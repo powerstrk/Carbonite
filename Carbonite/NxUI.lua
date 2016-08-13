@@ -784,6 +784,7 @@ end
 function Nx:PlaySoundFile (file)
 
 	if GetCVar ("Sound_EnableSFX") ~= "0" then
+		Nx.prt(file)
 		PlaySoundFile (file)
 	end
 end

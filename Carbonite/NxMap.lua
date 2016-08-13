@@ -4079,7 +4079,7 @@ function Nx.Map:UpdateWorld()
 			mapFileName = "World"
 		end
 	end
-	local texPath = "Interface\\WorldMap\\"..(isMicro and "MicroDungeon\\"..mapFileName.."\\"..microTex or mapFileName).."\\"
+	local texPath = "Interface\\WorldMap\\"..(isMicro and "MicroDungeon\\"..mapFileName.."\\"..microTex or mapFileName).."\\"	
 	local texName = microTex or mapFileName
 
 	self:UpdateOverlayUnexplored()
@@ -4104,7 +4104,7 @@ function Nx.Map:UpdateWorld()
 		texName = winfo.MapBaseName .. level
 	end
 	for i = 1, 12 do
-		self.TileFrms[i].texture:SetTexture (texPath..texName..i)
+		self.TileFrms[i].texture:SetTexture (texPath..texName..i)		
 	end
 end
 
@@ -5004,6 +5004,9 @@ function Nx.Map:GetNumDungeonMapLevels()
 	local maps = { GetNumDungeonMapLevels() }
 	local first = GetNumDungeonMapLevels()
 	if not first then
+		if GetCurrentMapDungeonLevel() == 0 then
+			return 0,0
+		end
 		return 1, 1
 	end
 	local count = 0
@@ -5032,7 +5035,7 @@ function Nx.Map:GetInstanceMapTextures(mapId)
 			levels = 1
 			first = 1
 		end
-		Nx.Map.InstanceInfo[mapId] = {}
+		Nx.Map.InstanceInfo[mapId] = {}		
 		if not first then 
 			first = 1
 		end
