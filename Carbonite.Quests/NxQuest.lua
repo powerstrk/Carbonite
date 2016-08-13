@@ -118,6 +118,7 @@ local defaults = {
 			Load9 = true,	-- 81 - 85
 			Load10 = true,	-- 86 - 90
 			Load11 = true,	-- 91 - 100
+			Load12 = true,  -- 101 - 110
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -1809,13 +1810,26 @@ local function QuestOptions ()
 								Nx.qdb.profile.Quest.Load11 = not Nx.qdb.profile.Quest.Load11
 							end,
 						},
-						spacer3 = {
+						q12 = {
 							order = 18,
+							type = "toggle",
+							width = "full",
+							name = L["Load Quests for Levels 101-110"],
+							desc = L["Loads all the carbonite quest data in this range on reload"],
+							get = function()
+								return Nx.qdb.profile.Quest.Load12
+							end,
+							set = function()
+								Nx.qdb.profile.Quest.Load12 = not Nx.qdb.profile.Quest.Load12
+							end,
+						},						
+						spacer3 = {
+							order = 19,
 							type = "description",
 							name = " ",
 						},
 						gather = {		-- Change to qgather perhaps?
-							order = 19,
+							order = 20,
 							type = "toggle",
 							width = "full",
 							name = L["Quests Data Gathering"],
@@ -1828,12 +1842,12 @@ local function QuestOptions ()
 							end,
 						},
 						spacer4 = {
-							order = 20,
+							order = 21,
 							type = "description",
 							name = " ",
 						},
 						reboot = {
-							order = 21,
+							order = 22,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -2805,6 +2819,7 @@ function Nx.Quest:LoadQuestDB()
 	if maxLoadLevel or Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
 	if maxLoadLevel or Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
 	if maxLoadLevel or Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load12 then Nx.ModQuests:Load12 () else Nx.ModQuests:Clear12 () end
 	self.Map = Map:GetMap (1)
 
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1

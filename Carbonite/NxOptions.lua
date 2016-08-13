@@ -846,7 +846,7 @@ local function mapConfig ()
 						ButMCtrl = {
 							order = 43,
 							type	= "select",
-							name	= "           " .. L["Ctrl Left Click"],
+							name	= "           " .. L["Ctrl Middle Click"],
 							desc	= L["Sets the action performed when middle clicking holding CTRL"],
 							get	= function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
@@ -1934,7 +1934,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = "Enable All",
 							func = function()
-								for i = 1,70 do
+								for i = 1,76 do
 									Nx.db.profile.Guide.ShowHerbs[i] = true
 								end
 							end,
@@ -1945,7 +1945,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = "Disable All",
 							func = function()
-								for i = 1,70 do
+								for i = 1,76 do
 									Nx.db.profile.Guide.ShowHerbs[i] = false
 								end
 							end,
@@ -2860,6 +2860,84 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowHerbs[70] = not Nx.db.profile.Guide.ShowHerbs[70]
 							end,
 						},
+						aethril = {
+							order = 73,
+							type = "toggle",
+							width = "full",
+							name = L["Aethril"],
+							desc = L["Display"] .. " " .. L["Aethril"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[71]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[71] = not Nx.db.profile.Guide.ShowHerbs[71]
+							end,
+						},
+						dreamleaf = {
+							order = 74,
+							type = "toggle",
+							width = "full",
+							name = L["Dreamleaf"],
+							desc = L["Display"] .. " " .. L["Dreamleaf"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[72]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[72] = not Nx.db.profile.Guide.ShowHerbs[72]
+							end,
+						},
+						felwort = {
+							order = 75,
+							type = "toggle",
+							width = "full",
+							name = L["Felwort"],
+							desc = L["Display"] .. " " .. L["Felwort"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[73]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[73] = not Nx.db.profile.Guide.ShowHerbs[73]
+							end,
+						},
+						fjarnskaggl = {
+							order = 76,
+							type = "toggle",
+							width = "full",
+							name = L["Fjarnskaggl"],
+							desc = L["Display"] .. " " .. L["Fjarnskaggl"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[74]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[74] = not Nx.db.profile.Guide.ShowHerbs[74]
+							end,
+						},
+						foxflower = {
+							order = 77,
+							type = "toggle",
+							width = "full",
+							name = L["Foxflower"],
+							desc = L["Display"] .. " " .. L["Foxflower"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[75]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[75] = not Nx.db.profile.Guide.ShowHerbs[75]
+							end,
+						},
+						starlightrose = {
+							order = 78,
+							type = "toggle",
+							width = "full",
+							name = L["Starlight Rose"],
+							desc = L["Display"] .. " " .. L["Starlight Rose"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowHerbs[76]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowHerbs[76] = not Nx.db.profile.Guide.ShowHerbs[76]
+							end,
+						},						
 					},
 				},
 				MinesDisp = {
@@ -2873,7 +2951,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = "Enable All",
 							func = function()
-								for i = 1,43 do
+								for i = 1,50 do
 									Nx.db.profile.Guide.ShowMines[i] = true
 								end
 							end,
@@ -2884,7 +2962,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = "Disable All",
 							func = function()
-								for i = 1,43 do
+								for i = 1,50 do
 									Nx.db.profile.Guide.ShowMines[i] = false
 								end
 							end,
@@ -3448,6 +3526,97 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowMines[43] = not Nx.db.profile.Guide.ShowMines[43]
 							end,
 						},
+						felslatedeposit = {
+							order = 46,
+							type = "toggle",
+							width = "full",
+							name = L["Felslate Deposit"],
+							desc = L["Display"] .. " " .. L["Felslate Deposit"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[44]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[44] = not Nx.db.profile.Guide.ShowMines[44]
+							end,
+						},						
+						felslateseam = {
+							order = 47,
+							type = "toggle",
+							width = "full",
+							name = L["Felslate Seam"],
+							desc = L["Display"] .. " " .. L["Felslate Seam"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[45]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[45] = not Nx.db.profile.Guide.ShowMines[45]
+							end,
+						},
+						livingfelslate = {
+							order = 48,
+							type = "toggle",
+							width = "full",
+							name = L["Living Felslate"],
+							desc = L["Display"] .. " " .. L["Living Felslate"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[46]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[46] = not Nx.db.profile.Guide.ShowMines[46]
+							end,
+						},
+						leystonedeposit = {
+							order = 49,
+							type = "toggle",
+							width = "full",
+							name = L["Leystone Deposit"],
+							desc = L["Display"] .. " " .. L["Leystone Deposit"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[47]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[47] = not Nx.db.profile.Guide.ShowMines[47]
+							end,
+						},
+						leystoneseam = {
+							order = 50,
+							type = "toggle",
+							width = "full",
+							name = L["Leystone Seam"],
+							desc = L["Display"] .. " " .. L["Leystone Seam"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[48]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[48] = not Nx.db.profile.Guide.ShowMines[48]
+							end,
+						},
+						livingleystone = {
+							order = 51,
+							type = "toggle",
+							width = "full",
+							name = L["Living Leystone"],
+							desc = L["Display"] .. " " .. L["Living Leystone"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[49]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[49] = not Nx.db.profile.Guide.ShowMines[49]
+							end,
+						},
+						infernalbrimstone = {
+							order = 52,
+							type = "toggle",
+							width = "full",
+							name = L["Infernal Brimstone"],
+							desc = L["Display"] .. " " .. L["Infernal Brimstone"] .. " " .. L["Nodes On Map"],
+							get = function()
+								return Nx.db.profile.Guide.ShowMines[50]
+							end,
+							set = function()
+								Nx.db.profile.Guide.ShowMines[50] = not Nx.db.profile.Guide.ShowMines[50]
+							end,
+						},						
 					},
 				},
 				TimberDisp = {
