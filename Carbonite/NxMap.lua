@@ -614,7 +614,7 @@ function Nx.Map:Create (index)
 	f:SetMovable (true)
 	f:SetResizable (true)
 
---	f:SetFrameStrata ("LOW")
+	f:SetFrameStrata ("LOW")
 	f:SetWidth (m.W)
 	f:SetHeight (m.H)
 	f:SetMinResize (50, 50)
@@ -3907,7 +3907,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 					if map:IsBattleGroundMap (rid) then
 						SetMapToCurrentZone()
 						Nx.Map.UpdateMapID = WorldMapFrame.mapID										
-					else
+					else						
 						map:SetCurrentMap (rid)
 					end
 				end
@@ -4047,7 +4047,7 @@ function Nx.Map:UpdateWorld()
 	end
 
 	self.NeedWorldUpdate = false
-	if not Nx.Map.MouseOver then
+	if not Nx.Map.MouseOver then		
 		SetMapToCurrentZone()
 	end
 	local mapId = self:GetCurrentMapId()
@@ -4955,7 +4955,7 @@ function Nx.Map:Update (elapsed)
 		self:ScanContinents()
 	end
 
-	if doSetCurZone then
+	if doSetCurZone then		
 		self:SetToCurrentZone()
 	end
 
@@ -7536,7 +7536,9 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			end
 		end
 	end
-
+	if GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 1 then
+		Nx.Map.DungeonLevel = 0
+	end
 	for k, v in pairs (d) do
 
 --		Nx.prt ("UpdateIcons %s %s", k, v.DrawMode)
@@ -7686,6 +7688,9 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 				end
 			end
 		end
+	end
+	if GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 0 then
+		Nx.Map.DungeonLevel = 1
 	end
 end
 
