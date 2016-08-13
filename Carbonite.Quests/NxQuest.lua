@@ -118,6 +118,7 @@ local defaults = {
 			Load9 = true,	-- 81 - 85
 			Load10 = true,	-- 86 - 90
 			Load11 = true,	-- 91 - 100
+			Load12 = true,  -- 101 - 110
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -1809,13 +1810,26 @@ local function QuestOptions ()
 								Nx.qdb.profile.Quest.Load11 = not Nx.qdb.profile.Quest.Load11
 							end,
 						},
-						spacer3 = {
+						q12 = {
 							order = 18,
+							type = "toggle",
+							width = "full",
+							name = L["Load Quests for Levels 101-110"],
+							desc = L["Loads all the carbonite quest data in this range on reload"],
+							get = function()
+								return Nx.qdb.profile.Quest.Load12
+							end,
+							set = function()
+								Nx.qdb.profile.Quest.Load12 = not Nx.qdb.profile.Quest.Load12
+							end,
+						},						
+						spacer3 = {
+							order = 19,
 							type = "description",
 							name = " ",
 						},
 						gather = {		-- Change to qgather perhaps?
-							order = 19,
+							order = 20,
 							type = "toggle",
 							width = "full",
 							name = L["Quests Data Gathering"],
@@ -1828,12 +1842,12 @@ local function QuestOptions ()
 							end,
 						},
 						spacer4 = {
-							order = 20,
+							order = 21,
 							type = "description",
 							name = " ",
 						},
 						reboot = {
-							order = 21,
+							order = 22,
 							type = "execute",
 							width = "full",
 							func = function()
@@ -2805,6 +2819,7 @@ function Nx.Quest:LoadQuestDB()
 	if maxLoadLevel or Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
 	if maxLoadLevel or Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
 	if maxLoadLevel or Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
+	if maxLoadLevel or Nx.qdb.profile.Quest.Load12 then Nx.ModQuests:Load12 () else Nx.ModQuests:Clear12 () end
 	self.Map = Map:GetMap (1)
 
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
@@ -3752,9 +3767,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 				IS_BACKGROUND_WORLD_CACHING = false
 				return
 			end
-			if mapId ~= curMapId then
-				SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
-			end
+			SetMapByID(mapId)			-- Triggers WORLD_MAP_UPDATE, which calls MapChanged
 			local cont = Nx.Map.MapWorldInfo[mapId].Cont
 			local info = Map.MapInfo[cont]
 			end
@@ -3800,7 +3813,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
 --		QuestPOIUpdateIcons()
-		local mapId = Nx.Map:GetCurrentMapId()
+		local mapId = GetCurrentMapAreaID()
 		if Nx.Map:IsBattleGroundMap(mapId) then
 			return
 		end
@@ -7490,7 +7503,7 @@ function Nx.Quest:UpdateIcons (map)
 					break
 				end
 
-				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj[n])
+				local objName, objZone, typ = Nx.Quest:UnpackObjectiveNew (obj)
 
 				if objZone and objZone ~= 9000 then
 
@@ -7522,7 +7535,7 @@ function Nx.Quest:UpdateIcons (map)
 							if cnt > 1 then
 								sz = map:GetWorldZoneScale (mapId) / 10.02 * ptSz
 							end
-							local x, y = Nx.Quest:UnpackLocPtOff (obj[n])
+							local x, y = Nx.Quest:UnpackLocPtOff (obj)
 							local wx, wy = map:GetWorldPos (mapId, x, y)
 
 							local f = map:GetIconStatic (4)
@@ -8663,11 +8676,13 @@ function Nx.Quest.Watch:UpdateList()
 					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
 					if taskInfo then
 						for i=1,#taskInfo do
-							local inArea, onMap, numObjectives = GetTaskInfo(taskInfo[i].questId)
+							local questId = taskInfo[i].questId;
+							local inArea, onMap, numObjectives = GetTaskInfo(questId)
 							if inArea then
 								list:ItemAdd(0)
 								list:ItemSet(2,"----[ " .. L["BONUS TASK"] .. " ]----")
-								local _,_, numObjectives = GetTaskInfo(questId)
+								-- There is no need to do that again: 
+								-- local _,_, numObjectives = GetTaskInfo(questId) 
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)

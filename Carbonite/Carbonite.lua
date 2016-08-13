@@ -232,6 +232,13 @@ local defaults = {
 				[41] = true,
 				[42] = true,
 				[43] = true,
+				[44] = true,
+				[45] = true,
+				[46] = true,
+				[47] = true,
+				[48] = true,
+				[49] = true,
+				[50] = true,				
 			},
 			ShowHerbs = {
 				[1] = true,
@@ -304,6 +311,12 @@ local defaults = {
 				[68] = true,
 				[69] = true,
 				[70] = true,
+				[71] = true,
+				[72] = true,
+				[73] = true,
+				[74] = true,
+				[75] = true,
+				[76] = true,				
 			},
 			ShowTimber = {
 				[1] = true,
@@ -3009,6 +3022,12 @@ Nx.GatherInfo = {
 		{ 600, "inv_misc_herb_taladororchid",L["Talador Orchid"]},
 		{ 600, "inv_misc_herb_fireweed",L["Fireweed"]},
 		{ 600, "inv_farm_pumpkinseed_yellow",L["Withered Herb"]},
+		{ 700, "inv_herbalism_70_aethril",L["Aethril"]},
+		{ 700, "inv_herbalism_70_dreamleaf",L["Dreamleaf"]},
+		{ 700, "inv_herbalism_70_felwort",L["Felwort"]},
+		{ 700, "inv_herbalism_70_fjarnskaggl",L["Fjarnskaggl"]},
+		{ 700, "inv_herbalism_70_foxflower",L["Foxflower"]},
+		{ 700, "inv_herbalism_70_starlightrose",L["Starlight Rose"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"INV_Ore_Adamantium", L["Adamantite Deposit"]},
@@ -3054,6 +3073,13 @@ Nx.GatherInfo = {
 		{ 600, "inv_ore_trueironore", L["True Iron Deposit"]},
 		{ 600, "inv_ore_blackrock_ore", L["Blackrock Deposit"]},
 		{ 600, "inv_ore_blackrock_ore", L["Rich Blackrock Deposit"]},
+		{ 700, "inv_felslate", L["Felslate Deposit"]},
+		{ 700, "inv_felslate", L["Felslate Seam"]},
+		{ 700, "inv_felslate", L["Living Felslate"]},
+		{ 700, "inv_leystone", L["Leystone Deposit"]},
+		{ 700, "inv_leystone", L["Leystone Seam"]},
+		{ 700, "inv_leystone", L["Living Leystone"]},
+		{ 700, "inv_infernalbrimstone", L["Infernal Brimstone"]},
 	}
 }
 

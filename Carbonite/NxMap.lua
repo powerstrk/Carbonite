@@ -614,7 +614,7 @@ function Nx.Map:Create (index)
 	f:SetMovable (true)
 	f:SetResizable (true)
 
---	f:SetFrameStrata ("LOW")
+	f:SetFrameStrata ("LOW")
 	f:SetWidth (m.W)
 	f:SetHeight (m.H)
 	f:SetMinResize (50, 50)
@@ -1452,15 +1452,11 @@ function Nx.Map:UpdateWorldMap()
 			f:Show()
 
 			self:ClipZoneFrm (self.Cont, self.Zone, f, 1)
-			f:SetFrameLevel (self.Level)
+			f:SetFrameLevel (self.Level)			
 			if self.WorldMapFrmMapId ~= self.MapId then
-
 --				Nx.prt ("mapid %s", self.MapId)
-
 				self.WorldMapFrmMapId = self.MapId
-
 				self:SetChildLevels (f, self.Level + 1)
-
 				self.Level = self.Level + 4
 			end
 		end
@@ -1485,60 +1481,6 @@ function Nx.Map:UpdateWorldMap()
 		end
 	end
 end
-
---------
--- Hook of UpdateQuestMapPOI, so we can move icons after Blizz updates
-
---[[
-
-function Nx.Map.UpdateQuestMapPOIHook()
-
-	local self = Nx.Map:GetMap (1)
-
---	Nx.prt ("UpdateQuestMapPOI hook")
-
-	local f = self.WorldMapFrm
-	if f then
-
-		-- Just hide, since we draw ourselves
-
-		for n = 1, QuestMapUpdateAllQuests() do
-			local f = QUEST_MAP_POI[n]
-			if f then
-				f:Hide()
-			end
-		end
-
-		for n = 1, #QUEST_MAP_ADDITIONAL_POI do
-			QUEST_MAP_ADDITIONAL_POI[n]:Hide()
-		end
-
--- OLD
-		if false then
---		if SHOW_QUEST_OBJECTIVES_ON_MAP == "1" then
-
-			local sc = f:GetScale()
-
-			Nx.prt ("WMFrm %s %s %s", f:GetScale(), f:GetLeft(), f:GetRight())
-
-			local numPOI = QuestMapUpdateAllQuests()
-
-			for i = 1, numPOI do
-				local pf = QUEST_MAP_POI[i]
-				if pf and pf:IsShown() then
-					Nx.prt ("QPOI %s %s %s", i, pf["x"], pf["y"])
-					pf:SetPoint ("CENTER", f, "TOPLEFT", pf["x"] * sc, pf["y"] * sc)
-					pf:SetScale (1 / sc)
---					pf:SetParent (self.TextFrm)
-					pf:SetFrameLevel (100)
-				end
-			end
-		end
-
-	end
-end
-
---]]
 
 --------
 -- Recursively set child levels
@@ -1593,19 +1535,6 @@ function Nx.Map:SetWorldMapIcons (scale)
 			f:SetScale (scale)
 		end
 	end
-
---[[
-	for n = 1, QuestMapUpdateAllQuests() do
-		local f = QUEST_MAP_POI[n]
-		if f then
-			f:SetScale (scale)
-		end
-	end
-
-	for i = 1, #QUEST_MAP_ADDITIONAL_POI do
-		QUEST_MAP_ADDITIONAL_POI[i]:Hide();
-	end
---]]
 end
 
 --------
@@ -1623,15 +1552,6 @@ function Nx.Map:OnButToggleGuide (but)
 	self.Guide:ToggleShow()
 end
 
---[[
-function Nx.Map:OnButToggleQuestGivers (but)
-	local guide = self.Guide
-	local folder = guide:FindFolder ("Quest Givers")
-	guide:AddShowFolders (folder, guide:IsShowFolders (folder))
-	guide:Update()
-end
---]]
-
 function Nx.Map:OnButToggleCombat (but)
 	Nx.Combat:Open()
 end
@@ -1639,63 +1559,6 @@ end
 function Nx.Map:OnButToggleEvent (but)
 	Nx.UEvents.List:Open()
 end
-
---[[
-function Nx.Map:OnButScrollDebug (but, click, x, y)
-
-	x = x * self.DebugAdjustScale
-	y = y * self.DebugAdjustScale
-
-	if self["DebugHotspots"] then
-		return self:HotspotDebugScroll (x, y)
-	end
-
-	local id = self.DebugMapId		-- Double click map to set
-	if not id then
-		return
-	end
-
-	local mode = 2
-
-	if mode == 1 then
-
-		if IsControlKeyDown() then
-			x = x * .1 + self.MapWorldInfo[id][1]
-			self.MapWorldInfo[id][1] = x
-			Nx.prt ("Sc %f", x)
-		else
-
-			local info = self.MapWorldInfo[id]
-
-			info[2] = x + info[2]
-			info[3] = y + info[3]
-			info[4] = x + info[4]
-			info[5] = y + info[5]
-
-			info.XOff = x + (info.XOff or 0)
-			info.YOff = y + (info.YOff or 0)
-
-			Nx.prt ("XY %f %f, %f %f", info[2], info[3], info.XOff, info.YOff)
-		end
-
-	elseif mode == 2 then	-- Minimap data
-
-		local miniT = self:GetMiniInfo (id)
-		miniT[5] = x + miniT[5]
-		miniT[6] = y + miniT[6]
-		Nx.prt ("XY %f %f", miniT[5], miniT[6])
-	end
-
-	return true
-end
-
-function Nx.Map:OnButScrollDebug2 (but, click, x, y)
-
-	self.DebugAdjustScale = self.DebugAdjustScale + x * .001
-
-	Nx.prt ("Adj scale %s", self.DebugAdjustScale)
-end
---]]
 
 --------
 -- Init static map frames
@@ -1766,18 +1629,6 @@ function Nx.Map:InitFrames()
 		end
 	end
 
---[[
-	local cf = CreateFrame ("Frame", nil, f)
-	self.ContFillFrm = cf
-
-	local t = cf:CreateTexture()
-	t:SetAllPoints (cf)
-	cf.texture = t
---	t:SetColorTexture (.5, .5, .45, .99)
-	t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\HBlend")
-	t:SetVertexColor (1, 1, 1, .7)
---]]
-
 	-- Create mini frames
 
 	self.MiniFrms = {}
@@ -1793,8 +1644,6 @@ function Nx.Map:InitFrames()
 	end
 
 	self:InitHotspots()
-
---	self:InitHotspotsDebug()
 end
 
 --------
@@ -3534,7 +3383,7 @@ function Nx.Map:OnMouseDown (button)
 				map.Scrolling = true
 				map.ScrollingX = x
 				map.ScrollingY = y
-				map.ScrollingFrm = map.ClickFrm
+				map.ScrollingFrm = map.ClickFrm				
 			end
 		end
 
@@ -3907,7 +3756,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 					if map:IsBattleGroundMap (rid) then
 						SetMapToCurrentZone()
 						Nx.Map.UpdateMapID = WorldMapFrame.mapID										
-					else
+					else						
 						map:SetCurrentMap (rid)
 					end
 				end
@@ -4047,7 +3896,7 @@ function Nx.Map:UpdateWorld()
 	end
 
 	self.NeedWorldUpdate = false
-	if not Nx.Map.MouseOver then
+	if not Nx.Map.MouseOver then		
 		SetMapToCurrentZone()
 	end
 	local mapId = self:GetCurrentMapId()
@@ -4079,7 +3928,7 @@ function Nx.Map:UpdateWorld()
 			mapFileName = "World"
 		end
 	end
-	local texPath = "Interface\\WorldMap\\"..(isMicro and "MicroDungeon\\"..mapFileName.."\\"..microTex or mapFileName).."\\"
+	local texPath = "Interface\\WorldMap\\"..(isMicro and "MicroDungeon\\"..mapFileName.."\\"..microTex or mapFileName).."\\"	
 	local texName = microTex or mapFileName
 
 	self:UpdateOverlayUnexplored()
@@ -4104,7 +3953,7 @@ function Nx.Map:UpdateWorld()
 		texName = winfo.MapBaseName .. level
 	end
 	for i = 1, 12 do
-		self.TileFrms[i].texture:SetTexture (texPath..texName..i)
+		self.TileFrms[i].texture:SetTexture (texPath..texName..i)		
 	end
 end
 
@@ -4632,15 +4481,12 @@ function Nx.Map:Update (elapsed)
 		oldLev = oldLev - 4
 		self.Level = self.Level + 16
 	end
-	local name, description, txIndex, pX, pY
+	local type, name, description, txIndex, pX, pY
 	local txX1, txX2, txY1, txY2
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
-		name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
-		if not pX then			
-			return
-		end
-		if txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
+		type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
+		if pX and txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
 			if desc then
@@ -4955,7 +4801,7 @@ function Nx.Map:Update (elapsed)
 		self:ScanContinents()
 	end
 
-	if doSetCurZone then
+	if doSetCurZone then		
 		self:SetToCurrentZone()
 	end
 
@@ -5004,6 +4850,9 @@ function Nx.Map:GetNumDungeonMapLevels()
 	local maps = { GetNumDungeonMapLevels() }
 	local first = GetNumDungeonMapLevels()
 	if not first then
+		if GetCurrentMapDungeonLevel() == 0 then
+			return 0,0
+		end
 		return 1, 1
 	end
 	local count = 0
@@ -5032,7 +4881,7 @@ function Nx.Map:GetInstanceMapTextures(mapId)
 			levels = 1
 			first = 1
 		end
-		Nx.Map.InstanceInfo[mapId] = {}
+		Nx.Map.InstanceInfo[mapId] = {}		
 		if not first then 
 			first = 1
 		end
@@ -5113,19 +4962,16 @@ function Nx.Map:ScanContinents()
 		SetMapZoom (cont)
 		local mapId = Nx.Map.MapZones[0][cont]
 
-		local name, description, txIndex, pX, pY
+		local type, name, description, txIndex, pX, pY
 		local txX1, txX2, txY1, txY2
 		local poiNum = GetNumMapLandmarks()
 
 --		Nx.prt ("poiNum %d", poiNum)
 
 		for n = 1, poiNum do
-			name, desc, txIndex, pX, pY = GetMapLandmarkInfo (n)
-            if not pX then
-				return
-			end
+			type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (n)
 				
-			if name and not hideT[txIndex] then
+			if pX and name and not hideT[txIndex] then
 
 				local poi = {}
 				tinsert (poiT, poi)
@@ -6273,54 +6119,6 @@ function Nx.Map:UpdateZones()
 		for n, id in ipairs (self.MapsDrawnOrder) do
 			self:UpdateOverlay (id, .8, true)
 		end
---[[
-		if freeOrScale then
-
-			local abs = abs
-
-			for id, fade in pairs (self.MapsDrawnFade) do
-
-				if id ~= mapId then
-					self:UpdateOverlay (id, abs (fade) * .8, true)
-				end
-
-				if fade > 0 then
-					fade = fade + .1
-					self.MapsDrawnFade[id] = fade <= 1 and fade or 1
-
-				elseif fade < 0 then
-					fade = fade + .1
-					self.MapsDrawnFade[id] = fade < 0 and fade or nil
-				end
-			end
-		end
---]]
---[[
-			if mapId >= 1000 and mapId <= 1999 then
-
-				for id = 1001, 1024 do
-					if id ~= mapId then
-						self:UpdateOverlay (id, .8)
-					end
-				end
-
-			elseif mapId >= 2000 and mapId <= 2999 then
-
-				for id = 2001, 2028 do
-					if id ~= mapId then
-						self:UpdateOverlay (id, .8)
-					end
-				end
-
-			elseif mapId >= 3000 and mapId <= 3999 then
-
-				for id = 3001, 3008 do
-					if id ~= mapId then
-						self:UpdateOverlay (id, .8)
-					end
-				end
-			end
---]]
 		if winfo.City then
 --			Nx.prt ("city %s", self.Level)
 			self:UpdateMiniFrames()
@@ -7533,7 +7331,9 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			end
 		end
 	end
-
+	if GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 1 then
+		Nx.Map.DungeonLevel = 0
+	end
 	for k, v in pairs (d) do
 
 --		Nx.prt ("UpdateIcons %s %s", k, v.DrawMode)
@@ -7683,6 +7483,9 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 				end
 			end
 		end
+	end
+	if GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 0 then
+		Nx.Map.DungeonLevel = 1
 	end
 end
 
@@ -8702,7 +8505,7 @@ function Nx.Map:SetCurrentMap (mapId)
 				end
 			end
 		end
-		if self.IsInstanceMap(mapId) then	-- Instance?
+		if self:IsInstanceMap(mapId) then	-- Instance?
 
 			self.BaseScale = .025
 
