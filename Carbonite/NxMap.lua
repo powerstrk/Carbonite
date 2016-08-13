@@ -4481,15 +4481,12 @@ function Nx.Map:Update (elapsed)
 		oldLev = oldLev - 4
 		self.Level = self.Level + 16
 	end
-	local name, description, txIndex, pX, pY
+	local type, name, description, txIndex, pX, pY
 	local txX1, txX2, txY1, txY2
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
-		name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
-		if not pX then			
-			return
-		end
-		if txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
+		type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
+		if pX and txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
 			if desc then
@@ -4965,19 +4962,16 @@ function Nx.Map:ScanContinents()
 		SetMapZoom (cont)
 		local mapId = Nx.Map.MapZones[0][cont]
 
-		local name, description, txIndex, pX, pY
+		local type, name, description, txIndex, pX, pY
 		local txX1, txX2, txY1, txY2
 		local poiNum = GetNumMapLandmarks()
 
 --		Nx.prt ("poiNum %d", poiNum)
 
 		for n = 1, poiNum do
-			name, desc, txIndex, pX, pY = GetMapLandmarkInfo (n)
-            if not pX then
-				return
-			end
+			type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (n)
 				
-			if name and not hideT[txIndex] then
+			if pX and name and not hideT[txIndex] then
 
 				local poi = {}
 				tinsert (poiT, poi)
