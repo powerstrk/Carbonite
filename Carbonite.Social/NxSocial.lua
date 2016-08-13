@@ -1805,10 +1805,6 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.Social:GetPunk (name, plyrNear, mId, x, y)
-	if mId > 1000 then ------ Work around to stop chat spam, to be removed at a later date once everyone is using the official code over work around version.
-		return
-	end
-
 	if Nx.scdb.profile.Social.PunkEnable then
 	local punk = self.PunksActive[name]
 	if not punk then
