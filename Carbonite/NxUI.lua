@@ -5861,8 +5861,7 @@ function Nx.List:Update (showLast)
 					f:SetHeight (30)
 					f:SetAlpha (self.ItemFrameAlpha)
 
-					local id = tonumber (v1)
-
+					local id = tonumber (v1)					
 					f:SetID (id)
 
 					SetItemButtonTexture (f, v2);
