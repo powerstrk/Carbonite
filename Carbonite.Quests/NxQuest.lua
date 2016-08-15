@@ -8416,7 +8416,7 @@ function Nx.Quest.Watch:Update()
 	end
 	qw_ttl = 0
 	self.CalcDistI = 1
-	self.CalcDistCnt = 20
+	self.CalcDistCnt = Nx.qdb.profile.QuestOpts.NXWVisMax
 	QuestWatchDist = Nx:ScheduleTimer(self.OnTimer,0,self)
 end
 
@@ -8436,9 +8436,6 @@ function Nx.Quest.Watch:AddCustom(newstring, newstring2, newstring3)
 		Nx.Quest.Custom[num].buttonfunc = newstring3
 	end
 end
-
-
-
 
 function Nx.Quest.Watch:OnTimer (item)
 
