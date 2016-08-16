@@ -45,9 +45,9 @@ L["Blasted Lands"] = "Выжженные земли"
 L["Blood in the Snow"] = "Кровь на снегу"
 L["Bloodmaul Slag Mines"] = "Шлаковые шахты Кровавого Молота"		-- http://ru.wowhead.com/zone=6874
 L["Bloodmyst Isle"] = "Остров Кровавой Дымки"
-L["Bonetown Scenario"] = true						-- is this needed (from zhTW)
+L["Bonetown Scenario"] = "Костяной город"						-- is this needed (from zhTW) http://eu.battle.net/wow/ru/zone/bonetown-scenario/
 L["Borean Tundra"] = "Борейская тундра"
-L["Brawl'gar Arena"] = true
+L["Brawl'gar Arena"] = "Арена Морд'Бой"  				--http://ru.wowhead.com/zone=6298/brawlgar-arena
 L["Brewmoon Festival"] = "Фестиваль Хмельнолуния"
 L["Burning Steppes"] = "Пылающие степи"
 L["Camp Narache"] = "Лагерь Нараче"
@@ -262,7 +262,7 @@ L["Timeless Isle"] = "Вневременный остров"
 L["Tirisfal Glades"] = "Тирисфальские леса"
 L["Tol Barad Peninsula"] = "Полуостров Тол Барад"
 L["Tol Barad"] = "Тол Барад"
-L["Tol'vir Proving Grounds"] = true
+L["Tol'vir Proving Grounds"] = "Испытательный полигон Тол'виров"
 L["Townlong Steppes"] = "Танлунские степи"
 L["Trial of the Champion"] = "Испытание чемпиона"
 L["Trial of the Crusader"] = "Испытание крестоносца"
@@ -274,7 +274,7 @@ L["Uldum"] = "Ульдум"
 L["Undercity"] = "Подгород"
 L["Unga Ingoo"] = "Унга-Ингу"
 L["Un'Goro Crater"] = "Кратер Ун'Горо"
-L["Unknown Zone"] = true
+L["Unknown Zone"] = "Неизвестная зона"
 L["Upper Blackrock Spire"] = "Верхняя часть пика Черной горы"		-- http://ru.wowhead.com/zone=7307
 L["Utgarde Keep"] = "Крепость Утгард"
 L["Utgarde Pinnacle"] = "Вершина Утгард"
@@ -297,7 +297,6 @@ L["Zul'Aman"] = "Зул'Аман"
 L["Zul'Drak"] = "Зул'Драк"
 L["Zul'Farrak"] = "Зул'Фаррак"
 L["Zul'Gurub"] = "Зул'Гуруб"
-
 L["Cantrips & Crows"] = "Ведьма и Ворон"
 L["Circle of Wills"] = "Круг Воли"
 L["The Black Market"] = "Черный рынок"
