@@ -275,17 +275,17 @@ local function mapConfig ()
 								Nx.db.profile.Map.MaxOverride = not Nx.db.profile.Map.MaxOverride
 							end,
 						},
-						compatability = {
+						Compatibility = {
 							order = 2,
 							type = "toggle",
 							width = "full",
-							name = L["Enable Combat Compatability Mode"],
+							name = L["Enable Combat Compatibility Mode"],
 							desc = L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."],
 							get = function()
-								return Nx.db.profile.Map.Compatability
+								return Nx.db.profile.Map.Compatibility
 							end,
 							set = function()
-								Nx.db.profile.Map.Compatability = not Nx.db.profile.Map.Compatability
+								Nx.db.profile.Map.Compatibility = not Nx.db.profile.Map.Compatibility
 							end,
 						},
 						hidecombat = {

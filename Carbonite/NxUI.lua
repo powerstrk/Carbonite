@@ -1828,7 +1828,7 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.Window:Adjust (skipChildren)
-	if InCombatLockdown() and Nx.db.profile.Map.Compatability then
+	if InCombatLockdown() and Nx.db.profile.Map.Compatibility then
 		return
 	end
 	local f = self.Frm
@@ -2429,7 +2429,7 @@ end
 ---------------------------------------------------------------------------------------
 
 function Nx.Window:SetLayoutMode (mode)
-	if InCombatLockdown() and Nx.db.profile.Map.Compatability then
+	if InCombatLockdown() and Nx.db.profile.Map.Compatibility then
 		return
 	end
 	local data = self.SaveData
