@@ -279,7 +279,7 @@ local function mapConfig ()
 							order = 2,
 							type = "toggle",
 							width = "full",
-							name = L["Enable Combat Compatability Mode"],
+							name = L["Enable Combat Compatibility Mode"],
 							desc = L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."],
 							get = function()
 								return Nx.db.profile.Map.Compatability
