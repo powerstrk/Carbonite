@@ -23353,6 +23353,7 @@ local ModQuests={
 				"nil|32|32|31.5|43.7|6.02|6.02",
 			 },
 			[3] = {
+				"Have Kadgar address the Council of Six|32|32|30.6|49.0|6.02|6.02",
 			 },
 		},
 	},
