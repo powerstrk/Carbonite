@@ -105,7 +105,7 @@
 		</OnUpdate>
 	</Scripts>
 </Button>
-<Button name="NxWatchListItem" virtual="true">
+<Button name="NxWatchListItem" inherits="SecureActionButtonTemplate" virtual="true">
 	<Size x="26" y="26" />
 		<Layers>
 			<Layer level="ARTWORK">
@@ -134,10 +134,6 @@
 			<OnUpdate function="NxWatchListItem_OnUpdate" />
 			<OnShow function="QuestObjectiveItem_OnShow" />
 			<OnHide function="QuestObjectiveItem_OnHide" />
-			
-			
-			
-			
 			<OnEnter>
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetQuestLogSpecialItem(self.questLogIndex);
