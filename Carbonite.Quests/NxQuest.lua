@@ -8688,7 +8688,7 @@ function Nx.Quest.Watch:UpdateList()
 					end
 				end
 				if Nx.qdb.profile.QuestWatch.BonusTask then
-					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
+					--[[local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
 					if taskInfo then
 						for i=1,#taskInfo do
 							local questId = taskInfo[i].questId;
@@ -8723,7 +8723,7 @@ function Nx.Quest.Watch:UpdateList()
 								list:ItemSet(2,"|cffff00ff--------------------------")
 							end
 						end
-					end
+					end]]--
 					local taskInfo = GetNumQuestLogEntries()
 					if taskInfo > 0 then
 						for i=1,taskInfo do
