@@ -119,6 +119,7 @@ local defaults = {
 			Load10 = true,	-- 86 - 90
 			Load11 = true,	-- 91 - 100
 			Load12 = true,  -- 101 - 110
+			ScrollIMG = true,			
 		},
 		QuestWatch = {
 			AchTrack = true,
@@ -243,8 +244,21 @@ local function QuestOptions ()
 								Nx.qdb.profile.Quest.ShowId = not Nx.qdb.profile.Quest.ShowId
 							end,
 						},
-						qbgcol = {
+						ImgorBG = {
 							order = 7,
+							type = "toggle",
+							width = "full",
+							name = L["Use scroll image in quest log"],
+							desc = L["When enabled, uses paper looking background for quest details"],
+							get = function()
+								return Nx.qdb.profile.Quest.ScrollIMG
+							end,
+							set = function()
+								Nx.qdb.profile.Quest.ScrollIMG = not Nx.qdb.profile.Quest.ScrollIMG
+							end,							
+						},						
+						qbgcol = {
+							order = 8,
 							type = "color",
 							width = "full",
 							name = L["Quest Details Background Color"],
@@ -262,7 +276,7 @@ local function QuestOptions ()
 							end,
 						},
 						qtcol = {
-							order = 8,
+							order = 9,
 							type = "color",
 							width = "full",
 							name = L["Quest Details Text Color"],
@@ -280,7 +294,7 @@ local function QuestOptions ()
 							end,
 						},
 						qtscale = {
-							order = 9,
+							order = 10,
 							type = "range",
 							name = L["Quest Details Scale"],
 							desc = L["Sets the size of the quest details"],
@@ -296,24 +310,24 @@ local function QuestOptions ()
 							end,
 						},
 						spacer = {
-							order = 10,
-							type = "description",
-							width = "full",
-							name = " ",
-						},
-						spacer2 = {
 							order = 11,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
-						questdesc = {
+						spacer2 = {
 							order = 12,
+							type = "description",
+							width = "full",
+							name = " ",
+						},
+						questdesc = {
+							order = 13,
 							type = "description",
 							name = L["Quest Options"],
 						},
 						qtool = {
-							order = 13,
+							order = 14,
 							type = "toggle",
 							width = "full",
 							name = L["Show Quest Tooltips"],
@@ -326,7 +340,7 @@ local function QuestOptions ()
 							end,
 						},
 						qparty = {
-							order = 14,
+							order = 15,
 							type = "toggle",
 							width = "full",
 							name = L["Share Quest Progress"],
@@ -339,7 +353,7 @@ local function QuestOptions ()
 							end,
 						},
 						qauto = {
-							order = 15,
+							order = 16,
 							type = "toggle",
 							width = "full",
 							name = L["Auto Accept Quests"],
@@ -352,7 +366,7 @@ local function QuestOptions ()
 							end,
 						},
 						qautoturn = {
-							order = 16,
+							order = 17,
 							type = "toggle",
 							width = "full",
 							name = L["Auto Turn In Quests"],
@@ -365,7 +379,7 @@ local function QuestOptions ()
 							end,
 						},
 						qautoac = {
-							order = 17,
+							order = 18,
 							type = "toggle",
 							width = "full",
 							name = L["Auto Turn In Self-Completion Quests"],
@@ -378,7 +392,7 @@ local function QuestOptions ()
 							end,
 						},
 						qbroad = {
-							order = 18,
+							order = 19,
 							type = "toggle",
 							width = "double",
 							name = L["Broadcast Quest Changes"],
@@ -391,7 +405,7 @@ local function QuestOptions ()
 							end,
 						},
 						qbroadnum = {
-							order = 19,
+							order = 20,
 							type = "range",
 							name = L["Broadcast after number of changes"],
 							desc = L["Sets the number of objective changes before it sends the group/raid message"],
@@ -407,7 +421,7 @@ local function QuestOptions ()
 							end,
 						},
 						qextra = {
-							order = 20,
+							order = 21,
 							type = "toggle",
 							width = "full",
 							name = L["Show Extended Info in Quest Links"],
@@ -420,7 +434,7 @@ local function QuestOptions ()
 							end,
 						},
 						qlogin = {
-							order = 21,
+							order = 22,
 							type = "toggle",
 							width = "full",
 							name = L["Get Completed Quest Information on Login"],
@@ -433,18 +447,18 @@ local function QuestOptions ()
 							end,
 						},
 						spacer3 = {
-							order = 22,
+							order = 23,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						questmaps = {
-							order = 23,
+							order = 24,
 							type = "description",
 							name = L["Quest Map Options"],
 						},
 						qmshow = {
-							order = 24,
+							order = 25,
 							type = "toggle",
 							width = "full",
 							name = L["Always Show Quest Watched Areas"],
@@ -457,7 +471,7 @@ local function QuestOptions ()
 							end,
 						},
 						qmwcol = {
-							order = 25,
+							order = 26,
 							type = "color",
 							width = "full",
 							name = L["Color of Watched Areas When Tracked"],
@@ -476,7 +490,7 @@ local function QuestOptions ()
 							end,
 						},
 						qmwtrackcol = {
-							order = 26,
+							order = 27,
 							type = "color",
 							width = "full",
 							name = L["Color of Watched Areas on Mouse Over"],
@@ -495,7 +509,7 @@ local function QuestOptions ()
 							end,
 						},
 						qmwtracktrans = {
-							order = 27,
+							order = 28,
 							type = "color",
 							width = "full",
 							name = L["Alpha of Watched Areas"],
@@ -513,7 +527,7 @@ local function QuestOptions ()
 							end,
 						},
 						qmgraph = {
-							order = 28,
+							order = 29,
 							type = "select",
 							name = L["Watched Area Graphic"],
 							desc = L["Sets the graphic to be used for watched areas"],
@@ -536,13 +550,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer4 = {
-							order = 29,
+							order = 30,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						qmcolperq = {
-							order = 30,
+							order = 31,
 							type = "toggle",
 							name = L["Use One Color Per Quest"],
 							width = "full",
@@ -555,7 +569,7 @@ local function QuestOptions ()
 							end,
 						},
 						qttlcols = {
-							order = 31,
+							order = 32,
 							type = "range",
 							name = L["Total Colors To Use"],
 							desc = L["Sets the number of possible colors to use for quest watching"],
@@ -572,7 +586,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol1 = {
-							order = 32,
+							order = 33,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 1"],
@@ -591,7 +605,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol2 = {
-							order = 33,
+							order = 34,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 2"],
@@ -610,7 +624,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol3 = {
-							order = 34,
+							order = 35,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 3"],
@@ -629,7 +643,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol4 = {
-							order = 35,
+							order = 36,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 4"],
@@ -648,7 +662,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol5 = {
-							order = 36,
+							order = 37,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 5"],
@@ -667,7 +681,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol6 = {
-							order = 37,
+							order = 38,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 6"],
@@ -686,7 +700,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol7 = {
-							order = 38,
+							order = 39,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 7"],
@@ -705,7 +719,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol8 = {
-							order = 39,
+							order = 40,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 8"],
@@ -724,7 +738,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol9 = {
-							order = 40,
+							order = 41,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 9"],
@@ -743,7 +757,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol10 = {
-							order = 41,
+							order = 42,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 10"],
@@ -762,7 +776,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol11 = {
-							order = 42,
+							order = 43,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 11"],
@@ -781,7 +795,7 @@ local function QuestOptions ()
 							end,
 						},
 						qcol12 = {
-							order = 43,
+							order = 44,
 							type = "color",
 							width = "full",
 							name = L["Watch Color 12"],
@@ -800,13 +814,13 @@ local function QuestOptions ()
 							end,
 						},
 						spacer5 = {
-							order = 44,
+							order = 45,
 							type = "description",
 							width = "full",
 							name = " ",
 						},
 						QuestFont = {
-							order = 45,
+							order = 46,
 							type = "select",
 							name = L["Quest Font"],
 							desc = L["Sets the font to be used on the quest window"],
@@ -829,7 +843,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestFontSize = {
-							order = 46,
+							order = 47,
 							type = "range",
 							name = L["Quest Font Size"],
 							desc = L["Sets the size of the quest window font"],
@@ -846,7 +860,7 @@ local function QuestOptions ()
 							end,
 						},
 						QuestFontSpacing = {
-							order = 47,
+							order = 48,
 							type = "range",
 							name = L["Quest Font Spacing"],
 							desc = L["Sets the spacing of the quest window font"],
@@ -861,7 +875,7 @@ local function QuestOptions ()
 								Nx.qdb.profile.Quest.QuestFontSpacing = value
 								Nx.Opts:NXCmdFontChange()
 							end,
-						},
+						},				
 					},
 				},
 				watch = {
@@ -5464,7 +5478,11 @@ function Nx.Quest.List:Open()
 	f:EnableMouse (true)	
 	f:SetFrameStrata ("MEDIUM")	
 	local t = f:CreateTexture()
-	t:SetTexture ("Interface\\QuestFrame\\QuestBG", true, true)
+	if Nx.qdb.profile.Quest.ScrollIMG then
+		t:SetTexture ("Interface\\QuestFrame\\QuestBG", true, true)
+	else
+		t:SetColorTexture(Nx.Util_str2rgba(Nx.qdb.profile.Quest.DetailBC))
+	end	
 	t:SetAllPoints (f)
 	t:SetTexCoord(0, .585, 0.02, .655)
 	f.texture = t
