@@ -4078,6 +4078,22 @@ function Nx.Map:Update (elapsed)
 
 	-- Taxi update
 
+
+	local invasions = {181, 11, 161, 27, 24, 39}
+	local invmap = Nx.Map:GetMap(1)
+	for key, value in ipairs(invasions) do
+		local name, timeLeftMinutes, rewardQuestID = GetInvasionInfoByMapAreaID(value)
+		if (name ~= nil) then			
+			local wx, wy = Nx.Map:GetWorldPos (value, 50, 50)
+			local icon = invmap:AddIconPt ("!GQ", wx, wy, 0, "00FF00", "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCirclePlus")
+			local tip = name .. " - " .. timeLeftMinutes .. " mins left"
+			if IsQuestFlaggedCompleted(rewardQuestID) then
+				tip = tip .. " [COMPLETED]"
+			end
+			invmap:SetIconTip(icon,tip)		
+		end
+	end	
+	
 	local ontaxi = UnitOnTaxi ("player")
 
 	if ontaxi then
@@ -4416,6 +4432,8 @@ function Nx.Map:Update (elapsed)
 		self:UpdatePlyrHistory()
 	end
 
+	
+	
 --[[
 	if self["DebugHotspots"] then
 		self:UpdateHotspotsDebug()
@@ -4802,21 +4820,6 @@ function Nx.Map:Update (elapsed)
 
 	if doSetCurZone then		
 		self:SetToCurrentZone()
-	end
-
-	local invasions = {181, 11, 161, 27, 24, 39}
-	local invmap = Nx.Map:GetMap(1)
-	for key, value in ipairs(invasions) do
-		local name, timeLeftMinutes, rewardQuestID = GetInvasionInfoByMapAreaID(value)
-		if (name ~= nil) then			
-			local wx, wy = Nx.Map:GetWorldPos (value, 50, 50)
-			local icon = invmap:AddIconPt ("!GQ", wx, wy, 0, "00FF00", "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCirclePlus")
-			local tip = name .. " - " .. timeLeftMinutes .. " mins left"
-			if IsQuestFlaggedCompleted(rewardQuestID) then
-				tip = tip .. " [COMPLETED]"
-			end
-			invmap:SetIconTip(icon,tip)		
-		end
 	end
 	
 	-- Debug
