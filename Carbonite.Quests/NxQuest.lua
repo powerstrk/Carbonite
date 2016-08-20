@@ -255,6 +255,7 @@ local function QuestOptions ()
 							end,
 							set = function()
 								Nx.qdb.profile.Quest.ScrollIMG = not Nx.qdb.profile.Quest.ScrollIMG
+								Nx.Opts.NXCmdReload()
 							end,							
 						},						
 						qbgcol = {
