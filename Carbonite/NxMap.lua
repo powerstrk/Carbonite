@@ -4811,7 +4811,7 @@ function Nx.Map:Update (elapsed)
 		if (name ~= nil) then			
 			local wx, wy = Nx.Map:GetWorldPos (value, 50, 50)
 			local icon = invmap:AddIconPt ("!GQ", wx, wy, 0, "00FF00", "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCirclePlus")
-			local tip = name
+			local tip = name .. " - " .. timeLeftMinutes .. " mins left"
 			if IsQuestFlaggedCompleted(rewardQuestID) then
 				tip = tip .. " [COMPLETED]"
 			end
