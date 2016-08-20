@@ -1333,8 +1333,7 @@ end
 --
 
 function Nx.Map:AttachWorldMap()
-	---- THIS DOES NOT WORK, UNTIL FIXED DISABLING IT.
---[[	
+--[[
 	if not Nx.db.profile.Map.WOwn then
 		return
 	end
@@ -4805,6 +4804,21 @@ function Nx.Map:Update (elapsed)
 		self:SetToCurrentZone()
 	end
 
+	local invasions = {181, 11, 161, 27, 24, 39}
+	local invmap = Nx.Map:GetMap(1)
+	for key, value in ipairs(invasions) do
+		local name, timeLeftMinutes, rewardQuestID = GetInvasionInfoByMapAreaID(value)
+		if (name ~= nil) then			
+			local wx, wy = Nx.Map:GetWorldPos (value, 50, 50)
+			local icon = invmap:AddIconPt ("!GQ", wx, wy, 0, "00FF00", "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCirclePlus")
+			local tip = name
+			if IsQuestFlaggedCompleted(rewardQuestID) then
+				tip = tip .. " [COMPLETED]"
+			end
+			invmap:SetIconTip(icon,tip)		
+		end
+	end
+	
 	-- Debug
 --[[
 	Nx.prt ("Map WPos %s ZPos %s WScale %s", self.GetWorldPosCnt or 0, self.GetZonePosCnt or 0, self.GetWorldZoneScaleCnt or 0)
