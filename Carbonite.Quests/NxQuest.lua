@@ -255,6 +255,7 @@ local function QuestOptions ()
 							end,
 							set = function()
 								Nx.qdb.profile.Quest.ScrollIMG = not Nx.qdb.profile.Quest.ScrollIMG
+								Nx.Opts.NXCmdReload()
 							end,							
 						},						
 						qbgcol = {
@@ -8687,15 +8688,17 @@ function Nx.Quest.Watch:UpdateList()
 						end
 					end
 				end
+				local tasks = {}
 				if Nx.qdb.profile.QuestWatch.BonusTask then
 					--[[local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
 					if taskInfo then
 						for i=1,#taskInfo do
 							local questId = taskInfo[i].questId;
 							local inArea, onMap, numObjectives = GetTaskInfo(questId)
+							tasks[questId] = true
 							if inArea then
 								list:ItemAdd(0)
-								list:ItemSet(2,"----[ " .. L["BONUS TASK"] .. " ]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
 								-- There is no need to do that again: 
 								-- local _,_, numObjectives = GetTaskInfo(questId) 
 								if numObjectives and numObjectives > 0 then
@@ -8728,7 +8731,7 @@ function Nx.Quest.Watch:UpdateList()
 					if taskInfo > 0 then
 						for i=1,taskInfo do
 							local title, _, _, _, _, _, _, questId, _, _, _, _, isTask, _ = GetQuestLogTitle(i)
-							if isTask then
+							if isTask and tasks[questId] ~= true then
 								list:ItemAdd(0)
 								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
 								local _,_, numObjectives = GetTaskInfo(questId)

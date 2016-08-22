@@ -14,7 +14,7 @@ L["ItemTypes"] = {
 	"Quiver",
 	"Reagent",
 	"Recipe",
-	"Trade Goods",
+	"Tradeskill",
 	"Weapon",
 }
 
