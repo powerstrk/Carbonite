@@ -1324,8 +1324,14 @@ local ModQuests={
 		Quest = [[The King's Command|1|86|85|29548|0]],
 	},
 	[29548] = {
-		Quest = [[The Mission|1|86|85|31732|0]],
-		End = "3468|806|32|42.00|92.80",
+	Quest = [[The Mission|1|89|85|0|0]], --This ship wonders, so the coordinates may be off by approximately 5 yards--
+	Start = "55789|301|32|70.0|39.8",
+	End = "66292|806|32|42.0|92.8",
+	Objectives = {
+			[1] = {
+				"nil|301|32|25.9|0.0|6.01|6.01",
+			 },
+		},
 	},
 	[29552] = {
 		Quest = [[Critical Condition|1|86|85|0|0]],
