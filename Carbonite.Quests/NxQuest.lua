@@ -3395,7 +3395,9 @@ function Nx.Quest:RecordQuestsLog()
 
 					if change and Nx.qdb.profile.QuestWatch.AddChanged then
 						self.Watch:Add (curi)
-					end
+					end				
+				else
+					Nx.prt("Debug title " .. title .. " does not match")
 				end
 			end
 		end
@@ -5274,7 +5276,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_LOG_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
-	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
+	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)	
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)

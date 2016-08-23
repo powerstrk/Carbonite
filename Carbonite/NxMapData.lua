@@ -1454,12 +1454,6 @@ Map.MapWorldInfo = {
 		 Overlay = "suramar",
 		 Name = L["Suramar"],
 	},
-	[1076] = {
-		BaseMap = 529,
-	},
-	[1100] = {
-		BaseMap = 799,
-	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
