@@ -23347,7 +23347,7 @@ local ModQuests={
 	End = "113637|32|32|30.0|48.9|6.02|6.02",
 	Objectives = {
 			[1] = {
-				"nil|321|32|36.2|71.0|6.02|6.02",
+				"nil|321|32|45.3|62.5|6.02|6.02",
 			 },
 			[2] = {
 				"nil|32|32|31.5|43.7|6.02|6.02",
@@ -23489,6 +23489,31 @@ local ModQuests={
 			 },
 		},
 	},
+	[44182] = {
+	Quest = [[City Under Siege|1|101|98|0|0]], --This quest shows as complete once taken, so the objective won't point to the portal.--
+	Start = "114561",
+	End = "113986|32|32|49.6|48.0",
+	Objectives = {
+			[1] = {
+				"nil|301|32|80.3|34.9|6.02|6.02",
+			 },
+		},
+	},
+	[44182] = {
+	Quest = [[City Under Siege|2|101|98|0|0]], --This quest shows as complete once taken, so the objective won't point to the portal.--
+	Start = "114561",
+	End = "113986|32|32|49.6|48.0",
+	Objectives = {
+			[1] = {
+				"nil|321|32|45.3|62.5|6.02|6.02",
+			 },
+		},
+	},
+	[44421] = {
+	Quest = [[Anomalous Anomalies|0|101|98|0|0]],
+	Start = "113986|32|32|49.6|48.0",
+	End = "113986|32|32|49.6|48.0",
+	},
 	[44463] = {
 	Quest = [[Demons Among Them|1|102|98|0|0]],
 	Start = "102585|301|32|84.2|33.6",
@@ -23517,6 +23542,11 @@ local ModQuests={
 	Quest = [[A Weapon of the Alliance|1|102|98|0|0]],
 	Start = "100973|301|32|85.7|31.8",
 	End = "101004|301|32|40.4|77.8",
+	},
+	[44500] = {
+	Quest = [[Author! Author!|0|101|98|0|0]],
+	Start = "113986|32|32|49.6|48.0",
+	End = "113986|32|32|49.6|48.0",
 	},
 }
 
