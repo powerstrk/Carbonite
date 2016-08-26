@@ -3397,7 +3397,7 @@ function Nx.Quest:RecordQuestsLog()
 						self.Watch:Add (curi)
 					end				
 				else
-					Nx.prt("Debug title " .. title .. " does not match")
+					Nx.prt("Debug title " .. title .. " does not match " .. cur.Title)
 				end
 			end
 		end
