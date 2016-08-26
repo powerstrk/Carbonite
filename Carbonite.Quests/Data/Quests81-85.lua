@@ -24,6 +24,10 @@ local ModQuests={
 	   },
 	},
   },
+  [25047] = {
+	Quest = [[Broken Owl Figurine|0|84|82|0|0]],
+	Start = "52197",
+  },
   [25164] = {
 	Quest = [[Backed Into a Corner|0|81|80|0|0]],
 	Start = "2190|615|32|55.96|13.74",
