@@ -1015,7 +1015,7 @@ local function QuestOptions ()
 							type = "range",
 							name = L["Watch Delay Time"],
 							desc = L["Sets the forced delay time of watch update in ms, performance toggle for systems that need it"],
-							min = 1,
+							min = 250,
 							max = 1000,
 							step = 1,
 							bigStep = 1,
@@ -8421,7 +8421,7 @@ local qw_elapsed = 0
 local qw_lasttime
 local qw_ttl = 9999
 
-function Nx.Quest.Watch:Update()
+local function checkWatchTimer()
 	if qw_lasttime then
 		local curtime = debugprofilestop()
 		qw_elapsed = curtime - qw_lasttime
@@ -8431,9 +8431,13 @@ function Nx.Quest.Watch:Update()
 	end
 	qw_ttl = qw_ttl + qw_elapsed
 	if qw_ttl < Nx.qdb.profile.QuestWatch.RefreshTimer then
-		return
+		return false
 	end
 	qw_ttl = 0
+	return true
+end
+
+function Nx.Quest.Watch:Update()
 	self.CalcDistI = 1
 	self.CalcDistCnt = 25
 	QuestWatchDist = Nx:ScheduleTimer(self.OnTimer,0,self)
@@ -8518,11 +8522,14 @@ function Nx.Quest.Watch:UpdateList()
 	local list = self.List
 
 	local oldw, oldh = list:GetSize()
-
-	list:SetBGColor (Nx.Quest.Cols["BGColorR"], Nx.Quest.Cols["BGColorG"], Nx.Quest.Cols["BGColorB"], Nx.Quest.Cols["BGColorA"])
-	list:Empty()
+	
+	local clearlist = checkWatchTimer()
+	
+	if clearlist then		
+		list:SetBGColor (Nx.Quest.Cols["BGColorR"], Nx.Quest.Cols["BGColorG"], Nx.Quest.Cols["BGColorB"], Nx.Quest.Cols["BGColorA"])
+		list:Empty()		
+	end
 	local watched = wipe (self.Watched)
-
 	local curq = Quest.CurQ
 
 	if curq then
@@ -8589,6 +8596,7 @@ function Nx.Quest.Watch:UpdateList()
 					curnum = curnum + 1
 				end
 			else
+				if clearlist then
 				if Nx.qdb.profile.QuestWatch.ChalTrack then
 				  local cTimer ={GetWorldElapsedTimers()}
 					for a,id in ipairs(cTimer) do
@@ -9014,13 +9022,15 @@ function Nx.Quest.Watch:UpdateList()
 					end
 				end
 			end
+			end	
 		end
 	end
 	if not fixedSize then
 		list:FullUpdate()
 	else
---		Nx.prt ("QWL Up")
-		list:Update()
+		if clearlist then
+			list:Update()
+		end
 	end
 
 	-- Grow upwards
