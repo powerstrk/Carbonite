@@ -4420,7 +4420,7 @@ function Nx.Opts:NXCmdCamForceMaxDist()
 --	Nx.prt ("Cam %s", GetCVar ("cameraDistanceMaxFactor"))
 
 	if Nx.db.profile.General.CameraForceMaxDist then
-		SetCVar ("cameraDistanceMaxFactor", 3.4)
+		SetCVar ("cameraDistanceMaxFactor", 2.6)
 	end
 end
 
