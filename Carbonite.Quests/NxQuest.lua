@@ -5272,7 +5272,7 @@ function Nx.Quest.List:Open()
 	win:SetUser (self, self.OnWin)
 	win:RegisterEvent ("PLAYER_LOGIN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_LOG_UPDATE", self.OnQuestUpdate)
-	win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
+--  win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
 	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)	
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
@@ -8690,7 +8690,7 @@ function Nx.Quest.Watch:UpdateList()
 				end
 				local tasks = {}
 				if Nx.qdb.profile.QuestWatch.BonusTask then
-					--[[local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
+					local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(map.UpdateMapID);
 					if taskInfo then
 						for i=1,#taskInfo do
 							local questId = taskInfo[i].questId;
@@ -8699,8 +8699,6 @@ function Nx.Quest.Watch:UpdateList()
 							if inArea then
 								list:ItemAdd(0)
 								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
-								-- There is no need to do that again: 
-								-- local _,_, numObjectives = GetTaskInfo(questId) 
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
@@ -8726,7 +8724,7 @@ function Nx.Quest.Watch:UpdateList()
 								list:ItemSet(2,"|cffff00ff--------------------------")
 							end
 						end
-					end]]--
+					end
 					local taskInfo = GetNumQuestLogEntries()
 					if taskInfo > 0 then
 						for i=1,taskInfo do
