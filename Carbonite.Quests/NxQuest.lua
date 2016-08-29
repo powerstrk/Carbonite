@@ -4771,19 +4771,19 @@ function Nx.Quest:Abandon (qIndex, qId)
 		self:RestoreExpandQuests()
 
 		if qId > 0 then
-			Nx.Quest:SetQuest (qId, "c")
+			Nx.Quest:NullQuest (qId)
 		end
 
 	else
 		if qId > 0 then
 
-			self.Watch:RemoveWatch (qId, qIndex)
-
+			self.Watch:RemoveWatch (qId, qIndex)			
 			local i = self:FindCur (qId)
 			if i then
 				local curq = self.CurQ
 				tremove (curq, i)
 			end
+			Nx.Quest:NullQuest (qId)
 		end
 	end
 end
@@ -10811,6 +10811,10 @@ end
 function Nx.Quest:SetQuest (qId, qStatus, qTime)
 	qTime = qTime or 0
 	Nx.Quest.CurCharacter.Q[qId] = qStatus .. qTime
+end
+
+function Nx.Quest:NullQuest (qId)
+	Nx.Quest.CurCharacter.Q[qId] = {}
 end
 
 function Nx.Quest:GetQuestID (loc)
