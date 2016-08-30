@@ -10804,6 +10804,10 @@ function Nx.Quest:GetQuest (qId)
 	if not quest then
 		return
 	end
+	if type(quest) == "table" then
+		Nx.Quest.CurCharacter.Q[qId] = ""
+		return
+	end
 	local s1, s2, status, time = strfind (quest, "(%a)(%d+)")
 	return status, time
 end
