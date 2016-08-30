@@ -23490,13 +23490,48 @@ local ModQuests={
 		},
 	},
 	[44182] = {
-	Quest = [[City Under Siege|0|101|98|0|0]], --This quest shows as complete once taken, so the objective won't point to the portal.--
+	Quest = [[City Under Siege|1|101|98|0|0]], --This quest shows as complete once taken, so the objective won't point to the portal.--
 	Start = "114561",
 	End = "113986|32|32|49.6|48.0",
 	Objectives = {
 			[1] = {
 				"nil|301|32|80.3|34.9|6.02|6.02",
+			 },
+		},
+	},
+	[44182] = {
+	Quest = [[City Under Siege|2|101|98|0|0]], --This quest shows as complete once taken, so the objective won't point to the portal.--
+	Start = "114561",
+	End = "113986|32|32|49.6|48.0",
+	Objectives = {
+			[1] = {
 				"nil|321|32|45.3|62.5|6.02|6.02",
+			 },
+		},
+	},
+	[44184] = {
+	Quest = [[In the Blink of an Eye|1|101|98|0|0]],
+	Start = "114562",
+	End = "111109|1014|32|57.8|45.6",
+	Objectives = {
+			[1] = {
+				"nil|301|32|80.3|34.9|6.02|6.02",
+			 },
+			[1] = {
+				"nil|32|32|49.6|48.0|6.02|6.02",
+			 },
+		},
+	},
+	[44184] = {
+	Quest = [[In the Blink of an Eye|2|101|98|0|0]],
+	Start = "114562",
+	End = "111109|1014|32|57.8|45.6",
+	Objectives = {
+			[1] = {
+				"nil|321|32|36.2|71.0|6.02|6.02",
+			 },
+			[2] = {
+				"nil|32|32|49.6|48.0|6.02|6.02",
 			 },
 		},
 	},
