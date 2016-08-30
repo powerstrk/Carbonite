@@ -10814,7 +10814,7 @@ function Nx.Quest:SetQuest (qId, qStatus, qTime)
 end
 
 function Nx.Quest:NullQuest (qId)
-	Nx.Quest.CurCharacter.Q[qId] = {}
+	Nx.Quest.CurCharacter.Q[qId] = ""
 end
 
 function Nx.Quest:GetQuestID (loc)
