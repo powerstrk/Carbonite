@@ -5100,9 +5100,9 @@ function Nx.List:GetFrame (list, typ)
 		self.FrmsUniqueI = self.FrmsUniqueI + 1
 		if typ == "Color" then
 			f = CreateFrame ("ColorSelect", nil, list.Frm)
-		elseif typ == "WatchItem" then
-			f = CreateFrame ("Button", "NxListFrms" .. self.FrmsUniqueI, list.Frm, "NxWatchListItem")
-			f:SetAttribute ("type1", "item")
+		elseif typ == "WatchItem" then							
+				f = CreateFrame ("Button", "NxListFrms" .. self.FrmsUniqueI, list.Frm, "NxWatchListItem")
+				f:SetAttribute ("type1", "item")			
 		elseif typ == "Info" then
 			f = Nx.Info:CreateFrame (list.Frm)
 		end

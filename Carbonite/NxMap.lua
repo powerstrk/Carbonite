@@ -8920,18 +8920,15 @@ end
 -- (id)
 
 function Nx.Map:GetWorldZoneScale (mapId)
-
---	self.GetWorldZoneScaleCnt = (self.GetWorldZoneScaleCnt or 0) + 1
-
---	if not self.MapWorldInfo[mapId] then
---		Nx.prt ("GetWorldZoneScale %s %s %s", mapId)
---	end
 	local winfo = self.MapWorldInfo[mapId]
 	if winfo and winfo.BaseMap then
 		winfo = self.MapWorldInfo[winfo.BaseMap]
 	end
-	return (not winfo and 10.02) or winfo.Scale
---	return self.MapWorldInfo[mapId][1]
+	if winfo and winfo.Scale then
+		return winfo.Scale
+	else
+		return 10.02
+	end
 end
 
 --------

@@ -1,6 +1,6 @@
 ## Interface: 70000
-## Title: Carbonite Quest 7.0.0
-## Version: 7.0.0
+## Title: Carbonite Quest 7.0.3a
+## Version: 7.0.3a
 ## Author: Rythal
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
