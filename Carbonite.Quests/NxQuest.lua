@@ -3396,11 +3396,6 @@ function Nx.Quest:RecordQuestsLog()
 					if change and Nx.qdb.profile.QuestWatch.AddChanged then
 						self.Watch:Add (curi)
 					end				
-<<<<<<< HEAD
-				else
-					Nx.prtD("Debug title " .. title .. " does not match")
-=======
->>>>>>> refs/remotes/mikepauer/master
 				end
 			end
 		end
