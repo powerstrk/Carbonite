@@ -1,3 +1,7 @@
+if not Nx.ModQuests then
+	Nx.ModQuests = {}
+end
+
 local ModQuests={
 	[38500] = {
 		Quest = [[Leysmithing Mastery|0|102|102|0|0]],
@@ -2687,9 +2691,6 @@ local ModQuests={
 	[44691] = {
 		Quest = [[Hungry Work|0|110|110|40956|0]],
 	},
-}
-
-local ModQuests={
 }
 
 function Nx.ModQuests:Load12 ()
