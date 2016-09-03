@@ -88,7 +88,7 @@ L["Dreamleaf"] = true
 L["Felwort"] = true
 L["Fjarnskaggl"] = true
 L["Foxflower"] = true
-L["Starlight Rose"] true
+L["Starlight Rose"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "堅鋼礦床"
