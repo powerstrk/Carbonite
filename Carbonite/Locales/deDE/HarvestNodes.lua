@@ -88,7 +88,7 @@ L["Dreamleaf"] = "Traumlaub"
 L["Felwort"] = "Teufelswurz"
 L["Fjarnskaggl"] = "Fjarnskaggl"
 L["Foxflower"] = "Fuchsblume"
-L["Starlight Rose"] "Sternlichtrose"
+L["Starlight Rose"] = "Sternlichtrose"
 
 -- Mines
 L["Adamantite Deposit"] = "Adamantitvorkommen"
