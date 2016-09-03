@@ -278,9 +278,15 @@ L["Medium Timber"] = "Baum"
 L["Large Timber"] = "gro\195\159er Baum"
 L["Show Timber Locations"] = "Zeige Baumvorkommen"
 L["Lumbermill"] = "S\195\164gewerk"
+<<<<<<< HEAD
 L["Delete"] = "L\195\182schen"
 L["Import"] = "Importieren"
 L["Cancel"] = "Abbrechen"
+=======
+L["Delete"] = "l\195\182schen"
+L["Import"] = "Importieren"
+L["Cancel"] = "abbrechen"
+>>>>>>> parent of 0d71f8a... LC 150614-2
 
 -- Menu Options
 L["Menu Options"] = "Men\195\188einstellungen"

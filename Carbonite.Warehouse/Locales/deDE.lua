@@ -22,7 +22,7 @@ L["ItemTypes"] = {
 	"Waffe",
 }
 
-L["-Warehouse-"] = true -- Issuses with Translation button bug note followes
+L["-Warehouse-"] = true
 L["Warehouse Module"] = "Lager Modul"
 L["Warehouse Options"] = "Lager Optionen"
 L["Add Warehouse Tooltip"] = "Lager Kurzinfo hinzuf\195\188gen"
@@ -102,7 +102,7 @@ L["NxTOGGLEWAREHOUSE"] = "Lager ein/ausblenden"
 L["Guilds"] = "Gilden"
 L["Characters"] = "Charaktere"
 L["Guild Bank"] = "Gildenbank"
-L["Current Funds"] = "verf\195\188gbare Mittel"
+L["Current Funds"] = "verf/195/188gbare Mittel"
 L["Last Updated"] = "zuletzt aktualisiert"
 L["Tab is empty or no access"] = "Fach ist Leer oder Keine Zugriffberechtigung"
 L["ago"] = "vergangen"
@@ -156,3 +156,9 @@ L["No"] = "Nein"
 
 L["Show coin count in warehouse list"] = "Zeige Goldbestand in der Lagerliste an"
 L["Restores the coin totals after character names in warehouse listing"] = "Zeigt den Goldbestand hinter den Charackternamen in der Lager\195\188bersicht wieder an"
+
+L["Use don't display list"] = "Nicht anzeigen Liste verwenden"
+L["If enabled, don't show listed items in tooltips"] = "In aktiviertem Zustand werden die gelisteten Items nicht in den Tooltips angezeigt"
+L["New Item To Ignore (Case Insensative)" = "Neues Item zum Ignorieren"
+L["Enter the name of the item you want to not track in tooltips. You can drag and drop an item from your inventory aswell."] = "Trage den Namen des Items ein welches nicht in den Tooltips angezeigt werden soll. Du Kannst auch aus deinem Inventar einfügen per drag und drop"
+L["Ignore"] = "Ignorieren"

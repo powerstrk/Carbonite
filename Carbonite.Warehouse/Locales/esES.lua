@@ -156,3 +156,9 @@ L["No"] = true
 
 L["Show coin count in warehouse list"] = true
 L["Restores the coin totals after character names in warehouse listing"] = true
+
+L["Use don't display list"] = true
+L["If enabled, don't show listed items in tooltips"] = true
+L["New Item To Ignore (Case Insensative)" = true
+L["Enter the name of the item you want to not track in tooltips. You can drag and drop an item from your inventory aswell."] = true
+L["Ignore"] =true
