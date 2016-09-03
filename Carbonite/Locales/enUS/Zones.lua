@@ -299,7 +299,7 @@ L["Westfall"] = true
 L["Wetlands"] = true
 L["Wintergrasp"] = true
 L["Winterspring"] = true
-L["Zangarmarsh"] = true = true
+L["Zangarmarsh"] = true 
 L["Zul'Aman"] = true
 L["Zul'Drak"] = true
 L["Zul'Farrak"] = true
