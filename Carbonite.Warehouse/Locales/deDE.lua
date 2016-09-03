@@ -159,6 +159,6 @@ L["Restores the coin totals after character names in warehouse listing"] = "Zeig
 
 L["Use don't display list"] = "Nicht anzeigen Liste verwenden"
 L["If enabled, don't show listed items in tooltips"] = "In aktiviertem Zustand werden die gelisteten Items nicht in den Tooltips angezeigt"
-L["New Item To Ignore (Case Insensative)" = "Neues Item zum Ignorieren"
+L["New Item To Ignore (Case Insensative)"] = "Neues Item zum Ignorieren"
 L["Enter the name of the item you want to not track in tooltips. You can drag and drop an item from your inventory aswell."] = "Trage den Namen des Items ein welches nicht in den Tooltips angezeigt werden soll. Du Kannst auch aus deinem Inventar einfügen per drag und drop"
 L["Ignore"] = "Ignorieren"
