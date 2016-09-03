@@ -336,3 +336,4 @@ L["Court of Stars"] = true
 L["Emerald Nightmare"] = true
 L["The Cove of Nashal"] = true
 L["The Arcway"] = true
+L["Broken Isles"] = true
