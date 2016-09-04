@@ -153,11 +153,11 @@ L["Delete"] = "Effacer"
 L["Yes"] = "Oui"
 L["No"] = "Non"
 
-L["Show coin count in warehouse list"] = true
-L["Restores the coin totals after character names in warehouse listing"] = true
+L["Show coin count in warehouse list"] = "Afficher le nombre de pi\195\168ces dans la liste des Inventaires/D\195\169p\195\180ts"
+L["Restores the coin totals after character names in warehouse listing"] = "R\195\169tabli les totaux de pi\195\168ces apr\195\168s le nom du personnage dans la liste des Inventaires/D\195\169p\195\180ts"
 
-L["Use don't display list"] = true
-L["If enabled, don't show listed items in tooltips"] = true
-L["New Item To Ignore (Case Insensative)"] = true
-L["Enter the name of the item you want to not track in tooltips. You can drag and drop an item from your inventory aswell."] = true
-L["Ignore"] = true
+L["Use don't display list"] = "Utiliser n'affichera pas la liste"
+L["If enabled, don't show listed items in tooltips"] = "Quand activ\195\169, n'affiche pas les objets list\195\169s dans l'infobulle"
+L["New Item To Ignore (Case Insensative)"] = "Nouvel objet \195\160 ignorer (insensible \195\160 la casse)"
+L["Enter the name of the item you want to not track in tooltips. You can drag and drop an item from your inventory aswell."] = "Entrez le nom de l'objet que vous ne d\195\169sirez pas suivre dans l'infobulle. Vous pouvez aussi faire glisser/d\195\169poser l'objet \195\160 partir de votre inventaire"
+L["Ignore"] = "Ignorer"
