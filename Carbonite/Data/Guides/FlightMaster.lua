@@ -462,7 +462,7 @@ local FLIGHT_DATA = {
     ["0,1033,34.2,49.4"]=L["Meredil, Suramar"],
     ["0,1033,25.4,31.8"]=L["Irongrove Retreat, Suramar"],
 	["0,1014,69.8,51.0"]=L["Krasus Landing, Dalaran"],
-	
+
 }
 local NX_FLIGHT_LOC = { ["1"] = L["Alliance Flight"], ["2"] = L["Horde Flight"], ["0"] = L["Neutral Flight"], }
 Nx.NPCData={}
