@@ -2891,6 +2891,7 @@ function Nx.Quest:LoadQuestDB()
 
 			local qc = q
 			local cnum = 0
+			local _qids = {}
 			while qc do
 				cnum = cnum + 1
 				qc.CNum = cnum
@@ -2904,10 +2905,12 @@ function Nx.Quest:LoadQuestDB()
 				clvlmax = max (clvlmax, lvl)
 
 --				next = self:UnpackNext (qc[1])
-				if next == 0 then
+				if next == 0 or _qids[next] == true then
 					break
 				end
-
+				
+				_qids[next] = true;
+				
 				qc = Nx.Quests[next]
 			end
 
@@ -2930,12 +2933,19 @@ function Nx.Quest:LoadQuestDB()
 
 					elseif q.CNum == 1 then
 						local qc = q
+						local _qids = {}
 						while qc do
 							local pname, side, _, _, next = self:Unpack (qc["Quest"])
 --							if strfind (name, "Load Lightening") then
 --								Nx.prt ("%s %d %d (%d %d)", pname, id, side, next, qc.CNum)
 --							end
-
+							
+							if _qids[next] == true then
+								break
+							end
+							
+							_qids[next] = true;
+							
 							tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
 							qc = Nx.Quests[next]
 							id = next
