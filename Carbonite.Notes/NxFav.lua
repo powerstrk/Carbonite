@@ -1514,8 +1514,15 @@ function Nx.Notes:HandyNotes(mapId)
 				local x, y = floor(coord / 10000) / 100, (coord % 10000) / 100
 				local texture
 				local wx, wy = Nx.Map:GetWorldPos(mapId,x,y)
+				local x1, x2, y1, y2
 				if type(iconpath) == "table" then
-					texture = iconpath.icon						
+					texture = iconpath.icon
+					if iconpath.tCoordLeft then
+						x1 = iconpath.tCoordLeft
+						x2 = iconpath.tCoordRight
+						y1 = iconpath.tCoordTop
+						y2 = iconpath.tCoordBottom
+					end
 				else
 					texture = iconpath
 				end					
@@ -1531,7 +1538,12 @@ function Nx.Notes:HandyNotes(mapId)
 				local tooltip = ""
 				local tooltipName	
 				tooltipName = "WorldMapTooltip"
-				local handynote = map:AddIconPt("!HANDY",wx, wy, level2, "FFFFFF", texture)										
+				local handynote
+				if x1 then
+					handynote = map:AddIconPt("!HANDY",wx, wy, level2, "FFFFFF", texture, x1, x2, y1, y2)
+				else
+					handynote = map:AddIconPt("!HANDY",wx, wy, level2, "FFFFFF", texture)
+				end
 				for i = 1,10 do
 					local text = _G[tooltipName .. "TextLeft" .. i]
 					if text and text:IsShown() then

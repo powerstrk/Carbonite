@@ -32,9 +32,10 @@ function Nx.Travel:Init()
 	TakeTaxiNode = self.TakeTaxiNode		-- Hook it
 
 	local tr = {}
-	for n = 1, 7 do
+	for n = 1, Nx.Map.ContCnt do
 		tr[n] = {}
 	end
+	tr[99] = {}
 	self.Travel = tr
 
 	self:Add (L["Flight Master"])
@@ -73,7 +74,7 @@ function Nx.Travel:Add (typ)
 						node.LocName = locName		-- Localize it
 						node.MapId = mapId
 						node.WX = wx
-						node.WY = wy
+						node.WY = wy						
 						tinsert (tdata, node)
 					end
 				end
