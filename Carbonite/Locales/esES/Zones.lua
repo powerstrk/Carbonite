@@ -25,7 +25,7 @@ L["Auchenai Crypts"] = "Criptas Auchenai"
 L["Auchindoun"] = "Auchindoun"						-- http://es.wowhead.com/zone=6912
 L["Azjol-Nerub"] = "Azjol-Nerub"					-- http://es.wowhead.com/zone=4277
 L["Azshara"] = "Azshara"							-- http://es.wowhead.com/zone=16
-L["Azsuna"] = true						
+L["Azsuna"] = true
 L["Azuremyst Isle"] = "Isla Bruma Azur"
 L["Badlands"] = "Tierras Inhóspitas"
 L["Baradin Hold"] = "Bastión de Baradin"
@@ -313,3 +313,28 @@ L["Cantrips & Crows"] = true
 L["Circle of Wills"] = true
 L["The Black Market"] = "El Mercado Negro"				-- http://es.wowhead.com/npc=62943
 L["The Underbelly"] = "Los Bajos Fondos"				-- please verify http://es.wowhead.com/object=193610
+-- Zones Updates 20160902 has to be sorted
+L["Skyhold"] = true
+L["Emerald Dreamway"] = true
+L["Trueshot Lodge"] = true
+L["The Dreamgrove"] = true
+L["Thunder Totem"] = true
+L["Vault of the Wardens"] = true
+L["Niskara"] = true
+L["The Fel Hammer"] = true
+L["Violet Hold"] = true
+L["Hall of the Guardian"] = true
+L["Ursoc's Lair"] = true
+L["Black Rook Hold"] = true
+L["Malorne's Nightmare"] = true
+L["The Nighthold"] = true
+L["Halls of Valor"] = true
+L["Eye of Azshara"] = true
+L["Assault on Violet Hold"] = true
+L["Maw of Souls"] = true
+L["Neltharion's Lair"] = true
+L["Court of Stars"] = true
+L["Emerald Nightmare"] = true
+L["The Cove of Nashal"] = true
+L["The Arcway"] = true
+L["Broken Isles"] = true

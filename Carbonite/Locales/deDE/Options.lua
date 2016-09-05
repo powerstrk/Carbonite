@@ -278,9 +278,12 @@ L["Medium Timber"] = "Baum"
 L["Large Timber"] = "gro\195\159er Baum"
 L["Show Timber Locations"] = "Zeige Baumvorkommen"
 L["Lumbermill"] = "S\195\164gewerk"
+
 L["Delete"] = "L\195\182schen"
 L["Import"] = "Importieren"
 L["Cancel"] = "Abbrechen"
+
+
 
 -- Menu Options
 L["Menu Options"] = "Men\195\188einstellungen"

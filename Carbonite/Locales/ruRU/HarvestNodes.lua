@@ -82,6 +82,13 @@ L["Twilight Jasmine"] = "Сумеречный жасмин"
 L["Whiptail"] = "Хлыстохвост"
 L["Wild Steelbloom"] = "Дикий сталецвет"
 L["Withered Herb"] = "Увядшая трава"
+-- Legion Herbs
+L["Aethril"] = true
+L["Dreamleaf"] = true
+L["Felwort"] = true
+L["Fjarnskaggl"] = true
+L["Foxflower"] = true
+L["Starlight Rose"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "Залежи адамантита"
@@ -128,3 +135,11 @@ L["Titanium Vein"] = "Залежи титана"
 L["Trillium Vein"] = "Триллиевая жила"
 L["True Iron Deposit"] = "Залежи истинной железной руды"
 L["Truesilver Deposit"] = "Залежи истинного серебра"
+--Legion Mines
+L["Felslate Deposit"] = true
+L["Felslate Seam"] = true
+L["Living Felslate"] = true
+L["Leystone Deposit"] = true
+L["Leystone Seam"] = true
+L["Living Leystone"] = true
+L["Infernal Brimstone"] = true

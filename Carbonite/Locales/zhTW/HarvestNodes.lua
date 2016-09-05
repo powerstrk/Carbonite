@@ -82,6 +82,13 @@ L["Twilight Jasmine"] = "暮光茉莉"
 L["Whiptail"] = "鞭尾蜥草"
 L["Wild Steelbloom"] = "野鋼花"
 L["Withered Herb"] = true
+-- Legion Herbs
+L["Aethril"] = true
+L["Dreamleaf"] = true
+L["Felwort"] = true
+L["Fjarnskaggl"] = true
+L["Foxflower"] = true
+L["Starlight Rose"] = true
 
 -- Mines
 L["Adamantite Deposit"] = "堅鋼礦床"
@@ -128,3 +135,11 @@ L["Titanium Vein"] = "泰坦鋼礦脈"
 L["Trillium Vein"] = "延齡礦脈"
 L["True Iron Deposit"] = "真鐵礦床"
 L["Truesilver Deposit"] = "真銀礦床"
+--Legion Mines
+L["Felslate Deposit"] = true
+L["Felslate Seam"] = true
+L["Living Felslate"] = true
+L["Leystone Deposit"] = true
+L["Leystone Seam"] = true
+L["Living Leystone"] = true
+L["Infernal Brimstone"] = true

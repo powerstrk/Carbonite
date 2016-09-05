@@ -78,6 +78,12 @@ L["Twilight Jasmine"] = true
 L["Whiptail"] = true
 L["Wild Steelbloom"] = true
 L["Withered Herb"] = true
+L["Aethril"] = true
+L["Dreamleaf"] = true
+L["Felwort"] = true
+L["Fjarnskaggl"] = true
+L["Foxflower"] = true
+L["Starlight Rose"] = true
 
 -- Mines
 L["Adamantite Deposit"] = true
@@ -124,3 +130,11 @@ L["Titanium Vein"] = true
 L["Trillium Vein"] = true
 L["True Iron Deposit"] = true
 L["Truesilver Deposit"] = true
+--Legion Mines
+L["Felslate Deposit"] = true
+L["Felslate Seam"] = true
+L["Living Felslate"] = true
+L["Leystone Deposit"] = true
+L["Leystone Seam"] = true
+L["Living Leystone"] = true
+L["Infernal Brimstone"] = true
