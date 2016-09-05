@@ -1396,8 +1396,8 @@ Map.MapWorldInfo = {
 	},
 	[1014] = {
 		Scale = 1.6589 / 1.3,
-		X = 0,
-		Y = 0,
+		X = -1000,
+		Y = 100,
 		Overlay = "dalaran70",		
 		City = true,
 		Alpha = .85,
