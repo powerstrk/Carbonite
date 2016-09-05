@@ -366,7 +366,7 @@ L["Riverside Post, Nagrand"] = "Poste de la Rive, Nagrand"
 L["Wor'var, Nagrand"] = "Wor'var, Nagrand"
 --Shadowmoon Valley
 L["Darktide Roost, Shadowmoon Valley"] = "Perchoir de sombreflux, Vall\195\169e d'Ombrelune"
-L["Exile's Rise, Shadowmoon Valley"] = "Cime de l'Exil\195\169, Vall\195\169e d'Ombrelune" 
+L["Exile's Rise, Shadowmoon Valley"] = "Cime de l'Exil\195\169, Vall\195\169e d'Ombrelune"
 L["Socrethar's Rise, Shadowmoon Valley"] = "Cime de Socrethar, Vall\195\169e d'Ombrelune"
 L["Elodor, Shadowmoon Valley"] = "Elodor, Vall\195\169e d'Ombrelune"
 L["Embaari Village, Shadowmoon Valley"] = "Embaari, Vall\195\169e d'ombrelune"
@@ -404,6 +404,52 @@ L["Aktar's Post, Tanaan Jungle"] = "Poste d'aktar, Jungle de Tanaan"
 L["Sha'naari Refuge, Tanaan Jungle"] = "Refuge Sha'naari, Jungle de Tanaan"
 L["Vault of the Earth, Tanaan Jungle"] = "Caveau de la Terre, Jungle de Tanaan"
 L["Malo's Lookout, Tanaan Jungle"] = "Poste de guet de Malo, Jungle de Tanaan"
+-- dalaran
+L["Krasus Landing. Dalaran"] = true
+--Azsuna
+L["Shackle's Den, Azsuna"] = true
+L["Challiane's Terrace, Azsuna"] = true
+L["Azurewing Refuge, Azsuna"] = true
+L["Felblaze Ingress, Azsuna"] = true
+L["Illidari Perch, Azsuna"] = true
+L["Illidari Stand, Azsuna"] = true
+L["Warden's Redoubt, Azsuna"] = true
+L["Watchers' Aerie, Azsuna"] = true
+  --Stormheim
+L["Hafr Fjall, Stormheim"] = true
+L["Shield's Rest, Stormheim"] = true
+L["Stormtorn Foothills, Stormheim"] = true
+L["Valdisdall, Stormheim"] = true
+L["Greywatch, Stormheim"] = true
+L["Lorna's Watch, Stormheim"] = true
+L["Skyfire Triage Camp, Stormheim"] = true
+L["Cullen's Post, Stormheim"] = true
+L["Dreadwake's Landing, Stormheim"] = true
+L["Forsaken Foothold, Stormheim"] = true
+  --Val'sharah
+L["Bradensbrook, Val'sharah"] = true
+L["Garden of the Moon, Val'sharah"] = true
+L["Gloaming Reef, Val'sharah"] = true
+L["Lorlathil, Val'sharah"] = true
+L["Starsong Refuge, Val'sharah"] = true
+  --Broken Shore
+L["Illidari Camp, Broken Shore"] = true
+  --Highmountain
+L["Shipwreck Cove, Highmountain"] = true
+L["Prepfoot, Highmountain"] = true
+L["Skyhorn, Highmountain"] = true
+L["Stonehoof Watch, Highmountain"] = true
+L["Ironhorn Enclave, Highmountain"] = true
+L["Obsidian Overlook, Highmountain"] = true
+L["Sylvan Falls, Highmountain"] = true
+L["Nesingwary, Highmountain"] = true
+L["The Witchwood, Highmountain"] = true
+L["Felbane Camp, Highmountain"] = true
+L["Thunder Totem, Highmountain"] = true
+  --Suramar
+L["Crimson Ticket, Suramar"] = true
+L["Meredil, Suramar"] = true
+L["Irongrove Retreat, Suramar"] = true
 -- Translation for Flight_LOC
 L["Alliance Flight"] = "Fly Alliance"
 L["Horde Flight"] = "Fly Horde"
