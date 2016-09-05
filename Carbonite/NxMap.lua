@@ -4510,7 +4510,7 @@ function Nx.Map:Update (elapsed)
 					f.NxTip = "Bonus Task"
 					f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 					self:ClipFrameZ (f, x, y, 16, 16, 0)
-					f.texture:SetTexCoord (0.125, 0.25, 0.75, 0.875)
+					f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))
 				end
 			end
 		end
