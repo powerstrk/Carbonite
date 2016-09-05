@@ -2916,7 +2916,7 @@ function Nx.Quest:LoadQuestDB()
 	end
 
 
-	for lvl = 0, 100 do
+	for lvl = 0, 110 do
 
 		local grp = {}
 
