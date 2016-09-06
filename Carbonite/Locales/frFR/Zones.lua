@@ -52,7 +52,7 @@ L["Bonetown Scenario"] = "sc\195\169nario d'osville"		-- is this needed (from zh
 L["Borean Tundra"] = "Toundra Bor\195\169enne"
 L["Brawl'gar Arena"] = "Ar\195\168ne Brawl'gar"
 L["Brewmoon Festival"] = "Festival de Brasse-Lune"
-L["The Broken Isles"] = "Iles Bris\195\169es"
+L["The Broken Isles"] = "Les Iles Bris\195\169es"
 L["Broken Shore"] = "Rivage Bris\195\169"
 L["Burning Steppes"] = "Steppes Ardentes"
 L["Camp Narache"] = true
@@ -336,4 +336,3 @@ L["Cantrips & Crows"] = "Caboulot des Corbeaux"
 L["Circle of Wills"] = "Le cercle des Volont\195\169s"
 L["The Black Market"] = "Le march\195\169 Noir"
 L["The Underbelly"] = "Les Entrailles"
--- Zones Updates 20160902 has to be sorted
