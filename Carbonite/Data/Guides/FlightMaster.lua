@@ -415,7 +415,54 @@ local FLIGHT_DATA = {
 	["0,945,26.1,38.9"]=L["Aktar's Post, Tanaan Jungle"],
 	["0,945,29.6,63.1"]=L["Sha'naari Refuge, Tanaan Jungle"],
 	["0,945,47.0,70.2"]=L["Vault of the Earth, Tanaan Jungle"],
-	["0,945,43.4,42.2"]=L["Malo's Lookout, Tanaan Jungle"],	
+	["0,945,43.4,42.2"]=L["Malo's Lookout, Tanaan Jungle"],
+	
+	--Azsuna
+    ["0,1015,56.1,58.9"]=L["Shackle's Den, Azsuna"],
+    ["0,1015,40.8,9.0"]=L["Challiane's Terrace, Azsuna"],
+    ["0,1015,48.4,28.0"]=L["Azurewing Refuge, Azsuna"],
+    ["0,1015,63.8,28.4"]=L["Felblaze Ingress, Azsuna"],
+    ["0,1015,31.8,46.2"]=L["Illidari Perch, Azsuna"],
+    ["0,1015,44.6,43.8"]=L["Illidari Stand, Azsuna"],
+    ["0,1015,48.2,73.0"]=L["Warden's Redoubt, Azsuna"],
+    ["0,1015,51.8,82.0"]=L["Watchers' Aerie, Azsuna"],
+    --Stormheim
+    ["0,1017,55.6,87.4"]=L["Hafr Fjall, Stormheim"],
+    ["0,1017,89.8,10.6"]=L["Shield's Rest, Stormheim"],
+    ["0,1017,52.0,34.6"]=L["Stormtorn Foothills, Stormheim"],
+    ["0,1017,60.6,50.8"]=L["Valdisdall, Stormheim"],
+    ["1,1017,72.0,59.8"]=L["Greywatch, Stormheim"],
+    ["1,1017,37.4,63.8"]=L["Lorna's Watch, Stormheim"],
+    ["1,1017,33.6,50.6"]=L["Skyfire Triage Camp, Stormheim"],
+    ["2,1017,44.8,59.0"]=L["Cullen's Post, Stormheim"],
+    ["2,1017,54.4,73.0"]=L["Dreadwake's Landing, Stormheim"],
+    ["2,1017,36.4,30.6"]=L["Forsaken Foothold, Stormheim"],
+    --Val'sharah
+    ["0,1018,42.2,58.4"]=L["Bradensbrook, Val'sharah"],
+    ["0,1018,56.6,57.8"]=L["Garden of the Moon, Val'sharah"],
+    ["0,1018,25.8,66.4"]=L["Gloaming Reef, Val'sharah"],
+    ["0,1018,55.0,72.4"]=L["Lorlathil, Val'sharah"],
+    ["0,1018,69.0,50.8"]=L["Starsong Refuge, Val'sharah"],
+    --Broken Shore
+    ["0,1031,49.6,21.0"]=L["Illidari Camp, Broken Shore"],
+    --Highmountain
+    ["0,1024,41.8,10.4"]=L["Shipwreck Cove, Highmountain"],
+    ["0,1024,58.0,28.6"]=L["Prepfoot, Highmountain"],
+    ["0,1024,52.6,45.2"]=L["Skyhorn, Highmountain"],
+    ["0,1024,59.2,65.0"]=L["Stonehoof Watch, Highmountain"],
+    ["0,1024,56.8,83.8"]=L["Ironhorn Enclave, Highmountain"],
+    ["0,1024,47.2,84.6"]=L["Obsidian Overlook, Highmountain"],
+    ["0,1024,35.8,65.8"]=L["Sylvan Falls, Highmountain"],
+    ["0,1024,40.2,52.6"]=L["Nesingwary, Highmountain"],
+    ["0,1024,38.2,39.2"]=L["The Witchwood, Highmountain"],
+    ["0,1024,30.0,39.4"]=L["Felbane Camp, Highmountain"],
+    ["0,1024,46.8,59.5"]=L["Thunder Totem, Highmountain"],
+    --Suramar
+    ["0,1033,64.2,42.0"]=L["Crimson Ticket, Suramar"],
+    ["0,1033,34.2,49.4"]=L["Meredil, Suramar"],
+    ["0,1033,25.4,31.8"]=L["Irongrove Retreat, Suramar"],
+	["0,1014,69.8,51.0"]=L["Krasus Landing, Dalaran"],
+
 }
 local NX_FLIGHT_LOC = { ["1"] = L["Alliance Flight"], ["2"] = L["Horde Flight"], ["0"] = L["Neutral Flight"], }
 Nx.NPCData={}

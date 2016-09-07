@@ -2029,7 +2029,7 @@ function Nx.Map:MinimapNodeGlowInit (reset)
 	Nx:CancelTimer (MapNodeGlow)
 
 	if reset then
-		mm:SetBlipTexture ("Interface\\Minimap\\objecticons")
+		mm:SetBlipTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 	end
 
 	local delay = Nx.db.profile.MiniMap.NodeGD
@@ -4476,16 +4476,42 @@ function Nx.Map:Update (elapsed)
 			end
 		end
 	end
+	local taskIconIndex = 1
 	if Nx.Map.UpdateMapID ~= 9000 then
 		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Nx.Map.UpdateMapID);
-			if taskInfo then
-				for i=1,#taskInfo do
-				local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
-				local f = self:GetIcon (3)
-				f.NxTip = "Bonus Task"
-				f.texture:SetTexture ("Interface\\Minimap\\ObjectIcons")
-				self:ClipFrameZ (f, x, y, 16, 16, 0)
-				f.texture:SetTexCoord (0.125, 0.25, 0.75, 0.875)
+		if taskInfo then
+			for i=1,#taskInfo do
+				local questId = taskInfo[i].questId
+				if QuestMapFrame_IsQuestWorldQuest (questId) then
+					C_TaskQuest.RequestPreloadRewardData (questId)
+					local title, faction = C_TaskQuest.GetQuestInfoByQuestID(questId)
+					local tid, name, questtype, rarity, elite, tradeskill = GetQuestTagInfo (questId)
+					local timeLeft = C_TaskQuest.GetQuestTimeLeftMinutes(questId)
+					if timeLeft and timeLeft > 0 then
+						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
+						local f = self:GetIcon (3)
+						if questtype == LE_QUEST_TAG_TYPE_PVP then
+							f.NxTip = "Combat Task"
+							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
+							self:ClipFrameZ (f, x, y, 24, 24, 0)
+							f.texture:SetTexCoord (0, 1, 0, 1)
+						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
+							f.NxTip = "Pet Task"
+							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
+							self:ClipFrameZ (f, x, y, 24, 24, 0)
+							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
+						else
+						end						
+					end
+				else
+					taskIconIndex = taskIconIndex + 1
+					local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
+					local f = self:GetIcon (3)
+					f.NxTip = "Bonus Task"
+					f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
+					self:ClipFrameZ (f, x, y, 16, 16, 0)
+					f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))
+				end
 			end
 		end
 	end

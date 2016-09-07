@@ -366,7 +366,7 @@ L["Riverside Post, Nagrand"] = "Poste de la Rive, Nagrand"
 L["Wor'var, Nagrand"] = "Wor'var, Nagrand"
 --Shadowmoon Valley
 L["Darktide Roost, Shadowmoon Valley"] = "Perchoir de sombreflux, Vall\195\169e d'Ombrelune"
-L["Exile's Rise, Shadowmoon Valley"] = "Cime de l'Exil\195\169, Vall\195\169e d'Ombrelune" 
+L["Exile's Rise, Shadowmoon Valley"] = "Cime de l'Exil\195\169, Vall\195\169e d'Ombrelune"
 L["Socrethar's Rise, Shadowmoon Valley"] = "Cime de Socrethar, Vall\195\169e d'Ombrelune"
 L["Elodor, Shadowmoon Valley"] = "Elodor, Vall\195\169e d'Ombrelune"
 L["Embaari Village, Shadowmoon Valley"] = "Embaari, Vall\195\169e d'ombrelune"
@@ -404,6 +404,52 @@ L["Aktar's Post, Tanaan Jungle"] = "Poste d'aktar, Jungle de Tanaan"
 L["Sha'naari Refuge, Tanaan Jungle"] = "Refuge Sha'naari, Jungle de Tanaan"
 L["Vault of the Earth, Tanaan Jungle"] = "Caveau de la Terre, Jungle de Tanaan"
 L["Malo's Lookout, Tanaan Jungle"] = "Poste de guet de Malo, Jungle de Tanaan"
+-- dalaran
+L["Krasus Landing, Dalaran"] = "L'aire de Krasus, Dalaran"
+--Azsuna
+L["Shackle's Den, Azsuna"] = true
+L["Challiane's Terrace, Azsuna"] = "Terrasse de Challiane, Azsuna"
+L["Azurewing Refuge, Azsuna"] = "Repos Aile d'Azur, Azsuna"
+L["Felblaze Ingress, Azsuna"] = "Gueule du Brasier Infernal, Azsuna"
+L["Illidari Perch, Azsuna"] = true
+L["Illidari Stand, Azsuna"] = "S\195\169jour des Illidari, Azsuna"
+L["Warden's Redoubt, Azsuna"] = true
+L["Watchers' Aerie, Azsuna"] = true
+  --Stormheim
+L["Hafr Fjall, Stormheim"] = "Hafr Fjall, Tornheim"
+L["Shield's Rest, Stormheim"] = "Repos du Bouclier, Tornheim"
+L["Stormtorn Foothills, Stormheim"] = true
+L["Valdisdall, Stormheim"] = "Valdisdall, Tornheim"
+L["Greywatch, Stormheim"] = "Griseveille, Tornheim"
+L["Lorna's Watch, Stormheim"] = true
+L["Skyfire Triage Camp, Stormheim"] = true
+L["Cullen's Post, Stormheim"] = true
+L["Dreadwake's Landing, Stormheim"] = "Accostage de Noirsillage, Tornheim"
+L["Forsaken Foothold, Stormheim"] = true
+  --Val'sharah
+L["Bradensbrook, Val'sharah"] = "Ruissec\195\180te, Val'sharah"
+L["Garden of the Moon, Val'sharah"] = true
+L["Gloaming Reef, Val'sharah"] = "R\195\169cif du D\195\169clin, Val'sharah"
+L["Lorlathil, Val'sharah"] = "Lorlathil, Val'sharah"
+L["Starsong Refuge, Val'sharah"] = "Refuge Chant\195\169toile, Val'sharah"
+  --Broken Shore
+L["Illidari Camp, Broken Shore"] = "Camp Illidari, Rivage Bris\195\169"
+  --Highmountain
+L["Shipwreck Cove, Highmountain"] = "Crique de l'\195\169pave, Haut-Roc"
+L["Prepfoot, Highmountain"] = true
+L["Skyhorn, Highmountain"] = "Corne-C\195\169leste, Haut-Roc"
+L["Stonehoof Watch, Highmountain"] = "Guet de Sabot-de-Pierre, Haut-Roc"
+L["Ironhorn Enclave, Highmountain"] = "Enclave des Cornes-de-Fer, Haut-Roc"
+L["Obsidian Overlook, Highmountain"] = true
+L["Sylvan Falls, Highmountain"] = "Chutes Sylvestres, Haut-Roc"
+L["Nesingwary, Highmountain"] = true
+L["The Witchwood, Highmountain"] = true
+L["Felbane Camp, Highmountain"] = true
+L["Thunder Totem, Highmountain"] = "Totem-du-Tonnerre, Haut-Roc"
+  --Suramar
+L["Crimson Ticket, Suramar"] = "Fourr\195\169 Cramoisi, Suramar"
+L["Meredil, Suramar"] = "Meredil, Suramar"
+L["Irongrove Retreat, Suramar"] = true
 -- Translation for Flight_LOC
 L["Alliance Flight"] = "Fly Alliance"
 L["Horde Flight"] = "Fly Horde"
