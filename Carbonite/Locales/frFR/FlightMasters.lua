@@ -419,18 +419,18 @@ L["Watchers' Aerie, Azsuna"] = true
 L["Hafr Fjall, Stormheim"] = "Hafr Fjall, Tornheim"
 L["Shield's Rest, Stormheim"] = "Repos du Bouclier, Tornheim"
 L["Stormtorn Foothills, Stormheim"] = true
-L["Valdisdall, Stormheim"] = "Vadisdall, Tornheim"
+L["Valdisdall, Stormheim"] = "Valdisdall, Tornheim"
 L["Greywatch, Stormheim"] = "Griseveille, Tornheim"
 L["Lorna's Watch, Stormheim"] = true
 L["Skyfire Triage Camp, Stormheim"] = true
 L["Cullen's Post, Stormheim"] = true
-L["Dreadwake's Landing, Stormheim"] = true
+L["Dreadwake's Landing, Stormheim"] = "Accostage de Noirsillage, Tornheim"
 L["Forsaken Foothold, Stormheim"] = true
   --Val'sharah
 L["Bradensbrook, Val'sharah"] = "Ruissec\195\180te, Val'sharah"
 L["Garden of the Moon, Val'sharah"] = true
 L["Gloaming Reef, Val'sharah"] = "R\195\169cif du D\195\169clin, Val'sharah"
-L["Lorlathil, Val'sharah"] = true
+L["Lorlathil, Val'sharah"] = "Lorlathil, Val'sharah"
 L["Starsong Refuge, Val'sharah"] = "Refuge Chant\195\169toile, Val'sharah"
   --Broken Shore
 L["Illidari Camp, Broken Shore"] = "Camp Illidari, Rivage Bris\195\169"
