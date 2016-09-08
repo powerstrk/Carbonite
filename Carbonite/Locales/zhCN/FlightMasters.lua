@@ -409,7 +409,7 @@ L["Krasus Landing. Dalaran"] = "克拉苏斯平台, 达拉然" -- Krasus' Landin
 --Azsuna
 L["Shackle's Den, Azsuna"] = "沙考尔的巢穴, 阿苏纳"
 L["Challiane's Terrace, Azsuna"] = "查丽妮台地, 阿苏纳"
-L["Azurewing Refuge, Azsuna"] = "蓝翼栖地" -- Azurewing Repose
+L["Azurewing Refuge, Azsuna"] = "蓝翼栖地, 阿苏纳" -- Azurewing Repose
 L["Felblaze Ingress, Azsuna"] = "邪焰隘口, 阿苏纳"
 L["Illidari Perch, Azsuna"] = "伊利达雷营地, 阿苏纳"
 L["Illidari Stand, Azsuna"] = "伊利达雷哨所, 阿苏纳"
