@@ -9264,6 +9264,9 @@ function Nx.Map:ParseTargetStr (str)
 	local desc
 
 	for s in gmatch (str, "%S+") do
+		if not zx and strsub(s,#s,#s) == "," then
+			s = strsub(s,0,#s - 1)			
+		end
 		local i = tonumber (s)
 		if i then
 			if zx then
