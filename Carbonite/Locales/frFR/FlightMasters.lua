@@ -409,7 +409,7 @@ L["Krasus Landing, Dalaran"] = "L'aire de Krasus, Dalaran"
 --Azsuna
 L["Shackle's Den, Azsuna"] = true
 L["Challiane's Terrace, Azsuna"] = "Terrasse de Challiane, Azsuna"
-L["Azurewing Refuge, Azsuna"] = "Repos Aile d'Azur, Azsuna"
+L["Azurewing Refuge, Azsuna"] = "Repos Aile d'Azur, Azsuna"  --Azurewing Repose
 L["Felblaze Ingress, Azsuna"] = "Gueule du Brasier Infernal, Azsuna"
 L["Illidari Perch, Azsuna"] = true
 L["Illidari Stand, Azsuna"] = "S\195\169jour des Illidari, Azsuna"
@@ -436,13 +436,13 @@ L["Starsong Refuge, Val'sharah"] = "Refuge Chant\195\169toile, Val'sharah"
 L["Illidari Camp, Broken Shore"] = "Camp Illidari, Rivage Bris\195\169"
   --Highmountain
 L["Shipwreck Cove, Highmountain"] = "Crique de l'\195\169pave, Haut-Roc"
-L["Prepfoot, Highmountain"] = true
+L["Prepfoot, Highmountain"] = "Base des Pieds-Par\195\169s, Haut-Roc"
 L["Skyhorn, Highmountain"] = "Corne-C\195\169leste, Haut-Roc"
 L["Stonehoof Watch, Highmountain"] = "Guet de Sabot-de-Pierre, Haut-Roc"
 L["Ironhorn Enclave, Highmountain"] = "Enclave des Cornes-de-Fer, Haut-Roc"
-L["Obsidian Overlook, Highmountain"] = true
+L["Obsidian Overlook, Highmountain"] = "Surplomb d'Obsidienne, Haut-Roc"
 L["Sylvan Falls, Highmountain"] = "Chutes Sylvestres, Haut-Roc"
-L["Nesingwary, Highmountain"] = true
+L["Nesingwary, Highmountain"] = "Retraite de Nesingwary, Haut-Roc"  --Nesingwary's Retreat
 L["The Witchwood, Highmountain"] = true
 L["Felbane Camp, Highmountain"] = true
 L["Thunder Totem, Highmountain"] = "Totem-du-Tonnerre, Haut-Roc"
