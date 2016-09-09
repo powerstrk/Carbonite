@@ -4078,7 +4078,7 @@ function Nx.Map:Update (elapsed)
 
 	-- Taxi update
 
-
+	Nx.Map.DungeonLevel = GetCurrentMapDungeonLevel()
 	local invasions = {181, 11, 161, 27, 24, 39}
 	local invmap = Nx.Map:GetMap(1)
 	for key, value in ipairs(invasions) do
@@ -4158,8 +4158,7 @@ function Nx.Map:Update (elapsed)
 		self.PlyrRZX = plZX
 		self.PlyrRZY = plZY
 
-		local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, 0, 0)
-
+		local x, y = self:GetWorldPos (Nx.Map.UpdateMapID, 0, 0)		
 		local lvl = max (GetCurrentMapDungeonLevel(), 1)		-- 0 if no level		
 		if GetCurrentMapAreaID() == 937 then
 			if GetCurrentMapDungeonLevel() == 0 then
@@ -4236,7 +4235,6 @@ function Nx.Map:Update (elapsed)
 
 	local plX = self.PlyrX
 	local plY = self.PlyrY
-
 	local x = plX - self.MoveLastX
 	local y = plY - self.MoveLastY
 	local ang = self.PlyrDir - self.PlyrLastDir
@@ -8174,7 +8172,7 @@ function Nx.Map:InitTables()
 		 [5] = {640,605,544,737,823},
 		 [6] = {858,929,928,857,809,905,903,806,873,808,951,810,811,807},
 		 [7] = {978,941,976,949,971,950,947,948,1009,946,945,970,1011},
-		 [8] = {1014,1015,1017,1018,1021,1024, 1028, 1033},
+		 [8] = {1014,1015,1017,1018,1021,1024, 1028, 1033, 1080},
 		 [90] = {401,461,482,540,860,512,856,736,626,443,935,1010},
 		 [100] = {},
 	}
