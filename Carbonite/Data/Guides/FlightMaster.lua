@@ -416,7 +416,7 @@ local FLIGHT_DATA = {
 	["0,945,29.6,63.1"]=L["Sha'naari Refuge, Tanaan Jungle"],
 	["0,945,47.0,70.2"]=L["Vault of the Earth, Tanaan Jungle"],
 	["0,945,43.4,42.2"]=L["Malo's Lookout, Tanaan Jungle"],
-	
+
 	--Azsuna
     ["0,1015,56.1,58.9"]=L["Shackle's Den, Azsuna"],
     ["0,1015,40.8,9.0"]=L["Challiane's Terrace, Azsuna"],
@@ -456,7 +456,7 @@ local FLIGHT_DATA = {
     ["0,1024,40.2,52.6"]=L["Nesingwary, Highmountain"],
     ["0,1024,38.2,39.2"]=L["The Witchwood, Highmountain"],
     ["0,1024,30.0,39.4"]=L["Felbane Camp, Highmountain"],
-    ["0,1024,46.8,59.5"]=L["Thunder Totem, Highmountain"],
+    ["0,1080,46.8,59.5"]=L["Thunder Totem, Highmountain"],
     --Suramar
     ["0,1033,64.2,42.0"]=L["Crimson Ticket, Suramar"],
     ["0,1033,34.2,49.4"]=L["Meredil, Suramar"],
