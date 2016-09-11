@@ -5281,7 +5281,7 @@ function Nx.Quest.List:Open()
 
 	win:SetUser (self, self.OnWin)
 	win:RegisterEvent ("PLAYER_LOGIN", self.OnQuestUpdate)
-	win:RegisterEvent ("QUEST_LOG_UPDATE", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUEST_LOG_UPDATE", self.OnQuestUpdate)
 --  win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
 	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)	
@@ -6526,7 +6526,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 --			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
 		end
 
-	elseif event == "QUEST_LOG_UPDATE" then
+	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" then
 
 --		Nx.prtStack ("QUpdate")
 --		Nx.prt ("#%d", GetNumQuestLogEntries())
@@ -6539,7 +6539,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			self:LogUpdate()
 			Nx.Quest:ScanBlizzQuestDataZone()
 			self:LogUpdate()
-		end
+		end	
 	else
 		Nx.Quest.Watch:Update()
 	end
