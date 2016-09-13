@@ -3778,6 +3778,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 	end
 
 	IS_BACKGROUND_WORLD_CACHING = true
+	Nx.Quest.List.Win:RegisterEvent ("WORLD_MAP_UPDATE", self.OnQuestUpdate)
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
 --	local tm = GetTime()
 
@@ -3788,6 +3789,7 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			if Nx.Map.MapWorldInfo[mapId] then
 			if InCombatLockdown() then
 				ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
+				Nx.Quest.List.Win:UnregisterEvent ("WORLD_MAP_UPDATE")
 				Nx.Quest.WorldUpdate = false
 				IS_BACKGROUND_WORLD_CACHING = false
 				return
@@ -5293,7 +5295,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("WORLD_STATE_TIMER_START", self.OnQuestUpdate)
 	win:RegisterEvent ("WORLD_STATE_TIMER_STOP", self.OnQuestUpdate)
-	win:RegisterEvent ("WORLD_MAP_UPDATE", self.OnQuestUpdate)
+--	win:RegisterEvent ("WORLD_MAP_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("CRITERIA_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("CHAT_MSG_COMBAT_FACTION_CHANGE", Nx.Quest.OnChat_msg_combat_faction_change)
 	win:RegisterEvent ("CHAT_MSG_RAID_BOSS_WHISPER", Nx.Quest.OnChat_msg_raid_boss_whisper)
@@ -6470,7 +6472,7 @@ end
 -------------------------------------------------------------------------------
 
 function Nx.Quest.List:OnQuestUpdate (event, ...)
---QD		Nx.prt ("OnQuestUpdate %s", event)
+--		Nx.prt ("OnQuestUpdate %s", event)
 	local Quest = Nx.Quest
 	local arg1, arg2, arg3 = select (1, ...)
 	
@@ -6534,16 +6536,13 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if self.LoggingIn then
 			Quest:AccessAllQuests()
 			QLogUpdate = Nx:ScheduleTimer(self.LogUpdate,.5,self)	-- Small delay, so access works (0 does work)
-
-		else
-			self:LogUpdate()
-			Nx.Quest:ScanBlizzQuestDataZone()
-			self:LogUpdate()
 		end	
 	else
 		Nx.Quest.Watch:Update()
 	end
-
+	self:LogUpdate()
+	Nx.Quest:ScanBlizzQuestDataZone()
+	self:LogUpdate()
 --	Nx.prt ("OnQuestUpdate %s Done", event)
 end
 
