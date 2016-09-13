@@ -6477,7 +6477,9 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
 	elseif event == "WORLD_MAP_UPDATE" then
-		if Nx.Quest.OldMap ~= GetCurrentMapAreaID() then
+		local oldmap = GetCurrentMapAreaID()
+		if Nx.Quest.OldMap ~= oldmap then
+			Nx.Quest.OldMap = oldmap
 			Nx.Quest:MapChanged()
 		end
 	elseif event == "QUEST_PROGRESS" then
