@@ -810,11 +810,6 @@ end
 
 function Nx:LocaleInit()
 	local loc = GetLocale()
-
-	if Nx.db.profile.General.LoginHideVer then
-		Nx.prt (" %s", loc)
-	end
-
 	Nx.Locale = loc
 end
 
@@ -1231,7 +1226,10 @@ end
 -- Generic update
 
 function Nx:NXOnUpdate (elapsed)
-
+	if InCombatLockdown() and not Nx.Initialized and not Nx.CombatMessage then		
+		Nx.prt("You are in combat! Carbonite will resume loading when your safe.")
+		Nx.CombatMessage = true
+	end
 	local Nx = Nx
 
 	if Nx.Loaded and Nx.PlayerFnd and not Nx.Initialized and not InCombatLockdown() then	-- Safety check

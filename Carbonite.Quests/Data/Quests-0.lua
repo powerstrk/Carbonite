@@ -26322,11 +26322,14 @@ local ModQuests={
 	},
 }
 
-function Nx.ModQuests:Load0 ()
+function Nx.ModQuests:Load0()	
+	local count = 0
 	for key,val in pairs(ModQuests) do
+		count = count + 1
 		Nx.Quests[key] = val
-	end
-	Nx.ModQuests:Clear0()
+	end	
+	Nx.ModQuests:Clear0()	
+	return count
 end
 
 function Nx.ModQuests:Clear0 ()

@@ -1881,7 +1881,7 @@ end
 
 function CarboniteQuest:OnInitialize()
 	if not Nx.Initialized then
-		CarbQuestInit = Nx:ScheduleTimer(CarboniteQuest.OnInitialize,5)
+		CarbQuestInit = Nx:ScheduleTimer(CarboniteQuest.OnInitialize,5)				
 		return
 	end
 	Nx.qdb = LibStub("AceDB-3.0"):New("NXQuest",defaults, true)
@@ -2815,187 +2815,202 @@ function CarboniteQuest.HideUIPanel (frame)
 	end
 end
 
-function Nx.Quest:LoadQuestDB()
-	local Map = Nx.Map
-	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
-	Nx.Quests = Nx["Quests"] or Nx.Quests				-- Copy unmunged data to munged data
-	Nx.QuestStartEnd = Nx["QuestStartEnd"] or Nx.QuestStartEnd	-- Copy unmunged data to munged data
-
-	Nx.Quests = {}
-	if Nx.qdb.profile.Quest.Load0 then Nx.ModQuests:Load0 () else Nx.ModQuests:Clear0 () end --DeaTHCorE - no check by maxLoadLevel, is not a Quest database...
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load1 then Nx.ModQuests:Load1 () else Nx.ModQuests:Clear1 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load2 then Nx.ModQuests:Load2 () else Nx.ModQuests:Clear2 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load3 then Nx.ModQuests:Load3 () else Nx.ModQuests:Clear3 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load4 then Nx.ModQuests:Load4 () else Nx.ModQuests:Clear4 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load5 then Nx.ModQuests:Load5 () else Nx.ModQuests:Clear5 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load6 then Nx.ModQuests:Load6 () else Nx.ModQuests:Clear6 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load7 then Nx.ModQuests:Load7 () else Nx.ModQuests:Clear7 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load8 then Nx.ModQuests:Load8 () else Nx.ModQuests:Clear8 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load12 then Nx.ModQuests:Load12 () else Nx.ModQuests:Clear12 () end
-	self.Map = Map:GetMap (1)
-
-	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
-	-- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
-	-- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
-	-- local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
+function Nx.Quest:SortQuestDB(questTotal)
+	if InCombatLockdown() then
+		C_Timer.After(5, function() Nx.Quest:SortQuestDB(questTotal) end)
+		return
+	end
+	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel	
+	local enFact = Nx.PlFactionNum == 1 and 1 or 2
 	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
-
-	local qMaxLevel = 999
-
-	--DeaTHCorE - follow Vars are no required, they was not used...
-	--local qCnt = 0
-	--local maxid = 0
-	--local sameCnt = 0
-
+	local qMaxLevel = 999	
 	for mungeId, q in pairs (Nx.Quests) do
-
-		--DeaTHCorE - follow are no required, was not used...
-		--local id = (mungeId + 3) / 2 - 7		-- Decode
-		--qCnt = qCnt + 1
-		--maxid = max (id, maxid)
-
-		local name, side, level = self:Unpack (q["Quest"])
-		--if side == enFact or level > 0 and level < qLoadLevel or level > qMaxLevel then
-		if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-			Nx.Quests[mungeId] = nil
-			--if side ~= enFact then -- DEBUG
-			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", level, qLoadLevel)
-			--end
+		if mungeId < 0 then
+			if Nx.Quests[abs(mungeId)] then
+				Nx.prt(mungeId)
+				Nx.Quests[mungeId] = nil
+			end
 		else
-			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
-			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
---				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
-				--DeaTHCorE - follow are no required, was not used...
-				--sameCnt = sameCnt + 1
-			end
-			self:CheckQuestSE (q, 3)
-			for n = 1, 99 do
-				if not q[n] then
-					break
+			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
+			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
+				Nx.Quests[mungeId] = nil
+			else
+				if q["End"] and q["End"] == q["Start"] then
 				end
-
-				self:CheckQuestObj (q, n)
-			end
-		end
-	end
-
-	for mungeId, q in pairs (Nx.Quests) do
-
-		local name, side, lvl, minlvl, next = self:Unpack (q["Quest"])
-		if not q.CNum and next > 0 then
-
-			local clvlmax = lvl
-
-			local qc = q
-			local cnum = 0
-			local _qids = {}
-			while qc do
-				cnum = cnum + 1
-				qc.CNum = cnum
-
---				if strfind (name, "Vile Famil") then
---					Nx.prt ("%s %d %d %d", name, mungeId, next, cnum)
---				end
-
-				name, side, lvl, minlvl, next = self:Unpack (qc["Quest"])
-
-				clvlmax = max (clvlmax, lvl)
-
---				next = self:UnpackNext (qc[1])
-				if next == 0 or _qids[next] == true then
-					break
+				self:CheckQuestSE (q, 3)
+				for n = 1, 99 do
+					if not q[n] then
+						break
+					end
+					self:CheckQuestObj (q, n)
 				end
-				
-				_qids[next] = true;
-				
-				qc = Nx.Quests[next]
-			end
-
-			q.CLvlMax = clvlmax		-- Max level in chain
-		end
-	end
-
-
-	for lvl = 0, 110 do
-
-		local grp = {}
-
-		for id, q in pairs (Nx.Quests) do
-			local name, side, level = self:Unpack (q["Quest"])
-			if level == lvl then
 				if side ~= enFact then
-
-					if not q.CNum then
-						tinsert (grp, format ("%s^%d", name, id))
-
-					elseif q.CNum == 1 then
-						local qc = q
-						local _qids = {}
-						while qc do
-							local pname, side, _, _, next = self:Unpack (qc["Quest"])
---							if strfind (name, "Load Lightening") then
---								Nx.prt ("%s %d %d (%d %d)", pname, id, side, next, qc.CNum)
---							end
-							
-							if _qids[next] == true then
-								break
+					tinsert(self.Sorted,mungeId)
+				end							
+			end
+			if not q.CNum and qnext > 0 then
+				local clvlmax = level
+				local qc = q
+				local cnum = 0
+				local _qids = {}
+				while qc do
+					cnum = cnum + 1
+					qc.CNum = cnum
+					name, side, level, minlevel, qnext = self:Unpack (qc["Quest"])
+					clvlmax = max (clvlmax, level)
+					if qnext == 0 or _qids[qnext] == true then
+						break
+					end
+					_qids[qnext] = true;				
+					qc = Nx.Quests[qnext]
+				end
+				q.CLvlMax = clvlmax		-- Max level in chain
+			end
+		end
+	end
+	
+--[[
+	for lvl = 0, 110 do
+		local grp = {}
+		for id, q in pairs (Nx.Quests) do
+			if id > 0 then
+				local name, side, level = self:Unpack (q["Quest"])
+				if level == lvl then
+					if side ~= enFact then
+						if not q.CNum then
+							tinsert (grp, format ("%s^%d", name, id))
+						elseif q.CNum == 1 then
+							local qc = q
+							local _qids = {}
+							while qc do
+								local pname, side, _, _, next = self:Unpack (qc["Quest"])
+								if _qids[next] == true then
+									break
+								end
+								_qids[next] = true;
+								tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
+								qc = Nx.Quests[next]
+								id = next
 							end
-							
-							_qids[next] = true;
-							
-							tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
-							qc = Nx.Quests[next]
-							id = next
 						end
 					end
-
---					Nx.prt ("Quest "..id.." "..level)
 				end
 			end
 		end
-
---		table.sort (grp)
-
 		for _, v in ipairs (grp) do
 			local name, id = Nx.Split ("^", v)
 			tinsert (self.Sorted, tonumber (id))
 		end
 	end
-
-	-- Create quest givers
-
+	]]--
 	local usedIds = {}
-
 	local starters = {}
 	self.QGivers = starters
-
-	for qsIndex, qId in ipairs (self.Sorted) do
-
+	for qsIndex, qId in pairs (self.Sorted) do
 		if not usedIds[qId] then
-
 			local quest = Nx.Quests[qId]
 			if quest then
 				local sName, zone, x, y = self:GetSEPos (quest["Start"])
-
 				if zone and x ~= 0 and y ~= 0 then
-
 					usedIds[qId] = true
-
 					sName = format ("%s=%d%d", sName, x, y)
-
 					local stmap = starters[zone] or {}
 					starters[zone] = stmap
 					local s = stmap[sName] or ""
 					stmap[sName] = s .. format ("%4x", qId)
 				end
 			end
---		else
---			Nx.prt ("skipped %s", qId)
 		end
 	end
+	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffff" .. questTotal .. " Quests Loaded")	
+end
+
+function Nx.Quest:LoadQuestDB()
+	local questTotal = 0
+	local timeDelay = 1
+	local Map = Nx.Map
+	self.Map = Map:GetMap (1)
+	Nx.Quests = {}	
+	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffStarting Background Quest Data Loading...")
+	if Nx.qdb.profile.Quest.Load0 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load0() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear0()
+	end 
+	if Nx.qdb.profile.Quest.Load1 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load1() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear1()
+	end 
+	if Nx.qdb.profile.Quest.Load2 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load2() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear2()
+	end 
+	if Nx.qdb.profile.Quest.Load3 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load3() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear3()
+	end 
+	if Nx.qdb.profile.Quest.Load4 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load4() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear4()
+	end 
+	if Nx.qdb.profile.Quest.Load5 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load5() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear5()
+	end 
+	if Nx.qdb.profile.Quest.Load6 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load6() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear6()
+	end 
+	if Nx.qdb.profile.Quest.Load7 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load7() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear7()
+	end 
+	if Nx.qdb.profile.Quest.Load8 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load8() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear8()
+	end 
+	if Nx.qdb.profile.Quest.Load9 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load9() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear9()
+	end 
+	if Nx.qdb.profile.Quest.Load10 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load10() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear10()
+	end 
+	if Nx.qdb.profile.Quest.Load11 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load11() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear11()
+	end 
+	if Nx.qdb.profile.Quest.Load12 then 
+		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load12() end)
+		timeDelay = timeDelay + 1
+	else
+		Nx.ModQuests:Clear12()
+	end 
+	C_Timer.After(timeDelay + 1, function() Nx.Quest:SortQuestDB(questTotal) end)
 end
 
 function Nx.Quest:SetCols()
@@ -5288,6 +5303,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
@@ -6469,6 +6485,13 @@ end
 -- On quest updates
 -------------------------------------------------------------------------------
 
+function Nx.Quest.List:Refresh()	
+	self:LogUpdate()
+	Nx.Quest:ScanBlizzQuestDataZone()
+	self:LogUpdate()
+	C_Timer.After(2, function() Nx.Quest:RecordQuestsLog() end)
+end
+
 function Nx.Quest.List:OnQuestUpdate (event, ...)
 --		Nx.prt ("OnQuestUpdate %s", event)
 	local Quest = Nx.Quest
@@ -6476,6 +6499,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 	
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
+	elseif event == "QUEST_TURNED_IN" then
+		self:Refresh(event)
 	elseif event == "WORLD_MAP_UPDATE" then
 		local oldmap = GetCurrentMapAreaID()
 		if Nx.Quest.OldMap ~= oldmap then
@@ -6493,7 +6518,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			CompleteQuest()
 --			Nx.prt ("Auto turn in")
 		end
-
+		self:Refresh()
 		return
 	elseif event == "QUEST_COMPLETE" then
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
@@ -6506,10 +6531,11 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 --				Nx.prt ("Auto turn in choice")
 			end
 		end
+		self:Refresh(event)
 		return
 	elseif event == "QUEST_ACCEPTED" then		
 		if QuestGetAutoAccept() then
-			QuestFrameDetailPanel:Hide();
+			QuestFrameDetailPanel:Hide();			
 			CloseQuest();
 		end
 		if arg1 and Nx.qdb.profile.QuestWatch.AddNew then
@@ -6520,6 +6546,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 				Quest:PartyStartSend()
 			end			
 		end
+		self:Refresh(event)
 	elseif event == "QUEST_DETAIL" then		-- Happens when auto accept quest is given
 
 		if QuestGetAutoAccept() and QuestIsFromAreaTrigger() then
@@ -6528,6 +6555,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			CloseQuest();
 --			Quest.AcceptQId = GetQuestID()
 --			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
+			self:Refresh(event)
 		end
 
 	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" then
@@ -6538,11 +6566,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if self.LoggingIn then
 			Quest:AccessAllQuests()
 			QLogUpdate = Nx:ScheduleTimer(self.LogUpdate,.5,self)	-- Small delay, so access works (0 does work)
-
 		else
-			self:LogUpdate()
-			Nx.Quest:ScanBlizzQuestDataZone()
-			self:LogUpdate()
+			self:Refresh(event)
 		end	
 	else
 		Nx.Quest.Watch:Update()
@@ -6858,8 +6883,7 @@ function Nx.Quest.List:Update()
 
 		for qId in pairs (Nx.Quest.CurCharacter.Q) do			-- Loop over quests with history
 
-			local quest = Nx.Quests[qId]
-
+			local quest = Nx.Quests[qId]			
 			local status, qTime = Nx.Quest:GetQuest (qId)
 			local qCompleted = status == "C"
 
@@ -6975,7 +6999,7 @@ function Nx.Quest.List:Update()
 		local mapId = Map:GetCurrentMapId()
 
 		local minLevel = UnitLevel ("player") - GetQuestGreenRange()
-		local maxLevel = showHighLevel and 90 or UnitLevel ("player") + 6
+		local maxLevel = showHighLevel and 110 or UnitLevel ("player") + 6
 
 		-- Divider
 
@@ -6993,7 +7017,7 @@ function Nx.Quest.List:Update()
 --		local qsLast = #Quest.Sorted
 --		while qsIndex <= qsLast do
 
-		for qsIndex, qId in ipairs (Quest.Sorted) do
+		for qsIndex, qId in pairs (Quest.Sorted) do
 
 --			local qId = Quest.Sorted[qsIndex]
 

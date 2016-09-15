@@ -113,7 +113,7 @@ function Nx.prt (...)
 	args[1] = string.gsub((args[1] or 'nil'), '(%%[0-9.]*([cdeEfgGioqsuxX]))', replace_placeholders)
 
 	local f = Nx.prtChatFrm or DEFAULT_CHAT_FRAME
-	f:AddMessage (Nx.TXTBLUE..L["Carbonite"].." |cffffffff".. format (unpack(args)), 1, 1, 1)
+	f:AddMessage ("|cffff0000[" .. Nx.TXTBLUE..L["Carbonite"].."|cffff0000] |cffffffff".. format (unpack(args)), 1, 1, 1)
 end
 
 function Nx.prtraw (msg)

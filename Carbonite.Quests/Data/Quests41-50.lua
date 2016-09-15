@@ -7692,11 +7692,14 @@ local ModQuests={
 	},
 }
 
-function Nx.ModQuests:Load5 ()
+function Nx.ModQuests:Load5()
+	local count = 0
 	for key,val in pairs(ModQuests) do
 		Nx.Quests[key] = val
+		count = count + 1
 	end
 	Nx.ModQuests:Clear5()
+	return count
 end
 
 function Nx.ModQuests:Clear5 ()
