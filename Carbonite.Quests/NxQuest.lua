@@ -2923,94 +2923,136 @@ function Nx.Quest:SortQuestDB(questTotal)
 		end
 	end
 	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffff" .. questTotal .. " Quests Loaded")	
+	Nx.Quest:RecordQuestsLog()
 end
 
 function Nx.Quest:LoadQuestDB()
 	local questTotal = 0
 	local timeDelay = 1
+	local numQLoad = 0;
+	local maxQLoad = 0;
 	local Map = Nx.Map
 	self.Map = Map:GetMap (1)
 	Nx.Quests = {}	
 	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffStarting Background Quest Data Loading...")
 	if Nx.qdb.profile.Quest.Load0 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load0() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load0(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear0()
 	end 
 	if Nx.qdb.profile.Quest.Load1 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load1() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load1(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear1()
 	end 
 	if Nx.qdb.profile.Quest.Load2 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load2() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load2(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear2()
 	end 
 	if Nx.qdb.profile.Quest.Load3 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load3() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load3(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear3()
 	end 
 	if Nx.qdb.profile.Quest.Load4 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load4() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load4(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear4()
 	end 
 	if Nx.qdb.profile.Quest.Load5 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load5() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load5(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear5()
 	end 
 	if Nx.qdb.profile.Quest.Load6 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load6() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load6(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear6()
 	end 
 	if Nx.qdb.profile.Quest.Load7 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load7() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load7(); numQLoad = numQLoad - 1;  end)
 		timeDelay = timeDelay + 1
+		maxQLoad = maxQLoad + 1
+		numQLoad = numQLoad + 1
 	else
 		Nx.ModQuests:Clear7()
 	end 
 	if Nx.qdb.profile.Quest.Load8 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load8() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load8(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear8()
 	end 
 	if Nx.qdb.profile.Quest.Load9 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load9() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load9(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
 	else
 		Nx.ModQuests:Clear9()
 	end 
 	if Nx.qdb.profile.Quest.Load10 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load10() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load10(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear10()
 	end 
 	if Nx.qdb.profile.Quest.Load11 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load11() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load11(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear11()
 	end 
 	if Nx.qdb.profile.Quest.Load12 then 
-		C_Timer.After(timeDelay, function() questTotal = questTotal + Nx.ModQuests:Load12() end)
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load12(); numQLoad = numQLoad - 1; end)
 		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
 	else
 		Nx.ModQuests:Clear12()
 	end 
-	C_Timer.After(timeDelay + 1, function() Nx.Quest:SortQuestDB(questTotal) end)
+	
+	local ticker = ''
+	local ticker_i = 1
+	local qStep = 100 / maxQLoad
+	local function checkLoadQuests() 
+		if numQLoad == 0 then 
+			ticker:Cancel() 
+			Nx.prt("Sorting Quest Data...");
+			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
+			return
+		end 
+		--Nx.prt("Loading Quest Data... (%d%%)", ( math.floor(qStep * (maxQLoad - numQLoad)) ))
+		ticker_i = ticker_i + 1
+	end
+	ticker = C_Timer.NewTicker(1, checkLoadQuests, 120)
 end
 
 function Nx.Quest:SetCols()
