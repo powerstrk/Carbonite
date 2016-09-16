@@ -3045,7 +3045,7 @@ function Nx.Quest:LoadQuestDB()
 	local function checkLoadQuests() 
 		if numQLoad == 0 then 
 			ticker:Cancel() 
-			Nx.prt("Sorting Quest Data...");
+			Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffSorting Quest Data...");
 			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
 			return
 		end 

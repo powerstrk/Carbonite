@@ -15,7 +15,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------------------------
--- $Format:%ci$ ($Format:%h$)
+-- Commit: $Format:%ci$ ($Format:%h$)
 ---------------------------------------------------------------------------------------
 local _G = getfenv(0)
 
