@@ -3046,7 +3046,7 @@ function Nx.Quest:LoadQuestDB()
 		if numQLoad == 0 then 
 			ticker:Cancel() 
 			Nx.ModQuests = {} -- Destroing unused table to free memory as we never use it again
-			C_Timer.After(1, Nx.Quest:SortQuestDB(questTotal) end)
+			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
 			return
 		end 
 		--Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffLoading Quest Data... (%d%%)", ( math.floor(qStep * (maxQLoad - numQLoad)) ))
