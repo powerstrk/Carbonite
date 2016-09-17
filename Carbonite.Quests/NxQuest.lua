@@ -2824,7 +2824,7 @@ function Nx.Quest:SortQuestDB(questTotal)
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2
 	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
 	local qMaxLevel = 999	
-	Nx.prt("DEBUG: %s, %s, %s, %s", tostring(maxLoadLevel), tostring(enFact), tostring(qLoadLevel), tostring(qMaxLevel))
+	
 	for mungeId, q in pairs (Nx.Quests) do
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
@@ -3040,20 +3040,16 @@ function Nx.Quest:LoadQuestDB()
 		Nx.ModQuests:Clear12()
 	end 
 	
-	local ticker = ''
-	local ticker_i = 1
 	local qStep = 100 / maxQLoad
-	local function checkLoadQuests() 
-		if numQLoad == 0 then 
-			ticker:Cancel() 
+	C_Timer.NewTicker(1, function(self)
+		if (Nx.Initialized == true and numQLoad == 0) or self._remainingIterations == 0 then 
+			self:Cancel() 
 			Nx.ModQuests = {} -- Destroing unused table to free memory as we never use it again
 			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
 			return
 		end 
 		--Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffLoading Quest Data... (%d%%)", ( math.floor(qStep * (maxQLoad - numQLoad)) ))
-		ticker_i = ticker_i + 1
-	end
-	ticker = C_Timer.NewTicker(1, checkLoadQuests, 120)
+	end, 120)
 end
 
 function Nx.Quest:SetCols()
