@@ -2824,6 +2824,7 @@ function Nx.Quest:SortQuestDB(questTotal)
 	local enFact = Nx.PlFactionNum == 1 and 1 or 2
 	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
 	local qMaxLevel = 999	
+	Nx.prt("DEBUG: %s, %s, %s, %s", tostring(maxLoadLevel), tostring(enFact), tostring(qLoadLevel), tostring(qMaxLevel))
 	for mungeId, q in pairs (Nx.Quests) do
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
