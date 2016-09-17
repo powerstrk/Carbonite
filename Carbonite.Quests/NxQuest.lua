@@ -2827,16 +2827,17 @@ function Nx.Quest:SortQuestDB(questTotal)
 	for mungeId, q in pairs (Nx.Quests) do
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
-				Nx.prt(mungeId)
-				Nx.Quests[mungeId] = nil
+				--Nx.prt(mungeId)
+				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil
 			end
 		else
 			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
 			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-				Nx.Quests[mungeId] = nil
+				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil
 			else
-				if q["End"] and q["End"] == q["Start"] then
-				end
+				--[[if q["End"] and q["End"] == q["Start"] then
+				no enders
+				end]]
 				self:CheckQuestSE (q, 3)
 				for n = 1, 99 do
 					if not q[n] then
@@ -2844,9 +2845,8 @@ function Nx.Quest:SortQuestDB(questTotal)
 					end
 					self:CheckQuestObj (q, n)
 				end
-				if side ~= enFact then
-					tinsert(self.Sorted,mungeId)
-				end							
+				-- insert to sorted table (need to do proper sorting)
+				tinsert(self.Sorted, mungeId)							
 			end
 			if not q.CNum and qnext > 0 then
 				local clvlmax = level
