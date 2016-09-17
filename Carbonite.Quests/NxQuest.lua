@@ -2855,6 +2855,7 @@ function Nx.Quest:SortQuestDB(questTotal)
 				local cnum = 0
 				local _qids = {}
 				while qc do
+					if not qc then break end
 					cnum = cnum + 1
 					qc.CNum = cnum
 					name, side, level, minlevel, qnext = self:Unpack (qc["Quest"])
