@@ -1,7 +1,7 @@
 ## Interface: 70000
 ## Title: Carbonite Social & Punks 7.0.3
 ## Version: 7.0.3
-## Author: Rythal
+## Author: No One
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
 ## LoadOnDemand: 0

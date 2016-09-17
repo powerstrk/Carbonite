@@ -2094,7 +2094,7 @@ function Nx.Title:Init()
 	str = format (str, Nx.VERMAJOR,Nx.VERMINOR*10, Nx.BUILD)
 
 	self.NXFStr1:SetText (str)
-	self.NXFStr2:SetText ("|cffe0e0ff" .. L["Maintained by"] .. " Rythal of Moonguard")
+	self.NXFStr2:SetText ("|cffe0e0ff" .. L["Maintained by"] .. " The community.")
 
 	Nx.Proc:New (self, self.TickWait, 40)
 

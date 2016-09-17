@@ -82,7 +82,7 @@ local function mainConfig()
 							type = "description",
 							name = L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] ..
 								"\n\n\n|cff9999ff" .. L["Release Version"] .. ": |cffd700ff" .. Nx.VERMAJOR .. "." .. (Nx.VERMINOR*10) .. "\n" ..
-								"|cff9999ff" .. L["Maintained by"] .. ": |cffd700ffRythal of Moon Guard\n" ..
+								"|cff9999ff" .. L["Maintained by"] .. ": |cffd700ffThe Community.\n" ..
 								"|cff9999ff" .. L["Website"] .. ": |cffd700ffhttp://www.wowinterface.com/downloads/info12965-Carbonite.html\n"..
 								"\n"..
 								"|cd700ffff" .. L["For support, please visit the forums for Carbonite on WoW Interface."] .. "\n"..
