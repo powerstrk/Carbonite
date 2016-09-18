@@ -2849,18 +2849,17 @@ function Nx.Quest:SortQuestDB(questTotal)
 				-- insert to sorted table (need to do proper sorting)
 				tinsert(self.Sorted, mungeId)							
 			end
-			if not q.CNum and qnext > 0 then
+			if not q.CNum and qnext and qnext > 0 then
 				local clvlmax = level
 				local qc = q
 				local cnum = 0
 				local _qids = {}
 				while qc do
-					if not qc then break end
 					cnum = cnum + 1
 					qc.CNum = cnum
 					name, side, level, minlevel, qnext = self:Unpack (qc["Quest"])
 					clvlmax = max (clvlmax, level)
-					if qnext == 0 or _qids[qnext] == true then
+					if not qnext or qnext == 0 or _qids[qnext] == true then
 						break
 					end
 					_qids[qnext] = true;				
