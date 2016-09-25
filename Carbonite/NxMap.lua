@@ -4489,16 +4489,20 @@ function Nx.Map:Update (elapsed)
 						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
 						local f = self:GetIcon (3)
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "Combat Task"
+							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title
 							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (0, 1, 0, 1)
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "Pet Task"
+							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
 						else
+							f.NxTip = "|cffffd100World Quest:\n" .. title
+							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
+							self:ClipFrameZ (f, x, y, 24, 24, 0)
+							f.texture:SetTexCoord (GetObjectIconTextureCoords(4691))
 						end						
 					end
 				else
