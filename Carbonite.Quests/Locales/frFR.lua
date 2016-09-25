@@ -264,6 +264,7 @@ L["Quest Giver Higher Levels To Show"] = "Donneur de Qu\195\170tes augmenter niv
 L["Group"] = "Groupe"
 L["Remove Watch"] = "Enlever suivi"
 L["BONUS TASK"] = "T\195\162che Bonus"
+L["WORLD QUEST"] = true
 L["Progress: "] = "Progression"
 L["Link Quest (shift right click)"] = "Linker la Qu\195\170te (Maj+clic droit)"
 L["Show Quest Log (alt right click)"] = "Afficher log de Qu\195\170tes (Alt+clic droit)"

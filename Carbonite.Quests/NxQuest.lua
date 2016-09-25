@@ -2829,12 +2829,12 @@ function Nx.Quest:SortQuestDB(questTotal)
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
 				--Nx.prt(mungeId)
-				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil
+				Nx.Quests[mungeId] = nil
 			end
 		else
 			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
 			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil
+				Nx.Quests[mungeId] = nil
 			else
 				--[[if q["End"] and q["End"] == q["Start"] then
 				no enders
@@ -3915,7 +3915,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 						y = y * 100
 --						Nx.prt ("%s #%s %s %s %s %s", mapId, n, id, x or "nil", y or "nil", objective or "nil")
 						if not quest["Quest"] then
-							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)
+							quest["Quest"] = format ("[[%s|%s|%s|0|0|0]]",title,fac,level)
 						end
 						if needEnd or bit.band (patch, 1) then
 							if not quest["End"] or bit.band(patch,1) then
@@ -8781,13 +8781,22 @@ function Nx.Quest.Watch:UpdateList()
 							local inArea, onMap, numObjectives = GetTaskInfo(questId)
 							tasks[questId] = true
 							if inArea then
+								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
+								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
+								local tast_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemAdd(0)
+								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
+								--local _,x,y = QuestPOIGetIconInfo(questId)
+								--Nx.prt("====%s: %s, %s", title, x, y)
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
 												if (math.floor(percent) == 0) then
@@ -8800,6 +8809,7 @@ function Nx.Quest.Watch:UpdateList()
 											end
 										else
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											list:ItemSet(2,"|cff00ff00" .. text)
 										end
 									end
@@ -8814,14 +8824,21 @@ function Nx.Quest.Watch:UpdateList()
 						for i=1,taskInfo do
 							local title, _, _, _, _, _, _, questId, _, _, _, _, isTask, _ = GetQuestLogTitle(i)
 							if isTask and tasks[questId] ~= true then
+								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
+								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
+								local tast_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemAdd(0)
+								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
 								local _,_, numObjectives = GetTaskInfo(questId)
 								if numObjectives and numObjectives > 0 then
-									for j=1,numObjectives do
+									for j=1,numObjectives do							
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
 												if (math.floor(percent) == 0) then
@@ -8834,6 +8851,7 @@ function Nx.Quest.Watch:UpdateList()
 											end
 										else
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											list:ItemSet(2,"|cff00ff00" .. text)
 										end
 									end

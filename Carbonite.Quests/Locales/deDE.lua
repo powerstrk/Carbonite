@@ -265,6 +265,7 @@ L["Quest Giver Higher Levels To Show"] = "Hochstufigere Questgeber anzeigen"
 L["Group"] = "Gruppe"
 L["Remove Watch"] = "Verfolgung beenden"
 L["BONUS TASK"] = "BONUSZIELE"
+L["WORLD QUEST"] = true
 L["Progress: "] = "Fortschritt: "
 
 L["Link Quest (shift right click)"] = "Quest verlinken (Shift-Rechtsklick)"
