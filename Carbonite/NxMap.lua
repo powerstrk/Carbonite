@@ -4487,23 +4487,60 @@ function Nx.Map:Update (elapsed)
 					local timeLeft = C_TaskQuest.GetQuestTimeLeftMinutes(questId)
 					if timeLeft and timeLeft > 0 then
 						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
-						local f = self:GetIcon (3)
+						local f = self:GetIcon (120)
+						
+						-- objectives
+						local objTxt = ""
+						for objectiveIndex = 1, taskInfo[i].numObjectives do
+							local objectiveText, objectiveType, finished = GetQuestObjectiveInfo(questId, objectiveIndex, false)
+							if ( objectiveText and #objectiveText > 0 ) then
+								local color = finished and HIGHLIGHT_FONT_COLOR or GRAY_FONT_COLOR
+								color = format("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255);
+								objTxt = objTxt .. "\n " .. color .. objectiveText
+							end
+						end
+						
+						-- time left
+						local timeLeftTxt = ""
+						local color
+						local timeString
+						local timeLeftMinutes = timeLeft
+						if ( timeLeftMinutes <= WORLD_QUESTS_TIME_CRITICAL_MINUTES ) then
+							color = "|cffff3333"
+							timeString = SecondsToTime(timeLeftMinutes * 60)
+						else
+							if timeLeftMinutes <= 30 then
+								color = "|cffff3333"
+							elseif timeLeftMinutes <= 180 then
+								color = "|cffffff00"
+							end
+						
+							if timeLeftMinutes >= 14400 then
+								timeString = ""		--A lot, 10+ days
+							elseif timeLeftMinutes >= 1440 then
+								timeString = format("%d.%02d:%02d",floor(timeLeftMinutes / 1440),floor(timeLeftMinutes / 60) % 24, timeLeftMinutes % 60)
+							else
+								timeString = (timeLeftMinutes >= 60 and (floor(timeLeftMinutes / 60) % 24) or "0")..":"..format("%02d",timeLeftMinutes % 60)
+							end
+						end
+						timeLeftTxt = (color or "")..(timeString and "\n \nTime Left: " .. timeString or "")
+						
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title
+							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (0, 1, 0, 1)
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title
+							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
 						else
-							f.NxTip = "|cffffd100World Quest:\n" .. title
+							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4691))
-						end						
+						end					
 					end
 				else
 					taskIconIndex = taskIconIndex + 1
