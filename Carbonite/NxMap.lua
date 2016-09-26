@@ -120,6 +120,8 @@ local GlobalAddonName = ...
 local inspectScantip = CreateFrame("GameTooltip", GlobalAddonName.."WQInspectScanningTooltip", nil, "GameTooltipTemplate")
 inspectScantip:SetOwner(UIParent, "ANCHOR_NONE")
 
+local WQTable = {}
+
 --------
 -- Init map stuff
 
@@ -4479,12 +4481,14 @@ function Nx.Map:Update (elapsed)
 		end
 	end
 	local taskIconIndex = 1
+	local activeWQ = {}
 	if Nx.Map.UpdateMapID ~= 9000 then
 		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Nx.Map.UpdateMapID);
 		if taskInfo then
 			for i=1,#taskInfo do
 				local questId = taskInfo[i].questId
 				if QuestMapFrame_IsQuestWorldQuest (questId) then
+					activeWQ[questId] = true
 					C_TaskQuest.RequestPreloadRewardData (questId)
 					local title, faction = C_TaskQuest.GetQuestInfoByQuestID(questId)
 					local tid, name, questtype, rarity, elite, tradeskill = GetQuestTagInfo (questId)
@@ -4492,6 +4496,8 @@ function Nx.Map:Update (elapsed)
 					if timeLeft and timeLeft > 0 then
 						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
 						local f = self:GetIcon (120)
+						
+						-- Some code is borrowed from great addon WorldQuestList: https://mods.curse.com/addons/wow/world-quests-list
 						
 						-- reward
 						local totalAP = 0
@@ -4502,7 +4508,9 @@ function Nx.Map:Update (elapsed)
 						local rewardSort = 0
 						local rewardItemLink
 						
-						if ( GetQuestLogRewardXP(questId) > 0 or GetNumQuestLogRewardCurrencies(questId) > 0 or GetNumQuestLogRewards(questId) > 0 or GetQuestLogRewardMoney(questId) > 0 or GetQuestLogRewardArtifactXP(questId) > 0 ) then
+						if not WQTable[questId] then WQTable[questId] = {} end
+						
+						if not WQTable[questId].reward and ( GetQuestLogRewardXP(questId) > 0 or GetNumQuestLogRewardCurrencies(questId) > 0 or GetNumQuestLogRewards(questId) > 0 or GetQuestLogRewardMoney(questId) > 0 or GetQuestLogRewardArtifactXP(questId) > 0 ) then
 							local hasRewardFiltered = false
 							-- xp
 							local xp = GetQuestLogRewardXP(questId)
@@ -4620,7 +4628,9 @@ function Nx.Map:Update (elapsed)
 							
 							local color = ""
 							if rewardColor then color = format("|cff%02x%02x%02x", rewardColor.r * 255, rewardColor.g * 255, rewardColor.b * 255) end
-							reward = reward ~= "" and "\n \nReward: " .. color .. reward or ""
+							reward = reward ~= "" and "\n \nReward: " .. color .. reward or nil
+							
+							WQTable[questId].reward = reward
 						end
 						
 						-- objectives
@@ -4660,17 +4670,17 @@ function Nx.Map:Update (elapsed)
 						timeLeftTxt = (color or "")..(timeString and "\n \nTime Left: " .. timeString or "")
 						
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. reward .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "") .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (0, 1, 0, 1)
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. reward .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "") .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
 						else
-							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. reward .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. (WQTable[questId].reward or "") .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4691))
@@ -4687,6 +4697,14 @@ function Nx.Map:Update (elapsed)
 				end
 			end
 		end
+		
+		-- clear unused WQ
+		for qId, value in ipairs (WQTable) do
+			if not activeWQ[qId] then
+				WQTable[qId] = nil
+			end
+		end
+		
 	end
 	-- POI's (Points of interest)
 
