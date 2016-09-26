@@ -121,6 +121,7 @@ local inspectScantip = CreateFrame("GameTooltip", GlobalAddonName.."WQInspectSca
 inspectScantip:SetOwner(UIParent, "ANCHOR_NONE")
 
 local WQTable = {}
+local ITEM_LEVEL = (ITEM_LEVEL or "NO DATA FOR ITEM_LEVEL"):gsub("%%d","(%%d+%+*)")
 
 --------
 -- Init map stuff
@@ -4584,7 +4585,7 @@ function Nx.Map:Update (elapsed)
 										ilvl = tonumber( ilvl:gsub("%+",""),nil )
 										if ilvl then
 											rewardType = 0
-											rewardSort = ilvl
+											rewardSort = ilvl	
 										end
 									elseif text and rewardType == 20 and text:find("^"..ITEM_SPELL_TRIGGER_ONUSE) then
 										local ap = tonumber((text:match("%d+[,%d%.]*") or "?"):gsub(",",""):gsub("%.",""),nil)
