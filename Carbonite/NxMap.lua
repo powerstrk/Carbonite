@@ -4671,17 +4671,17 @@ function Nx.Map:Update (elapsed)
 						timeLeftTxt = (color or "")..(timeString and "\n \nTime Left: " .. timeString or "")
 						
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "") .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (0, 1, 0, 1)
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "") .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
 						else
-							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. (WQTable[questId].reward or "") .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4691))
