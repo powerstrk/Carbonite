@@ -116,6 +116,10 @@ NXMapOptsMapsDefault = 	{
 	},
 }
 
+local GlobalAddonName = ...
+local inspectScantip = CreateFrame("GameTooltip", GlobalAddonName.."WQInspectScanningTooltip", nil, "GameTooltipTemplate")
+inspectScantip:SetOwner(UIParent, "ANCHOR_NONE")
+
 --------
 -- Init map stuff
 
@@ -4489,6 +4493,136 @@ function Nx.Map:Update (elapsed)
 						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
 						local f = self:GetIcon (120)
 						
+						-- reward
+						local totalAP = 0
+						local reward = ""
+						local rewardItem
+						local rewardColor
+						local rewardType = 0
+						local rewardSort = 0
+						local rewardItemLink
+						
+						if ( GetQuestLogRewardXP(questId) > 0 or GetNumQuestLogRewardCurrencies(questId) > 0 or GetNumQuestLogRewards(questId) > 0 or GetQuestLogRewardMoney(questId) > 0 or GetQuestLogRewardArtifactXP(questId) > 0 ) then
+							local hasRewardFiltered = false
+							-- xp
+							local xp = GetQuestLogRewardXP(questId)
+							if ( xp > 0 ) then
+								reward = BONUS_OBJECTIVE_EXPERIENCE_FORMAT:format(xp)
+								rewardSort = xp
+								rewardType = 50
+							end
+							-- money
+							local money = GetQuestLogRewardMoney(questId)
+							if ( money > 0 ) then
+								reward = GetCoinTextureString(money)
+								rewardType = 40
+								if money > 500000 then
+									hasRewardFiltered = true
+									rewardSort = money
+								end
+							end
+								
+							local artifactXP = GetQuestLogRewardArtifactXP(questId)
+							if ( artifactXP > 0 ) then
+								reward = BONUS_OBJECTIVE_ARTIFACT_XP_FORMAT:format(artifactXP)
+								rewardSort = artifactXP
+								rewardType = 25
+							end
+							-- currency		
+							local numQuestCurrencies = GetNumQuestLogRewardCurrencies(questId)
+							for i = 1, numQuestCurrencies do
+								local name, texture, numItems = GetQuestLogRewardCurrencyInfo(i, questId)
+								local text = BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT:format(texture, numItems, name)
+								reward = text
+								rewardType = 30
+								
+								if texture and texture:find("orderresources$") then
+									hasRewardFiltered = true
+									rewardSort = numItems or 0
+								end
+							end
+					
+							-- items
+							local numQuestRewards = GetNumQuestLogRewards(questId)
+							if numQuestRewards > 0 then
+								local name,icon,numItems,quality,_,itemID = GetQuestLogRewardInfo(1,questId)
+								if name then
+									rewardType = 10
+									rewardItem = true
+									reward = "|T"..icon..":0|t "..name..(numItems and numItems > 1 and " x"..numItems or "")
+								end
+								
+
+								if quality and quality >= LE_ITEM_QUALITY_COMMON and BAG_ITEM_QUALITY_COLORS[quality] then
+									rewardColor = BAG_ITEM_QUALITY_COLORS[quality]
+								end
+								
+								local isBoeItem = nil
+								
+								inspectScantip:SetQuestLogItem("reward", 1, questId)
+								rewardItemLink = select(2,inspectScantip:GetItem())
+								for j=2, inspectScantip:NumLines() do
+									local tooltipLine = _G[GlobalAddonName.."WQInspectScanningTooltipTextLeft"..j]
+									local text = tooltipLine:GetText()
+									if text and ( text:find(ARTIFACT_POWER.."|r$") or text:find("Artifact Power|r$") ) then
+										hasRewardFiltered = true
+										rewardType = 20
+										if BAG_ITEM_QUALITY_COLORS[6] then
+											rewardColor = BAG_ITEM_QUALITY_COLORS[6]
+										end
+									elseif text and text:find(ITEM_LEVEL) then
+										local ilvl = text:match(ITEM_LEVEL)
+										reward = "|T"..icon..":0|t "..ilvl.." "..name
+										ilvl = tonumber( ilvl:gsub("%+",""),nil )
+										if ilvl then
+											rewardType = 0
+											rewardSort = ilvl
+										end
+									elseif text and rewardType == 20 and text:find("^"..ITEM_SPELL_TRIGGER_ONUSE) then
+										local ap = tonumber((text:match("%d+[,%d%.]*") or "?"):gsub(",",""):gsub("%.",""),nil)
+										if ap then
+											reward = reward:gsub(":0|t ",":0|t ["..ap.."] ")
+											rewardSort = ap
+											totalAP = totalAP + ap
+										end
+									elseif text and text:find(ITEM_BIND_ON_EQUIP) then
+										isBoeItem = true
+									end 
+								end
+								inspectScantip:ClearLines()
+								
+								if itemID == 124124 then
+									rewardType = 35
+									rewardSort = numItems or 0
+									hasRewardFiltered = true
+								end
+								
+								if itemID then
+									local _, _, subclass, invType = GetItemInfoInstant(itemID)
+								
+									if invType and invType ~= "" or subclass == ArtifactRelicSubclass then
+										if rewardType > 0 then
+											rewardType = 5
+										end
+										hasRewardFiltered = true
+									end
+								end
+								
+								if (rewardType == 0 or rewardType == 5) and isBoeItem then
+									reward = reward:gsub("(|t %d+) ","%1 BOE ")
+								end
+								
+							end
+							
+							if not hasRewardFiltered then
+								rewardType = 60
+							end
+							
+							local color = ""
+							if rewardColor then color = format("|cff%02x%02x%02x", rewardColor.r * 255, rewardColor.g * 255, rewardColor.b * 255) end
+							reward = reward ~= "" and "\n \nReward: " .. color .. reward or ""
+						end
+						
 						-- objectives
 						local objTxt = ""
 						for objectiveIndex = 1, taskInfo[i].numObjectives do
@@ -4496,7 +4630,7 @@ function Nx.Map:Update (elapsed)
 							if ( objectiveText and #objectiveText > 0 ) then
 								local color = finished and HIGHLIGHT_FONT_COLOR or GRAY_FONT_COLOR
 								color = format("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255);
-								objTxt = objTxt .. "\n " .. color .. objectiveText
+								objTxt = objTxt .. "\n- " .. color .. objectiveText
 							end
 						end
 						
@@ -4518,25 +4652,25 @@ function Nx.Map:Update (elapsed)
 							if timeLeftMinutes >= 14400 then
 								timeString = ""		--A lot, 10+ days
 							elseif timeLeftMinutes >= 1440 then
-								timeString = format("%d.%02d:%02d",floor(timeLeftMinutes / 1440),floor(timeLeftMinutes / 60) % 24, timeLeftMinutes % 60)
+								timeString = format("%dd%02dh%02dm",floor(timeLeftMinutes / 1440),floor(timeLeftMinutes / 60) % 24, timeLeftMinutes % 60)
 							else
-								timeString = (timeLeftMinutes >= 60 and (floor(timeLeftMinutes / 60) % 24) or "0")..":"..format("%02d",timeLeftMinutes % 60)
+								timeString = (timeLeftMinutes >= 60 and (floor(timeLeftMinutes / 60) % 24) or "0").."h"..format("%02d",timeLeftMinutes % 60).."m"
 							end
 						end
 						timeLeftTxt = (color or "")..(timeString and "\n \nTime Left: " .. timeString or "")
 						
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. reward .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (0, 1, 0, 1)
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. reward .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
 						else
-							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. timeLeftTxt
+							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. reward .. timeLeftTxt
 							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 							self:ClipFrameZ (f, x, y, 24, 24, 0)
 							f.texture:SetTexCoord (GetObjectIconTextureCoords(4691))
