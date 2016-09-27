@@ -9046,11 +9046,7 @@ function Nx.Quest.Watch:UpdateList()
 											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
-												if (math.floor(percent) == 0) then
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
-												else
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
-												end
+												list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
 											else
 												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
 											end
@@ -9088,11 +9084,7 @@ function Nx.Quest.Watch:UpdateList()
 											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
-												if (math.floor(percent) == 0) then
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
-												else
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
-												end
+												list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
 											else
 												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
 											end
