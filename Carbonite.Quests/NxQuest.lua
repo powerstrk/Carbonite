@@ -2836,12 +2836,12 @@ function Nx.Quest:SortQuestDB(questTotal)
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
 				--Nx.prt(mungeId)
-				Nx.Quests[mungeId] = nil
+				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
 			end
 		else
 			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
 			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-				Nx.Quests[mungeId] = nil
+				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
 			else
 				--[[if q["End"] and q["End"] == q["Start"] then
 				no enders
@@ -9046,7 +9046,11 @@ function Nx.Quest.Watch:UpdateList()
 											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
-												list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
+												if (math.floor(percent) == 0) then
+													list:ItemSet(2, "0%")
+												else
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
+												end												
 											else
 												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
 											end
@@ -9084,7 +9088,11 @@ function Nx.Quest.Watch:UpdateList()
 											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
-												list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
+												if (math.floor(percent) == 0) then
+													list:ItemSet(2, "0%")
+												else
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
+												end
 											else
 												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
 											end
