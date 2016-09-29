@@ -1019,7 +1019,11 @@ function Nx.Warehouse:ConvertData()
 		if Nx.db.global.Characters[ch].WareRBank then
 			Nx.wdb.global.Characters[ch].WareRBank = Nx.db.global.Characters[ch].WareRBank
 			Nx.db.global.Characters[ch].WareRBank = nil					
-		end						
+		end
+		if Nx.db.global.Characters[ch].OrderHall then
+			Nx.wdb.global.Characters[ch].OrderHall = Nx.db.global.Characters[ch].OrderHall
+			Nx.db.global.Characters[ch].OrderHall = nil
+		end
 		if Nx.db.global.Characters[ch].Class then
 			Nx.wdb.global.Characters[ch].Class = Nx.db.global.Characters[ch].Class			
 		end								
@@ -1836,6 +1840,10 @@ function Nx.Warehouse:Update()
 				if ch["Garrison"] then
 					list:ItemAdd(cnum)
 					list:ItemSet(2, format (L[" Garrison Resources: %s%s"], hicol, ch["Garrison"]))
+				end
+				if ch["OrderHall"] then
+					list:ItemAdd(cnum)
+					list:ItemSet(2, format (L[" Order Resources: %s%s"], hicol, ch["OrderHall"]))
 				end
 				list:ItemAdd(cnum)
 				list:ItemSet (2, "|cff00ffff  ------")
@@ -3554,6 +3562,8 @@ function Nx.Warehouse:RecordCharacter()
 	local _, honor = GetCurrencyInfo (392)	
 	local _, apexis = GetCurrencyInfo (823)
 	local _, garrison = GetCurrencyInfo (824)
+	local _, orderhall = GetCurrencyInfo (1220)
+	ch["OrderHall"] = orderhall
 	ch["Conquest"] = conquest		--V4 gone GetArenaCurrency()
 	ch["Honor"] = honor			--V4 gone GetHonorCurrency()
 	ch["Apexis"] = apexis
