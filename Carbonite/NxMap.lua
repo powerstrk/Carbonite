@@ -3035,6 +3035,16 @@ function Nx.Map:BlizzToggleWorldMap()
 	if WorldMapFrame:IsShown() then
 		HideUIPanel (WorldMapFrame)
 	else
+		local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+		bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
+		bountyBoard:SetFrameLevel(10)
+		bountyBoard:SetMapAreaID(1007)
+		local bountyBoardLocation = bountyBoard:GetDisplayLocation()
+		if bountyBoardLocation then
+			WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
+		end
+		bountyBoard:Show()
+	
 		local map = self:GetMap (1)
 		map:DetachWorldMap()
 		ShowUIPanel (WorldMapFrame)
