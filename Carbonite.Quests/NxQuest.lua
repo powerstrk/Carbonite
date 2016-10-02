@@ -7417,6 +7417,58 @@ function Nx.Quest.List:CheckShow (mapId, index)
 end
 
 -------------------------------------------------------------------------------
+-- CLONED BLIZZARD TEXTURE FUNCTIONS
+-------------------------------------------------------------------------------
+
+local function ApplyTextureToPOI(texture, width, height)
+	texture:SetTexCoord(0, 1, 0, 1);
+	texture:ClearAllPoints();
+	texture:SetPoint("CENTER", texture:GetParent());
+	texture:SetSize(width or 32, height or 32);
+end
+
+local function ApplyAtlasTexturesToPOI(button, normal, pushed, highlight, width, height)
+	button:SetSize(20, 20);
+	button:SetNormalAtlas(normal);
+	ApplyTextureToPOI(button:GetNormalTexture(), width, height);
+
+	button:SetPushedAtlas(pushed);
+	ApplyTextureToPOI(button:GetPushedTexture(), width, height);
+
+	button:SetHighlightAtlas(highlight);
+	ApplyTextureToPOI(button:GetHighlightTexture(), width, height);
+
+	if button.SelectedGlow then
+		button.SelectedGlow:SetAtlas(pushed);
+		ApplyTextureToPOI(button.SelectedGlow, width, height);
+	end
+end
+
+local function ApplyStandardTexturesToPOI(button, selected)
+	button:SetSize(20, 20);
+	button:SetNormalTexture("Interface/WorldMap/UI-QuestPoi-NumberIcons");
+	ApplyTextureToPOI(button:GetNormalTexture());
+	if selected then
+		button:GetNormalTexture():SetTexCoord(0.500, 0.625, 0.375, 0.5);
+	else
+		button:GetNormalTexture():SetTexCoord(0.875, 1, 0.375, 0.5);
+	end
+
+
+	button:SetPushedTexture("Interface/WorldMap/UI-QuestPoi-NumberIcons");
+	ApplyTextureToPOI(button:GetPushedTexture());
+	if selected then
+		button:GetPushedTexture():SetTexCoord(0.375, 0.500, 0.375, 0.5);
+	else
+		button:GetPushedTexture():SetTexCoord(0.750, 0.875, 0.375, 0.5);
+	end
+
+	button:SetHighlightTexture("Interface/WorldMap/UI-QuestPoi-NumberIcons");
+	ApplyTextureToPOI(button:GetHighlightTexture());
+	button:GetHighlightTexture():SetTexCoord(0.625, 0.750, 0.875, 1);
+end
+
+-------------------------------------------------------------------------------
 -- Update map icons (called by map)
 -------------------------------------------------------------------------------
 
@@ -7770,6 +7822,7 @@ function Nx.Quest:UpdateIcons (map)
 		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Map.UpdateMapID);
 		if taskInfo then
 			for i=1,#taskInfo do
+				local info = taskInfo[i]
 				local questId = taskInfo[i].questId
 				local title, faction = C_TaskQuest.GetQuestInfoByQuestID(questId)
 				if QuestMapFrame_IsQuestWorldQuest (questId) then
@@ -7777,10 +7830,7 @@ function Nx.Quest:UpdateIcons (map)
 					C_TaskQuest.RequestPreloadRewardData (questId)
 					local tid, name, questtype, rarity, elite, tradeskill = GetQuestTagInfo (questId)
 					local timeLeft = C_TaskQuest.GetQuestTimeLeftMinutes(questId)
-					if timeLeft and timeLeft > 0 then
-						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
-						local f = map:GetIcon (120)
-						
+					if timeLeft and timeLeft > 0 then					
 						-- Some code is borrowed from great addon WorldQuestList: https://mods.curse.com/addons/wow/world-quests-list
 						
 						-- reward
@@ -7953,22 +8003,39 @@ function Nx.Quest:UpdateIcons (map)
 						end
 						timeLeftTxt = (color or "")..(timeString and "\n \nTime Left: " .. timeString or "")
 						
+						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
+						local f = map:GetIconWQ(i, 120)
+						
+						--f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
+						
+						map:ClipFrameZ (f, x, y, 24, 24, 0)
+						
+						--f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))			
+						
+						local selected = info.questId == GetSuperTrackedQuestID();
+
+						local isCriteria = WorldMapFrame.UIElementsFrame.BountyBoard:IsWorldQuestCriteriaForSelectedBounty(info.questId);
+						local isSpellTarget = SpellCanTargetQuest() and IsQuestIDValidSpellTarget(info.questId);
+
+						f.worldQuest = true;
+						f.questID = questId
+						f.Texture:SetDrawLayer("OVERLAY");
+						f:SetScript("OnClick", function (self, button)
+							map:SetTargetAtStr (format("%s, %s", x, y))
+							TaskPOI_OnClick(self, button)
+						end)
+						
+						WorldMap_SetupWorldQuestButton(f, questtype, rarity, elite, tradeskill, info.inProgress, selected, isCriteria, isSpellTarget)
+						
+						f.texture:Hide()
+						
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
 							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
-							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
-							map:ClipFrameZ (f, x, y, 24, 24, 0)
-							f.texture:SetTexCoord (0, 1, 0, 1)
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
 							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
-							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
-							map:ClipFrameZ (f, x, y, 24, 24, 0)
-							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
 						else
 							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
-							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
-							map:ClipFrameZ (f, x, y, 24, 24, 0)
-							f.texture:SetTexCoord (GetObjectIconTextureCoords(4691))
-						end					
+						end		
 					end
 				else
 					taskIconIndex = taskIconIndex + 1
