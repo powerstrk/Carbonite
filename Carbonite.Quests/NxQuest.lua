@@ -41,7 +41,7 @@ Nx.qdb = {}
 Nx.Quest.Tick = 0
 Nx.QInit = false
 Nx.Quest.Custom = {}
-
+Nx.Quest.OldMap = 0
 -- Keybindings
 BINDING_HEADER_CarboniteQuests	= "|cffc0c0ff" .. L["Carbonite Quests"] .. "|r"
 BINDING_NAME_NxTOGGLEWATCHMINI	= L["NxTOGGLEWATCHMINI"]
@@ -159,6 +159,13 @@ local defaults = {
 		},
 	},
 }
+
+local GlobalAddonName = ...
+local inspectScantip = CreateFrame("GameTooltip", GlobalAddonName.."WQInspectScanningTooltip", nil, "GameTooltipTemplate")
+inspectScantip:SetOwner(UIParent, "ANCHOR_NONE")
+
+local WQTable = {}
+local ITEM_LEVEL = (ITEM_LEVEL or "NO DATA FOR ITEM_LEVEL"):gsub("%%d","(%%d+%+*)")
 
 local questoptions
 local function QuestOptions ()
@@ -1881,7 +1888,7 @@ end
 
 function CarboniteQuest:OnInitialize()
 	if not Nx.Initialized then
-		CarbQuestInit = Nx:ScheduleTimer(CarboniteQuest.OnInitialize,5)
+		CarbQuestInit = Nx:ScheduleTimer(CarboniteQuest.OnInitialize,5)				
 		return
 	end
 	Nx.qdb = LibStub("AceDB-3.0"):New("NXQuest",defaults, true)
@@ -2815,187 +2822,241 @@ function CarboniteQuest.HideUIPanel (frame)
 	end
 end
 
-function Nx.Quest:LoadQuestDB()
-	local Map = Nx.Map
-	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
-	Nx.Quests = Nx["Quests"] or Nx.Quests				-- Copy unmunged data to munged data
-	Nx.QuestStartEnd = Nx["QuestStartEnd"] or Nx.QuestStartEnd	-- Copy unmunged data to munged data
-
-	Nx.Quests = {}
-	if Nx.qdb.profile.Quest.Load0 then Nx.ModQuests:Load0 () else Nx.ModQuests:Clear0 () end --DeaTHCorE - no check by maxLoadLevel, is not a Quest database...
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load1 then Nx.ModQuests:Load1 () else Nx.ModQuests:Clear1 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load2 then Nx.ModQuests:Load2 () else Nx.ModQuests:Clear2 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load3 then Nx.ModQuests:Load3 () else Nx.ModQuests:Clear3 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load4 then Nx.ModQuests:Load4 () else Nx.ModQuests:Clear4 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load5 then Nx.ModQuests:Load5 () else Nx.ModQuests:Clear5 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load6 then Nx.ModQuests:Load6 () else Nx.ModQuests:Clear6 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load7 then Nx.ModQuests:Load7 () else Nx.ModQuests:Clear7 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load8 then Nx.ModQuests:Load8 () else Nx.ModQuests:Clear8 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load9 then Nx.ModQuests:Load9 () else Nx.ModQuests:Clear9 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load10 then Nx.ModQuests:Load10 () else Nx.ModQuests:Clear10 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load11 then Nx.ModQuests:Load11 () else Nx.ModQuests:Clear11 () end
-	if maxLoadLevel or Nx.qdb.profile.Quest.Load12 then Nx.ModQuests:Load12 () else Nx.ModQuests:Clear12 () end
-	self.Map = Map:GetMap (1)
-
-	local enFact = Nx.PlFactionNum == 1 and 1 or 2		-- Remap 0 to 2, 1 to 1
-	-- DeaTHCore - here is missing a option for max. levels < playerlevel to load, stored into LevelsToLoad,
-	-- for now the result here is always a negative value and the compare with qLoadLevel downwards is useless!!!
-	-- local qLoadLevel = UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad
+function Nx.Quest:SortQuestDB(questTotal)
+	if InCombatLockdown() then
+		C_Timer.After(5, function() Nx.Quest:SortQuestDB(questTotal) end)
+		return
+	end
+	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel	
+	local enFact = Nx.PlFactionNum == 1 and 1 or 2
 	local qLoadLevel = max(1, UnitLevel ("player") - Nx.qdb.profile.Quest.LevelsToLoad)
-
-	local qMaxLevel = 999
-
-	--DeaTHCorE - follow Vars are no required, they was not used...
-	--local qCnt = 0
-	--local maxid = 0
-	--local sameCnt = 0
-
+	local qMaxLevel = 999	
+	
 	for mungeId, q in pairs (Nx.Quests) do
-
-		--DeaTHCorE - follow are no required, was not used...
-		--local id = (mungeId + 3) / 2 - 7		-- Decode
-		--qCnt = qCnt + 1
-		--maxid = max (id, maxid)
-
-		local name, side, level = self:Unpack (q["Quest"])
-		--if side == enFact or level > 0 and level < qLoadLevel or level > qMaxLevel then
-		if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-			Nx.Quests[mungeId] = nil
-			--if side ~= enFact then -- DEBUG
-			--	Nx.prt("Quest for Level %d not loaded, is < qLoadLevel %d", level, qLoadLevel)
-			--end
+		if mungeId < 0 then
+			if Nx.Quests[abs(mungeId)] then
+				--Nx.prt(mungeId)
+				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
+			end
 		else
-			--Nx.prt("Quest for Level %d loaded, is over qLoadLevel %d", level, qLoadLevel)
-			if q["End"] and q["End"] == q["Start"] then	--DeaTHCorE - not commented out yet, not sure, a fix or release mem is required???
---				q[3] = nil -- Release mem !!!!! FIX for non enders !!!!!
-				--DeaTHCorE - follow are no required, was not used...
-				--sameCnt = sameCnt + 1
-			end
-			self:CheckQuestSE (q, 3)
-			for n = 1, 99 do
-				if not q[n] then
-					break
+			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
+			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
+				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
+			else
+				--[[if q["End"] and q["End"] == q["Start"] then
+				no enders
+				end]]
+				self:CheckQuestSE (q, 3)
+				for n = 1, 99 do
+					if not q[n] then
+						break
+					end
+					self:CheckQuestObj (q, n)
 				end
-
-				self:CheckQuestObj (q, n)
+				-- insert to sorted table (need to do proper sorting)
+				tinsert(self.Sorted, mungeId)							
+				if not q.CNum and qnext and qnext > 0 then
+					local clvlmax = level
+					local qc = q
+					local cnum = 0
+					local _qids = {}
+					while qc do
+						cnum = cnum + 1
+						qc.CNum = cnum
+						name, side, level, minlevel, qnext = self:Unpack (qc["Quest"])
+						clvlmax = max (clvlmax, level)
+						if not qnext or qnext == 0 or _qids[qnext] == true then
+							break
+						end
+						_qids[qnext] = true;				
+						qc = Nx.Quests[qnext]
+					end
+					q.CLvlMax = clvlmax		-- Max level in chain
+				end
 			end
 		end
 	end
-
-	for mungeId, q in pairs (Nx.Quests) do
-
-		local name, side, lvl, minlvl, next = self:Unpack (q["Quest"])
-		if not q.CNum and next > 0 then
-
-			local clvlmax = lvl
-
-			local qc = q
-			local cnum = 0
-			local _qids = {}
-			while qc do
-				cnum = cnum + 1
-				qc.CNum = cnum
-
---				if strfind (name, "Vile Famil") then
---					Nx.prt ("%s %d %d %d", name, mungeId, next, cnum)
---				end
-
-				name, side, lvl, minlvl, next = self:Unpack (qc["Quest"])
-
-				clvlmax = max (clvlmax, lvl)
-
---				next = self:UnpackNext (qc[1])
-				if next == 0 or _qids[next] == true then
-					break
-				end
-				
-				_qids[next] = true;
-				
-				qc = Nx.Quests[next]
-			end
-
-			q.CLvlMax = clvlmax		-- Max level in chain
-		end
-	end
-
-
+	
+--[[
 	for lvl = 0, 110 do
-
 		local grp = {}
-
 		for id, q in pairs (Nx.Quests) do
-			local name, side, level = self:Unpack (q["Quest"])
-			if level == lvl then
-				if side ~= enFact then
-
-					if not q.CNum then
-						tinsert (grp, format ("%s^%d", name, id))
-
-					elseif q.CNum == 1 then
-						local qc = q
-						local _qids = {}
-						while qc do
-							local pname, side, _, _, next = self:Unpack (qc["Quest"])
---							if strfind (name, "Load Lightening") then
---								Nx.prt ("%s %d %d (%d %d)", pname, id, side, next, qc.CNum)
---							end
-							
-							if _qids[next] == true then
-								break
+			if id > 0 then
+				local name, side, level = self:Unpack (q["Quest"])
+				if level == lvl then
+					if side ~= enFact then
+						if not q.CNum then
+							tinsert (grp, format ("%s^%d", name, id))
+						elseif q.CNum == 1 then
+							local qc = q
+							local _qids = {}
+							while qc do
+								local pname, side, _, _, next = self:Unpack (qc["Quest"])
+								if _qids[next] == true then
+									break
+								end
+								_qids[next] = true;
+								tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
+								qc = Nx.Quests[next]
+								id = next
 							end
-							
-							_qids[next] = true;
-							
-							tinsert (grp, format ("%s%2d^%d", name, qc.CNum, id))
-							qc = Nx.Quests[next]
-							id = next
 						end
 					end
-
---					Nx.prt ("Quest "..id.." "..level)
 				end
 			end
 		end
-
---		table.sort (grp)
-
 		for _, v in ipairs (grp) do
 			local name, id = Nx.Split ("^", v)
 			tinsert (self.Sorted, tonumber (id))
 		end
 	end
-
-	-- Create quest givers
-
+	]]--
 	local usedIds = {}
-
 	local starters = {}
 	self.QGivers = starters
-
-	for qsIndex, qId in ipairs (self.Sorted) do
-
+	for qsIndex, qId in pairs (self.Sorted) do
 		if not usedIds[qId] then
-
 			local quest = Nx.Quests[qId]
 			if quest then
 				local sName, zone, x, y = self:GetSEPos (quest["Start"])
-
 				if zone and x ~= 0 and y ~= 0 then
-
 					usedIds[qId] = true
-
 					sName = format ("%s=%d%d", sName, x, y)
-
 					local stmap = starters[zone] or {}
 					starters[zone] = stmap
 					local s = stmap[sName] or ""
 					stmap[sName] = s .. format ("%4x", qId)
 				end
 			end
---		else
---			Nx.prt ("skipped %s", qId)
 		end
 	end
+	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffff" .. questTotal .. " Quests Loaded")	
+	Nx.Quest:RecordQuestsLog()
+end
+
+function Nx.Quest:LoadQuestDB()
+	local questTotal = 0
+	local timeDelay = 1
+	local numQLoad = 0;
+	local maxQLoad = 0;
+	local Map = Nx.Map
+	self.Map = Map:GetMap (1)
+	Nx.Quests = {}	
+	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffStarting Background Quest Data Loading...")
+	if Nx.qdb.profile.Quest.Load0 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load0(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear0()
+	end 
+	if Nx.qdb.profile.Quest.Load1 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load1(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear1()
+	end 
+	if Nx.qdb.profile.Quest.Load2 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load2(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear2()
+	end 
+	if Nx.qdb.profile.Quest.Load3 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load3(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear3()
+	end 
+	if Nx.qdb.profile.Quest.Load4 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load4(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear4()
+	end 
+	if Nx.qdb.profile.Quest.Load5 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load5(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear5()
+	end 
+	if Nx.qdb.profile.Quest.Load6 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load6(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear6()
+	end 
+	if Nx.qdb.profile.Quest.Load7 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load7(); numQLoad = numQLoad - 1;  end)
+		timeDelay = timeDelay + 1
+		maxQLoad = maxQLoad + 1
+		numQLoad = numQLoad + 1
+	else
+		Nx.ModQuests:Clear7()
+	end 
+	if Nx.qdb.profile.Quest.Load8 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load8(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear8()
+	end 
+	if Nx.qdb.profile.Quest.Load9 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load9(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+	else
+		Nx.ModQuests:Clear9()
+	end 
+	if Nx.qdb.profile.Quest.Load10 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load10(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear10()
+	end 
+	if Nx.qdb.profile.Quest.Load11 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load11(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear11()
+	end 
+	if Nx.qdb.profile.Quest.Load12 then 
+		C_Timer.After(1, function() questTotal = questTotal + Nx.ModQuests:Load12(); numQLoad = numQLoad - 1; end)
+		timeDelay = timeDelay + 1
+		numQLoad = numQLoad + 1
+		maxQLoad = maxQLoad + 1
+	else
+		Nx.ModQuests:Clear12()
+	end 
+	
+	local qStep = 100 / maxQLoad
+	C_Timer.NewTicker(1, function(self)
+		if (Nx.Initialized == true and numQLoad == 0) or self._remainingIterations == 0 then 
+			self:Cancel() 
+			Nx.ModQuests = {} -- Destroing unused table to free memory as we never use it again
+			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
+			return
+		end 
+		--Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffLoading Quest Data... (%d%%)", ( math.floor(qStep * (maxQLoad - numQLoad)) ))
+	end, 120)
 end
 
 function Nx.Quest:SetCols()
@@ -3775,9 +3836,8 @@ end
 function Nx.Quest:ScanBlizzQuestDataTimer()
 	if IS_BACKGROUND_WORLD_CACHING then
 		return
-	end
-
-	IS_BACKGROUND_WORLD_CACHING = true
+	end	
+	IS_BACKGROUND_WORLD_CACHING = true	
 	ObjectiveTrackerFrame:UnregisterEvent ("WORLD_MAP_UPDATE")		-- Map::ScanContinents can enable this again
 --	local tm = GetTime()
 
@@ -3797,10 +3857,11 @@ function Nx.Quest:ScanBlizzQuestDataTimer()
 			local info = Map.MapInfo[cont]
 			end
 		end
-	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")	-- Back on when done
-	Map:SetCurrentMap (curMapId)
+	ObjectiveTrackerFrame:RegisterEvent ("WORLD_MAP_UPDATE")
+	-- Back on when done
+	Map:SetCurrentMap (curMapId)	
 	IS_BACKGROUND_WORLD_CACHING = false
-	self:RecordQuestsLog()
+	self:RecordQuestsLog()	
 end
 
 -------------------------------------------------------------------------------
@@ -3861,7 +3922,7 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 						y = y * 100
 --						Nx.prt ("%s #%s %s %s %s %s", mapId, n, id, x or "nil", y or "nil", objective or "nil")
 						if not quest["Quest"] then
-							quest["Quest"] = format ("[[%s|%s|%s|||]]",title,fac,level)
+							quest["Quest"] = format ("[[%s|%s|%s|0|0|0]]",title,fac,level)
 						end
 						if needEnd or bit.band (patch, 1) then
 							if not quest["End"] or bit.band(patch,1) then
@@ -5288,6 +5349,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_CRITERIA_UPDATE", self.OnQuestUpdate)
@@ -6469,15 +6531,28 @@ end
 -- On quest updates
 -------------------------------------------------------------------------------
 
+function Nx.Quest.List:Refresh()	
+	self:LogUpdate()
+	Nx.Quest:ScanBlizzQuestDataZone()
+	self:LogUpdate()
+	C_Timer.After(2, function() Nx.Quest:RecordQuestsLog() end)
+end
+
 function Nx.Quest.List:OnQuestUpdate (event, ...)
---QD		Nx.prt ("OnQuestUpdate %s", event)
+--		Nx.prt ("OnQuestUpdate %s", event)
 	local Quest = Nx.Quest
 	local arg1, arg2, arg3 = select (1, ...)
 	
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
+	elseif event == "QUEST_TURNED_IN" then
+		self:Refresh(event)
 	elseif event == "WORLD_MAP_UPDATE" then
-		Nx.Quest:MapChanged()
+		local oldmap = GetCurrentMapAreaID()
+		if Nx.Quest.OldMap ~= oldmap then
+			Nx.Quest.OldMap = oldmap
+			Nx.Quest:MapChanged()
+		end
 	elseif event == "QUEST_PROGRESS" then
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
 		
@@ -6489,7 +6564,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			CompleteQuest()
 --			Nx.prt ("Auto turn in")
 		end
-
+		self:Refresh()
 		return
 	elseif event == "QUEST_COMPLETE" then
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
@@ -6502,10 +6577,11 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 --				Nx.prt ("Auto turn in choice")
 			end
 		end
+		self:Refresh(event)
 		return
 	elseif event == "QUEST_ACCEPTED" then		
 		if QuestGetAutoAccept() then
-			QuestFrameDetailPanel:Hide();
+			QuestFrameDetailPanel:Hide();			
 			CloseQuest();
 		end
 		if arg1 and Nx.qdb.profile.QuestWatch.AddNew then
@@ -6516,6 +6592,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 				Quest:PartyStartSend()
 			end			
 		end
+		self:Refresh(event)
 	elseif event == "QUEST_DETAIL" then		-- Happens when auto accept quest is given
 
 		if QuestGetAutoAccept() and QuestIsFromAreaTrigger() then
@@ -6524,6 +6601,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			CloseQuest();
 --			Quest.AcceptQId = GetQuestID()
 --			Nx.prt ("QUEST_DETAIL %s", GetQuestID())
+			self:Refresh(event)
 		end
 
 	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" then
@@ -6534,16 +6612,12 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if self.LoggingIn then
 			Quest:AccessAllQuests()
 			QLogUpdate = Nx:ScheduleTimer(self.LogUpdate,.5,self)	-- Small delay, so access works (0 does work)
-
 		else
-			self:LogUpdate()
-			Nx.Quest:ScanBlizzQuestDataZone()
-			self:LogUpdate()
+			self:Refresh(event)
 		end	
 	else
 		Nx.Quest.Watch:Update()
 	end
-
 --	Nx.prt ("OnQuestUpdate %s Done", event)
 end
 
@@ -6855,8 +6929,7 @@ function Nx.Quest.List:Update()
 
 		for qId in pairs (Nx.Quest.CurCharacter.Q) do			-- Loop over quests with history
 
-			local quest = Nx.Quests[qId]
-
+			local quest = Nx.Quests[qId]			
 			local status, qTime = Nx.Quest:GetQuest (qId)
 			local qCompleted = status == "C"
 
@@ -6972,7 +7045,7 @@ function Nx.Quest.List:Update()
 		local mapId = Map:GetCurrentMapId()
 
 		local minLevel = UnitLevel ("player") - GetQuestGreenRange()
-		local maxLevel = showHighLevel and 90 or UnitLevel ("player") + 6
+		local maxLevel = showHighLevel and 110 or UnitLevel ("player") + 6
 
 		-- Divider
 
@@ -6990,7 +7063,7 @@ function Nx.Quest.List:Update()
 --		local qsLast = #Quest.Sorted
 --		while qsIndex <= qsLast do
 
-		for qsIndex, qId in ipairs (Quest.Sorted) do
+		for qsIndex, qId in pairs (Quest.Sorted) do
 
 --			local qId = Quest.Sorted[qsIndex]
 
@@ -7344,6 +7417,58 @@ function Nx.Quest.List:CheckShow (mapId, index)
 end
 
 -------------------------------------------------------------------------------
+-- CLONED BLIZZARD TEXTURE FUNCTIONS
+-------------------------------------------------------------------------------
+
+local function ApplyTextureToPOI(texture, width, height)
+	texture:SetTexCoord(0, 1, 0, 1);
+	texture:ClearAllPoints();
+	texture:SetPoint("CENTER", texture:GetParent());
+	texture:SetSize(width or 32, height or 32);
+end
+
+local function ApplyAtlasTexturesToPOI(button, normal, pushed, highlight, width, height)
+	button:SetSize(20, 20);
+	button:SetNormalAtlas(normal);
+	ApplyTextureToPOI(button:GetNormalTexture(), width, height);
+
+	button:SetPushedAtlas(pushed);
+	ApplyTextureToPOI(button:GetPushedTexture(), width, height);
+
+	button:SetHighlightAtlas(highlight);
+	ApplyTextureToPOI(button:GetHighlightTexture(), width, height);
+
+	if button.SelectedGlow then
+		button.SelectedGlow:SetAtlas(pushed);
+		ApplyTextureToPOI(button.SelectedGlow, width, height);
+	end
+end
+
+local function ApplyStandardTexturesToPOI(button, selected)
+	button:SetSize(20, 20);
+	button:SetNormalTexture("Interface/WorldMap/UI-QuestPoi-NumberIcons");
+	ApplyTextureToPOI(button:GetNormalTexture());
+	if selected then
+		button:GetNormalTexture():SetTexCoord(0.500, 0.625, 0.375, 0.5);
+	else
+		button:GetNormalTexture():SetTexCoord(0.875, 1, 0.375, 0.5);
+	end
+
+
+	button:SetPushedTexture("Interface/WorldMap/UI-QuestPoi-NumberIcons");
+	ApplyTextureToPOI(button:GetPushedTexture());
+	if selected then
+		button:GetPushedTexture():SetTexCoord(0.375, 0.500, 0.375, 0.5);
+	else
+		button:GetPushedTexture():SetTexCoord(0.750, 0.875, 0.375, 0.5);
+	end
+
+	button:SetHighlightTexture("Interface/WorldMap/UI-QuestPoi-NumberIcons");
+	ApplyTextureToPOI(button:GetHighlightTexture());
+	button:GetHighlightTexture():SetTexCoord(0.625, 0.750, 0.875, 1);
+end
+
+-------------------------------------------------------------------------------
 -- Update map icons (called by map)
 -------------------------------------------------------------------------------
 
@@ -7364,7 +7489,7 @@ function Nx.Quest:UpdateIcons (map)
 	local showWatchAreas = Nx.qdb.profile.Quest.MapShowWatchAreas
 	local trkR, trkG, trkB, trkA =  Nx.Quest.Cols["trkR"], Nx.Quest.Cols["trkG"], Nx.Quest.Cols["trkB"], Nx.Quest.Cols["trkA"]
 	local hovR, hovG, hovB, hovA =  Nx.Quest.Cols["hovR"], Nx.Quest.Cols["hovG"], Nx.Quest.Cols["hovB"], Nx.Quest.Cols["hovA"]
-
+	
 	-- Update target
 
 	local typ, tid = Map:GetTargetInfo()
@@ -7688,6 +7813,261 @@ function Nx.Quest:UpdateIcons (map)
 				end
 			end
 		end
+	end
+	
+	-- BONUS TASKS and WORLD QUESTS icons
+	local taskIconIndex = 1
+	local activeWQ = {}
+	if Map.UpdateMapID ~= 9000 then
+		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Map.UpdateMapID);
+		if taskInfo then
+			for i=1,#taskInfo do
+				local info = taskInfo[i]
+				local questId = taskInfo[i].questId
+				local title, faction = C_TaskQuest.GetQuestInfoByQuestID(questId)
+				if QuestMapFrame_IsQuestWorldQuest (questId) then
+					activeWQ[questId] = true
+					C_TaskQuest.RequestPreloadRewardData (questId)
+					local tid, name, questtype, rarity, elite, tradeskill = GetQuestTagInfo (questId)
+					local timeLeft = C_TaskQuest.GetQuestTimeLeftMinutes(questId)
+					if timeLeft and timeLeft > 0 then					
+						-- Some code is borrowed from great addon WorldQuestList: https://mods.curse.com/addons/wow/world-quests-list
+						
+						-- reward
+						local totalAP = 0
+						local reward = ""
+						local rewardItem
+						local rewardColor
+						local rewardType = 0
+						local rewardSort = 0
+						local rewardItemLink
+						
+						if not WQTable[questId] then WQTable[questId] = {} end
+						
+						if not WQTable[questId].reward and ( GetQuestLogRewardXP(questId) > 0 or GetNumQuestLogRewardCurrencies(questId) > 0 or GetNumQuestLogRewards(questId) > 0 or GetQuestLogRewardMoney(questId) > 0 or GetQuestLogRewardArtifactXP(questId) > 0 ) then
+							local hasRewardFiltered = false
+							-- xp
+							local xp = GetQuestLogRewardXP(questId)
+							if ( xp > 0 ) then
+								reward = BONUS_OBJECTIVE_EXPERIENCE_FORMAT:format(xp)
+								rewardSort = xp
+								rewardType = 50
+							end
+							-- money
+							local money = GetQuestLogRewardMoney(questId)
+							if ( money > 0 ) then
+								reward = GetCoinTextureString(money)
+								rewardType = 40
+								if money > 500000 then
+									hasRewardFiltered = true
+									rewardSort = money
+								end
+							end
+								
+							local artifactXP = GetQuestLogRewardArtifactXP(questId)
+							if ( artifactXP > 0 ) then
+								reward = BONUS_OBJECTIVE_ARTIFACT_XP_FORMAT:format(artifactXP)
+								rewardSort = artifactXP
+								rewardType = 25
+							end
+							-- currency		
+							local numQuestCurrencies = GetNumQuestLogRewardCurrencies(questId)
+							for i = 1, numQuestCurrencies do
+								local name, texture, numItems = GetQuestLogRewardCurrencyInfo(i, questId)
+								local text = BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT:format(texture, numItems, name)
+								reward = text
+								rewardType = 30
+								
+								if texture and texture:find("orderresources$") then
+									hasRewardFiltered = true
+									rewardSort = numItems or 0
+								end
+							end
+					
+							-- items
+							local numQuestRewards = GetNumQuestLogRewards(questId)
+							if numQuestRewards > 0 then
+								local name,icon,numItems,quality,_,itemID = GetQuestLogRewardInfo(1,questId)
+								if name then
+									rewardType = 10
+									rewardItem = true
+									reward = "|T"..icon..":0|t "..name..(numItems and numItems > 1 and " x"..numItems or "")
+								end
+								
+
+								if quality and quality >= LE_ITEM_QUALITY_COMMON and BAG_ITEM_QUALITY_COLORS[quality] then
+									rewardColor = BAG_ITEM_QUALITY_COLORS[quality]
+								end
+								
+								local isBoeItem = nil
+								
+								inspectScantip:SetQuestLogItem("reward", 1, questId)
+								rewardItemLink = select(2,inspectScantip:GetItem())
+								for j=2, inspectScantip:NumLines() do
+									local tooltipLine = _G[GlobalAddonName.."WQInspectScanningTooltipTextLeft"..j]
+									local text = tooltipLine:GetText()
+									if text and ( text:find(ARTIFACT_POWER.."|r$") or text:find("Artifact Power|r$") ) then
+										hasRewardFiltered = true
+										rewardType = 20
+										if BAG_ITEM_QUALITY_COLORS[6] then
+											rewardColor = BAG_ITEM_QUALITY_COLORS[6]
+										end
+									elseif text and text:find(ITEM_LEVEL) then
+										local ilvl = text:match(ITEM_LEVEL)
+										reward = "|T"..icon..":0|t "..ilvl.." "..name
+										ilvl = tonumber( ilvl:gsub("%+",""),nil )
+										if ilvl then
+											rewardType = 0
+											rewardSort = ilvl	
+										end
+									elseif text and rewardType == 20 and text:find("^"..ITEM_SPELL_TRIGGER_ONUSE) then
+										local ap = tonumber((text:match("%d+[,%d%.]*") or "?"):gsub(",",""):gsub("%.",""),nil)
+										if ap then
+											reward = reward:gsub(":0|t ",":0|t ["..ap.."] ")
+											rewardSort = ap
+											totalAP = totalAP + ap
+										end
+									elseif text and text:find(ITEM_BIND_ON_EQUIP) then
+										isBoeItem = true
+									end 
+								end
+								inspectScantip:ClearLines()
+								
+								if itemID == 124124 then
+									rewardType = 35
+									rewardSort = numItems or 0
+									hasRewardFiltered = true
+								end
+								
+								if itemID then
+									local _, _, subclass, invType = GetItemInfoInstant(itemID)
+								
+									if invType and invType ~= "" or subclass == ArtifactRelicSubclass then
+										if rewardType > 0 then
+											rewardType = 5
+										end
+										hasRewardFiltered = true
+									end
+								end
+								
+								if (rewardType == 0 or rewardType == 5) and isBoeItem then
+									reward = reward:gsub("(|t %d+) ","%1 BOE ")
+								end
+								
+							end
+							
+							if not hasRewardFiltered then
+								rewardType = 60
+							end
+							
+							local color = ""
+							if rewardColor then color = format("|cff%02x%02x%02x", rewardColor.r * 255, rewardColor.g * 255, rewardColor.b * 255) end
+							reward = reward ~= "" and "\n \nReward: " .. color .. reward or nil
+							
+							WQTable[questId].reward = reward
+						end
+						
+						-- objectives
+						local objTxt = ""
+						for objectiveIndex = 1, taskInfo[i].numObjectives do
+							local objectiveText, objectiveType, finished = GetQuestObjectiveInfo(questId, objectiveIndex, false)
+							if ( objectiveText and #objectiveText > 0 ) then
+								local color = finished and HIGHLIGHT_FONT_COLOR or GRAY_FONT_COLOR
+								color = format("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255);
+								objTxt = objTxt .. "\n- " .. color .. objectiveText
+							end
+						end
+						
+						-- time left
+						local timeLeftTxt = ""
+						local color
+						local timeString
+						local timeLeftMinutes = timeLeft
+						if ( timeLeftMinutes <= WORLD_QUESTS_TIME_CRITICAL_MINUTES ) then
+							color = "|cffff3333"
+							timeString = SecondsToTime(timeLeftMinutes * 60)
+						else
+							if timeLeftMinutes <= 30 then
+								color = "|cffff3333"
+							elseif timeLeftMinutes <= 180 then
+								color = "|cffffff00"
+							end
+						
+							if timeLeftMinutes >= 14400 then
+								timeString = ""		--A lot, 10+ days
+							elseif timeLeftMinutes >= 1440 then
+								timeString = format("%dd%02dh%02dm",floor(timeLeftMinutes / 1440),floor(timeLeftMinutes / 60) % 24, timeLeftMinutes % 60)
+							else
+								timeString = (timeLeftMinutes >= 60 and (floor(timeLeftMinutes / 60) % 24) or "0").."h"..format("%02d",timeLeftMinutes % 60).."m"
+							end
+						end
+						timeLeftTxt = (color or "")..(timeString and "\n \nTime Left: " .. timeString or "")
+						
+						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
+						local f = map:GetIconWQ(i, 120)
+						
+						--f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
+						
+						map:ClipFrameZ (f, x, y, 24, 24, 0)
+						
+						--f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))			
+						
+						local selected = info.questId == GetSuperTrackedQuestID();
+
+						local isCriteria = WorldMapFrame.UIElementsFrame.BountyBoard:IsWorldQuestCriteriaForSelectedBounty(info.questId);
+						local isSpellTarget = SpellCanTargetQuest() and IsQuestIDValidSpellTarget(info.questId);
+
+						f.worldQuest = true;
+						f.questID = questId
+						f.Texture:SetDrawLayer("OVERLAY");
+						f:SetScript("OnClick", function (self, button)
+							map:SetTargetAtStr (format("%s, %s", x, y))
+							TaskPOI_OnClick(self, button)
+						end)
+						
+						WorldMap_SetupWorldQuestButton(f, questtype, rarity, elite, tradeskill, info.inProgress, selected, isCriteria, isSpellTarget)
+						
+						f.texture:Hide()
+						
+						if questtype == LE_QUEST_TAG_TYPE_PVP then
+							f.NxTip = "|cffffd100World Quest (Combat Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
+						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
+							f.NxTip = "|cffffd100World Quest (Pet Task):\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
+						else
+							f.NxTip = "|cffffd100World Quest:\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \nReward: Loading...") .. timeLeftTxt
+						end		
+					end
+				else
+					taskIconIndex = taskIconIndex + 1
+					local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
+					local f = map:GetIcon (3)
+					
+					-- objectives
+					local objTxt = ""
+					for objectiveIndex = 1, taskInfo[i].numObjectives do
+						local objectiveText, objectiveType, finished = GetQuestObjectiveInfo(questId, objectiveIndex, false)
+						if ( objectiveText and #objectiveText > 0 ) then
+							local color = finished and HIGHLIGHT_FONT_COLOR or GRAY_FONT_COLOR
+							color = format("|cff%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255);
+							objTxt = objTxt .. "\n- " .. color .. objectiveText
+						end
+					end
+					
+					f.NxTip = "|cffffd100Bonus Task:\n" .. title:gsub("Bonus Objective: ", "") .. objTxt
+					f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
+					map:ClipFrameZ (f, x, y, 16, 16, 0)
+					f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))
+				end
+			end
+		end
+		
+		-- clear unused WQ
+		for qId, value in ipairs (WQTable) do
+			if not activeWQ[qId] then
+				WQTable[qId] = nil
+			end
+		end
+		
 	end
 end
 
@@ -8715,25 +9095,35 @@ function Nx.Quest.Watch:UpdateList()
 							local inArea, onMap, numObjectives = GetTaskInfo(questId)
 							tasks[questId] = true
 							if inArea then
+								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
+								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
+								local tast_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemAdd(0)
+								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
+								--local _,x,y = QuestPOIGetIconInfo(questId)
+								--Nx.prt("====%s: %s, %s", title, x, y)
 								if numObjectives and numObjectives > 0 then
 									for j=1,numObjectives do
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
 												if (math.floor(percent) == 0) then
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
+													list:ItemSet(2, "0%")
 												else
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
-												end
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
+												end												
 											else
 												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
 											end
 										else
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											list:ItemSet(2,"|cff00ff00" .. text)
 										end
 									end
@@ -8748,26 +9138,34 @@ function Nx.Quest.Watch:UpdateList()
 						for i=1,taskInfo do
 							local title, _, _, _, _, _, _, questId, _, _, _, _, isTask, _ = GetQuestLogTitle(i)
 							if isTask and tasks[questId] ~= true then
+								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
+								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
+								local tast_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. L["BONUS TASK"] .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemAdd(0)
+								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
 								local _,_, numObjectives = GetTaskInfo(questId)
 								if numObjectives and numObjectives > 0 then
-									for j=1,numObjectives do
+									for j=1,numObjectives do							
 										local text, objectiveType, finished = GetQuestObjectiveInfo (questId, j, false)
 										if objectiveType == "progressbar" then
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											local percent = GetQuestProgressBarPercent(questId) or 0
 											if Nx.qdb.profile.QuestWatch.BonusBar then
 												if (math.floor(percent) == 0) then
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t %.2f%%", percent))
+													list:ItemSet(2, "0%")
 												else
-													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarBG:12:100|t|TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:-90|t %.2f%%", math.floor(percent), percent))
+													list:ItemSet(2, format(" |TInterface\\Addons\\Carbonite\\Gfx\\Skin\\InfoBarB:12:%d:|t %.2f%%", math.floor(percent), percent))
 												end
 											else
 												list:ItemSet(2,format("|cff00ff00%s %.2f%%", L["Progress: "], percent))
 											end
 										else
 											list:ItemAdd(0)
+											list:ItemSetOffset (16, -1)
 											list:ItemSet(2,"|cff00ff00" .. text)
 										end
 									end
@@ -9785,7 +10183,7 @@ end
 function Nx.Quest:Unpack (info)
 	if not info then return end
 	local name, side, lvl, minlvl, nextId, category = Nx.Split("|",info)
-	return name, tonumber(side), tonumber(lvl), tonumber(minlvl), tonumber(nextId)
+	return name, tonumber(side), tonumber(lvl), tonumber(minlvl), tonumber(nextId), tonumber(category)
 end
 
 -------------------------------------------------------------------------------

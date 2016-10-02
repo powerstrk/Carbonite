@@ -543,7 +543,9 @@ function Nx.Map:Create (index)
 	m.IconNIFrms.Next = 1
 	m.IconStaticFrms = {}
 	m.IconStaticFrms.Next = 1
-
+	m.IconWQFrms = {}
+	m.IconWQFrms.Next = 1
+	
 	m.TextFStrs = {}
 	m.TextFStrs.Next = 1
 
@@ -3029,10 +3031,20 @@ end
 -- Blizz map toggle
 
 function Nx.Map:BlizzToggleWorldMap()
-
+	
 	if WorldMapFrame:IsShown() then
 		HideUIPanel (WorldMapFrame)
 	else
+		local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+		bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
+		bountyBoard:SetFrameLevel(10)
+		bountyBoard:SetMapAreaID(1007)
+		local bountyBoardLocation = bountyBoard:GetDisplayLocation()
+		if bountyBoardLocation then
+			WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
+		end
+		bountyBoard:Show()
+	
 		local map = self:GetMap (1)
 		map:DetachWorldMap()
 		ShowUIPanel (WorldMapFrame)
@@ -3085,10 +3097,20 @@ function Nx.Map:ToggleSize (szmode)
 	if not self.Maps then	-- Healbot called ToggleFrame on load that caused us to fail in GetMap
 		return
 	end
+	
+	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
+	bountyBoard:SetFrameLevel(10)
+	bountyBoard:SetMapAreaID(1007)
+	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
+	if bountyBoardLocation then
+		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
+	end
+	bountyBoard:Show()
 
 	local map = self:GetMap (1)
 	local win = map.Win
-
+	
 	if not win:IsShown() then
 		win:Show()
 		if szmode == 0 then
@@ -3122,7 +3144,16 @@ function Nx.Map:ToggleSize (szmode)
 		WorldMapPlayerLower:SetAlpha(0)
 		WorldMapPlayerUpper:SetAlpha(0)
 		map:MaxSize()
-
+		
+		local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+		bountyBoard:SetParent(map.Frm)
+		bountyBoard:SetFrameLevel(140)
+		bountyBoard:SetMapAreaID(1007)
+		local bountyBoardLocation = bountyBoard:GetDisplayLocation()
+		if bountyBoardLocation then
+			WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
+		end
+		bountyBoard:Show()
 	else
 		MapBarFrame:SetParent("WorldMapFrame")
 		WorldMapPlayerLower:SetAlpha(1)
@@ -4474,45 +4505,7 @@ function Nx.Map:Update (elapsed)
 			end
 		end
 	end
-	local taskIconIndex = 1
-	if Nx.Map.UpdateMapID ~= 9000 then
-		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Nx.Map.UpdateMapID);
-		if taskInfo then
-			for i=1,#taskInfo do
-				local questId = taskInfo[i].questId
-				if QuestMapFrame_IsQuestWorldQuest (questId) then
-					C_TaskQuest.RequestPreloadRewardData (questId)
-					local title, faction = C_TaskQuest.GetQuestInfoByQuestID(questId)
-					local tid, name, questtype, rarity, elite, tradeskill = GetQuestTagInfo (questId)
-					local timeLeft = C_TaskQuest.GetQuestTimeLeftMinutes(questId)
-					if timeLeft and timeLeft > 0 then
-						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
-						local f = self:GetIcon (3)
-						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "Combat Task"
-							f.texture:SetTexture ("Interface\\PVPFrame\\Icon-Combat")
-							self:ClipFrameZ (f, x, y, 24, 24, 0)
-							f.texture:SetTexCoord (0, 1, 0, 1)
-						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "Pet Task"
-							f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
-							self:ClipFrameZ (f, x, y, 24, 24, 0)
-							f.texture:SetTexCoord (GetObjectIconTextureCoords(4780))
-						else
-						end						
-					end
-				else
-					taskIconIndex = taskIconIndex + 1
-					local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
-					local f = self:GetIcon (3)
-					f.NxTip = "Bonus Task"
-					f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
-					self:ClipFrameZ (f, x, y, 16, 16, 0)
-					f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))
-				end
-			end
-		end
-	end
+	
 	-- POI's (Points of interest)
 
 	local oldLev = self.Level
@@ -7550,6 +7543,10 @@ function Nx.Map:ResetIcons()
 	local data = self.TextFStrs
 	data.Used = data.Next - 1		-- Save last used
 	data.Next = 1
+	
+	local data = self.IconWQFrms
+	data.Used = data.Next - 1		-- Save last used
+	data.Next = 1
 end
 
 ------
@@ -7576,6 +7573,12 @@ function Nx.Map:HideExtraIcons()
 	end
 
 	local data = self.TextFStrs
+
+	for n = data.Next, data.Used do		-- Hide up to last used amount
+		data[n]:Hide()
+	end
+	
+	local data = self.IconWQFrms
 
 	for n = data.Next, data.Used do		-- Hide up to last used amount
 		data[n]:Hide()
@@ -7625,6 +7628,113 @@ function Nx.Map:GetIcon (levelAdd)
 	f.NXData = nil
 	f.NXData2 = nil
 
+	frms.Next = pos + 1
+
+	return f
+end
+
+------
+-- Get next available map icon for WorldQuest or create one
+-- ret: icon frame
+
+function Nx.Map:GetIconWQ (index, levelAdd)
+	
+	local frms = self.IconWQFrms
+	local pos = frms.Next
+
+	if pos > 1500 then
+		pos = 1500	-- Too many used. Reuse
+	end
+
+	local f = frms[pos]
+	if not f then
+
+		f = CreateFrame ("Button", "NxIconWQ"..pos, self.Frm)
+		frms[pos] = f
+		f.NxMap = self
+
+		f:SetScript ("OnMouseDown", self.IconOnMouseDown)
+		f:SetScript ("OnMouseUp", self.IconOnMouseUp)
+		f:SetScript ("OnEnter", self.IconOnEnter)
+		f:SetScript ("OnLeave", self.IconOnLeave)
+		f:SetScript ("OnHide", self.IconOnLeave)
+
+		f:EnableMouse (true)
+
+		local t = f:CreateTexture()
+		f.texture = t
+		t:SetAllPoints (f)
+
+		f:SetFlattensRenderLayers(true);
+		
+		--[[f:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+		f:SetScript("OnEnter", TaskPOI_OnEnter);
+		f:SetScript("OnLeave", TaskPOI_OnLeave);
+		f:SetScript("OnClick", TaskPOI_OnClick);]]--
+
+		f.Texture = f:CreateTexture(f:GetName().."Texture", "BACKGROUND");
+
+		f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND", -2);
+		f.Glow:SetSize(50, 50);
+		f.Glow:SetPoint("CENTER");
+		f.Glow:SetTexture("Interface/WorldMap/UI-QuestPoi-IconGlow.tga");
+		f.Glow:SetBlendMode("ADD");
+
+		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY", 2);
+		f.SelectedGlow:SetBlendMode("ADD");
+
+		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND", -1);
+		f.CriteriaMatchGlow:SetAlpha(.6);
+		f.CriteriaMatchGlow:SetBlendMode("ADD");
+
+		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY", 1);
+		f.SpellTargetGlow:SetAtlas("worldquest-questmarker-abilityhighlight", true);
+		f.SpellTargetGlow:SetAlpha(.6);
+		f.SpellTargetGlow:SetBlendMode("ADD");
+		f.SpellTargetGlow:SetPoint("CENTER", 0, 0);
+
+		f.Underlay = f:CreateTexture(f:GetName().."Underlay", "BACKGROUND");
+		f.Underlay:SetWidth(34);
+		f.Underlay:SetHeight(34);
+		f.Underlay:SetPoint("CENTER", 0, -1);
+
+		f.TimeLowFrame = CreateFrame("Frame", nil, f);
+		f.TimeLowFrame:SetSize(22, 22);
+		f.TimeLowFrame:SetPoint("CENTER", -10, -10);
+		f.TimeLowFrame.Texture = f.TimeLowFrame:CreateTexture(nil, "OVERLAY");
+		f.TimeLowFrame.Texture:SetAllPoints(f.TimeLowFrame);
+		f.TimeLowFrame.Texture:SetAtlas("worldquest-icon-clock");
+		
+		--f:SetNormalTexture(nil)
+		--f:SetPushedTexture(nil)
+		--f:SetHighlightTexture(nil)
+	end
+	
+	f:SetWidth(32);
+	f:SetHeight(32);
+	f.Texture:SetWidth(28);
+	f.Texture:SetHeight(28);
+	f.Texture:SetPoint("CENTER", 0, 0);
+	f.Texture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
+	if f.HighlightTexture then
+		f.HighlightTexture:SetTexture("Interface\\Minimap\\ObjectIconsAtlas");
+	end
+	
+	f:SetScript ("OnMouseDown", self.IconOnMouseDown)
+	f:SetScript ("OnMouseUp", self.IconOnMouseUp)
+	f:SetScript ("OnEnter", self.IconOnEnter)
+	f:SetScript ("OnLeave", self.IconOnLeave)
+	f:SetScript ("OnHide", self.IconOnLeave)
+
+	f:SetFrameLevel (self.Level + (levelAdd or 0))
+	
+	--f.texture:SetVertexColor (1, 1, 1, 1)
+	
+	f.NxTip = nil
+	f.NXType = nil			-- 1000 plyr, 2000 BG, 3000 POI, 8000 debug, 9000+ quest
+	f.NXData = nil
+	f.NXData2 = nil
+	
 	frms.Next = pos + 1
 
 	return f

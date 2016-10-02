@@ -1,7 +1,7 @@
 ## Interface: 60200
 ## Title: Carbonite Weekly 6.2.0
 ## Version: 6.2.0
-## Author: Rythal
+## Author: No One
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
 ## LoadOnDemand: 0

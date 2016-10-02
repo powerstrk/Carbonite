@@ -265,6 +265,7 @@ L["Quest Giver Higher Levels To Show"] = "Hochstufigere Questgeber anzeigen"
 L["Group"] = "Gruppe"
 L["Remove Watch"] = "Verfolgung beenden"
 L["BONUS TASK"] = "BONUSZIELE"
+L["WORLD QUEST"] = "WELTQUESTS"
 L["Progress: "] = "Fortschritt: "
 
 L["Link Quest (shift right click)"] = "Quest verlinken (Shift-Rechtsklick)"
@@ -298,7 +299,7 @@ L["yds"] = "m"
 
 L["Reset old quest options %f"] = "alte Questeinstellungen zur\195\188cksetzen %f"
 L["Set %d chain quests as done"] = "Setze %d vorherige Questfolgen als abgeschlossen"
-L["QuestQueryTimer wait"] = true
+L["QuestQueryTimer wait"] = "QuestQueryTimer warten"
 L["Set %d previous quests as done"] = "Setze %d vorherige Quests als abgeschlossen"
 L["Capture %s %s %s %.2f,%.2f"] = "Erobern %s %s %s %.2f,%.2f"
 L["Capture #%s %s %.2f,%.2f"] = "Erobern #%s %s %.2f,%.2f"
