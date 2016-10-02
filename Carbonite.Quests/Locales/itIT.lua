@@ -266,6 +266,18 @@ L["Remove Watch"] = "Rimuovi Vista"
 L["BONUS TASK"] = "OBIETTIVO BONUS"
 L["WORLD QUEST"] = true
 L["Progress: "] = "Progresso: "
+
+--World Quest Tooltips
+L["h"] = true
+L["m"] = true
+L["\n \n Time Left: "] = true
+L["|cffffd100World Quest (Combat Task):\n"] = true
+L["|cffffd100World Quest (Pet Task):\n"] = true
+L["|cffffd100World Quest:\n"] = true
+L["\n \nReward: Loading..."] = true
+L["\n \nReward: "] = true
+
+
 L["Link Quest (shift right click)"] = "Link Missione (shift + click mouse destro)"
 L["Show Quest Log (alt right click)"] = "Mostra Lista Missioni (alt + click mouse destro)"
 L["Show On Map (shift left click)"] = "Mostra sulla Mappa (shift + click mouse sinistro)"

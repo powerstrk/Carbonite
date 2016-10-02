@@ -7962,7 +7962,7 @@ function Nx.Quest:UpdateIcons (map)
 
 							local color = ""
 							if rewardColor then color = format("|cff%02x%02x%02x", rewardColor.r * 255, rewardColor.g * 255, rewardColor.b * 255) end
-							reward = reward ~= "" and "\n \nReward: " .. color .. reward or nil
+							reward = reward ~= "" and L["\n \nReward: "] .. color .. reward or nil
 
 							WQTable[questId].reward = reward
 						end
@@ -8001,7 +8001,7 @@ function Nx.Quest:UpdateIcons (map)
 								timeString = (timeLeftMinutes >= 60 and (floor(timeLeftMinutes / 60) % 24) or "0")..L["h"]..format("%02d",timeLeftMinutes % 60)..L["m"]
 							end
 						end
-						timeLeftTxt = (color or "")..(timeString and "\n \n"L["Time Left"]": " .. timeString or "")
+						timeLeftTxt = (color or "")..(timeString and L["\n \n Time Left: "] .. timeString or "")
 
 						local x,y = taskInfo[i].x * 100, taskInfo[i].y * 100
 						local f = map:GetIconWQ(i, 120)
@@ -8030,11 +8030,11 @@ function Nx.Quest:UpdateIcons (map)
 						f.texture:Hide()
 
 						if questtype == LE_QUEST_TAG_TYPE_PVP then
-							f.NxTip = "|cffffd100"L["World Quest (Combat Task)"]":\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \n"L["Reward: Loading"]"...") .. timeLeftTxt
+							f.NxTip = L["|cffffd100World Quest (Combat Task):\n"] .. title .. objTxt .. (WQTable[questId].reward or L["\n \nReward: Loading..."]) .. timeLeftTxt
 						elseif questtype == LE_QUEST_TAG_TYPE_PET_BATTLE then
-							f.NxTip = "|cffffd100"L["World Quest (Pet Task)"]":\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \n"L["Reward: Loading"]"...") .. timeLeftTxt
+							f.NxTip = L["|cffffd100World Quest (Pet Task):\n"] .. title .. objTxt .. (WQTable[questId].reward or L["\n \nReward: Loading..."]) .. timeLeftTxt
 						else
-							f.NxTip = "|cffffd100"L["World Quest"]":\n" .. title .. objTxt .. (WQTable[questId].reward or "\n \n"L["Reward: Loading"]"...") .. timeLeftTxt
+							f.NxTip = L["|cffffd100World Quest:\n"] .. title .. objTxt .. (WQTable[questId].reward or L["\n \nReward: Loading..."]) .. timeLeftTxt
 						end
 					end
 				else
@@ -8053,7 +8053,7 @@ function Nx.Quest:UpdateIcons (map)
 						end
 					end
 
-					f.NxTip = "|cffffd100"L["Bonus Task"]":\n" .. title:gsub("Bonus Objective: ", "") .. objTxt
+					f.NxTip = "|cffffd100Bonus Task:\n" .. title:gsub("Bonus Objective: ", "") .. objTxt
 					f.texture:SetTexture ("Interface\\Minimap\\ObjectIconsAtlas")
 					map:ClipFrameZ (f, x, y, 16, 16, 0)
 					f.texture:SetTexCoord (GetObjectIconTextureCoords(4734))
