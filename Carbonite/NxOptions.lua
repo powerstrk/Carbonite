@@ -4212,7 +4212,7 @@ function Nx:SetupConfig()
 	Nx:AddToConfig("Maps",mapConfig(),L["Maps"])
 	Nx:AddToConfig("Menus",menuConfig(),L["Menus"])
 	Nx:AddToConfig("Privacy",commConfig(),L["Privacy"])
-	Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
+	--Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
 	Nx:AddToConfig("Skin",skinConfig(),L["Skin"])
 	Nx:AddToConfig("Tracking HUD",trackConfig(),L["Tracking HUD"])
 end
