@@ -7996,7 +7996,7 @@ function Nx.Quest:UpdateIcons (map)
 							if timeLeftMinutes >= 14400 then
 								timeString = ""		--A lot, 10+ days
 							elseif timeLeftMinutes >= 1440 then
-								timeString = format("%dd%02dh%02dm",floor(timeLeftMinutes / 1440),floor(timeLeftMinutes / 60) % 24, timeLeftMinutes % 60)
+								timeString = format(L["%dd%02dh%02dm"],floor(timeLeftMinutes / 1440),floor(timeLeftMinutes / 60) % 24, timeLeftMinutes % 60)
 							else
 								timeString = (timeLeftMinutes >= 60 and (floor(timeLeftMinutes / 60) % 24) or "0")..L["h"]..format("%02d",timeLeftMinutes % 60)..L["m"]
 							end
