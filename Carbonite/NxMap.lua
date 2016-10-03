@@ -3028,6 +3028,38 @@ function ToggleFrame (frame)
 end
 
 -------
+-- BOUNTY MAP
+-------
+
+function Nx.Map:HijackBlizzBountyMap()
+	local map = self:GetMap (1)
+
+	WorldMap_HijackTooltip(map.Frm)
+	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+	bountyBoard:SetParent(map.Frm)
+	bountyBoard:SetFrameLevel(140)
+	bountyBoard:SetMapAreaID(1007)
+	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
+	if bountyBoardLocation then
+		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
+	end
+	bountyBoard:Show()
+end
+
+function Nx.Map:RestoreBlizzBountyMap()
+	WorldMap_RestoreTooltip()
+	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
+	bountyBoard:SetFrameLevel(10)
+	bountyBoard:SetMapAreaID(1007)
+	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
+	if bountyBoardLocation then
+		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
+	end
+	bountyBoard:Show()
+end
+
+-------
 -- Blizz map toggle
 
 function Nx.Map:BlizzToggleWorldMap()
@@ -3035,15 +3067,7 @@ function Nx.Map:BlizzToggleWorldMap()
 	if WorldMapFrame:IsShown() then
 		HideUIPanel (WorldMapFrame)
 	else
-		local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
-		bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
-		bountyBoard:SetFrameLevel(10)
-		bountyBoard:SetMapAreaID(1007)
-		local bountyBoardLocation = bountyBoard:GetDisplayLocation()
-		if bountyBoardLocation then
-			WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
-		end
-		bountyBoard:Show()
+		Nx.Map:RestoreBlizzBountyMap()
 	
 		local map = self:GetMap (1)
 		map:DetachWorldMap()
@@ -3098,15 +3122,7 @@ function Nx.Map:ToggleSize (szmode)
 		return
 	end
 	
-	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
-	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
-	bountyBoard:SetFrameLevel(10)
-	bountyBoard:SetMapAreaID(1007)
-	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
-	if bountyBoardLocation then
-		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
-	end
-	bountyBoard:Show()
+	Nx.Map:RestoreBlizzBountyMap()
 
 	local map = self:GetMap (1)
 	local win = map.Win
@@ -3145,15 +3161,7 @@ function Nx.Map:ToggleSize (szmode)
 		WorldMapPlayerUpper:SetAlpha(0)
 		map:MaxSize()
 		
-		local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
-		bountyBoard:SetParent(map.Frm)
-		bountyBoard:SetFrameLevel(140)
-		bountyBoard:SetMapAreaID(1007)
-		local bountyBoardLocation = bountyBoard:GetDisplayLocation()
-		if bountyBoardLocation then
-			WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
-		end
-		bountyBoard:Show()
+		Nx.Map:HijackBlizzBountyMap()
 	else
 		MapBarFrame:SetParent("WorldMapFrame")
 		WorldMapPlayerLower:SetAlpha(1)
@@ -7635,7 +7643,7 @@ end
 -- Get next available map icon for WorldQuest or create one
 -- ret: icon frame
 
-function Nx.Map:GetIconWQ (index, levelAdd)
+function Nx.Map:GetIconWQ (levelAdd)
 	
 	local frms = self.IconWQFrms
 	local pos = frms.Next
@@ -7650,12 +7658,6 @@ function Nx.Map:GetIconWQ (index, levelAdd)
 		f = CreateFrame ("Button", "NxIconWQ"..pos, self.Frm)
 		frms[pos] = f
 		f.NxMap = self
-
-		f:SetScript ("OnMouseDown", self.IconOnMouseDown)
-		f:SetScript ("OnMouseUp", self.IconOnMouseUp)
-		f:SetScript ("OnEnter", self.IconOnEnter)
-		f:SetScript ("OnLeave", self.IconOnLeave)
-		f:SetScript ("OnHide", self.IconOnLeave)
 
 		f:EnableMouse (true)
 
@@ -7720,8 +7722,8 @@ function Nx.Map:GetIconWQ (index, levelAdd)
 	
 	f:SetScript ("OnMouseDown", self.IconOnMouseDown)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)
-	f:SetScript ("OnEnter", self.IconOnEnter)
-	f:SetScript ("OnLeave", self.IconOnLeave)
+	f:SetScript ("OnEnter", TaskPOI_OnEnter)
+	f:SetScript ("OnLeave", TaskPOI_OnLeave)
 	f:SetScript ("OnHide", self.IconOnLeave)
 
 	f:SetFrameLevel (self.Level + (levelAdd or 0))
