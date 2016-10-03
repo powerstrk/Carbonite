@@ -264,6 +264,7 @@ L["WORLD QUEST"] = true
 L["Progress: "] = true
 
 --World Quest Tooltips
+L["%dd%02dh%02dm"] = true -- format %d placeholder d=Days, %02d Placeholder h=hour, %02d Placeholder m=minutes
 L["h"] = true
 L["m"] = true
 L["\n \n Time Left: "] = true

@@ -267,7 +267,8 @@ L["BONUS TASK"] = "奖励目标"
 L["WORLD QUEST"] = true
 L["Progress: "] = "进度："
 
---World Quest Tooltips
+--World Quest Tooltips Please copy colorcodes and lua codes
+L["%dd%02dh%02dm"] = true -- format %d placeholder d=Days, %02d Placeholder h=hour, %02d Placeholder m=minutes
 L["h"] = true
 L["m"] = true
 L["\n \n Time Left: "] = true

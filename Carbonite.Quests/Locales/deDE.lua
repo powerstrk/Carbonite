@@ -271,6 +271,7 @@ L["Progress: "] = "Fortschritt: "
 --World Quest Tooltips
 L["h"] = " Std "
 L["m"] = " Min "
+L["%dd%02dh%02dm"] = "%d Tage %02d Std %02d Min" -- format %d placeholder d=Days, %02d Placeholder h=hour, %02d Placeholder m=minutes
 L["\n \n Time Left: "] = "\n \n Verbleibende Zeit: "
 L["|cffffd100World Quest (Combat Task):\n"] ="|cffffd100Welt Quest (PVP):\n"
 L["|cffffd100World Quest (Pet Task):\n"] = "|cffffd100Welt Quest (Haustier):\n"
