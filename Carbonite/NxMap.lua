@@ -6400,9 +6400,7 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 
 				if self:ClipFrameTL (f, wx, wy, txFileW * zscale, txFileH * zscale) then
 
---					if IsShiftKeyDown() then
---						f.texture:SetColorTexture (1, 0, 0)
---					end
+					f.texture:SetColorTexture (1, 0, 0, 0) -- fix for background green overlays
 --[[
 					if IsAltKeyDown() then		-- DEBUG!
 						alpha = .2
