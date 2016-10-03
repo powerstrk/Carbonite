@@ -444,7 +444,7 @@ local FLIGHT_DATA = {
     ["0,1018,55.0,72.4"]=L["Lorlathil, Val'sharah"],
     ["0,1018,69.0,50.8"]=L["Starsong Refuge, Val'sharah"],
     --Broken Shore
-    ["0,1031,49.6,21.0"]=L["Illidari Camp, Broken Shore"],
+    ["0,1021,49.6,21.0"]=L["Illidari Camp, Broken Shore"],
     --Highmountain
     ["0,1024,41.8,10.4"]=L["Shipwreck Cove, Highmountain"],
     ["0,1024,58.0,28.6"]=L["Prepfoot, Highmountain"],
