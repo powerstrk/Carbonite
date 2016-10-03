@@ -456,7 +456,7 @@ local FLIGHT_DATA = {
     ["0,1024,40.2,52.6"]=L["Nesingwary, Highmountain"],
     ["0,1024,38.2,39.2"]=L["The Witchwood, Highmountain"],
     ["0,1024,30.0,39.4"]=L["Felbane Camp, Highmountain"],
-    ["0,1080,46.8,59.5"]=L["Thunder Totem, Highmountain"],
+    ["0,1080,45.0,38.8"]=L["Thunder Totem, Highmountain"],
     --Suramar
     ["0,1033,64.2,42.0"]=L["Crimson Ticket, Suramar"],
     ["0,1033,34.2,49.4"]=L["Meredil, Suramar"],

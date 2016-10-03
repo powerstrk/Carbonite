@@ -268,6 +268,16 @@ L["BONUS TASK"] = "BONUSZIELE"
 L["WORLD QUEST"] = "WELTQUESTS"
 L["Progress: "] = "Fortschritt: "
 
+--World Quest Tooltips
+L["h"] = " Std "
+L["m"] = " Min "
+L["\n \n Time Left: "] = "\n \n Verbleibende Zeit: "
+L["|cffffd100World Quest (Combat Task):\n"] ="|cffffd100Welt Quest (PVP):\n"
+L["|cffffd100World Quest (Pet Task):\n"] = "|cffffd100Welt Quest (Haustier):\n"
+L["|cffffd100World Quest:\n"] = "|cffffd100Welt Quest:\n"
+L["\n \nReward: Loading..."]= "\n \nBelohnung: wird geladen..."
+L["\n \nReward: "]="\n \nBelohnung: "
+
 L["Link Quest (shift right click)"] = "Quest verlinken (Shift-Rechtsklick)"
 L["Show Quest Log (alt right click)"] = "Quest-Log zeigen (Alt-Rechtsklick)"
 L["Show On Map (shift left click)"] = "Kartenansicht (Shift-Linksklick)"
