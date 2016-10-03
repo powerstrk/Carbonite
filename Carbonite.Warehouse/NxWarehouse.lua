@@ -1153,7 +1153,7 @@ function Nx.Warehouse:Init()
 		["Warrior"] = "INV_Sword_27",
 		["Death Knight"] = "Spell_Deathknight_ClassIcon",
 		["Monk"] = "class_monk",
-		["Demon Hunter"] = "class_demonhunter",		
+		["Demonhunter"] = "INV_Glaive_1h_npc_d_01",		
 	}
 
 	self.InvNames = {
@@ -3454,52 +3454,39 @@ function Nx.Warehouse:RecordProfession()
 
 --	Nx.prt ("Rec #skills %s", GetNumTradeSkills())
 
-	local linked = IsTradeSkillLinked()
+	local linked = C_TradeSkillUI.IsTradeSkillLinked()
 	if linked then
 --		Nx.prt (" Linked, skip")
 		return
 	end
 
-	local cnt = GetNumTradeSkills()
-
-	if cnt == 0 then		-- Not a proper update?
+	local recipies = C_TradeSkillUI.GetAllRecipeIDs()
+	
+	if recipies and #recipies == 0 then	
 		return
 	end
-
+	
 	local ch = Nx.Warehouse.CurCharacter
 
-	local title = GetTradeSkillLine()
---	Nx.prt ("Trade %s", title)
-
+	local _,title = C_TradeSkillUI.GetTradeSkillLine()	
+	
 	local profT = ch["Profs"][title]
 	if not profT then
 		return
 	end
 
-	local link = GetTradeSkillListLink()
+	local link = C_TradeSkillUI.GetTradeSkillListLink()
 	if link then
 		profT["Link"] = link
 	end
-
-	for n = 1, cnt do
-
-		local name, typ, available, isExpanded = GetTradeSkillInfo (n)
-		if typ ~= "header" then
-
-			local link = GetTradeSkillRecipeLink (n)	-- Alchemy research causes nil?
-			local rId = link and strmatch (link, L["enchant:(%d+)"])
-
-			local link = GetTradeSkillItemLink (n)
-			local itemId = link and strmatch (link, L["item:(%d+)"]) or 0
-
-			if rId then
-				profT[tonumber (rId)] = tonumber (itemId)
---			else
---				Nx.prt ("  %s", gsub (link, "|", "||"))
-			end
-
---			Nx.prt ("#%s %s %s", n, name, link)
-		end
+	
+	local recipiesInfo = {}
+	for n = 1, #recipies do
+		C_TradeSkillUI.GetRecipeInfo(recipies[n], recipiesInfo)
+		local rId = recipiesInfo.recipeID
+		local link = C_TradeSkillUI.GetRecipeItemLink (rId)
+		local itemId = link and strmatch (link, L["item:(%d+)"]) or 0					
+		profT[tonumber (rId)] = tonumber (itemId)		
 	end
 end
 
