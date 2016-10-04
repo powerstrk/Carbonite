@@ -5350,6 +5350,7 @@ function Nx.Quest.List:Open()
 --  win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
 	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
+	win:RegisterEvent ("WORLD_QUEST_COMPLETED_BY_SPELL", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
@@ -6608,7 +6609,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			self:Refresh(event)
 		end
 
-	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" then
+	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" or event == "WORLD_QUEST_COMPLETED_BY_SPELL" then
 
 --		Nx.prtStack ("QUpdate")
 --		Nx.prt ("#%d", GetNumQuestLogEntries())
