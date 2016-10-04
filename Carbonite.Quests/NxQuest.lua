@@ -6557,6 +6557,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if Nx.Quest.OldMap ~= oldmap then
 			Nx.Quest.OldMap = oldmap
 			Nx.Quest:MapChanged()
+			
+			self:Refresh()
 		end
 	elseif event == "QUEST_PROGRESS" then
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
