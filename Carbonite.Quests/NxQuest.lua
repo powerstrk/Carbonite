@@ -3910,12 +3910,14 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
 			if qi and qi > 0 then
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
+				local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
 				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
+				Nx.prt(title)
+				if worldQuestType == nil and (patch > 0 or needEnd or (not isComplete and not quest["Objectives"])) then
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
 					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
 						x = x * 100
@@ -9098,10 +9100,10 @@ function Nx.Quest.Watch:UpdateList()
 							if inArea then
 								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
 								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
-								local tast_title = L["BONUS TASK"]
-								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
+								local task_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then task_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. task_title .. " |cffff00ff]----")
 								list:ItemAdd(0)
 								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
 								--local _,x,y = QuestPOIGetIconInfo(questId)
@@ -9141,10 +9143,10 @@ function Nx.Quest.Watch:UpdateList()
 							if isTask and tasks[questId] ~= true then
 								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
 								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
-								local tast_title = L["BONUS TASK"]
-								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
+								local task_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then task_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. task_title .. " |cffff00ff]----")
 								list:ItemAdd(0)
 								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
 								local _,_, numObjectives = GetTaskInfo(questId)
