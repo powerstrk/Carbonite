@@ -2777,7 +2777,7 @@ function Nx.Quest:Init()
 		["Bloodberry Bush"] = "Bloodberries",
 		["Erratic Sentry"] = "Erratic Sentries",
 	}
-	self.QInit = true
+	
 	hooksecurefunc ("ShowUIPanel", CarboniteQuest.ShowUIPanel)
 	hooksecurefunc ("HideUIPanel", CarboniteQuest.HideUIPanel)
 	Nx.Quest.OldWindow = ToggleQuestLog
@@ -2803,7 +2803,7 @@ function Nx.Quest:Init()
 			end
 		end
 	end
-	Nx.QInit = true
+	
 end
 
 function CarboniteQuest.ShowUIPanel(frame)
@@ -2822,9 +2822,9 @@ function CarboniteQuest.HideUIPanel (frame)
 	end
 end
 
-function Nx.Quest:SortQuestDB(questTotal)
+function Nx.Quest:ProcessQuestDB(questTotal)
 	if InCombatLockdown() then
-		C_Timer.After(5, function() Nx.Quest:SortQuestDB(questTotal) end)
+		C_Timer.After(5, function() Nx.Quest:ProcessQuestDB(questTotal) end)
 		return
 	end
 	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
@@ -2836,12 +2836,12 @@ function Nx.Quest:SortQuestDB(questTotal)
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
 				--Nx.prt(mungeId)
-				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
+				Nx.Quests[mungeId] = nil
 			end
 		else
 			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
 			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
+				Nx.Quests[mungeId] = nil
 			else
 				--[[if q["End"] and q["End"] == q["Start"] then
 				no enders
@@ -2932,6 +2932,8 @@ function Nx.Quest:SortQuestDB(questTotal)
 	end
 	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffff" .. questTotal .. " Quests Loaded")
 	Nx.Quest:RecordQuestsLog()
+	--Nx.Quest.Watch:Update()
+	Nx.QInit = true
 end
 
 function Nx.Quest:LoadQuestDB()
@@ -3052,7 +3054,7 @@ function Nx.Quest:LoadQuestDB()
 		if (Nx.Initialized == true and numQLoad == 0) or self._remainingIterations == 0 then
 			self:Cancel()
 			Nx.ModQuests = {} -- Destroing unused table to free memory as we never use it again
-			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
+			C_Timer.After(1, function() Nx.Quest:ProcessQuestDB(questTotal) end)
 			return
 		end
 		--Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffLoading Quest Data... (%d%%)", ( math.floor(qStep * (maxQLoad - numQLoad)) ))
@@ -5180,7 +5182,7 @@ function	Nx.Quest:TooltipProcess (stripColor)
 	Nx.TooltipLastDiffNumLines = GameTooltip:NumLines()	-- Stop multiple checks
 end
 
-function	Nx.Quest:TooltipProcess2 (stripColor, tipStr)
+function Nx.Quest:TooltipProcess2 (stripColor, tipStr)
 	if not Nx.QInit then
 		return
 	end
