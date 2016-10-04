@@ -267,17 +267,6 @@ L["BONUS TASK"] = true
 L["WORLD QUEST"] = true
 L["Progress: "] = true
 
---World Quest Tooltips
-L["%dd%02dh%02dm"] = true -- format %d placeholder d=Days, %02d Placeholder h=hour, %02d Placeholder m=minutes
-L["h"] = true
-L["m"] = true
-L["\n \n Time Left: "] = true
-L["|cffffd100World Quest (Combat Task):\n"] = true
-L["|cffffd100World Quest (Pet Task):\n"] = true
-L["|cffffd100World Quest:\n"] = true
-L["\n \nReward: Loading..."] = true
-L["\n \nReward: "] = true
-
 L["Link Quest (shift right click)"] = true
 L["Show Quest Log (alt right click)"] = true
 L["Show On Map (shift left click)"] = true

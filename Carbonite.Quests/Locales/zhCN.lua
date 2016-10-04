@@ -267,17 +267,6 @@ L["BONUS TASK"] = "奖励目标"
 L["WORLD QUEST"] = true
 L["Progress: "] = "进度："
 
---World Quest Tooltips Please copy colorcodes and lua codes
-L["%dd%02dh%02dm"] = true -- format %d placeholder d=Days, %02d Placeholder h=hour, %02d Placeholder m=minutes
-L["h"] = true
-L["m"] = true
-L["\n \n Time Left: "] = true
-L["|cffffd100World Quest (Combat Task):\n"] = true
-L["|cffffd100World Quest (Pet Task):\n"] = true
-L["|cffffd100World Quest:\n"] = true
-L["\n \nReward: Loading..."] = true
-L["\n \nReward: "] = true
-
 L["Link Quest (shift right click)"] = "任务链接 (Shift-右键)"
 L["Show Quest Log (alt right click)"] = "显示任务日志 (Alt-右键)"
 L["Show On Map (shift left click)"] = "在地图上显示 (Shift-左键)"
