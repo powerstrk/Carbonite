@@ -5706,6 +5706,7 @@ function Nx.Quest:ShowUIPanel (frame)
 		end
 		self:LightHeadedAttach (frame)
 	else
+		Nx.Quest.List:Refresh()
 		self.IsOpen = true
 		local win = self.List.Win
 		if win and not GameMenuFrame:IsShown() then
@@ -6558,7 +6559,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			Nx.Quest.OldMap = oldmap
 			Nx.Quest:MapChanged()
 			
-			self:Refresh()
+--			self:Refresh() --killed this, makes load time really long
 		end
 	elseif event == "QUEST_PROGRESS" then
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
