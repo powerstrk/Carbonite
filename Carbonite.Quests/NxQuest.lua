@@ -8466,7 +8466,7 @@ function Nx.Quest.Watch:Open()
 
 	local win = Nx.Window:Create ("NxQuestWatch", nil, nil, nil, 1, border)
 	self.Win = win
-
+	
 	win:InitLayoutData (nil, -.80, -.35, -.2, -.1)
 
 	win:CreateButtons (Nx.qdb.profile.QuestWatch.ShowClose, nil, true)
@@ -8482,6 +8482,7 @@ function Nx.Quest.Watch:Open()
 		xo = 7
 		yo = 3
 		win:SetBorderSize (0, 7)
+		win.Sizeable = false
 	end
 
 	win:SetTitleXOff (84 + xo, -1 - yo)
