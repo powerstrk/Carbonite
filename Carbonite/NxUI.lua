@@ -2807,6 +2807,7 @@ end
 
 function Nx.Window:OnMinBut (but, id, click)
 	self:SetMinimize (but:GetPressed())
+	self.SaveData["Minimized"] = but:GetPressed()
 end
 
 function Nx.Window:ToggleMinimize()

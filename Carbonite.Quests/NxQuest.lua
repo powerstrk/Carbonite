@@ -8471,6 +8471,8 @@ function Nx.Quest.Watch:Open()
 
 	win:CreateButtons (Nx.qdb.profile.QuestWatch.ShowClose, nil, true)
 
+	win:SetMinimize (win.SaveData["Minimized"])
+	
 	win:SetUser (self, self.OnWin)
 	win:SetBGAlpha (0, 1)
 	win.Frm:SetClampedToScreen (true)
