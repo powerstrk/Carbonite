@@ -4564,7 +4564,7 @@ function Nx.Quest:TellPartyOfChanges()
 
 	for _, cur in ipairs (curq) do
 
-		if cur.QI > 0 then
+		if cur.QI > 0 and not QuestMapFrame_IsQuestWorldQuest (cur.QI) then
 
 			for n = 1, cur.LBCnt do
 
