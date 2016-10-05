@@ -7727,7 +7727,7 @@ function Nx.Map:GetIconWQ (levelAdd)
 	f:SetScript ("OnEnter", function (self) 
 		TaskPOI_OnEnter(self) 
 		WorldMapTooltip:SetFrameStrata("TOOLTIP");
-		WorldMapTooltip:SetClampedToScreen(false)
+		--WorldMapTooltip:SetClampedToScreen(false)
 		WorldMapTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
 	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
