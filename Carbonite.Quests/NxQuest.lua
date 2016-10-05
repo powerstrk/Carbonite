@@ -8470,8 +8470,6 @@ function Nx.Quest.Watch:Open()
 	win:InitLayoutData (nil, -.80, -.35, -.2, -.1)
 
 	win:CreateButtons (Nx.qdb.profile.QuestWatch.ShowClose, nil, true)
-
-	win:SetMinimize (win.SaveData["Minimized"])
 	
 	win:SetUser (self, self.OnWin)
 	win:SetBGAlpha (0, 1)
@@ -8660,6 +8658,11 @@ function Nx.Quest.Watch:Open()
 	--
 
 	self:SetSortMode (1)
+	
+	win:SetMinimize (win.SaveData["Minimized"])
+	if Nx.qdb.profile.QuestWatch.HideBlizz then
+		ObjectiveTrackerFrame:Hide()		-- Hide Blizzard's
+	end
 end
 
 -------------------------------------------------------------------------------
