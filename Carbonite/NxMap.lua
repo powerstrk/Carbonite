@@ -561,7 +561,7 @@ function Nx.Map:Create (index)
 
 	local win = Nx.Window:Create (wname, nil, nil, nil, i)
 	m.Win = win
-
+	
 	win:SetBGAlpha (0, 1)
 
 	win:CreateButtons (true)
@@ -587,14 +587,16 @@ function Nx.Map:Create (index)
 	win.Frm.NxMap = m
 
 	m.StartupShown = win:IsShown()
-	win.Frm:Show()
-
+	win.Frm:Show()	
+	
 	-- Create main frame
 
 	local f = CreateFrame ("Frame", nil, UIParent)
 	m.Frm = f
 	f.NxMap = m
-
+	
+	WorldMap_HijackTooltip(m.Frm)
+	
 	win:Attach (f, 0, 1, 0, 1)
 
 --	win:RegisterEvent ("PLAYER_LOGIN", self.OnEvent)
@@ -3046,8 +3048,8 @@ function Nx.Map:HijackBlizzBountyMap()
 	bountyBoard:Show()
 end
 
-function Nx.Map:RestoreBlizzBountyMap()
-	WorldMap_RestoreTooltip()
+function Nx.Map:RestoreBlizzBountyMap(tooltip)
+	if tooltip ~= false then WorldMap_RestoreTooltip() end
 	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
 	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
 	bountyBoard:SetFrameLevel(10)
@@ -3122,7 +3124,7 @@ function Nx.Map:ToggleSize (szmode)
 		return
 	end
 	
-	Nx.Map:RestoreBlizzBountyMap()
+	Nx.Map:RestoreBlizzBountyMap(false)
 
 	local map = self:GetMap (1)
 	local win = map.Win
@@ -3150,7 +3152,7 @@ function Nx.Map:ToggleSize (szmode)
 
 			map:MaxSize()
 		end
-
+		Nx.Map:HijackBlizzBountyMap()
 	elseif szmode then
 		win:Show (false)
 
@@ -7722,7 +7724,12 @@ function Nx.Map:GetIconWQ (levelAdd)
 	
 	f:SetScript ("OnMouseDown", self.IconOnMouseDown)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)
-	f:SetScript ("OnEnter", TaskPOI_OnEnter)
+	f:SetScript ("OnEnter", function (self) 
+		TaskPOI_OnEnter(self) 
+		WorldMapTooltip:SetFrameStrata("TOOLTIP");
+		WorldMapTooltip:SetClampedToScreen(false)
+		WorldMapTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
+	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
 	f:SetScript ("OnHide", self.IconOnLeave)
 
