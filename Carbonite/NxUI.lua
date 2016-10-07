@@ -1845,11 +1845,11 @@ function Nx.Window:Adjust (skipChildren)
 		local x, y
 
 		for n = 1, #self.ChildFrms do
-
+			
 			local child = self.ChildFrms[n]
 			local cf = child.Frm
 			
-			if cf then			
+			if cf and not cf:IsProtected() then			
 				x = child.PosX1
 				if x < 0 then
 					x = w + x	-- Offset from right edge
