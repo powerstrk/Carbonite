@@ -2777,7 +2777,7 @@ function Nx.Quest:Init()
 		["Bloodberry Bush"] = "Bloodberries",
 		["Erratic Sentry"] = "Erratic Sentries",
 	}
-	self.QInit = true
+	
 	hooksecurefunc ("ShowUIPanel", CarboniteQuest.ShowUIPanel)
 	hooksecurefunc ("HideUIPanel", CarboniteQuest.HideUIPanel)
 	Nx.Quest.OldWindow = ToggleQuestLog
@@ -2803,7 +2803,7 @@ function Nx.Quest:Init()
 			end
 		end
 	end
-	Nx.QInit = true
+	
 end
 
 function CarboniteQuest.ShowUIPanel(frame)
@@ -2822,9 +2822,9 @@ function CarboniteQuest.HideUIPanel (frame)
 	end
 end
 
-function Nx.Quest:SortQuestDB(questTotal)
+function Nx.Quest:ProcessQuestDB(questTotal)
 	if InCombatLockdown() then
-		C_Timer.After(5, function() Nx.Quest:SortQuestDB(questTotal) end)
+		C_Timer.After(5, function() Nx.Quest:ProcessQuestDB(questTotal) end)
 		return
 	end
 	local maxLoadLevel = Nx.qdb.profile.Quest.maxLoadLevel
@@ -2836,12 +2836,12 @@ function Nx.Quest:SortQuestDB(questTotal)
 		if mungeId < 0 then
 			if Nx.Quests[abs(mungeId)] then
 				--Nx.prt(mungeId)
-				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
+				Nx.Quests[mungeId] = nil
 			end
 		else
 			local name, side, level, minlevel, qnext = self:Unpack (q["Quest"])
 			if side == enFact or level > 0 and (maxLoadLevel and level < qLoadLevel) or level > qMaxLevel then
-				tremove(Nx.Quests, mungeId) --Nx.Quests[mungeId] = nil <= this throws errors NILing doesnt remove this from table
+				Nx.Quests[mungeId] = nil
 			else
 				--[[if q["End"] and q["End"] == q["Start"] then
 				no enders
@@ -2932,6 +2932,8 @@ function Nx.Quest:SortQuestDB(questTotal)
 	end
 	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffff" .. questTotal .. " Quests Loaded")
 	Nx.Quest:RecordQuestsLog()
+	--Nx.Quest.Watch:Update()
+	Nx.QInit = true
 end
 
 function Nx.Quest:LoadQuestDB()
@@ -3052,7 +3054,7 @@ function Nx.Quest:LoadQuestDB()
 		if (Nx.Initialized == true and numQLoad == 0) or self._remainingIterations == 0 then
 			self:Cancel()
 			Nx.ModQuests = {} -- Destroing unused table to free memory as we never use it again
-			C_Timer.After(1, function() Nx.Quest:SortQuestDB(questTotal) end)
+			C_Timer.After(1, function() Nx.Quest:ProcessQuestDB(questTotal) end)
 			return
 		end
 		--Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffffLoading Quest Data... (%d%%)", ( math.floor(qStep * (maxQLoad - numQLoad)) ))
@@ -3910,12 +3912,14 @@ function Nx.Quest:ScanBlizzQuestDataZone()
 			local id, qi = QuestPOIGetQuestIDByVisibleIndex (n)
 			if qi and qi > 0 then
 				local title, level, groupCnt, isHeader, isCollapsed, isComplete, _, questID = GetQuestLogTitle (qi)
+				local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(qi)
 				local lbCnt = GetNumQuestLeaderBoards (qi)
 				local quest = Nx.Quests[id] or {}
 				local patch = Nx.Quests[-id] or 0
 				local needEnd = isComplete and not quest["End"]
 				local fac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-				if patch > 0 or needEnd or (not isComplete and not quest["Objectives"]) then
+
+				if worldQuestType == nil and (patch > 0 or needEnd or (not isComplete and not quest["Objectives"])) then
 					local _, x, y, objective = QuestPOIGetIconInfo (id)
 					if x then	-- Miner's Fortune was found in org, but x, y, obj were nil
 						x = x * 100
@@ -4560,7 +4564,7 @@ function Nx.Quest:TellPartyOfChanges()
 
 	for _, cur in ipairs (curq) do
 
-		if cur.QI > 0 then
+		if cur.QI > 0 and not QuestMapFrame_IsQuestWorldQuest (cur.QI) then
 
 			for n = 1, cur.LBCnt do
 
@@ -4823,27 +4827,42 @@ function Nx.Quest:Abandon (qIndex, qId)
 
 		if not isHeader then
 
---			Nx.prt ("Abandon %s %s", qIndex, title)
-
-			SelectQuestLogEntry (qIndex)
+--			Nx.prt ("Abandon %s %s", qIndex, title)		
 --			QuestLog_SetSelection (qIndex)
-
-			SetAbandonQuest()
+			
+			local text = format(ABANDON_QUEST_CONFIRM, title);
 			local items = GetAbandonQuestItems()
 			if items then
-				StaticPopup_Hide ("ABANDON_QUEST")
-				StaticPopup_Show ("ABANDON_QUEST_WITH_ITEMS", GetAbandonQuestName(), items)
-			else
-				StaticPopup_Hide ("ABANDON_QUEST_WITH_ITEMS")
-				StaticPopup_Show ("ABANDON_QUEST", GetAbandonQuestName())
+				text = format(ABANDON_QUEST_CONFIRM_WITH_ITEMS, title, items);
 			end
+			
+			Nx:ShowMessage (
+				text,
+				YES,
+				function(self)
+					SelectQuestLogEntry (qIndex)				
+					SetAbandonQuest()
+					
+					-- native blizz
+					AbandonQuest();
+					if ( QuestLogPopupDetailFrame:IsShown() ) then
+						HideUIPanel(QuestLogPopupDetailFrame);
+					end
+					PlaySound("igQuestLogAbandonQuest");
+					
+					-- carb
+					if qId > 0 then
+						--Nx.Quest.CurQ[qIndex] = nil
+						Nx.Quest:NullQuest (qId)
+					end
+				end,
+				NO,
+				function(self)
+				end
+			)
 		end
 
 		self:RestoreExpandQuests()
-
-		if qId > 0 then
-			Nx.Quest:NullQuest (qId)
-		end
 
 	else
 		if qId > 0 then
@@ -5178,7 +5197,7 @@ function	Nx.Quest:TooltipProcess (stripColor)
 	Nx.TooltipLastDiffNumLines = GameTooltip:NumLines()	-- Stop multiple checks
 end
 
-function	Nx.Quest:TooltipProcess2 (stripColor, tipStr)
+function Nx.Quest:TooltipProcess2 (stripColor, tipStr)
 	if not Nx.QInit then
 		return
 	end
@@ -5346,9 +5365,11 @@ function Nx.Quest.List:Open()
 --  win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
 	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
 	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
+	win:RegisterEvent ("WORLD_QUEST_COMPLETED_BY_SPELL", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
@@ -5701,6 +5722,7 @@ function Nx.Quest:ShowUIPanel (frame)
 		end
 		self:LightHeadedAttach (frame)
 	else
+		Nx.Quest.List:Refresh()
 		self.IsOpen = true
 		local win = self.List.Win
 		if win and not GameMenuFrame:IsShown() then
@@ -6539,7 +6561,7 @@ function Nx.Quest.List:Refresh()
 end
 
 function Nx.Quest.List:OnQuestUpdate (event, ...)
---		Nx.prt ("OnQuestUpdate %s", event)
+	--if event ~= "WORLD_MAP_UPDATE" then Nx.prt ("OnQuestUpdate %s", event) end
 	local Quest = Nx.Quest
 	local arg1, arg2, arg3 = select (1, ...)
 
@@ -6552,6 +6574,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		if Nx.Quest.OldMap ~= oldmap then
 			Nx.Quest.OldMap = oldmap
 			Nx.Quest:MapChanged()
+			
+--			self:Refresh() --killed this, makes load time really long
 		end
 	elseif event == "QUEST_PROGRESS" then
 		local auto = Nx.qdb.profile.Quest.AutoTurnIn
@@ -6604,7 +6628,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			self:Refresh(event)
 		end
 
-	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" then
+	elseif event == "QUEST_LOG_UPDATE" or event == "UNIT_QUEST_LOG_CHANGED" or event == "WORLD_QUEST_COMPLETED_BY_SPELL" then
 
 --		Nx.prtStack ("QUpdate")
 --		Nx.prt ("#%d", GetNumQuestLogEntries())
@@ -6615,6 +6639,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		else
 			self:Refresh(event)
 		end
+	elseif event == "QUEST_REMOVED" then
+		if self.Win:IsShown() then self:LogUpdate() end
 	else
 		Nx.Quest.Watch:Update()
 	end
@@ -6713,7 +6739,7 @@ function Nx.Quest.List:Update()
 
 	local list = self.List
 	list:Empty()
-
+	
 	if self.TabSelected == 1 then
 
 		local oldSel = GetQuestLogSelection()
@@ -6729,7 +6755,7 @@ function Nx.Quest.List:Update()
 
 			local title, level, tag, isComplete = cur.Title, cur.Level, cur.Tag, cur.Complete
 			local qn = cur.QI
-
+			
 			if qn > 0 then
 				SelectQuestLogEntry (qn)
 			end
@@ -8458,11 +8484,11 @@ function Nx.Quest.Watch:Open()
 
 	local win = Nx.Window:Create ("NxQuestWatch", nil, nil, nil, 1, border)
 	self.Win = win
-
+	
 	win:InitLayoutData (nil, -.80, -.35, -.2, -.1)
 
 	win:CreateButtons (Nx.qdb.profile.QuestWatch.ShowClose, nil, true)
-
+	
 	win:SetUser (self, self.OnWin)
 	win:SetBGAlpha (0, 1)
 	win.Frm:SetClampedToScreen (true)
@@ -8474,6 +8500,7 @@ function Nx.Quest.Watch:Open()
 		xo = 7
 		yo = 3
 		win:SetBorderSize (0, 7)
+		win.Sizeable = false
 	end
 
 	win:SetTitleXOff (84 + xo, -1 - yo)
@@ -8649,6 +8676,11 @@ function Nx.Quest.Watch:Open()
 	--
 
 	self:SetSortMode (1)
+	
+	win:SetMinimize (win.SaveData["Minimized"])
+	if Nx.qdb.profile.QuestWatch.HideBlizz then
+		ObjectiveTrackerFrame:Hide()		-- Hide Blizzard's
+	end
 end
 
 -------------------------------------------------------------------------------
@@ -9098,10 +9130,10 @@ function Nx.Quest.Watch:UpdateList()
 							if inArea then
 								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
 								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
-								local tast_title = L["BONUS TASK"]
-								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
+								local task_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then task_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. task_title .. " |cffff00ff]----")
 								list:ItemAdd(0)
 								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
 								--local _,x,y = QuestPOIGetIconInfo(questId)
@@ -9141,10 +9173,10 @@ function Nx.Quest.Watch:UpdateList()
 							if isTask and tasks[questId] ~= true then
 								local title, factionID = C_TaskQuest.GetQuestInfoByQuestID(questId)
 								local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questId)
-								local tast_title = L["BONUS TASK"]
-								if worldQuestType ~= nil then tast_title = L["WORLD QUEST"] end
+								local task_title = L["BONUS TASK"]
+								if worldQuestType ~= nil then task_title = L["WORLD QUEST"] end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. tast_title .. " |cffff00ff]----")
+								list:ItemSet(2,"|cffff00ff----[ |cffffff00" .. task_title .. " |cffff00ff]----")
 								list:ItemAdd(0)
 								list:ItemSet(2,Nx.Util_str2colstr (Nx.qdb.profile.QuestWatch.OIncompleteColor) .. title)
 								local _,_, numObjectives = GetTaskInfo(questId)
