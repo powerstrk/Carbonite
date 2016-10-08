@@ -27,7 +27,7 @@ NXTITLEFULL = L["Carbonite"]
 
 Nx.VERMAJOR			= 7.0
 Nx.VERMINOR			= .3				-- Not 0 is a test version
-Nx.BUILD			= 118
+Nx.BUILD			= 300
 
 Nx.VERSION			= Nx.VERMAJOR + Nx.VERMINOR / 100
 

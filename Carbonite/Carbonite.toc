@@ -1,6 +1,6 @@
 ## Interface: 70000
-## Title: Carbonite 7.0.3
-## Version: 7.0.3
+## Title: Carbonite 7.0.3a
+## Version: 7.0.3a
 ## Author: No one
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
