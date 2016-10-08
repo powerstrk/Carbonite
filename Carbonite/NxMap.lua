@@ -7261,7 +7261,7 @@ function Nx.Map:AddIconPt (iconType, x, y, level, color, texture, tx1, ty1, tx2,
 
 	icon.X = x
 	icon.Y = y
-	icon.Level = level
+	icon.Level = level	
 	icon.Color = color
 	icon.Tex = texture
 	if tx1 and ty1 and tx2 and ty2 then
@@ -7387,8 +7387,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 				local scale = self.IconScale
 				local w = v.W * scale
 				local h = v.H * scale				
-				for n = 1, v.Num do
-					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+				for n = 1, v.Num do					
+					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then						
 						local icon = v[n]
 						local f = self:GetIconStatic (v.Lvl)
 
@@ -7462,8 +7462,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 						end
 					end
 				else
-					for n = 1, v.Num do
-						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+					for n = 1, v.Num do							
+						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then							
 							local icon = v[n]
 							local f = self:GetIconStatic(v.Lvl)
 							local actuallyIcon = false
