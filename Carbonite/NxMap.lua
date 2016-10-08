@@ -7373,9 +7373,6 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			end
 		end
 	end
-	if GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 1 then
-		Nx.Map.DungeonLevel = 0
-	end
 	for k, v in pairs (d) do
 
 --		Nx.prt ("UpdateIcons %s %s", k, v.DrawMode)

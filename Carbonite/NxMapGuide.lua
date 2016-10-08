@@ -1456,6 +1456,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 				end
 				local fac,name,locName,zone,x,y,level = Nx.Split("|",npcStr)
 				fac,zone,x,y = tonumber(fac),tonumber(zone),tonumber(x),tonumber(y)
+				if level then level = tonumber(level) end
 				if fac ~= hideFac then
 					local mapId = zone
 					if not mapId then
