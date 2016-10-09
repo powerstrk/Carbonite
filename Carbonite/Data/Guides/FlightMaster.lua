@@ -139,7 +139,7 @@ local FLIGHT_DATA = {
 	["2,241,44.31,45.72"]=L["Nighthaven, Moonglade"],
 	["2,261,52.89,34.68"]=L["Cenarion Hold, Silithus"],
 	["2,281,58.8,48.2"]=L["Everlook, Winterspring"],
-	["2,321,49.5,59.2"]=L["Orgrimmar, Durotar"],
+	["2,321,49.5,59.2,1"]=L["Orgrimmar, Durotar"],
 	["2,362,46.65,49.90"]=L["Thunder Bluff, Mulgore"],
 	["2,4,53.0,43.5"]=L["Razor Hill, Durotar"],
 	["2,4,55.3,73.3"]=L["Sen'jin Village, Durotar"],
@@ -461,22 +461,23 @@ local FLIGHT_DATA = {
     ["0,1033,64.2,42.0"]=L["Crimson Ticket, Suramar"],
     ["0,1033,34.2,49.4"]=L["Meredil, Suramar"],
     ["0,1033,25.4,31.8"]=L["Irongrove Retreat, Suramar"],
-	["0,1014,69.8,51.0"]=L["Krasus Landing, Dalaran"],
+	["0,1014,69.8,51.0,10"]=L["Krasus Landing, Dalaran"],
 
 }
 local NX_FLIGHT_LOC = { ["1"] = L["Alliance Flight"], ["2"] = L["Horde Flight"], ["0"] = L["Neutral Flight"], }
 Nx.NPCData={}
 for k, v in pairs(FLIGHT_DATA) do
-	local side, zon, x, y = Nx.Split(",", k)
+	local side, zon, x, y, level = Nx.Split(",", k)
+	if not level then level = 0 end
 	local name = v
 	name = NX_FLIGHT_LOC[side].."|"..name
 	x,y,zon=tonumber(x),tonumber(y),tonumber(zon)
-	table.insert(Nx.NPCData, format("%s|%s|%s|%s|%s",side,name,zon,x,y))
+	table.insert(Nx.NPCData, format("%s|%s|%s|%s|%s|%s",side,name,zon,x,y,level))
 	local i = #Nx.NPCData
 	if not Nx.GuideData[L["Flight Master"]][zon] then
-		Nx.GuideData[L["Flight Master"]][zon] = format("%s,%s,%s,%s",side,x,y,i)
+		Nx.GuideData[L["Flight Master"]][zon] = format("%s,%s,%s,%s,%s",side,x,y,level,i)
 	else
-		Nx.GuideData[L["Flight Master"]][zon]=Nx.GuideData[L["Flight Master"]][zon] .. format("|%s,%s,%s,%s",side,x,y,i)
+		Nx.GuideData[L["Flight Master"]][zon]=Nx.GuideData[L["Flight Master"]][zon] .. format("|%s,%s,%s,%s,%s",side,x,y,level,i)
 	end
 end
 FLIGHT_DATA = nil

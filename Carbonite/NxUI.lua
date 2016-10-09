@@ -1845,11 +1845,11 @@ function Nx.Window:Adjust (skipChildren)
 		local x, y
 
 		for n = 1, #self.ChildFrms do
-
+			
 			local child = self.ChildFrms[n]
 			local cf = child.Frm
 			
-			if cf then			
+			if cf and not cf:IsProtected() then			
 				x = child.PosX1
 				if x < 0 then
 					x = w + x	-- Offset from right edge
@@ -2807,6 +2807,7 @@ end
 
 function Nx.Window:OnMinBut (but, id, click)
 	self:SetMinimize (but:GetPressed())
+	self.SaveData["Minimized"] = but:GetPressed()
 end
 
 function Nx.Window:ToggleMinimize()

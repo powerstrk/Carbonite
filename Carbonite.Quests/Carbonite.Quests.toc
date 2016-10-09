@@ -1,6 +1,6 @@
 ## Interface: 70000
-## Title: Carbonite Quest 7.0.3b
-## Version: 7.0.3b
+## Title: Carbonite Quest 7.0.3c
+## Version: 7.0.3c
 ## Author: No One
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

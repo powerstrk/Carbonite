@@ -61,8 +61,8 @@ function Nx.Travel:Add (typ)
 			local ext = { Nx.Split("|",b) }
 			for c,d in pairs(ext) do
 				if d then
-					local side,x,y,num = Nx.Split(",",d)
-					local fac,name,locName,zone,x,y = Nx.Split("|",Nx.NPCData[tonumber(num)])
+					local side,x,y,level,num = Nx.Split(",",d)
+					local fac,name,locName,zone,x,y,level = Nx.Split("|",Nx.NPCData[tonumber(num)])
 					fac,zone,x,y = tonumber(fac),tonumber(zone),tonumber(x),tonumber(y)
 					local _, _, _, _, cont, _, _ = Nx.Split ("|", Nx.Zones[tonumber(zone)])
 					local tdata = self.Travel[tonumber(cont)]

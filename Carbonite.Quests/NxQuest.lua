@@ -4827,27 +4827,42 @@ function Nx.Quest:Abandon (qIndex, qId)
 
 		if not isHeader then
 
---			Nx.prt ("Abandon %s %s", qIndex, title)
-
-			SelectQuestLogEntry (qIndex)
+--			Nx.prt ("Abandon %s %s", qIndex, title)		
 --			QuestLog_SetSelection (qIndex)
-
-			SetAbandonQuest()
+			
+			local text = format(ABANDON_QUEST_CONFIRM, title);
 			local items = GetAbandonQuestItems()
 			if items then
-				StaticPopup_Hide ("ABANDON_QUEST")
-				StaticPopup_Show ("ABANDON_QUEST_WITH_ITEMS", GetAbandonQuestName(), items)
-			else
-				StaticPopup_Hide ("ABANDON_QUEST_WITH_ITEMS")
-				StaticPopup_Show ("ABANDON_QUEST", GetAbandonQuestName())
+				text = format(ABANDON_QUEST_CONFIRM_WITH_ITEMS, title, items);
 			end
+			
+			Nx:ShowMessage (
+				text,
+				YES,
+				function(self)
+					SelectQuestLogEntry (qIndex)				
+					SetAbandonQuest()
+					
+					-- native blizz
+					AbandonQuest();
+					if ( QuestLogPopupDetailFrame:IsShown() ) then
+						HideUIPanel(QuestLogPopupDetailFrame);
+					end
+					PlaySound("igQuestLogAbandonQuest");
+					
+					-- carb
+					if qId > 0 then
+						--Nx.Quest.CurQ[qIndex] = nil
+						Nx.Quest:NullQuest (qId)
+					end
+				end,
+				NO,
+				function(self)
+				end
+			)
 		end
 
 		self:RestoreExpandQuests()
-
-		if qId > 0 then
-			Nx.Quest:NullQuest (qId)
-		end
 
 	else
 		if qId > 0 then
@@ -5354,6 +5369,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
@@ -6545,7 +6561,7 @@ function Nx.Quest.List:Refresh()
 end
 
 function Nx.Quest.List:OnQuestUpdate (event, ...)
---		Nx.prt ("OnQuestUpdate %s", event)
+	--if event ~= "WORLD_MAP_UPDATE" then Nx.prt ("OnQuestUpdate %s", event) end
 	local Quest = Nx.Quest
 	local arg1, arg2, arg3 = select (1, ...)
 
@@ -6623,6 +6639,8 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		else
 			self:Refresh(event)
 		end
+	elseif event == "QUEST_REMOVED" then
+		if self.Win:IsShown() then self:LogUpdate() end
 	else
 		Nx.Quest.Watch:Update()
 	end
@@ -6721,7 +6739,7 @@ function Nx.Quest.List:Update()
 
 	local list = self.List
 	list:Empty()
-
+	
 	if self.TabSelected == 1 then
 
 		local oldSel = GetQuestLogSelection()
@@ -6737,7 +6755,7 @@ function Nx.Quest.List:Update()
 
 			local title, level, tag, isComplete = cur.Title, cur.Level, cur.Tag, cur.Complete
 			local qn = cur.QI
-
+			
 			if qn > 0 then
 				SelectQuestLogEntry (qn)
 			end
@@ -8470,7 +8488,7 @@ function Nx.Quest.Watch:Open()
 	win:InitLayoutData (nil, -.80, -.35, -.2, -.1)
 
 	win:CreateButtons (Nx.qdb.profile.QuestWatch.ShowClose, nil, true)
-
+	
 	win:SetUser (self, self.OnWin)
 	win:SetBGAlpha (0, 1)
 	win.Frm:SetClampedToScreen (true)
@@ -8658,6 +8676,11 @@ function Nx.Quest.Watch:Open()
 	--
 
 	self:SetSortMode (1)
+	
+	win:SetMinimize (win.SaveData["Minimized"])
+	if Nx.qdb.profile.QuestWatch.HideBlizz then
+		ObjectiveTrackerFrame:Hide()		-- Hide Blizzard's
+	end
 end
 
 -------------------------------------------------------------------------------

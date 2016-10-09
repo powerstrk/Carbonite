@@ -561,7 +561,7 @@ function Nx.Map:Create (index)
 
 	local win = Nx.Window:Create (wname, nil, nil, nil, i)
 	m.Win = win
-
+	
 	win:SetBGAlpha (0, 1)
 
 	win:CreateButtons (true)
@@ -587,14 +587,16 @@ function Nx.Map:Create (index)
 	win.Frm.NxMap = m
 
 	m.StartupShown = win:IsShown()
-	win.Frm:Show()
-
+	win.Frm:Show()	
+	
 	-- Create main frame
 
 	local f = CreateFrame ("Frame", nil, UIParent)
 	m.Frm = f
 	f.NxMap = m
-
+	
+	WorldMap_HijackTooltip(m.Frm)
+	
 	win:Attach (f, 0, 1, 0, 1)
 
 --	win:RegisterEvent ("PLAYER_LOGIN", self.OnEvent)
@@ -3046,8 +3048,8 @@ function Nx.Map:HijackBlizzBountyMap()
 	bountyBoard:Show()
 end
 
-function Nx.Map:RestoreBlizzBountyMap()
-	WorldMap_RestoreTooltip()
+function Nx.Map:RestoreBlizzBountyMap(tooltip)
+	if tooltip ~= false then WorldMap_RestoreTooltip() end
 	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
 	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
 	bountyBoard:SetFrameLevel(10)
@@ -3122,7 +3124,7 @@ function Nx.Map:ToggleSize (szmode)
 		return
 	end
 	
-	Nx.Map:RestoreBlizzBountyMap()
+	Nx.Map:RestoreBlizzBountyMap(false)
 
 	local map = self:GetMap (1)
 	local win = map.Win
@@ -3150,7 +3152,7 @@ function Nx.Map:ToggleSize (szmode)
 
 			map:MaxSize()
 		end
-
+		Nx.Map:HijackBlizzBountyMap()
 	elseif szmode then
 		win:Show (false)
 
@@ -7259,7 +7261,7 @@ function Nx.Map:AddIconPt (iconType, x, y, level, color, texture, tx1, ty1, tx2,
 
 	icon.X = x
 	icon.Y = y
-	icon.Level = level
+	icon.Level = level	
 	icon.Color = color
 	icon.Tex = texture
 	if tx1 and ty1 and tx2 and ty2 then
@@ -7371,9 +7373,6 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			end
 		end
 	end
-	if GetCurrentMapAreaID() == 321 and Nx.Map.DungeonLevel == 1 then
-		Nx.Map.DungeonLevel = 0
-	end
 	for k, v in pairs (d) do
 
 --		Nx.prt ("UpdateIcons %s %s", k, v.DrawMode)
@@ -7385,8 +7384,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 				local scale = self.IconScale
 				local w = v.W * scale
 				local h = v.H * scale				
-				for n = 1, v.Num do
-					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+				for n = 1, v.Num do					
+					if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then						
 						local icon = v[n]
 						local f = self:GetIconStatic (v.Lvl)
 
@@ -7460,8 +7459,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 						end
 					end
 				else
-					for n = 1, v.Num do
-						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then
+					for n = 1, v.Num do							
+						if (not v[n].Level and Nx.Map.DungeonLevel == 0) or (v[n].Level and v[n].Level == Nx.Map.DungeonLevel) then							
 							local icon = v[n]
 							local f = self:GetIconStatic(v.Lvl)
 							local actuallyIcon = false
@@ -7722,7 +7721,12 @@ function Nx.Map:GetIconWQ (levelAdd)
 	
 	f:SetScript ("OnMouseDown", self.IconOnMouseDown)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)
-	f:SetScript ("OnEnter", TaskPOI_OnEnter)
+	f:SetScript ("OnEnter", function (self) 
+		TaskPOI_OnEnter(self) 
+		WorldMapTooltip:SetFrameStrata("TOOLTIP");
+		--WorldMapTooltip:SetClampedToScreen(false)
+		WorldMapTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
+	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
 	f:SetScript ("OnHide", self.IconOnLeave)
 
