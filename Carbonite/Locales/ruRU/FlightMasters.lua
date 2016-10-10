@@ -405,7 +405,8 @@ L["Sha'naari Refuge, Tanaan Jungle"] = "Убежище Ша'наари, Тана
 L["Vault of the Earth, Tanaan Jungle"] = "Сокровищница Земли, Танаанские джунгли"
 L["Malo's Lookout, Tanaan Jungle"] = "Дозорный пункт Мало, Танаанские джунгли"
 -- dalaran
-L["Krasus Landing. Dalaran"] = true
+L["Krasus Landing, Dalaran (Legion)"] = true
+L["Krasus Landing, Dalaran (WotLK)"] = true
 --Azsuna
 L["Shackle's Den, Azsuna"] = true
 L["Challiane's Terrace, Azsuna"] = true

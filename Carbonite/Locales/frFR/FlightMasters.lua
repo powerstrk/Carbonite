@@ -405,7 +405,8 @@ L["Sha'naari Refuge, Tanaan Jungle"] = "Refuge Sha'naari, Jungle de Tanaan"
 L["Vault of the Earth, Tanaan Jungle"] = "Caveau de la Terre, Jungle de Tanaan"
 L["Malo's Lookout, Tanaan Jungle"] = "Poste de guet de Malo, Jungle de Tanaan"
 -- dalaran
-L["Krasus Landing, Dalaran"] = "Aire de Krasus, Dalaran"
+L["Krasus Landing, Dalaran  (Legion)"] = "Aire de Krasus, Dalaran  (Legion)" -- () perhaps to be translated
+L["Krasus Landing, Dalaran (WotLK)"] = "Aire de Krasus, Dalaran (WotLK)" -- () perhaps to be translated
 --Azsuna
 L["Shackle's Den, Azsuna"] = "Tani\195\168re de Menottes, Azsuna"
 L["Challiane's Terrace, Azsuna"] = "Terrasse de Challiane, Azsuna"

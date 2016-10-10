@@ -52,6 +52,7 @@ L["Crown Guard Tower, Eastern Plaguelands"] = "Turm der Kronenwache, \195\150stl
 L["Crusaders' Pinnacle, Icecrown"] = "Kreuzfahrerturm, Eiskrone"
 L["Crushblow, Twilight Highlands"] = "Schmetterschlagposten, Schattenhochland"
 L["Dalaran"] = true
+L["Krasus Landing, Dalaran (WotLK)"] = "Krasus Landeplatz, Dalaran (Nordend)"
 L["Darkbreak Cove, Vashj'ir"] = "D\195\164mmerbucht, Vashj'ir"
 L["Darkshire, Duskwood"] = "Dunkelhain, D\195\164mmerwald"
 L["Darnassus, Teldrassil"] = "Darnassus, Teldrassil"
@@ -405,7 +406,7 @@ L["Sha'naari Refuge, Tanaan Jungle"] = "Die Scha'naarizuflucht, Tanaandschungel"
 L["Vault of the Earth, Tanaan Jungle"] = "Das Erdgew/195/182lbe, Tanaandschungel"
 L["Malo's Lookout, Tanaan Jungle"] = "Malos Ausblick, Tanaandschungel"
 -- dalaran
-L["Krasus Landing. Dalaran"] = "Krasus Landeplatz, Dalaran"
+L["Krasus Landing, Dalaran (Legion)"] = "Krasus Landeplatz, Dalaran (Legion)"
 --Azsuna
 L["Shackle's Den, Azsuna"] = "Fessles Kajüte, Azsuna"
 L["Challiane's Terrace, Azsuna"] = "Challianes Terasse, Azsuna"
