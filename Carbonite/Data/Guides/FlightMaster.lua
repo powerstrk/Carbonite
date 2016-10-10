@@ -305,7 +305,7 @@ local FLIGHT_DATA = {
 	["0,496,41.5,64.0"]=L["The Argent Stand, Zul'Drak"],
 	["0,496,60.0,56.7"]=L["Zim'Torga, Zul'Drak"],
 	["0,496,70.45,23.16"]=L["Gundrak, Zul'Drak"],
-	["0,504,72.70,45.68"]=L["Dalaran"],
+	["0,504,72.70,45.68,1"]=L["Krasus Landing, Dalaran (WotLK)"],
 	["0,806,43.1,68.4"]=L["Serpent's Overlook, Jade Forest"],
 	["0,806,43.5,24.6"]=L["Tian Monastery, Jade Forest"],
 	["0,806,47.0,46.0"]=L["Dawn's Blossom, Jade Forest"],
@@ -461,7 +461,7 @@ local FLIGHT_DATA = {
     ["0,1033,64.2,42.0"]=L["Crimson Ticket, Suramar"],
     ["0,1033,34.2,49.4"]=L["Meredil, Suramar"],
     ["0,1033,25.4,31.8"]=L["Irongrove Retreat, Suramar"],
-	["0,1014,69.8,51.0,10"]=L["Krasus Landing, Dalaran"],
+	["0,1014,69.8,51.0,10"]=L["Krasus Landing, Dalaran (Legion)"],
 
 }
 local NX_FLIGHT_LOC = { ["1"] = L["Alliance Flight"], ["2"] = L["Horde Flight"], ["0"] = L["Neutral Flight"], }
