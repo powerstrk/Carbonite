@@ -7162,7 +7162,7 @@ function Nx.Map:ClipZoneFrm (cont, zone, frm, alpha)
 			vy1 = vy1 / sc
 			frm:SetPoint ("TOPLEFT", vx1, -vy1 - self.TitleH)
 			frm:SetScale (sc)
-			frm:SetFrameLevel (level)
+			if level then frm:SetFrameLevel (level) end
 
 			frm:Show()
 
