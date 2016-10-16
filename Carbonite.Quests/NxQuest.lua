@@ -3897,6 +3897,10 @@ function Nx.Quest:MapChanged()
 end
 
 function Nx.Quest:ScanBlizzQuestDataZone()
+	if not Nx.QInit then
+		return
+	end
+	
 	--local tm = GetTime()
 	local num = QuestMapUpdateAllQuests()		-- Blizz calls these in this order
 	if num > 0 then
