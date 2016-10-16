@@ -9327,7 +9327,7 @@ end
 -- Ret target table
 
 function Nx.Map:SetTargetXY (mid, zx, zy, name, keep)
-if Nx.Quest.Watch then
+if Nx.Quest and Nx.Quest.Watch then
 	Nx.Quest.Watch:ClearAutoTarget()
 end
 	local wx, wy = self:GetWorldPos (mid, zx, zy)
