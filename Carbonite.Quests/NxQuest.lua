@@ -2931,9 +2931,10 @@ function Nx.Quest:ProcessQuestDB(questTotal)
 		end
 	end
 	Nx.prt("|cff00ff00[|cffffff00QUEST LOADER|cff00ff00] |cffffffff" .. questTotal .. " Quests Loaded")
-	Nx.Quest:RecordQuestsLog()
-	--Nx.Quest.Watch:Update()
 	Nx.QInit = true
+	--Nx.Quest.List:LogUpdate()
+	C_Timer.After(1, function() Nx.Quest:RecordQuests() end)
+	--Nx.Quest.Watch:Update()
 end
 
 function Nx.Quest:LoadQuestDB()
@@ -3819,7 +3820,7 @@ function Nx.Quest:ScanBlizzQuestData()
 
 	self.ScanBlizzMapId = 1
 	-- Use delay or some quests won't be ready
-	QScanBlizz = Nx:ScheduleTimer(self.ScanBlizzQuestDataTimer,1,self)
+	QScanBlizz = C_Timer.After(1, function() Nx.Quest:ScanBlizzQuestDataTimer() end) 
 end
 
 function Nx.Quest:IsDaily(checkID)
@@ -6561,7 +6562,10 @@ function Nx.Quest.List:Refresh()
 	self:LogUpdate()
 	Nx.Quest:ScanBlizzQuestDataZone()
 	self:LogUpdate()
-	C_Timer.After(2, function() Nx.Quest:RecordQuestsLog() end)
+	C_Timer.After(2, function() 
+		Nx.Quest:RecordQuestsLog()
+		Nx.Quest.List:LogUpdate()
+	end)
 end
 
 function Nx.Quest.List:OnQuestUpdate (event, ...)
