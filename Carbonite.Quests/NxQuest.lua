@@ -9299,8 +9299,6 @@ function Nx.Quest.Watch:UpdateList()
 							local obj = quest and (quest["End"] or quest["Start"])
 							if qId == 0 then
 								list:ItemSetButton ("QuestWatchErr", false)
-							elseif not obj then
-								list:ItemSetButton ("QuestWatchErr", false)
 							elseif isComplete or lbNum == 0 then
 								local butType = "QuestWatch"
 								local pressed = false
@@ -9318,7 +9316,9 @@ function Nx.Quest.Watch:UpdateList()
 									butType = "QuestWatchAC"
 									pressed = false
 								end
-								list:ItemSetButton (butType, pressed)
+								list:ItemSetButton (butType, pressed)	
+							elseif not obj then
+								list:ItemSetButton ("QuestWatchErr", false)
 							else
 								list:ItemSetButton ("QuestWatchTip", false)		-- QuestWatchTip  >  QuestWatch?
 							end
