@@ -9308,7 +9308,7 @@ function Nx.Quest.Watch:UpdateList()
 								if Quest:IsTargeted (qId, 0) then
 									butType = "QuestWatchTarget"
 								end
-								local name, zone = Quest:GetSEPos (obj)
+								if obj then local name, zone = Quest:GetSEPos (obj) end
 								if not zone or not zone then
 									butType = "QuestWatchErr"
 								end
