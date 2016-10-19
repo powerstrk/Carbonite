@@ -6648,7 +6648,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			self:Refresh(event)
 		end
 	elseif event == "QUEST_REMOVED" then
-		if self.Win:IsShown() then self:LogUpdate() end
+		self:LogUpdate()
 	else
 		Nx.Quest.Watch:Update()
 	end
