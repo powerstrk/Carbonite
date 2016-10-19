@@ -1498,7 +1498,9 @@ function Nx.Notes:UpdateIcons()
 				end
 			end
 		end
-		Nx.Notes:HandyNotes(mapId)		
+		Nx.Notes:HandyNotes(mapId)
+		WorldMap_HijackTooltip(map.Frm)
+		WorldMapTooltip:Hide()		
 	end
 end
 
@@ -1559,7 +1561,6 @@ function Nx.Notes:HandyNotes(mapId)
 					end
 				end
 				map:SetIconTip(handynote,tooltip)
-				WorldMapTooltip:Hide()
 			end
 		end
 	end
