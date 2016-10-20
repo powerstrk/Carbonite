@@ -3026,7 +3026,7 @@ Nx.GatherInfo = {
 		{ 700, "inv_herbalism_70_felwort",L["Felwort"]},
 		{ 700, "inv_herbalism_70_fjarnskaggl",L["Fjarnskaggl"]},
 		{ 700, "inv_herbalism_70_foxflower",L["Foxflower"]},
-		{ 700, "inv_herbalism_70_starlightrose",L["Starlight Rose"]},
+		{ 700, "inv_herbalism_70_starlightrosepetals",L["Starlight Rose"]},
 	},
 	["M"] = {	-- Mine node
 		{ 325,	"INV_Ore_Adamantium", L["Adamantite Deposit"]},
