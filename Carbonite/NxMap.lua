@@ -3185,7 +3185,7 @@ function Nx.Map:RestoreSize()
 	self:MouseEnable (false)
 
 	if self.Win:IsSizeMax() then
-
+		Nx.Map:RestoreBlizzBountyMap(false)	
 --		Nx.prt ("Map RestoreSize ToggleSize")
 		self.Win:ToggleSize()
 
