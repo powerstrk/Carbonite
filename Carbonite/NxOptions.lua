@@ -2864,7 +2864,7 @@ local function guidegatherConfig ()
 							order = 73,
 							type = "toggle",
 							width = "full",
-							name = L["Aethril"],
+							name = L["Aethril"], -- 476
 							desc = L["Display"] .. " " .. L["Aethril"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[71]
@@ -2877,7 +2877,7 @@ local function guidegatherConfig ()
 							order = 74,
 							type = "toggle",
 							width = "full",
-							name = L["Dreamleaf"],
+							name = L["Dreamleaf"], -- 477
 							desc = L["Display"] .. " " .. L["Dreamleaf"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[72]
@@ -2890,7 +2890,7 @@ local function guidegatherConfig ()
 							order = 75,
 							type = "toggle",
 							width = "full",
-							name = L["Felwort"],
+							name = L["Felwort"], -- 478
 							desc = L["Display"] .. " " .. L["Felwort"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[73]
@@ -2903,7 +2903,7 @@ local function guidegatherConfig ()
 							order = 76,
 							type = "toggle",
 							width = "full",
-							name = L["Fjarnskaggl"],
+							name = L["Fjarnskaggl"], -- 479
 							desc = L["Display"] .. " " .. L["Fjarnskaggl"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[74]
@@ -2916,7 +2916,7 @@ local function guidegatherConfig ()
 							order = 77,
 							type = "toggle",
 							width = "full",
-							name = L["Foxflower"],
+							name = L["Foxflower"], -- 480
 							desc = L["Display"] .. " " .. L["Foxflower"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[75]
@@ -2929,7 +2929,7 @@ local function guidegatherConfig ()
 							order = 78,
 							type = "toggle",
 							width = "full",
-							name = L["Starlight Rose"],
+							name = L["Starlight Rose"], -- 481
 							desc = L["Display"] .. " " .. L["Starlight Rose"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[76]
@@ -3530,7 +3530,7 @@ local function guidegatherConfig ()
 							order = 46,
 							type = "toggle",
 							width = "full",
-							name = L["Felslate Deposit"],
+							name = L["Felslate Deposit"], -- 256
 							desc = L["Display"] .. " " .. L["Felslate Deposit"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[44]
@@ -3543,7 +3543,7 @@ local function guidegatherConfig ()
 							order = 47,
 							type = "toggle",
 							width = "full",
-							name = L["Felslate Seam"],
+							name = L["Felslate Seam"], -- 258
 							desc = L["Display"] .. " " .. L["Felslate Seam"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[45]
@@ -3556,7 +3556,7 @@ local function guidegatherConfig ()
 							order = 48,
 							type = "toggle",
 							width = "full",
-							name = L["Living Felslate"],
+							name = L["Living Felslate"], -- 257
 							desc = L["Display"] .. " " .. L["Living Felslate"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[46]
@@ -3569,7 +3569,7 @@ local function guidegatherConfig ()
 							order = 49,
 							type = "toggle",
 							width = "full",
-							name = L["Leystone Deposit"],
+							name = L["Leystone Deposit"], -- 253
 							desc = L["Display"] .. " " .. L["Leystone Deposit"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[47]
@@ -3582,7 +3582,7 @@ local function guidegatherConfig ()
 							order = 50,
 							type = "toggle",
 							width = "full",
-							name = L["Leystone Seam"],
+							name = L["Leystone Seam"], -- 255
 							desc = L["Display"] .. " " .. L["Leystone Seam"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[48]
@@ -3595,7 +3595,7 @@ local function guidegatherConfig ()
 							order = 51,
 							type = "toggle",
 							width = "full",
-							name = L["Living Leystone"],
+							name = L["Living Leystone"], -- 254
 							desc = L["Display"] .. " " .. L["Living Leystone"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowMines[49]
