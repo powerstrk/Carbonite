@@ -21,4 +21,4 @@
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
 
-*.lua	ident export-subst
+Carbonite.lua	ident export-subst
