@@ -4272,7 +4272,10 @@ function Nx.Map:Update (elapsed)
 	end
 
 --	Nx.prt ("Dir %s", GetPlayerFacing())
-	self.PlyrDir = 360 - GetPlayerFacing() / 2 / math.pi * 360
+	self.PlyrDir = 0 
+	if GetPlayerFacing() ~= nil then
+		self.PlyrDir = 360 - GetPlayerFacing() / 2 / math.pi * 360
+	end
 
 	local plX = self.PlyrX
 	local plY = self.PlyrY
