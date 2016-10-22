@@ -2954,7 +2954,7 @@ function Nx.Map:BGMenu_Send (msg)
 	for i = 1, members do
 
 		local unit = unitName..i
-		local pX, pY = GetPlayerMapPosition (unit)
+		local pX, pY = Nx.GetPlayerMapPosition (unit)
 
 		if (pX > 0 or pY > 0) and not UnitIsDeadOrGhost (unit) then
 
@@ -3133,22 +3133,22 @@ function Nx.Map:ToggleSize (szmode)
 		win:Show()
 		if szmode == 0 then
 			MapBarFrame:SetParent("WorldMapFrame")
-			WorldMapPlayerLower:SetAlpha(1)
-			WorldMapPlayerUpper:SetAlpha(1)
+			--WorldMapPlayerLower:SetAlpha(1)
+			--WorldMapPlayerUpper:SetAlpha(1)
 			map:RestoreSize()
 
 		elseif szmode == 1 then
 			MapBarFrame:SetParent(win.Frm)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
-			WorldMapPlayerLower:SetAlpha(0)
-			WorldMapPlayerUpper:SetAlpha(0)
+			--WorldMapPlayerLower:SetAlpha(0)
+			--WorldMapPlayerUpper:SetAlpha(0)
 			map:MaxSize()
 
 		elseif Nx.db.profile.Map.MaxCenter then
 			MapBarFrame:SetParent(win.Frm)
 			MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
-			WorldMapPlayerLower:SetAlpha(0)
-			WorldMapPlayerUpper:SetAlpha(0)
+			--WorldMapPlayerLower:SetAlpha(0)
+			--WorldMapPlayerUpper:SetAlpha(0)
 
 			map:MaxSize()
 		end
@@ -3159,15 +3159,15 @@ function Nx.Map:ToggleSize (szmode)
 	elseif not win:IsSizeMax() then
 		MapBarFrame:SetParent(win.Frm)
 		MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
-		WorldMapPlayerLower:SetAlpha(0)
-		WorldMapPlayerUpper:SetAlpha(0)
+		--WorldMapPlayerLower:SetAlpha(0)
+		--WorldMapPlayerUpper:SetAlpha(0)
 		map:MaxSize()
 		
 		Nx.Map:HijackBlizzBountyMap()
 	else
 		MapBarFrame:SetParent("WorldMapFrame")
-		WorldMapPlayerLower:SetAlpha(1)
-		WorldMapPlayerUpper:SetAlpha(1)
+		--WorldMapPlayerLower:SetAlpha(1)
+		--WorldMapPlayerUpper:SetAlpha(1)
 		map:RestoreSize()
 	end
 
@@ -4179,7 +4179,7 @@ function Nx.Map:Update (elapsed)
 		end
 		self.Scale = self.RealScale
 	end
-	local plZX, plZY = GetPlayerMapPosition ("player")
+	local plZX, plZY = Nx.GetPlayerMapPosition ("player")
 	if (Nx.Map.RMapId ~= Nx.Map.UpdateMapID) then
 		plZX = 0
 		plZY = 0
@@ -5061,7 +5061,7 @@ function Nx.Map:ScanContinents()
 
 		local mapId = self.MapId
 
-		local pX, pY = GetPlayerMapPosition (unit)
+		local pX, pY = Nx.GetPlayerMapPosition (unit)
 		if pX <= 0 and pY <= 0 then
 
 			local info = palsInfo[name]
@@ -5185,7 +5185,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 		local mapId = self.MapId
 
-		local pX, pY = GetPlayerMapPosition (unit)
+		local pX, pY = Nx.GetPlayerMapPosition (unit)
 		if pX <= 0 and pY <= 0 then
 
 			local info = palsInfo[name]
@@ -8803,7 +8803,7 @@ function Nx.Map:Move (x, y, scale, stepTime)
 
 --[[
 	if self.Debug then
-		local plZX, plZY = GetPlayerMapPosition ("player")
+		local plZX, plZY = Nx.GetPlayerMapPosition ("player")
 		Nx.prt ("Move %f %f (%f %f)", x, y, plZX, plZY)
 	end
 --]]
