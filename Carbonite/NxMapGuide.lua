@@ -343,6 +343,10 @@ Nx.GuideInfo = {
 			Name = "@D",
 			Inst = 7
 		},
+		{
+			Name = "@B",
+			Inst = 8
+		},
 	},
 	{
 		Name = L["Zone"],
@@ -1573,18 +1577,18 @@ function Nx.Map.Guide:UpdateInstanceIcons (cont)
 	local inst = folder[cont]
 	if not inst then
 		return
-	end
+	end	
 	for showType, folder in pairs (inst) do
-		if type(folder) == table then
+		if type(folder) == "table" then
 			local mapId = folder.InstMapId
-			local winfo = Map.MapWorldInfo[mapId]
+			local winfo = Map.MapWorldInfo[mapId]			
 			if winfo and winfo.EntryMId == map.MapId then
 				local wx = winfo.X
 				local wy = winfo.Y
 				local icon = map:AddIconPt ("!POIIn", wx, wy, level, nil, "Interface\\Icons\\INV_Misc_ShadowEgg")
 				map:SetIconTip (icon, folder.InstTip)
 				map:SetIconUserData (icon, folder.InstMapId)
-			end
+			end		
 		end
 	end
 end
