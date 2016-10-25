@@ -935,6 +935,9 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 						if tonumber (numPlyr) == 1025 then
 							numPlyrStr = "Raid"
 						end
+						if tonumber (numPlyr) == 50 then
+							numPlyrStr = "Mythic Dungeon"
+						end
 						if tonumber (numPlyr) == 1 then
 							numPlyrStr = "Solo"
 						end

@@ -2954,7 +2954,7 @@ function Nx.Map:BGMenu_Send (msg)
 	for i = 1, members do
 
 		local unit = unitName..i
-		local pX, pY = Nx.GetPlayerMapPosition (unit)
+		local pX, pY = Nx.Map.GetPlayerMapPosition (unit)
 
 		if (pX > 0 or pY > 0) and not UnitIsDeadOrGhost (unit) then
 
@@ -4179,7 +4179,7 @@ function Nx.Map:Update (elapsed)
 		end
 		self.Scale = self.RealScale
 	end
-	local plZX, plZY = Nx.GetPlayerMapPosition ("player")
+	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
 	if (Nx.Map.RMapId ~= Nx.Map.UpdateMapID) then
 		plZX = 0
 		plZY = 0
@@ -5188,7 +5188,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 		local mapId = self.MapId
 
-		local pX, pY = Nx.GetPlayerMapPosition (unit)
+		local pX, pY = Nx.Map.GetPlayerMapPosition (unit)
 		if pX <= 0 and pY <= 0 then
 
 			local info = palsInfo[name]
@@ -10524,6 +10524,17 @@ function Nx.Map:VehicleDumpPos()
 		end
 	end
 end
+
+function Nx.Map.GetPlayerMapPosition (unit)
+	local x, y = GetPlayerMapPosition (unit)
+	if x == nil or y == nil then
+		x = 0
+		y = 0
+	end
+	
+	return x, y
+end
+
 
 -------------------------------------------------------------------------------
 -- EOF
