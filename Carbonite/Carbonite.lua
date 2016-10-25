@@ -975,7 +975,7 @@ function Nx:UnitDCapture()
 	if data and typ == 3 then
 
 		local mid = GetCurrentMapAreaID()
-		local plZX, plZY = GetPlayerMapPosition ("player")
+		local plZX, plZY = Nx.GetPlayerMapPosition ("player")
 		if mid and (plZX > 0 or plZY > 0) then
 
 			local s = data[id] or "0~0~~~~"
@@ -998,7 +998,7 @@ function Nx:UnitDTip()
 	if data and typ == 3 then
 
 		local midCur = GetCurrentMapAreaID()
-		local plZX, plZY = GetPlayerMapPosition ("player")
+		local plZX, plZY = Nx.GetPlayerMapPosition ("player")
 		if midCur and (plZX > 0 or plZY > 0) then
 
 			local react = UnitReaction ("mouseover", "player")
@@ -1282,7 +1282,7 @@ function Nx:NXOnUpdate (elapsed)
 
 		if t > self.NetPlyrSendTime then
 
-			local plX, plY = GetPlayerMapPosition ("player")
+			local plX, plY = Nx.GetPlayerMapPosition ("player")
 
 			if plX > 0 or plY > 0 then
 

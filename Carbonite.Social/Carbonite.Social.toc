@@ -1,6 +1,6 @@
-## Interface: 70000
-## Title: Carbonite Social & Punks 7.0.3
-## Version: 7.0.3
+## Interface: 70100
+## Title: Carbonite Social & Punks 7.1.0
+## Version: 7.1.0
 ## Author: No One
 ## Notes: Released Under GPL
 ## DefaultState: Enabled

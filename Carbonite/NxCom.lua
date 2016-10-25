@@ -1352,7 +1352,7 @@ function Nx.Com:OnUpdate (elapsed)
 			flgs = 1
 		end
 
-		local x, y = GetPlayerMapPosition ("player")
+		local x, y = Nx.GetPlayerMapPosition ("player")
 
 		if x ~= 0 or y ~= 0 then
 			self.PlyrMapId = map:GetCurrentMapId()
@@ -1607,7 +1607,7 @@ function Nx.Com:UpdateIcons (map)
 			local name = UnitName (unit)
 			if name then
 
-				local x, y = GetPlayerMapPosition (unit)
+				local x, y = Nx.GetPlayerMapPosition (unit)
 				if x ~= 0 or y ~= 0 then
 					memberNames[name] = 1
 

@@ -3353,7 +3353,6 @@ function Nx.Quest:RecordQuests(worldcheck)
 --	Nx.prt ("Record Quests")
 	local self = Nx.Quest
 	local qcnt = GetNumQuestLogEntries()
-
 	for qn = 1, qcnt do	-- Test all quests
 
 		local title, level = GetQuestLogTitle (qn)
@@ -3522,6 +3521,7 @@ function Nx.Quest:RecordQuestsLog()
 			SelectQuestLogEntry (qn)
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
+			--Nx.prt("%s", qDesc)
 			if qId then
 				local quest = Nx.Quests[qId]
 				local lbCnt = GetNumQuestLeaderBoards (qn)
@@ -4122,7 +4122,7 @@ end
 
 function Nx.Quest:GetLogIdLevel (questID)
 	if questID > 0 then
-		local qlink = GetQuestLink (GetQuestLogIndexByID(questID))
+		local qlink = GetQuestLink (questID)
 		if qlink then
 			local s1, _, id, level = strfind (qlink, "Hquest:(%d+):(.%d*)")
 			if s1 then
@@ -4569,7 +4569,7 @@ function Nx.Quest:TellPartyOfChanges()
 
 	for _, cur in ipairs (curq) do
 
-		if cur.QI > 0 and not QuestMapFrame_IsQuestWorldQuest (cur.QI) then
+		if cur.QI > 0 and not QuestUtils_IsQuestWorldQuest (cur.QI) then
 
 			for n = 1, cur.LBCnt do
 
@@ -7859,7 +7859,7 @@ function Nx.Quest:UpdateIcons (map)
 				local info = taskInfo[i]
 				local questId = taskInfo[i].questId
 				local title, faction = C_TaskQuest.GetQuestInfoByQuestID(questId)
-				if QuestMapFrame_IsQuestWorldQuest (questId) then
+				if QuestUtils_IsQuestWorldQuest (questId) then
 					activeWQ[questId] = true
 					C_TaskQuest.RequestPreloadRewardData (questId)
 					local tid, name, questtype, rarity, elite, tradeskill = GetQuestTagInfo (questId)
