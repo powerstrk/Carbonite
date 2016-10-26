@@ -3831,6 +3831,7 @@ function Nx.Quest:IsDaily(checkID)
 			if frequency == LE_QUEST_FREQUENCY_DAILY or frequency == LE_QUEST_FREQUENCY_WEEKLY then
 				isdaily = true
 			end
+			break
 		end
 	end
 	return isdaily
