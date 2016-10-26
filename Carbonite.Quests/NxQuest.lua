@@ -5374,7 +5374,7 @@ function Nx.Quest.List:Open()
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
-	win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
+	--win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
@@ -6561,8 +6561,8 @@ end
 function Nx.Quest.List:Refresh()
 	self:LogUpdate()
 	Nx.Quest:ScanBlizzQuestDataZone()
-	self:LogUpdate()
-	C_Timer.After(2, function() 
+	--self:LogUpdate()
+	C_Timer.After(.5, function() 
 		Nx.Quest:RecordQuestsLog()
 		Nx.Quest.List:LogUpdate()
 	end)
@@ -6648,7 +6648,7 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 			self:Refresh(event)
 		end
 	elseif event == "QUEST_REMOVED" then
-		self:LogUpdate()
+		--self:LogUpdate()
 	else
 		Nx.Quest.Watch:Update()
 	end
