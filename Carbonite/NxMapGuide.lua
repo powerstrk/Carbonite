@@ -2071,7 +2071,7 @@ function Nx.Map.Guide:UpdateVisitedVendors()
 		end
 		sort (allFolder, function (a, b) return a.SortName < b.SortName end)
 	end
-	collectgarbage ("collect")
+	--collectgarbage ("collect")
 end
 Nx.VendorCostAbr = {
 	["INV_Jewelry_Amulet_07"] = "AB",
