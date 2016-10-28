@@ -1755,7 +1755,7 @@ function Nx.Social:AddLocalPunk (name, plyrNear, level, class)
 			local s = UnitName (unit)
 			if s then
 
-				local pX, pY = GetPlayerMapPosition (unit)
+				local pX, pY = Nx.Map.GetPlayerMapPosition (unit)
 
 				if pX ~= 0 or pY ~= 0 then
 					x = pX * 100
@@ -2509,7 +2509,7 @@ function Nx.Social.TeamHUD:Update()
 
 --				Nx.prt ("Pal %s %s", name, per)
 
-				local pX, pY = GetPlayerMapPosition (unit)
+				local pX, pY = Nx.Map.GetPlayerMapPosition (unit)
 
 				if pX == 0 then
 					player.Dist = 999999
