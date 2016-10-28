@@ -4180,6 +4180,11 @@ function Nx.Map:Update (elapsed)
 		self.Scale = self.RealScale
 	end
 	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
+	if (plZX == 0 and plZY == 0) then
+		Nx.Map.MoveWorldMap()
+	else
+		Nx.Map.RestoreWorldMap()
+	end
 	if (Nx.Map.RMapId ~= Nx.Map.UpdateMapID) then
 		plZX = 0
 		plZY = 0
@@ -4432,7 +4437,11 @@ function Nx.Map:Update (elapsed)
 	if IsShiftKeyDown() then
 		plSize = 5
 	end
+	if self.PlyrX ~= 0 and self.PlyrY ~= 0 then
 	self.PlyrFrm:Show()
+	else
+	self.PlyrFrm:Hide()
+	end
 	self:ClipFrameW (self.PlyrFrm, self.PlyrX, self.PlyrY, plSize, plSize, self.PlyrDir)
 	self.InCombat = UnitAffectingCombat ("player")
 	local g = 1
@@ -10523,6 +10532,64 @@ function Nx.Map:VehicleDumpPos()
 			Nx.prt ("#%s %s %f %f %.3f %s", n, unitName or "nil", xo, yo, dir or -1, typ or "no type")
 		end
 	end
+end
+
+function Nx.Map.RestoreWorldMap()
+	local numOfDetailTiles = GetNumberOfDetailTiles();
+	WorldMapDetailFrame:SetParent(nil)
+	WorldMapDetailFrame:SetAllPoints()
+	WorldMapDetailFrame:Hide()
+	EncounterJournal_AddMapButtons()	
+	for i=1, numOfDetailTiles do
+		_G["WorldMapDetailTile"..i]:SetTexture(nil);	
+	end
+end
+
+function Nx.Map.MoveWorldMap()	
+	local mapName, textureHeight, _, isMicroDungeon, microDungeonMapName = GetMapInfo()
+	if not mapName then
+		return
+	end
+	WorldMapDetailFrame:SetParent(Nx.Map:GetMap(1).Frm)
+	WorldMapDetailFrame:SetFrameLevel(20)
+	WorldMapDetailFrame:SetWidth(Nx.Map:GetMap(1).MapW)
+	WorldMapDetailFrame:SetHeight(Nx.Map:GetMap(1).MapH)
+	WorldMapDetailFrame:Show()
+	local dungeonLevel = GetCurrentMapDungeonLevel()
+	if (DungeonUsesTerrainMap()) then
+		dungeonLevel = dungeonLevel - 1
+	end
+
+	local mapWidth = WorldMapDetailFrame:GetWidth()
+	local mapHeight = WorldMapDetailFrame:GetHeight()
+
+	local mapID, isContinent = GetCurrentMapAreaID()
+
+	local fileName
+
+	local path
+	if (not isMicroDungeon) then
+		path = "Interface\\WorldMap\\"..mapName.."\\"
+		fileName = mapName
+	else
+		path = "Interface\\WorldMap\\MicroDungeon\\"..mapName.."\\"..microDungeonMapName.."\\"
+		fileName = microDungeonMapName
+	end
+
+	if ( dungeonLevel > 0 ) then
+		fileName = fileName..dungeonLevel.."_"
+	end
+
+	local numOfDetailTiles = GetNumberOfDetailTiles()
+	for i=1, numOfDetailTiles do
+		local texName = path..fileName..i	
+		_G["WorldMapDetailTile"..i]:SetWidth(Nx.Map:GetMap(1).MapW / 2.7)		
+		_G["WorldMapDetailTile"..i]:SetHeight(Nx.Map:GetMap(1).MapH / 1.8)
+		_G["WorldMapDetailTile"..i]:SetTexture(texName)
+	end	
+	WorldMapDetailFrame:SetAllPoints()
+	WorldMapUnitPositionFrame:SetParent(WorldMapDetailFrame)
+	EncounterJournal_AddMapButtons()
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
