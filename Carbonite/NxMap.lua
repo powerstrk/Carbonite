@@ -10609,40 +10609,40 @@ function Nx.Map.MoveWorldMap()
 	Nx.Map:UpdatePlayerPositions()
 end
 
-function Nx.Map:UpdatePlayerPositions()
-	local timeNow = GetTime();
+function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arrow function out of blizzards map code
+	local timeNow = GetTime()
 
-	WorldMapUnitPositionFrame:ClearUnits();
+	WorldMapUnitPositionFrame:ClearUnits()
 
-	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1);
-	local playerArrowSize = WorldMapUnitPositionFrame:GetPlayerArrowSize();
-	WorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", playerArrowSize, playerArrowSize, r, g, b, 1, 7, true);
+	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1)
+	local playerArrowSize = WorldMapUnitPositionFrame:GetPlayerArrowSize()
+	WorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", playerArrowSize, playerArrowSize, r, g, b, 1, 7, true)
 
-	local isInRaid = IsInRaid();
-	local memberCount = 0;
-	local unitBase;
+	local isInRaid = IsInRaid()
+	local memberCount = 0
+	local unitBase
 
 	if isInRaid then
-		memberCount = MAX_RAID_MEMBERS;
-		unitBase = "raid";
+		memberCount = MAX_RAID_MEMBERS
+		unitBase = "raid"
 	elseif IsInGroup() then
-		memberCount = MAX_PARTY_MEMBERS;
-		unitBase = "party";
+		memberCount = MAX_PARTY_MEMBERS
+		unitBase = "party"
 	end
 
-	local groupMemberSize = WorldMapUnitPositionFrame:GetGroupMemberSize();
+	local groupMemberSize = WorldMapUnitPositionFrame:GetGroupMemberSize()
 
 	for i = 1, memberCount do
-		local unit = unitBase..i;
+		local unit = unitBase..i
 		if UnitExists(unit) and not UnitIsUnit(unit, "player") then
-			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips";
-			local class = select(2, UnitClass(unit));
-			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class));
-			WorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, groupMemberSize, groupMemberSize, r, g, b, 1);
+			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips"
+			local class = select(2, UnitClass(unit))
+			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class))
+			WorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, groupMemberSize, groupMemberSize, r, g, b, 1)
 		end
 	end
 
-	WorldMapUnitPositionFrame:FinalizeUnits();
+	WorldMapUnitPositionFrame:FinalizeUnits()
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
