@@ -10535,13 +10535,12 @@ function Nx.Map:VehicleDumpPos()
 end
 
 function Nx.Map.RestoreWorldMap()
+	if not Nx.WMDF then
+		return
+	end
 	local numOfDetailTiles = GetNumberOfDetailTiles();
-	WorldMapDetailFrame:SetParent(nil)
-	WorldMapDetailFrame:SetAllPoints()
-	WorldMapDetailFrame:Hide()
-	EncounterJournal_AddMapButtons()	
 	for i=1, numOfDetailTiles do
-		_G["WorldMapDetailTile"..i]:SetTexture(nil);	
+		Nx.WMDT[i]:SetTexture(nil);	
 	end
 end
 
@@ -10550,18 +10549,35 @@ function Nx.Map.MoveWorldMap()
 	if not mapName then
 		return
 	end
-	WorldMapDetailFrame:SetParent(Nx.Map:GetMap(1).Frm)
-	WorldMapDetailFrame:SetFrameLevel(20)
-	WorldMapDetailFrame:SetWidth(Nx.Map:GetMap(1).MapW)
-	WorldMapDetailFrame:SetHeight(Nx.Map:GetMap(1).MapH)
-	WorldMapDetailFrame:Show()
+	if not Nx.WMDF then
+		Nx.WMDF = CreateFrame("Frame", "WMDF")		
+		Nx.WMDF:SetFrameStrata("BACKGROUND")
+		Nx.WMDT = {}
+		for i = 1,12 do
+			Nx.WMDT[i] = Nx.WMDF:CreateTexture("WMDT" .. i)						
+		end		
+		Nx.WMDT[1]:SetPoint("TOPLEFT")
+		Nx.WMDT[2]:SetPoint("TOPLEFT","WMDT1","TOPRIGHT")
+		Nx.WMDT[3]:SetPoint("TOPLEFT","WMDT2","TOPRIGHT")
+		Nx.WMDT[4]:SetPoint("TOPLEFT","WMDT3","TOPRIGHT")
+		Nx.WMDT[5]:SetPoint("TOPLEFT","WMDT1","BOTTOMLEFT")
+		Nx.WMDT[6]:SetPoint("TOPLEFT","WMDT5","TOPRIGHT")
+		Nx.WMDT[7]:SetPoint("TOPLEFT","WMDT6","TOPRIGHT")
+		Nx.WMDT[8]:SetPoint("TOPLEFT","WMDT7","TOPRIGHT")
+		Nx.WMDT[9]:SetPoint("TOPLEFT","WMDT5","BOTTOMLEFT")
+		Nx.WMDT[10]:SetPoint("TOPLEFT","WMDT9","TOPRIGHT")
+		Nx.WMDT[11]:SetPoint("TOPLEFT","WMDT10","TOPRIGHT")
+		Nx.WMDT[12]:SetPoint("TOPLEFT","WMDT11","TOPRIGHT")
+	end
+	Nx.WMDF:SetParent(Nx.Map:GetMap(1).Frm)
+	Nx.WMDF:SetFrameLevel(20)
+	Nx.WMDF:SetWidth(Nx.Map:GetMap(1).MapW)
+	Nx.WMDF:SetHeight(Nx.Map:GetMap(1).MapH)
+	Nx.WMDF:Show()
 	local dungeonLevel = GetCurrentMapDungeonLevel()
 	if (DungeonUsesTerrainMap()) then
 		dungeonLevel = dungeonLevel - 1
 	end
-
-	local mapWidth = WorldMapDetailFrame:GetWidth()
-	local mapHeight = WorldMapDetailFrame:GetHeight()
 
 	local mapID, isContinent = GetCurrentMapAreaID()
 
@@ -10583,13 +10599,12 @@ function Nx.Map.MoveWorldMap()
 	local numOfDetailTiles = GetNumberOfDetailTiles()
 	for i=1, numOfDetailTiles do
 		local texName = path..fileName..i	
-		_G["WorldMapDetailTile"..i]:SetWidth(Nx.Map:GetMap(1).MapW / 2.7)		
-		_G["WorldMapDetailTile"..i]:SetHeight(Nx.Map:GetMap(1).MapH / 1.8)
-		_G["WorldMapDetailTile"..i]:SetTexture(texName)
+		Nx.WMDT[i]:SetWidth(Nx.Map:GetMap(1).MapW / 3.9)		
+		Nx.WMDT[i]:SetHeight(Nx.Map:GetMap(1).MapH / 2.6)
+		Nx.WMDT[i]:SetTexture(texName)
 	end	
-	WorldMapDetailFrame:SetAllPoints()
-	WorldMapUnitPositionFrame:SetParent(WorldMapDetailFrame)
-	EncounterJournal_AddMapButtons()
+	Nx.WMDF:SetAllPoints()
+	WorldMapUnitPositionFrame:SetParent("WMDF")		
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
