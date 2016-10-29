@@ -10604,7 +10604,45 @@ function Nx.Map.MoveWorldMap()
 		Nx.WMDT[i]:SetTexture(texName)
 	end	
 	Nx.WMDF:SetAllPoints()
-	WorldMapUnitPositionFrame:SetParent("WMDF")		
+	WorldMapUnitPositionFrame:SetParent("WMDF")
+	WorldMapUnitPositionFrame:SetAllPoints()
+	Nx.Map:UpdatePlayerPositions()
+end
+
+function Nx.Map:UpdatePlayerPositions()
+	local timeNow = GetTime();
+
+	WorldMapUnitPositionFrame:ClearUnits();
+
+	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1);
+	local playerArrowSize = WorldMapUnitPositionFrame:GetPlayerArrowSize();
+	WorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", playerArrowSize, playerArrowSize, r, g, b, 1, 7, true);
+
+	local isInRaid = IsInRaid();
+	local memberCount = 0;
+	local unitBase;
+
+	if isInRaid then
+		memberCount = MAX_RAID_MEMBERS;
+		unitBase = "raid";
+	elseif IsInGroup() then
+		memberCount = MAX_PARTY_MEMBERS;
+		unitBase = "party";
+	end
+
+	local groupMemberSize = WorldMapUnitPositionFrame:GetGroupMemberSize();
+
+	for i = 1, memberCount do
+		local unit = unitBase..i;
+		if UnitExists(unit) and not UnitIsUnit(unit, "player") then
+			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips";
+			local class = select(2, UnitClass(unit));
+			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class));
+			WorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, groupMemberSize, groupMemberSize, r, g, b, 1);
+		end
+	end
+
+	WorldMapUnitPositionFrame:FinalizeUnits();
 end
 
 function Nx.Map.GetPlayerMapPosition (unit)
