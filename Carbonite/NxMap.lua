@@ -4172,10 +4172,13 @@ function Nx.Map:Update (elapsed)
 		self.Scale = self.RealScale
 	end
 	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
-	if (plZX == 0 and plZY == 0) then
+
+	if Nx.Map:IsInstanceMap(Nx.Map.RMapId) or (plZX == 0 and plZY == 0) then
 		Nx.Map.MoveWorldMap()
+		Nx.Map:GetMap(1).PlyrFrm:Hide()
 	else
 		Nx.Map.RestoreWorldMap()
+		Nx.Map:GetMap(1).PlyrFrm:Show()
 	end
 	if (Nx.Map.RMapId ~= Nx.Map.UpdateMapID) then
 		plZX = 0
@@ -4429,13 +4432,9 @@ function Nx.Map:Update (elapsed)
 	if IsShiftKeyDown() then
 		plSize = 5
 	end
-	local testX, testY = Nx.Map.GetPlayerMapPosition("player")
-	if testX ~= 0 and testY ~= 0 then			
-		self.PlyrFrm:Show()
-	else
-		self.PlyrFrm:Hide()
+	if self.PlyrFrm:IsVisible() then
+		self:ClipFrameW (self.PlyrFrm, self.PlyrX, self.PlyrY, plSize, plSize, self.PlyrDir)
 	end
-	self:ClipFrameW (self.PlyrFrm, self.PlyrX, self.PlyrY, plSize, plSize, self.PlyrDir)
 	self.InCombat = UnitAffectingCombat ("player")
 	local g = 1
 	local b = 1
