@@ -3197,9 +3197,6 @@ function Nx.Map:RestoreSize()
 			self.Win:Show (false)
 		end
 	end
-	if self:IsInstanceMap(Nx.Map.UpdateMapID) then
-		self.Scale = 120.0
-	end
 	local wname = self:GetWinName()
 	for n, name in pairs (UISpecialFrames) do
 		if name == wname then
@@ -3779,15 +3776,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 						local lrid = Nx.Map.MapWorldInfo[rid].EntryMId
 						if lrid ~= nil then rid = lrid end
 					end
-					if map:IsInstanceMap(rid) then
-						if map.Win:IsSizeMax() then
-							map.Scale = 256
-						else
-							map.Scale = 120
-						end
-					else
-						map.Scale = map.RealScale
-					end
+					map.Scale = map.RealScale					
 					local lvl = GetCurrentMapDungeonLevel()
 					if lvl ~= map.InstLevelSet then
 						mapId = 0	-- Force set
@@ -4440,10 +4429,11 @@ function Nx.Map:Update (elapsed)
 	if IsShiftKeyDown() then
 		plSize = 5
 	end
-	if self.PlyrX ~= 0 and self.PlyrY ~= 0 then
-	self.PlyrFrm:Show()
+	local testX, testY = Nx.Map.GetPlayerMapPosition("player")
+	if testX ~= 0 and testY ~= 0 then			
+		self.PlyrFrm:Show()
 	else
-	self.PlyrFrm:Hide()
+		self.PlyrFrm:Hide()
 	end
 	self:ClipFrameW (self.PlyrFrm, self.PlyrX, self.PlyrY, plSize, plSize, self.PlyrDir)
 	self.InCombat = UnitAffectingCombat ("player")
@@ -4973,13 +4963,6 @@ function Nx.Map:SwitchRealMap (id)
 		self.LOpts.NXMMFull = false
 		if self:IsInstanceMap (id) then
 			self.LOpts.NXMMFull = true
-		end
-	else
-		if self:IsInstanceMap(id) then
-			s = self.Scale
-			self.Scale = 120.0
-		else
-			self.Scale = self.RealScale
 		end
 	end
 	local map = Nx.Map:GetMap (1)
@@ -8675,33 +8658,21 @@ function Nx.Map:SetCurrentMap (mapId)
 			end
 		end
 		if self:IsInstanceMap(mapId) then	-- Instance?
-
-			self.BaseScale = .025
-
 			local aid = mapId
-
---			Nx.prtCtrl ("SetCurrentMap %s %s", mapId, aid or "nil")
-
 			if aid then
 				self.MapId = 0				-- Force change (needed?)
-
 				if mapId == self:GetRealBaseMapId() then
 					SetMapToCurrentZone()					
-
 				else
 					local caid = GetCurrentMapAreaID()
-
 					if caid ~= aid then
 --						Nx.prt ("SetCurrentMap dif %s", caid)
 						SetMapByID (aid)						
 						SetDungeonMapLevel (1)
 					end
 				end
-
-
 			else
 				if mapId == self:GetRealBaseMapId() then
-
 					self.MapId = 0				-- Force change
 					SetMapToCurrentZone()					
 				else
@@ -8710,7 +8681,6 @@ function Nx.Map:SetCurrentMap (mapId)
 				end
 			end
 		end
-
 		self.InstLevelSet = GetCurrentMapDungeonLevel()
 	end
 end
@@ -10538,13 +10508,21 @@ function Nx.Map:VehicleDumpPos()
 end
 
 function Nx.Map.RestoreWorldMap()
-	if not Nx.WMDF then
+	if not Nx.Map.WMDF then
 		return
 	end
 	local numOfDetailTiles = GetNumberOfDetailTiles();
 	for i=1, numOfDetailTiles do
-		Nx.WMDT[i]:SetTexture(nil);	
+		Nx.Map.WMDT[i]:SetTexture(nil);	
 	end
+	Nx.Map.WMDF:Hide()
+	local index = 1
+	local bossButton = _G["NXEJMapButton"..index]	
+	while bossButton do
+		bossButton:Hide()
+		index = index + 1
+		bossButton = _G["NXEJMapButton"..index]
+	end	
 end
 
 function Nx.Map.MoveWorldMap()	
@@ -10578,6 +10556,7 @@ function Nx.Map.MoveWorldMap()
 	Nx.Map.WMDF:SetWidth(Nx.Map:GetMap(1).MapW)
 	Nx.Map.WMDF:SetHeight(Nx.Map:GetMap(1).MapH)
 	Nx.Map.WMDF:Show()
+	
 	local dungeonLevel = GetCurrentMapDungeonLevel()
 	if (DungeonUsesTerrainMap()) then
 		dungeonLevel = dungeonLevel - 1
@@ -10647,6 +10626,7 @@ function Nx.Map.MoveWorldMap()
 			x, y, instanceID, name, description, encounterID = EJ_GetMapEncounter(index, WorldMapFrame.fromJournal)
 		end
 		WorldMapFrame.hasBosses = index ~= 1
+		
 		bossButton = _G["NXEJMapButton"..index]
 		while bossButton do
 			bossButton:Hide()
