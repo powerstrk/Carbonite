@@ -4173,7 +4173,7 @@ function Nx.Map:Update (elapsed)
 	end
 	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
 
-	if Nx.Map:IsInstanceMap(Nx.Map.RMapId) or (plZX == 0 and plZY == 0) then
+	if Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId) then
 		Nx.Map.MoveWorldMap()
 		Nx.Map:GetMap(1).PlyrFrm:Hide()
 	else
