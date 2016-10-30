@@ -759,7 +759,8 @@ function Nx.Map:Create (index)
 
 	local item = showMenu:AddItem (0, L["Show Custom Icons"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowCustom")
-
+	local item = showMenu:AddItem(0, L["Show Instance Raid Bosses"], func, m)
+	item:SetChecked (Nx.db.char.Map, "ShowRaidBoss")
 	local item = showMenu:AddItem(0, L["Show Archaeology Blobs"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowArchBlobs")
 
@@ -3695,10 +3696,12 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	end
 
 	if Nx.db.profile.Map.ShowTitleXY then
-		if map.DebugFullCoords then
-			title = title .. format (" %4.2f, %4.2f", map.PlyrRZX, map.PlyrRZY)
-		else
-			title = title .. format (" %4.1f, %4.1f", map.PlyrRZX, map.PlyrRZY)
+		if map.PlyrRZX ~= 0 or map.PlyrRZY ~= 0 then				
+			if map.DebugFullCoords then
+				title = title .. format (" %4.2f, %4.2f", map.PlyrRZX, map.PlyrRZY)
+			else
+				title = title .. format (" %4.1f, %4.1f", map.PlyrRZX, map.PlyrRZY)
+			end		
 		end
 	end
 
@@ -10549,31 +10552,32 @@ function Nx.Map.MoveWorldMap()
 	if not mapName then
 		return
 	end
-	if not Nx.WMDF then
-		Nx.WMDF = CreateFrame("Frame", "WMDF")		
-		Nx.WMDF:SetFrameStrata("BACKGROUND")
-		Nx.WMDT = {}
+	if not Nx.Map.WMDF then
+		Nx.Map.WMDF = CreateFrame("Frame", "WMDF")		
+		Nx.Map.WMDF:SetFrameStrata("BACKGROUND")
+		Nx.Map.WMDT = {}
+		Nx.Map.EJMB = {}
 		for i = 1,12 do
-			Nx.WMDT[i] = Nx.WMDF:CreateTexture("WMDT" .. i)						
+			Nx.Map.WMDT[i] = Nx.Map.WMDF:CreateTexture("WMDT" .. i)						
 		end		
-		Nx.WMDT[1]:SetPoint("TOPLEFT")
-		Nx.WMDT[2]:SetPoint("TOPLEFT","WMDT1","TOPRIGHT")
-		Nx.WMDT[3]:SetPoint("TOPLEFT","WMDT2","TOPRIGHT")
-		Nx.WMDT[4]:SetPoint("TOPLEFT","WMDT3","TOPRIGHT")
-		Nx.WMDT[5]:SetPoint("TOPLEFT","WMDT1","BOTTOMLEFT")
-		Nx.WMDT[6]:SetPoint("TOPLEFT","WMDT5","TOPRIGHT")
-		Nx.WMDT[7]:SetPoint("TOPLEFT","WMDT6","TOPRIGHT")
-		Nx.WMDT[8]:SetPoint("TOPLEFT","WMDT7","TOPRIGHT")
-		Nx.WMDT[9]:SetPoint("TOPLEFT","WMDT5","BOTTOMLEFT")
-		Nx.WMDT[10]:SetPoint("TOPLEFT","WMDT9","TOPRIGHT")
-		Nx.WMDT[11]:SetPoint("TOPLEFT","WMDT10","TOPRIGHT")
-		Nx.WMDT[12]:SetPoint("TOPLEFT","WMDT11","TOPRIGHT")
+		Nx.Map.WMDT[1]:SetPoint("TOPLEFT")
+		Nx.Map.WMDT[2]:SetPoint("TOPLEFT","WMDT1","TOPRIGHT")
+		Nx.Map.WMDT[3]:SetPoint("TOPLEFT","WMDT2","TOPRIGHT")
+		Nx.Map.WMDT[4]:SetPoint("TOPLEFT","WMDT3","TOPRIGHT")
+		Nx.Map.WMDT[5]:SetPoint("TOPLEFT","WMDT1","BOTTOMLEFT")
+		Nx.Map.WMDT[6]:SetPoint("TOPLEFT","WMDT5","TOPRIGHT")
+		Nx.Map.WMDT[7]:SetPoint("TOPLEFT","WMDT6","TOPRIGHT")
+		Nx.Map.WMDT[8]:SetPoint("TOPLEFT","WMDT7","TOPRIGHT")
+		Nx.Map.WMDT[9]:SetPoint("TOPLEFT","WMDT5","BOTTOMLEFT")
+		Nx.Map.WMDT[10]:SetPoint("TOPLEFT","WMDT9","TOPRIGHT")
+		Nx.Map.WMDT[11]:SetPoint("TOPLEFT","WMDT10","TOPRIGHT")
+		Nx.Map.WMDT[12]:SetPoint("TOPLEFT","WMDT11","TOPRIGHT")
 	end
-	Nx.WMDF:SetParent(Nx.Map:GetMap(1).Frm)
-	Nx.WMDF:SetFrameLevel(20)
-	Nx.WMDF:SetWidth(Nx.Map:GetMap(1).MapW)
-	Nx.WMDF:SetHeight(Nx.Map:GetMap(1).MapH)
-	Nx.WMDF:Show()
+	Nx.Map.WMDF:SetParent(Nx.Map:GetMap(1).Frm)
+	Nx.Map.WMDF:SetFrameLevel(20)
+	Nx.Map.WMDF:SetWidth(Nx.Map:GetMap(1).MapW)
+	Nx.Map.WMDF:SetHeight(Nx.Map:GetMap(1).MapH)
+	Nx.Map.WMDF:Show()
 	local dungeonLevel = GetCurrentMapDungeonLevel()
 	if (DungeonUsesTerrainMap()) then
 		dungeonLevel = dungeonLevel - 1
@@ -10599,14 +10603,57 @@ function Nx.Map.MoveWorldMap()
 	local numOfDetailTiles = GetNumberOfDetailTiles()
 	for i=1, numOfDetailTiles do
 		local texName = path..fileName..i	
-		Nx.WMDT[i]:SetWidth(Nx.Map:GetMap(1).MapW / 3.9)		
-		Nx.WMDT[i]:SetHeight(Nx.Map:GetMap(1).MapH / 2.6)
-		Nx.WMDT[i]:SetTexture(texName)
+		Nx.Map.WMDT[i]:SetWidth(Nx.Map.WMDF:GetWidth() / 3.9)		
+		Nx.Map.WMDT[i]:SetHeight(Nx.Map.WMDF:GetHeight() / 2.6)
+		Nx.Map.WMDT[i]:SetTexture(texName)
 	end	
-	Nx.WMDF:SetAllPoints()
+	Nx.Map.WMDF:SetAllPoints()
 	WorldMapUnitPositionFrame:SetParent("WMDF")
 	WorldMapUnitPositionFrame:SetAllPoints()
 	Nx.Map:UpdatePlayerPositions()
+	
+	if Nx.db.char.Map.ShowRaidBoss then
+		local width = Nx.Map.WMDF:GetWidth()
+		local height = Nx.Map.WMDF:GetHeight()
+
+		local bossButton, questPOI, displayInfo, _
+		local index = 1
+		local x, y, instanceID, name, description, encounterID = EJ_GetMapEncounter(index, WorldMapFrame.fromJournal)
+		while name do
+			bossButton = _G["NXEJMapButton"..index]
+			if not bossButton then -- create button
+				bossButton = CreateFrame("Button", "NXEJMapButton"..index, Nx.Map.WMDF, "EncounterMapButtonTemplate")				
+			end
+
+			bossButton.instanceID = instanceID
+			bossButton.encounterID = encounterID
+			bossButton.tooltipTitle = name
+			bossButton.tooltipText = description
+			bossButton:SetPoint("CENTER", Nx.Map.WMDF, "BOTTOMLEFT", x*width, y*height)
+			bossButton:SetFrameStrata("HIGH")
+			_, _, _, displayInfo = EJ_GetCreatureInfo(1, encounterID)
+			bossButton.displayInfo = displayInfo
+			bossButton:SetWidth(32)
+			bossButton:SetHeight(32)
+			if ( displayInfo ) then
+				SetPortraitTexture(bossButton.bgImage, displayInfo)
+				bossButton.bgImage:SetWidth(24)
+				bossButton.bgImage:SetHeight(24)
+			else
+				bossButton.bgImage:SetTexture("DoesNotExist")
+			end			
+			bossButton:Show()
+			index = index + 1
+			x, y, instanceID, name, description, encounterID = EJ_GetMapEncounter(index, WorldMapFrame.fromJournal)
+		end
+		WorldMapFrame.hasBosses = index ~= 1
+		bossButton = _G["NXEJMapButton"..index]
+		while bossButton do
+			bossButton:Hide()
+			index = index + 1
+			bossButton = _G["NXEJMapButton"..index]
+		end	
+	end	
 end
 
 function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arrow function out of blizzards map code
