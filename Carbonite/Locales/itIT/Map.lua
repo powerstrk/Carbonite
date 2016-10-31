@@ -29,6 +29,7 @@ L["Show Mining Locations"] = "Mostra Locazioni Minerali"
 L["Show Artifact Locations"] = "Mostra Locazioni Artefatti"
 L["Show Guide POIs"] = true
 L["Show Custom Icons"] = "Mostra Icone Personalizzate"
+L["Show World Quests"] = true
 L["Show Archaeology Blobs"] = "Mostra Aree Archeologiche"
 L["Show Quest Blobs"] = "Mostra Aree Missioni"
 L["Show Unexplored Areas"] = "Mostra Zone Inesplorate"

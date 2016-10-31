@@ -27,6 +27,7 @@ L["Show Player Zone"] = true
 L["Show Herb Locations"] = true
 L["Show Mining Locations"] = true
 L["Show Artifact Locations"] = true
+L["Show World Quests"] = true
 L["Show Guide POIs"] = true
 L["Show Custom Icons"] = true
 L["Show Archaeology Blobs"] = true

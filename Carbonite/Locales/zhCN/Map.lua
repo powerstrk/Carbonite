@@ -29,6 +29,7 @@ L["Show Mining Locations"] = "显示矿点"
 L["Show Artifact Locations"] = "显示考古点"
 L["Show Guide POIs"] = "显示百科指南关注点"
 L["Show Custom Icons"] = "显示自定义图标"
+L["Show World Quests"] = true
 L["Show Archaeology Blobs"] = "显示考古区域"
 L["Show Quest Blobs"] = "显示任务区域"
 L["Show Unexplored Areas"] = "显示未探索区域"
