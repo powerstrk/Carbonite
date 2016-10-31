@@ -1131,8 +1131,14 @@ function Nx.Map:Create (index)
 
 	MapIShow = Nx:ScheduleTimer(func, 1, m)
 
-	--
-
+	-- Show Quest Log - restore World tooltip
+	hooksecurefunc ("ShowUIPanel", function(...) 
+		WorldMap_RestoreTooltip()
+	end)
+	hooksecurefunc ("HideUIPanel", function(...) 
+		WorldMap_HijackTooltip(m.Frm)
+	end)
+	
 	return m
 end
 
