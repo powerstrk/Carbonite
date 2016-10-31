@@ -7855,7 +7855,7 @@ function Nx.Quest:UpdateIcons (map)
 	local activeWQ = {}
 	if Map.UpdateMapID ~= 9000 then
 		local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(Map.UpdateMapID);
-		if taskInfo then
+		if taskInfo and Nx.db.char.Map.ShowWorldQuest then
 			for i=1,#taskInfo do
 				local info = taskInfo[i]
 				local questId = taskInfo[i].questId

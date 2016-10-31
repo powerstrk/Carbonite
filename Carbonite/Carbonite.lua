@@ -162,6 +162,7 @@ local defaults = {
 			ShowQuestGivers = 1,
 			ShowMailboxes = true,
 			ShowRaidBoss = true,
+			ShowWorldQuest = true,
 			ShowCustom = true,
 			ShowCCity = false,
 			ShowCExtra = true,

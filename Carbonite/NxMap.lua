@@ -761,9 +761,10 @@ function Nx.Map:Create (index)
 	item:SetChecked (Nx.db.char.Map, "ShowCustom")
 	local item = showMenu:AddItem(0, L["Show Instance Raid Bosses"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowRaidBoss")
-	local item = showMenu:AddItem(0, L["Show Archaeology Blobs"], func, m)
-	item:SetChecked (Nx.db.char.Map, "ShowArchBlobs")
-
+	local item = showMenu:AddItem(0, L["Show World Quests"], func, m)
+	item:SetChecked (Nx.db.char.Map, "ShowWorldQuest")
+	local item = showMenu:AddItem(0, L["Show Archaeology Blobs"], func, m)	
+	item:SetChecked (Nx.db.char.Map, "ShowArchBlobs")	
 	local item = showMenu:AddItem(0, L["Show Quest Blobs"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowQuestBlobs")
 
@@ -3045,7 +3046,7 @@ function Nx.Map:HijackBlizzBountyMap()
 	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
 	if bountyBoardLocation then
 		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
-	end
+	end	
 	bountyBoard:Show()
 end
 
@@ -3153,7 +3154,9 @@ function Nx.Map:ToggleSize (szmode)
 
 			map:MaxSize()
 		end
-		Nx.Map:HijackBlizzBountyMap()
+		if Nx.db.char.Map.ShowWorldQuest then
+			Nx.Map:HijackBlizzBountyMap()
+		end
 	elseif szmode then
 		win:Show (false)
 
@@ -3163,8 +3166,9 @@ function Nx.Map:ToggleSize (szmode)
 		--WorldMapPlayerLower:SetAlpha(0)
 		--WorldMapPlayerUpper:SetAlpha(0)
 		map:MaxSize()
-		
-		Nx.Map:HijackBlizzBountyMap()
+		if Nx.db.char.Map.ShowWorldQuest then
+			Nx.Map:HijackBlizzBountyMap()
+		end
 	else
 		MapBarFrame:SetParent("WorldMapFrame")
 		--WorldMapPlayerLower:SetAlpha(1)
