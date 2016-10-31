@@ -29,6 +29,7 @@ L["Show Mining Locations"] = "Afficher emplacements Gisements"
 L["Show Artifact Locations"] = "Afficher emplacements Art\195\169facts"
 L["Show Guide POIs"] = "Afficher points d'int\195\169rets Guide"
 L["Show Custom Icons"] = "Afficher ic\195\180nes personalis\195\169es"
+L["Show World Quests"] = true
 L["Show Archaeology Blobs"] = "Afficher points Arch\195\169ologie"
 L["Show Quest Blobs"] = "Afficher points de Qu\195\170te"
 L["Show Unexplored Areas"] = "Afficher les zones inexplor\195\169es"

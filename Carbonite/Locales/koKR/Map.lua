@@ -30,6 +30,7 @@ L["Show Mining Locations"] = "광물 위치 보기"
 L["Show Artifact Locations"] = "고고학 위치 보기"
 L["Show Guide POIs"] = "POI 안내서 보기"
 L["Show Custom Icons"] = "사용자지정 아이콘 보기"
+L["Show World Quests"] = true
 L["Show Archaeology Blobs"] = "고고학 아이콘 보기"
 L["Show Quest Blobs"] = "퀘스트 아이콘 보기"
 L["Show Unexplored Areas"] = "미탐색지역 보기"

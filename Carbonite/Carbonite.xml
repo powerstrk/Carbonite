@@ -20,6 +20,13 @@
 	</Scripts>
 </Frame>
 
+<UnitPositionFrame name="NXWorldMapUnitPositionFrame" frameLevel="1500" inherits="UnitPositionFrameTemplate">
+	<Anchors>
+		<Anchor point="TOPLEFT" relativeTo="WorldMapDetailFrame" x="0" y="0"/>
+		<Anchor point="BOTTOMRIGHT" relativeTo="WorldMapDetailFrame" x="0" y="0"/>
+		</Anchors>
+</UnitPositionFrame>
+
 <Slider name="NxSliderFrame" orientation="HORIZONTAL" virtual="true">
 	<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background" edgeFile="Interface\Buttons\UI-SliderBar-Border" tile="true">
 		<EdgeSize>

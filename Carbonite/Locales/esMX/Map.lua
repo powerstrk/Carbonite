@@ -29,6 +29,7 @@ L["Show Mining Locations"] = true
 L["Show Artifact Locations"] = true
 L["Show Guide POIs"] = true
 L["Show Custom Icons"] = true
+L["Show World Quests"] = true
 L["Show Archaeology Blobs"] = true
 L["Show Quest Blobs"] = true
 L["Show Unexplored Areas"] = true
