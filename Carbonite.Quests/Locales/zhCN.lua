@@ -264,7 +264,7 @@ L["Quest Giver Higher Levels To Show"] = "显示高于多少等级的任务给�
 L["Group"] = "分组"
 L["Remove Watch"] = "移除监视"
 L["BONUS TASK"] = "奖励目标"
-L["WORLD QUEST"] = true
+L["WORLD QUEST"] = "世界任务"
 L["Progress: "] = "进度："
 
 L["Link Quest (shift right click)"] = "任务链接 (Shift-右键)"
