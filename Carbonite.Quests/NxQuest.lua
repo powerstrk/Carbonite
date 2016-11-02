@@ -9213,7 +9213,7 @@ function Nx.Quest.Watch:UpdateList()
 									end
 								end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff--------------------------")
+								list:ItemSet(2,"|cffff00ff-------------------------------")
 							end
 						end
 					end
