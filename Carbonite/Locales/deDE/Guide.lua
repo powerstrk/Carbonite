@@ -66,6 +66,7 @@ L["Trade Skill"] = "Berufsf\195\164higkeiten"
 L["Alchemy Lab"] = "Alchemielabor"
 L["Altar Of Shadows"] = "Altar der Schatten"
 L["Mana Loom"] = "Mana-Webstuhl"
+L["Grace Loom"] ="Webstuhl der anmutigen Königin"
 L["Moonwell"] = "Mondbrunnen"
 
 -- Menus

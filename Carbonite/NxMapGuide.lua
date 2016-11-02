@@ -404,6 +404,10 @@ Nx.GuideInfo = {
 			Tx = "INV_Fabric_Netherweave_Bolt_Imbued",
 		},
 		{
+			T = L["Grace Loom"],
+			Tx = "inv_tailoring_70_silkweaveimbued",
+		},
+		{
 			T = L["Moonwell"],
 			Tx = "INV_Fabric_MoonRag_Primal",
 		},
@@ -860,14 +864,14 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 				break
 			end
 			local f = {}
-			f.Name = name	
+			f.Name = name
 			f.Column2 = format("Level %d", skill)
 			f.Column3 = "Lumbermill"
 			f.T = "$L" .. a
 			f.Tx = tx
 			f.Id = a
 			folder[a] = f
-		end		
+		end
 	elseif folder.Name == L["Ore"] then
 		for a,b in pairs(Nx.GatherInfo["M"]) do
 			local name, tx, skill = Nx:GetGather ("M", a)
@@ -922,7 +926,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 		local n = 1
 		for nxid, v in pairs (Nx.Zones) do
 			local longname, minLvl, maxLvl, faction, typ, owner, posx, posy, numPlyr = Nx.Split ("|", v)
-			if faction == "3" and typ == "5" and tonumber(numPlyr) > 0 then				
+			if faction == "3" and typ == "5" and tonumber(numPlyr) > 0 then
 				local mapId = nxid
 				if mapId then
 					local cont = Nx.Map:IdToContZone (mapId)
@@ -979,7 +983,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 end
 function Nx.Map.Guide:CalcType (folder)
 	local typ = type (folder) == "table" and folder.T
-	if typ then		
+	if typ then
 		local s1, s2 = Nx.Split ("^", typ)
 		if s2 then
 			local s21 = strsub (s2, 1, 1)
@@ -1040,7 +1044,7 @@ function Nx.Map.Guide:ClearShowFolders()
 		self:AddShowFolders (folder)
 	end
 	if Nx.db.char.Map.ShowGatherL then
-		local folder = self:FindFolder (L["Timber"], gFolder)		
+		local folder = self:FindFolder (L["Timber"], gFolder)
 		self:AddShowFolders (folder)
 	end
 	if Nx.db.char.Map.ShowGatherA then
@@ -1249,7 +1253,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 	local cont1 = 1
 	local cont2 = Map.ContCnt
 	local mapId = map:GetCurrentMapId()
-	if not mapId then return end		
+	if not mapId then return end
 	if not self.ShowAllCont then
 		cont1 = map:IdToContZone (mapId)
 		cont2 = cont1
@@ -1259,11 +1263,11 @@ function Nx.Map.Guide:UpdateMapIcons()
 		local tx = "Interface\\Icons\\" .. (folder.Tx or "")
 		if mode == 36 then
 			local typ = strsub (showType, 2, 2)
-			local longType			
+			local longType
 			if typ == "H" then
 				longType = "Herb"
 			elseif typ == "M" then
-				longType = "Mine" 
+				longType = "Mine"
 			elseif typ == "L" then
 				longType = "Timber"
 			end
@@ -1280,7 +1284,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 						local x, y, level = Nx:GatherUnpack (node)
 						local name, tex, skill = Nx:GetGather (typ, fid)
 						local wx, wy = Map:GetWorldPos (mapId, x, y)
-						if level == Nx.Map.DungeonLevel then							
+						if level == Nx.Map.DungeonLevel then
 							icon = map:AddIconPt (iconType, wx, wy, level, nil, "Interface\\Icons\\"..tex, level)
 							if skill > 0 then
 								if typ == "L" then
@@ -1288,7 +1292,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 								else
 									name = name .. " [" .. L["Skill"] .. ": " .. skill .. "]"
 								end
-							end							
+							end
 							map:SetIconTip (icon, name)
 						end
 					end
@@ -1489,7 +1493,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 						if not showMapid or mapId == showMapId then
 							local temp_arr = { Nx.Split("|",b) }
 							for c,d in pairs(temp_arr) do
-								local fac,x,y,level = Nx.Split(",",d)								
+								local fac,x,y,level = Nx.Split(",",d)
 								fac,x,y = tonumber(fac), tonumber(x), tonumber(y)
 								if level then level = tonumber(level) end
 								if fac ~= hideFac then
@@ -1580,18 +1584,18 @@ function Nx.Map.Guide:UpdateInstanceIcons (cont)
 	local inst = folder[cont]
 	if not inst then
 		return
-	end	
+	end
 	for showType, folder in pairs (inst) do
 		if type(folder) == "table" then
 			local mapId = folder.InstMapId
-			local winfo = Map.MapWorldInfo[mapId]			
+			local winfo = Map.MapWorldInfo[mapId]
 			if winfo and winfo.EntryMId == map.MapId then
 				local wx = winfo.X
 				local wy = winfo.Y
 				local icon = map:AddIconPt ("!POIIn", wx, wy, level, nil, "Interface\\Icons\\INV_Misc_ShadowEgg")
 				map:SetIconTip (icon, folder.InstTip)
 				map:SetIconUserData (icon, folder.InstMapId)
-			end		
+			end
 		end
 	end
 end
@@ -1686,7 +1690,7 @@ function Nx.Map.Guide:FindClosest (findType)
 		local mapId = map.UpdateMapID
 		cont1 = map:IdToContZone (mapId)
 		cont2 = cont1
-	end	
+	end
 	local hideFac = self:GetHideFaction()
 	local close, closeMapId, closeX, closeY
 	local close2, closeMapId2, closeX2, closeY2
@@ -1716,7 +1720,7 @@ function Nx.Map.Guide:FindClosest (findType)
 											closeDist = dist
 											close = 0
 											closeMapId = mapId
-											closeX, closeY = wx, wy											
+											closeX, closeY = wx, wy
 										end
 									end
 								end
@@ -1733,7 +1737,7 @@ function Nx.Map.Guide:FindClosest (findType)
 				if type == "H" then
 					longType = "Herb"
 				elseif type == "M" then
-					longType = "Mine" 
+					longType = "Mine"
 				elseif type == "L" then
 					longType = "Timber"
 				end
@@ -2553,7 +2557,7 @@ Nx.Map.Guide.ItemCats = {
 			},
 			{
 				T = "Demon Hunter",
-				Item = -9,			
+				Item = -9,
 			},
 		},
 		{
