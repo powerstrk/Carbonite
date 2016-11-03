@@ -5367,15 +5367,20 @@ function Nx.Quest.List:Open()
 
 	win:SetUser (self, self.OnWin)
 	win:RegisterEvent ("PLAYER_LOGIN", self.OnQuestUpdate)
+	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
+	win:RegisterEvent ("GARRISON_MISSION_COMPLETE_RESPONSE", self.OnQuestUpdate)
+	win:RegisterEvent ("WORLD_QUEST_COMPLETED_BY_SPELL", self.OnQuestUpdate)
+	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUESTLINE_UPDATE", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUESTTASK_UPDATE", self.OnQuestUpdate)
 --	win:RegisterEvent ("QUEST_LOG_UPDATE", self.OnQuestUpdate)
 --  win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
-	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
-	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
-	win:RegisterEvent ("WORLD_QUEST_COMPLETED_BY_SPELL", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUEST_WATCH_LIST_CHANGED", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUEST_WATCH_OBJECTIVES_CHANGED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
-	--win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
@@ -6570,10 +6575,11 @@ function Nx.Quest.List:Refresh()
 end
 
 function Nx.Quest.List:OnQuestUpdate (event, ...)
-	--if event ~= "WORLD_MAP_UPDATE" then Nx.prt ("OnQuestUpdate %s", event) end
 	local Quest = Nx.Quest
 	local arg1, arg2, arg3 = select (1, ...)
-
+	
+	if event ~= "WORLD_MAP_UPDATE" then Nx.prtD ("OnQuestUpdate %s", event) end
+	
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
 	elseif event == "QUEST_TURNED_IN" then
@@ -6648,12 +6654,12 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		else
 			self:Refresh(event)
 		end
-	elseif event == "QUEST_REMOVED" then
-		--self:LogUpdate()
+	elseif event == "GARRISON_MISSION_COMPLETE_RESPONSE" then
+		self:LogUpdate()
 	else
 		Nx.Quest.Watch:Update()
 	end
---	Nx.prt ("OnQuestUpdate %s Done", event)
+--	Nx.prtD ("OnQuestUpdate %s Done", event)
 end
 
 -------------------------------------------------------------------------------
