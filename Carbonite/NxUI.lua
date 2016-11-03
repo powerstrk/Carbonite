@@ -127,9 +127,9 @@ function Nx.prtError (msg, ...)
 end
 
 -- Debug print
-function Nx.prtD (msg)
+function Nx.prtD (...)
 	if Nx.DebugOn then
-		Nx.prt (msg)
+		Nx.prt (...)
 	end
 end
 
