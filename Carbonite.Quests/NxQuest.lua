@@ -3521,6 +3521,7 @@ function Nx.Quest:RecordQuestsLog()
 			SelectQuestLogEntry (qn)
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
+			Nx.prt ("%d",GetQuestLogQuestType(qn)) -- Seeing what quest type function returns
 			--Nx.prt("%s", qDesc)
 			if qId then
 				local quest = Nx.Quests[qId]
