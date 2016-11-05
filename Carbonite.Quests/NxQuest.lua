@@ -4570,7 +4570,7 @@ function Nx.Quest:TellPartyOfChanges()
 
 	for _, cur in ipairs (curq) do
 
-		if cur.QI > 0 and not IsQuestTask(cur.QI) and not QuestUtils_IsQuestWorldQuest (cur.QI) then
+		if cur.QI > 0 then
 
 			for n = 1, cur.LBCnt do
 
@@ -4588,7 +4588,7 @@ function Nx.Quest:TellPartyOfChanges()
 							end
 						end
 					end
-					if not skip and (desc ~= cur[n] or done ~= cur[n + 100]) then
+					if not skip and desc ~= cur[n] then
 						Nx.Com:Send ("P", desc)
 --						Nx.prt ("%s", desc)
 					end
