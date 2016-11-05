@@ -3521,24 +3521,25 @@ function Nx.Quest:RecordQuestsLog()
 			SelectQuestLogEntry (qn)
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
-			Nx.prt ("%d",GetQuestLogQuestType(qn)) -- Seeing what quest type function returns
+			--Nx.prt ("%d",GetQuestLogQuestType(qn)) -- Seeing what quest type function returns
 			--Nx.prt("%s", qDesc)
-			if qId then
-				local quest = Nx.Quests[qId]
-				local lbCnt = GetNumQuestLeaderBoards (qn)
+			if GetQuestLogQuestType(qn) ~= 140 then
+				if qId then
+					local quest = Nx.Quests[qId]
+					local lbCnt = GetNumQuestLeaderBoards (qn)
 
-				local cur = quest and fakeq[quest]
-				if not cur then
-					cur = {}
-					curq[index] = cur
-					cur.Index = index
-					index = index + 1
+					local cur = quest and fakeq[quest]
+					if not cur then
+						cur = {}
+						curq[index] = cur
+						cur.Index = index
+						index = index + 1
 
-				else
-					cur.Goto = nil					-- Might have been a goto quest
-					cur.Index = index
-
-					if quest then
+					else
+						cur.Goto = nil					-- Might have been a goto quest
+						cur.Index = index
+	
+						if quest then
 						self.Tracking[qId] = 0
 						self:TrackOnMap (qId, 0, true)
 					end
@@ -3648,6 +3649,7 @@ function Nx.Quest:RecordQuestsLog()
 				end
 			end
 		end
+	end
 	end
 	--
 
