@@ -3431,7 +3431,7 @@ function Nx.Quest:RecordQuestsLog()
 					local lbCnt = GetNumQuestLeaderBoards (qi)
 					for n = 1, lbCnt do
 
-						local desc, _typ, done = GetQuestLogLeaderBoard (n, qi)
+						local desc, _, done = GetQuestLogLeaderBoard (n, qi)
 
 						--V4
 
