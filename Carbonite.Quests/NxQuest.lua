@@ -3506,7 +3506,8 @@ function Nx.Quest:RecordQuestsLog()
 	local index = #curq + 1
 
 	for qn = 1, qcnt do
-		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
+		--local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isBounty, isStory, isHidden = GetQuestLogTitle(qn);
 		local tagID, tag = GetQuestTagInfo(questID)
 		local isDaily = frequency
 --		Nx.prt ("Q %d %s %s %d %s %s %s %s", qn, isHeader and "H" or " ", title, level, tag or "nil", groupCnt or "nil", isDaily or "not daily", isComplete and "C1" or "C0")
@@ -3523,7 +3524,7 @@ function Nx.Quest:RecordQuestsLog()
 			local qId, qLevel = self:GetLogIdLevel (questID)
 			--Nx.prt ("%d",GetQuestLogQuestType(qn)) -- Seeing what quest type function returns
 			--Nx.prt("%s", qDesc)
-			if GetQuestLogQuestType(qn) ~= 140 then
+			if not isHidden then
 				if qId then
 					local quest = Nx.Quests[qId]
 					local lbCnt = GetNumQuestLeaderBoards (qn)
