@@ -9176,7 +9176,11 @@ function Nx.Quest.Watch:UpdateList()
 									end
 								end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff--------------------------")
+								if worldQuestType ~= nil then
+									list:ItemSet(2,"|cffff00ff--------------------------------")
+								else
+									list:ItemSet(2,"|cffff00ff--------------------------")
+								end
 							end
 						end
 					end
