@@ -3431,7 +3431,7 @@ function Nx.Quest:RecordQuestsLog()
 					local lbCnt = GetNumQuestLeaderBoards (qi)
 					for n = 1, lbCnt do
 
-						local desc, _typ, done = GetQuestLogLeaderBoard (n, qi)
+						local desc, _, done = GetQuestLogLeaderBoard (n, qi)
 
 						--V4
 
@@ -3506,7 +3506,8 @@ function Nx.Quest:RecordQuestsLog()
 	local index = #curq + 1
 
 	for qn = 1, qcnt do
-		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
+		--local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isBounty, isStory, isHidden = GetQuestLogTitle(qn);
 		local tagID, tag = GetQuestTagInfo(questID)
 		local isDaily = frequency
 --		Nx.prt ("Q %d %s %s %d %s %s %s %s", qn, isHeader and "H" or " ", title, level, tag or "nil", groupCnt or "nil", isDaily or "not daily", isComplete and "C1" or "C0")
@@ -3521,22 +3522,20 @@ function Nx.Quest:RecordQuestsLog()
 			SelectQuestLogEntry (qn)
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
+			--Nx.prt ("%d",GetQuestLogQuestType(qn)) -- Seeing what quest type function returns
 			--Nx.prt("%s", qDesc)
-			if qId then
+			if qId and not isHidden then
 				local quest = Nx.Quests[qId]
 				local lbCnt = GetNumQuestLeaderBoards (qn)
-
 				local cur = quest and fakeq[quest]
 				if not cur then
 					cur = {}
 					curq[index] = cur
 					cur.Index = index
 					index = index + 1
-
 				else
 					cur.Goto = nil					-- Might have been a goto quest
 					cur.Index = index
-
 					if quest then
 						self.Tracking[qId] = 0
 						self:TrackOnMap (qId, 0, true)
@@ -3648,7 +3647,7 @@ function Nx.Quest:RecordQuestsLog()
 			end
 		end
 	end
-	--
+
 
 	if Nx.qdb.profile.Quest.PartyShare and self.Watch.ButShowParty:GetPressed() then
 
