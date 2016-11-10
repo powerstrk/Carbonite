@@ -3506,9 +3506,8 @@ function Nx.Quest:RecordQuestsLog()
 	local index = #curq + 1
 
 	for qn = 1, qcnt do
-		--local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
-		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isBounty, isStory, isHidden = GetQuestLogTitle(qn);
-		local tagID, tag = GetQuestTagInfo(questID)
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isBounty, isStory, isHidden = GetQuestLogTitle(qn)
+		local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questID)
 		local isDaily = frequency
 --		Nx.prt ("Q %d %s %s %d %s %s %s %s", qn, isHeader and "H" or " ", title, level, tag or "nil", groupCnt or "nil", isDaily or "not daily", isComplete and "C1" or "C0")
 
@@ -3600,7 +3599,7 @@ function Nx.Quest:RecordQuestsLog()
 				cur.LBCnt = lbCnt
 
 				for n = 1, lbCnt do
-					local desc, typ, done = GetQuestLogLeaderBoard (n, qn)
+					local desc, _, done = GetQuestLogLeaderBoard (n, qn)
 					cur[n] = desc or "?"		--V4
 					cur[n + 100] = done
 				end
