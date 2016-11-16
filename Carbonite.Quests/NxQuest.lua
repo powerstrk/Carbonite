@@ -3431,7 +3431,7 @@ function Nx.Quest:RecordQuestsLog()
 					local lbCnt = GetNumQuestLeaderBoards (qi)
 					for n = 1, lbCnt do
 
-						local desc, _typ, done = GetQuestLogLeaderBoard (n, qi)
+						local desc, _, done = GetQuestLogLeaderBoard (n, qi)
 
 						--V4
 
@@ -3506,8 +3506,8 @@ function Nx.Quest:RecordQuestsLog()
 	local index = #curq + 1
 
 	for qn = 1, qcnt do
-		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle (qn)
-		local tagID, tag = GetQuestTagInfo(questID)
+		local title, level, groupCnt, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isBounty, isStory, isHidden = GetQuestLogTitle(qn)
+		local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = GetQuestTagInfo(questID)
 		local isDaily = frequency
 --		Nx.prt ("Q %d %s %s %d %s %s %s %s", qn, isHeader and "H" or " ", title, level, tag or "nil", groupCnt or "nil", isDaily or "not daily", isComplete and "C1" or "C0")
 
@@ -3521,22 +3521,20 @@ function Nx.Quest:RecordQuestsLog()
 			SelectQuestLogEntry (qn)
 			local qDesc, qObj = GetQuestLogQuestText()
 			local qId, qLevel = self:GetLogIdLevel (questID)
+			--Nx.prt ("%d",GetQuestLogQuestType(qn)) -- Seeing what quest type function returns
 			--Nx.prt("%s", qDesc)
-			if qId then
+			if qId and not isHidden then
 				local quest = Nx.Quests[qId]
 				local lbCnt = GetNumQuestLeaderBoards (qn)
-
 				local cur = quest and fakeq[quest]
 				if not cur then
 					cur = {}
 					curq[index] = cur
 					cur.Index = index
 					index = index + 1
-
 				else
 					cur.Goto = nil					-- Might have been a goto quest
 					cur.Index = index
-
 					if quest then
 						self.Tracking[qId] = 0
 						self:TrackOnMap (qId, 0, true)
@@ -3601,7 +3599,7 @@ function Nx.Quest:RecordQuestsLog()
 				cur.LBCnt = lbCnt
 
 				for n = 1, lbCnt do
-					local desc, typ, done = GetQuestLogLeaderBoard (n, qn)
+					local desc, _, done = GetQuestLogLeaderBoard (n, qn)
 					cur[n] = desc or "?"		--V4
 					cur[n + 100] = done
 				end
@@ -3648,7 +3646,7 @@ function Nx.Quest:RecordQuestsLog()
 			end
 		end
 	end
-	--
+
 
 	if Nx.qdb.profile.Quest.PartyShare and self.Watch.ButShowParty:GetPressed() then
 
@@ -4570,7 +4568,7 @@ function Nx.Quest:TellPartyOfChanges()
 
 	for _, cur in ipairs (curq) do
 
-		if cur.QI > 0 and not QuestUtils_IsQuestWorldQuest (cur.QI) then
+		if cur.QI > 0 then
 
 			for n = 1, cur.LBCnt do
 
@@ -4588,7 +4586,7 @@ function Nx.Quest:TellPartyOfChanges()
 							end
 						end
 					end
-					if not skip and (desc ~= cur[n] or done ~= cur[n + 100]) then
+					if not skip and desc ~= cur[n] then
 						Nx.Com:Send ("P", desc)
 --						Nx.prt ("%s", desc)
 					end
@@ -5367,15 +5365,20 @@ function Nx.Quest.List:Open()
 
 	win:SetUser (self, self.OnWin)
 	win:RegisterEvent ("PLAYER_LOGIN", self.OnQuestUpdate)
+	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
+	win:RegisterEvent ("GARRISON_MISSION_COMPLETE_RESPONSE", self.OnQuestUpdate)
+	win:RegisterEvent ("WORLD_QUEST_COMPLETED_BY_SPELL", self.OnQuestUpdate)
+	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUESTLINE_UPDATE", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUESTTASK_UPDATE", self.OnQuestUpdate)
 --	win:RegisterEvent ("QUEST_LOG_UPDATE", self.OnQuestUpdate)
 --  win:RegisterEvent ("QUEST_WATCH_UPDATE", self.OnQuestUpdate)
-	win:RegisterEvent ("UPDATE_FACTION", self.OnQuestUpdate)
-	win:RegisterEvent ("UNIT_QUEST_LOG_CHANGED", self.OnQuestUpdate)
-	win:RegisterEvent ("WORLD_QUEST_COMPLETED_BY_SPELL", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUEST_WATCH_LIST_CHANGED", self.OnQuestUpdate)
+--	win:RegisterEvent ("QUEST_WATCH_OBJECTIVES_CHANGED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_PROGRESS", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_COMPLETE", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_ACCEPTED", self.OnQuestUpdate)
-	--win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
+	win:RegisterEvent ("QUEST_REMOVED", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_TURNED_IN", self.OnQuestUpdate)
 	win:RegisterEvent ("QUEST_DETAIL", self.OnQuestUpdate)
 	win:RegisterEvent ("SCENARIO_UPDATE", self.OnQuestUpdate)
@@ -6570,10 +6573,11 @@ function Nx.Quest.List:Refresh()
 end
 
 function Nx.Quest.List:OnQuestUpdate (event, ...)
-	--if event ~= "WORLD_MAP_UPDATE" then Nx.prt ("OnQuestUpdate %s", event) end
 	local Quest = Nx.Quest
 	local arg1, arg2, arg3 = select (1, ...)
-
+	
+	if event ~= "WORLD_MAP_UPDATE" then Nx.prtD ("OnQuestUpdate %s", event) end
+	
 	if event == "PLAYER_LOGIN" then
 		self.LoggingIn = true
 	elseif event == "QUEST_TURNED_IN" then
@@ -6648,12 +6652,12 @@ function Nx.Quest.List:OnQuestUpdate (event, ...)
 		else
 			self:Refresh(event)
 		end
-	elseif event == "QUEST_REMOVED" then
-		--self:LogUpdate()
+	elseif event == "GARRISON_MISSION_COMPLETE_RESPONSE" then
+		self:LogUpdate()
 	else
 		Nx.Quest.Watch:Update()
 	end
---	Nx.prt ("OnQuestUpdate %s Done", event)
+--	Nx.prtD ("OnQuestUpdate %s Done", event)
 end
 
 -------------------------------------------------------------------------------
@@ -9171,7 +9175,11 @@ function Nx.Quest.Watch:UpdateList()
 									end
 								end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff--------------------------")
+								if worldQuestType ~= nil then
+									list:ItemSet(2,"|cffff00ff------------------------------")
+								else
+									list:ItemSet(2,"|cffff00ff----------------------------")
+								end
 							end
 						end
 					end
@@ -9213,7 +9221,7 @@ function Nx.Quest.Watch:UpdateList()
 									end
 								end
 								list:ItemAdd(0)
-								list:ItemSet(2,"|cffff00ff--------------------------")
+								list:ItemSet(2,"|cffff00ff-------------------------------")
 							end
 						end
 					end
