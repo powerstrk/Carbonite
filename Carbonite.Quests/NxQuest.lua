@@ -6890,17 +6890,18 @@ function Nx.Quest.List:Update()
 						local desc, typ, done
 						local zone, loc
 
-						for ln = 1, 15 do
+						for ln = 1, num do
 
-							zone = nil
+							--[[zone = nil
 
 							local obj = quest and quest["Objectives"]
 
 							if obj then
 								desc, zone, loc = Nx.Quest:UnpackObjectiveNew (obj[n])
-							end
-							if ln <= num then
-								desc, typ, done = GetQuestLogLeaderBoard (ln, qn)
+							end]] -- Just use blizzard
+							desc, typ, done = GetQuestLogLeaderBoard (ln, qn)
+							--[[if ln <= num then
+								
 								desc = desc or "?"	--V4
 
 							else
@@ -6910,7 +6911,7 @@ function Nx.Quest.List:Update()
 
 								done = false
 							end
-							if not desc then desc = "?" end
+							if not desc then desc = "?" end]]
 							color = done and "|cff5f5f6f" or "|cff9f9faf"
 							str = format ("     %s%s", color, desc)
 
