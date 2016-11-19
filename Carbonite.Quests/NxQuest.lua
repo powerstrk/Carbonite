@@ -9388,7 +9388,7 @@ function Nx.Quest.Watch:UpdateList()
 									if obj then
 										obj = quest and quest["Objectives"][ln]
 									end
-									if not obj and ln > lbNum then
+									if not obj or ln > lbNum then
 										break
 									end
 									zone = nil
