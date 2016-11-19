@@ -6892,13 +6892,13 @@ function Nx.Quest.List:Update()
 
 						for ln = 1, num do
 
-							--[[zone = nil
+							zone = nil
 
 							local obj = quest and quest["Objectives"]
 
 							if obj then
 								desc, zone, loc = Nx.Quest:UnpackObjectiveNew (obj[n])
-							end]] -- Just use blizzard
+							end
 							desc, typ, done = GetQuestLogLeaderBoard (ln, qn)
 							--[[if ln <= num then
 								
