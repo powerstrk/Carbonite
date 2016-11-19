@@ -9385,8 +9385,10 @@ function Nx.Quest.Watch:UpdateList()
 								local lnOffset = -1
 								for ln = 1, 31 do
 									local obj = quest and quest["Objectives"]
-									if obj then
+									if obj and (obj ~= "?" or obj ~= "nil") then
 										obj = quest and quest["Objectives"][ln]
+									else
+										break
 									end
 									if not obj or ln > lbNum then
 										break
