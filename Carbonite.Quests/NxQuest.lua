@@ -6890,7 +6890,7 @@ function Nx.Quest.List:Update()
 						local desc, typ, done
 						local zone, loc
 
-						for ln = 1, 15 do
+						for ln = 1, num do
 
 							zone = nil
 
