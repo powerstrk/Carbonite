@@ -69,7 +69,7 @@ local defaults = {
 			HCheckCompleted = false,
 			maxLoadLevel = false,
 			LevelsToLoad = 10,
-			MapQuestGiversHighLevel = 100,
+			MapQuestGiversHighLevel = 110,
 			MapQuestGiversLowLevel = 1,
 			MapShowWatchAreas = true,
 			MapWatchAreaAlpha = "1|1|1|.4",
@@ -1645,7 +1645,7 @@ local function QuestOptions ()
 							type = "toggle",
 							width = "full",
 							name = L["Load quest data by threshold"],
-							desc = L["Loads all the carbonite quest data between player level - level threshold to 100"],
+							desc = L["Loads all the carbonite quest data between player level - level threshold to 110"],
 							get = function()
 								return Nx.qdb.profile.Quest.maxLoadLevel
 							end,
@@ -1660,7 +1660,7 @@ local function QuestOptions ()
 							name = L["Level Threshold"],
 							desc = L["Levels under player level to load quest data on reload"],
 							min = 1,
-							max = 100,
+							max = 110,
 							step = 1,
 							bigStep = 1,
 							get = function()
