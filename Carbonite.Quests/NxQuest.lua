@@ -69,7 +69,7 @@ local defaults = {
 			HCheckCompleted = false,
 			maxLoadLevel = false,
 			LevelsToLoad = 10,
-			MapQuestGiversHighLevel = 110,
+			MapQuestGiversHighLevel = 100,
 			MapQuestGiversLowLevel = 1,
 			MapShowWatchAreas = true,
 			MapWatchAreaAlpha = "1|1|1|.4",
@@ -1660,7 +1660,7 @@ local function QuestOptions ()
 							name = L["Level Threshold"],
 							desc = L["Levels under player level to load quest data on reload"],
 							min = 1,
-							max = 110,
+							max = 100,
 							step = 1,
 							bigStep = 1,
 							get = function()
@@ -6890,7 +6890,7 @@ function Nx.Quest.List:Update()
 						local desc, typ, done
 						local zone, loc
 
-						for ln = 1, num do
+						for ln = 1, 15 do
 
 							zone = nil
 
@@ -6899,9 +6899,8 @@ function Nx.Quest.List:Update()
 							if obj then
 								desc, zone, loc = Nx.Quest:UnpackObjectiveNew (obj[n])
 							end
-							desc, typ, done = GetQuestLogLeaderBoard (ln, qn)
-							--[[if ln <= num then
-								
+							if ln <= num then
+								desc, typ, done = GetQuestLogLeaderBoard (ln, qn)
 								desc = desc or "?"	--V4
 
 							else
@@ -6911,7 +6910,7 @@ function Nx.Quest.List:Update()
 
 								done = false
 							end
-							if not desc then desc = "?" end]]
+							if not desc then desc = "?" end
 							color = done and "|cff5f5f6f" or "|cff9f9faf"
 							str = format ("     %s%s", color, desc)
 
@@ -9386,12 +9385,10 @@ function Nx.Quest.Watch:UpdateList()
 								local lnOffset = -1
 								for ln = 1, 31 do
 									local obj = quest and quest["Objectives"]
-									if obj and (obj ~= "?" or obj ~= "nil") then
+									if obj then
 										obj = quest and quest["Objectives"][ln]
-									else
-										break
 									end
-									if not obj or ln > lbNum then
+									if not obj and ln > lbNum then
 										break
 									end
 									zone = nil
@@ -10108,11 +10105,9 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 			questObj = useEnd and quest["End"] or quest["Start"]
 			name, zone, loc = Quest:UnpackSE (questObj)
 		else
-			if quest["Objectives"] ~= nil then
-				questObj = quest["Objectives"][qObj]
-				if questObj and questObj[1] then
-					name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
-				end
+			questObj = quest["Objectives"][qObj]
+			if questObj and questObj[1] then
+				name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
 			end
 		end
 
