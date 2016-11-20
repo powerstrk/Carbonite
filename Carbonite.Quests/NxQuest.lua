@@ -8659,10 +8659,10 @@ function Nx.Quest.Watch:Open()
 	end
 
 	local item = menu:AddItem (0, L["Quest Giver Lower Levels To Show"], func, self)
-	item:SetSlider (Nx.qdb.profile.Quest, 0, 100, 1, "MapQuestGiversLowLevel")
+	item:SetSlider (Nx.qdb.profile.Quest, 0, 110, 1, "MapQuestGiversLowLevel")
 
 	local item = menu:AddItem (0, L["Quest Giver Higher Levels To Show"], func, self)
-	item:SetSlider (Nx.qdb.profile.Quest, 0, 100, 1, "MapQuestGiversHighLevel")
+	item:SetSlider (Nx.qdb.profile.Quest, 0, 110, 1, "MapQuestGiversHighLevel")
 
 --	local item = menu:AddItem (0, L["Group"], update, self)
 --	item:SetSlider (qopts, -200, 200, 1, "NXWPriGroup")
