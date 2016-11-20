@@ -10108,7 +10108,7 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 			questObj = useEnd and quest["End"] or quest["Start"]
 			name, zone, loc = Quest:UnpackSE (questObj)
 		else
-			if quest["Objectives"][qObj] ~= nil then
+			if quest["Objectives"] ~= nil then
 				questObj = quest["Objectives"][qObj]
 				if questObj and questObj[1] then
 					name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
