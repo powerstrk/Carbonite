@@ -6885,6 +6885,8 @@ function Nx.Quest.List:Update()
 					if self.QOpts.NXShowObj then
 
 						local num = GetNumQuestLeaderBoards (qn)
+						local oCompColor = Nx.Quest.Cols["oCompColor"]
+						local oIncompColor = Nx.Quest.Cols["oIncompColor"]
 
 						local str = ""
 						local desc, typ, done
@@ -6911,7 +6913,7 @@ function Nx.Quest.List:Update()
 								done = false
 							end
 							if not desc then desc = "?" end
-							color = done and "|cff5f5f6f" or "|cff9f9faf"
+							color = done and oCompColor or oIncompColor
 							str = format ("     %s%s", color, desc)
 
 							list:ItemAdd (qId * 0x10000 + ln * 0x100 + qn)
