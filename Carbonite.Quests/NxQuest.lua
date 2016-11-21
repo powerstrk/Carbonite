@@ -6885,12 +6885,14 @@ function Nx.Quest.List:Update()
 					if self.QOpts.NXShowObj then
 
 						local num = GetNumQuestLeaderBoards (qn)
+						local oCompColor = Nx.Quest.Cols["oCompColor"]
+						local oIncompColor = Nx.Quest.Cols["oIncompColor"]
 
 						local str = ""
 						local desc, typ, done
 						local zone, loc
 
-						for ln = 1, 15 do
+						for ln = 1, num do
 
 							zone = nil
 
@@ -6911,7 +6913,7 @@ function Nx.Quest.List:Update()
 								done = false
 							end
 							if not desc then desc = "?" end
-							color = done and "|cff5f5f6f" or "|cff9f9faf"
+							color = done and oCompColor or oIncompColor
 							str = format ("     %s%s", color, desc)
 
 							list:ItemAdd (qId * 0x10000 + ln * 0x100 + qn)
@@ -10105,9 +10107,11 @@ function Nx.Quest:TrackOnMap (qId, qObj, useEnd, target, skipSame)
 			questObj = useEnd and quest["End"] or quest["Start"]
 			name, zone, loc = Quest:UnpackSE (questObj)
 		else
-			questObj = quest["Objectives"][qObj]
-			if questObj and questObj[1] then
-				name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
+			if quest["Objectives"] ~= nil then
+				questObj = quest["Objectives"][qObj]
+				if questObj and questObj[1] then
+					name, zone, loc = Nx.Quest:UnpackObjectiveNew (questObj[1])
+				end
 			end
 		end
 
