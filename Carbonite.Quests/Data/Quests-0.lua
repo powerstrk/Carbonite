@@ -15266,7 +15266,8 @@ function Nx.ModQuests:Data0()
 		},
 		[37690] = {
 			Quest = [[Those Who Remember|0|0|98|37256|0]],
-			End = "4863|1015|32|47.00|41.20",
+			Start = "4863|1015|32|47.00|25.80",
+			End = "4863|1015|32|48.40|34.50",
 		},
 		[37727] = {
 			Quest = [[The Magister of Mixology|0|0|98|0|0]],
