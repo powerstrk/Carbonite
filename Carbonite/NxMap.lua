@@ -4534,8 +4534,7 @@ function Nx.Map:Update (elapsed)
 
 	local oldLev = self.Level
 
-	if IsShiftKeyDown() then
-
+	if IsShiftKeyDown() or inBG then
 		oldLev = oldLev - 4
 		self.Level = self.Level + 16
 	end

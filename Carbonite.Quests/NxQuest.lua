@@ -6694,14 +6694,14 @@ function Nx.Quest.List:LogUpdate()
 	if qn and qn > 0 then
 
 		local curi, cur = Quest:FindCurByIndex (qn)
+		if cur then
+			Quest.QIdsNew[cur.QId] = time()
 
-		Quest.QIdsNew[cur.QId] = time()
-
-		if Nx.qdb.profile.QuestWatch.AddNew and not Quest.DailyPVPIds[cur.QId] then
-			Quest.Watch:Add (curi,true)
+			if Nx.qdb.profile.QuestWatch.AddNew and not Quest.DailyPVPIds[cur.QId] then
+				Quest.Watch:Add (curi,true)
+			end
+			Quest:Capture (curi)
 		end
-		Quest:Capture (curi)
-
 --		Nx.prt ("OnQuestUpdate Watch %d %d", qn, i)
 	end
 	Quest:RestoreExpandQuests()
