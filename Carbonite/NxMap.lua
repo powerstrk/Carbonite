@@ -64,54 +64,67 @@ NxMapOptsDefaults = {
 NXMapOptsMapsDefault = 	{
 	[0] = {	-- Default map id
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = true,
 	},
 	[461] = {	-- AB
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[443] = {	-- WG
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[401] = {	-- AV
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[482] = {	-- EOS
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[512] = {	-- SoA
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[540] = {	-- IC
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[736] = {	-- TBG
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[626] = {	-- TP
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[856] = {	-- TK
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[860] = {	-- SM
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[935] = {
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 	[1010] = {
 		NXPlyrFollow = true,
+		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
 }
@@ -669,12 +682,12 @@ function Nx.Map:Create (index)
 
 	local menu = Nx.Menu:Create (f)
 	m.Menu = menu
-
+    m.MenuIInstanceMaps = menu:AddItem (0, L["Show Instance Map"], self.Menu_InstanceMap, m)
 	menu:AddItem (0, L["Goto"], self.Menu_OnGoto, m)
 	menu:AddItem (0, L["Clear Goto"], self.Menu_OnClearGoto, m)
 	menu:AddItem (0, L["Save Map Scale"], self.Menu_OnScaleSave, m)
-	menu:AddItem (0, L["Restore Map Scale"], self.Menu_OnScaleRestore, m)
-
+	menu:AddItem (0, L["Restore Map Scale"], self.Menu_OnScaleRestore, m) 	
+	 
 	m.MenuIPlyrFollow = menu:AddItem (0, L["Follow You"], self.Menu_OnPlyrFollow, m)
 
 	local item = menu:AddItem (0, L["Select Cities Last"], self.SetLevelWorldHotspots, m)
@@ -2634,6 +2647,10 @@ function Nx.Map:Menu_OnPlyrFollow (item)
 	self.CurOpts.NXPlyrFollow = item:GetChecked()
 end
 
+function Nx.Map:Menu_InstanceMap (item)
+	self.CurOpts.NXInstanceMaps = item:GetChecked()
+end
+
 function Nx.Map:Menu_OnShowWorld (item)
 	self.CurOpts.NXWorldShow = item:GetChecked()
 end
@@ -3427,6 +3444,9 @@ function Nx.Map:OnMouseDown (button)
 				map.DebugMapId = map.MapId
 
 			else
+				if map.CurOpts.NXInstanceMaps then
+					return
+				end
 				map.LClickTime = GetTime()
 				map.Scrolling = true
 				map.ScrollingX = x
@@ -3491,7 +3511,7 @@ end
 function Nx.Map:OpenMenu()
 
 	local opts = self:GetOptionsT (self.MapIndex)
-
+	self.MenuIInstanceMaps:SetChecked (self.CurOpts.NXInstanceMaps)
 	self.MenuIPlyrFollow:SetChecked (self.CurOpts.NXPlyrFollow)
 	self.MenuIShowWorld:SetChecked (self.CurOpts.NXWorldShow)
 
@@ -3533,7 +3553,9 @@ function Nx.Map:MouseWheel (value)
 
 	local map = self
 	local this = map.Frm
-
+	if map.CurOpts.NXInstanceMaps then
+		return
+	end
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
 
 		map.MMZoomChanged = true
@@ -3565,12 +3587,7 @@ function Nx.Map:MouseWheel (value)
 
 	map.Scale = map:ScrollScale (value)
 	map.StepTime = 10
-	if map:IsInstanceMap(Nx.Map:GetRealMapId()) then
-	else
-		map.RealScale = map.Scale
-	end
 	map.MapScale = map.Scale / 10.02
-
 	local nx = map.MapPosX + (x - left - map.PadX - map.MapW / 2) / map.Scale
 	local ny = map.MapPosY + (top - y - map.TitleH - map.MapH / 2) / map.Scale
 
@@ -3630,8 +3647,8 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		map.Scrolling = false
 	end
 
-	if map.InstanceId then		
-		winx = nil
+	if map.InstanceId and map.CurOpts.NXInstanceMaps then		
+		map.Scrolling = false
 	end
 
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
@@ -3786,7 +3803,6 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 						local lrid = Nx.Map.MapWorldInfo[rid].EntryMId
 						if lrid ~= nil then rid = lrid end
 					end
-					map.Scale = map.RealScale					
 					local lvl = GetCurrentMapDungeonLevel()
 					if lvl ~= map.InstLevelSet then
 						mapId = 0	-- Force set
@@ -4183,7 +4199,7 @@ function Nx.Map:Update (elapsed)
 	end
 	local plZX, plZY = Nx.Map.GetPlayerMapPosition ("player")
 
-	if Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId) then
+	if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps then		
 		Nx.Map.MoveWorldMap()
 		Nx.Map:GetMap(1).PlyrFrm:Hide()
 	else
@@ -4542,7 +4558,7 @@ function Nx.Map:Update (elapsed)
 	local txX1, txX2, txY1, txY2
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
-		type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)
+		type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)		
 		if pX and txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
@@ -4551,7 +4567,7 @@ function Nx.Map:Update (elapsed)
 			end			
 			pX = pX * 100
 			pY = pY * 100
-
+			
 --			Nx.prtCtrl ("poi %d %s %s %d", i, name, desc, txIndex)
 
 			local f = self:GetIcon (3)
@@ -9074,15 +9090,16 @@ function Nx.Map:GetWorldPos (mapId, mapX, mapY)
 		if winfo.BaseMap then
 			winfo = self.MapWorldInfo[winfo.BaseMap]
 		end
-		local scale = winfo.Scale
-		if not winfo[4] or not winfo[5] then
+		local scale = winfo.Scale						
+			if not winfo[4] or not winfo[5] then
 --			Nx.prt("GetWorldErr (Not Calculated): " .. mapId)
 			return 0,0
-		end
+		end		
 		if not scale then
 --			Nx.prt("GetWorldErr (Scale): " .. mapId)
 			return 0,0
 		end
+
 		return	winfo[4] + mapX * scale,
 					winfo[5] + mapY * scale / 1.5
 	end
@@ -10560,7 +10577,7 @@ function Nx.Map.MoveWorldMap()
 		Nx.Map.WMDT[12]:SetPoint("TOPLEFT","WMDT11","TOPRIGHT")
 	end
 	Nx.Map.WMDF:SetParent(Nx.Map:GetMap(1).Frm)
-	Nx.Map.WMDF:SetFrameLevel(20)
+	Nx.Map.WMDF:SetFrameLevel(10)
 	Nx.Map.WMDF:SetWidth(Nx.Map:GetMap(1).MapW)
 	Nx.Map.WMDF:SetHeight(Nx.Map:GetMap(1).MapH)
 	Nx.Map.WMDF:Show()
