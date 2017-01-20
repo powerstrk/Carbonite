@@ -3444,7 +3444,7 @@ function Nx.Map:OnMouseDown (button)
 				map.DebugMapId = map.MapId
 
 			else
-				if map.CurOpts.NXInstanceMaps then
+				if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and map.CurOpts.NXInstanceMaps then
 					return
 				end
 				map.LClickTime = GetTime()
@@ -3553,7 +3553,7 @@ function Nx.Map:MouseWheel (value)
 
 	local map = self
 	local this = map.Frm
-	if map.CurOpts.NXInstanceMaps then
+	if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and map.CurOpts.NXInstanceMaps then
 		return
 	end
 	if map.MMZoomType == 0 and Nx.Util_IsMouseOver (map.MMFrm) then
@@ -3647,7 +3647,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		map.Scrolling = false
 	end
 
-	if map.InstanceId and map.CurOpts.NXInstanceMaps then		
+	if (Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and map.CurOpts.NXInstanceMaps then		
 		map.Scrolling = false
 	end
 
