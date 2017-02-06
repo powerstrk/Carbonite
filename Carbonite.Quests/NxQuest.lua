@@ -2865,7 +2865,7 @@ function Nx.Quest:ProcessQuestDB(questTotal)
 						qc.CNum = cnum
 						name, side, level, minlevel, qnext = self:Unpack (qc["Quest"])
 						clvlmax = max (clvlmax, level)
-						if not qnext or qnext == 0 or _qids[qnext] == true then
+						if not qnext or qnext == 0 or _qids[qnext] == true or cnum > 40 then
 							break
 						end
 						_qids[qnext] = true;
