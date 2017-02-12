@@ -1183,7 +1183,7 @@ function Nx:OnUpdate_battlefield_score (event)
 	local show
 
 	for n = 1, scores do
-		local name, kbs, hks, deaths, honor, faction, rank, race, class, classCap, damDone, healDone = GetBattlefieldScore (n)
+		local name, kbs, hks, deaths, honor, faction, race, class, classCap, damDone, healDone = GetBattlefieldScore (n)
 		if name == plName then
 
 			honor = floor (honor)	--V4 returns weird fractions
