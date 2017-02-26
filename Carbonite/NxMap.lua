@@ -3062,8 +3062,10 @@ function Nx.Map:HijackBlizzBountyMap()
 	local map = self:GetMap (1)
 
 	WorldMap_HijackTooltip(map.Frm)
-	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
-	bountyBoard:SetParent(map.Frm)
+	
+	local bountyBoard = NXBountyBoard;
+	if bountyBoard == nil then bountyBoard = CreateFrame('BUTTON', 'NXBountyBoard', map.Frm, 'WorldMapBountyBoardTemplate') end
+	--bountyBoard:SetParent(map.Frm)
 	bountyBoard:SetFrameLevel(140)
 	bountyBoard:SetMapAreaID(1007)
 	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
@@ -3075,7 +3077,7 @@ end
 
 function Nx.Map:RestoreBlizzBountyMap(tooltip)
 	if tooltip ~= false then WorldMap_RestoreTooltip() end
-	local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
+	--[[local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
 	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
 	bountyBoard:SetFrameLevel(10)
 	bountyBoard:SetMapAreaID(1007)
@@ -3083,7 +3085,11 @@ function Nx.Map:RestoreBlizzBountyMap(tooltip)
 	if bountyBoardLocation then
 		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
 	end
-	bountyBoard:Show()
+	bountyBoard:Show()]]--
+	if NXBountyBoard then 
+		NXBountyBoard:SetPoint("BOTTOMRIGHT", 1000, 1000);
+		NXBountyBoard:Hide()
+	end
 end
 
 -------
@@ -3626,6 +3632,17 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	end
 	ttl = 0
 --	if IsControlKeyDown() then		return	end
+
+	if _G['ImmersionFrame'] then
+		if not _G['ImmersionFrame'].CarbFix then
+			_G['ImmersionFrame'].CarbFix = true
+			_G['ImmersionFrame'].TitleButtons:UnregisterEvent('QUEST_LOG_UPDATE')
+			_G['ImmersionFrame'].TitleButtons:RegisterEvent('UNIT_QUEST_LOG_UPDATE')
+			_G['ImmersionFrame'].TitleButtons:HookScript('OnEvent', function(self, event, ...)
+				if(event == 'UNIT_QUEST_LOG_UPDATE') then _G['ImmersionFrame'].TitleButtons:QUEST_LOG_UPDATE() end
+			end)
+		end
+	end
 
 	local Nx = Nx
 
