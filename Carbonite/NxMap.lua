@@ -3065,7 +3065,7 @@ function Nx.Map:HijackBlizzBountyMap()
 	
 	local bountyBoard = NXBountyBoard;
 	if bountyBoard == nil then bountyBoard = CreateFrame('BUTTON', 'NXBountyBoard', map.Frm, 'WorldMapBountyBoardTemplate') end
-	--bountyBoard:SetParent(map.Frm)
+	bountyBoard:SetParent(map.Frm)
 	bountyBoard:SetFrameLevel(140)
 	bountyBoard:SetMapAreaID(1007)
 	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
@@ -3087,7 +3087,8 @@ function Nx.Map:RestoreBlizzBountyMap(tooltip)
 	end
 	bountyBoard:Show()]]--
 	if NXBountyBoard then 
-		NXBountyBoard:SetPoint("BOTTOMRIGHT", 1000, 1000);
+		NXBountyBoard:SetParent(WorldFrame)
+		NXBountyBoard:SetPoint("BOTTOMRIGHT", 10000, 10000);
 		NXBountyBoard:Hide()
 	end
 end
