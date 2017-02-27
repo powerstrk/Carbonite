@@ -3077,15 +3077,6 @@ end
 
 function Nx.Map:RestoreBlizzBountyMap(tooltip)
 	if tooltip ~= false then WorldMap_RestoreTooltip() end
-	--[[local bountyBoard = WorldMapFrame.UIElementsFrame.BountyBoard
-	bountyBoard:SetParent(WorldMapFrame.UIElementsFrame)
-	bountyBoard:SetFrameLevel(10)
-	bountyBoard:SetMapAreaID(1007)
-	local bountyBoardLocation = bountyBoard:GetDisplayLocation()
-	if bountyBoardLocation then
-		WorldMapFrame_SetOverlayLocation(bountyBoard, bountyBoardLocation);
-	end
-	bountyBoard:Show()]]--
 	if NXBountyBoard then 
 		NXBountyBoard:SetParent(WorldFrame)
 		NXBountyBoard:SetPoint("BOTTOMRIGHT", 10000, 10000);
