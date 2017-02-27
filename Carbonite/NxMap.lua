@@ -3065,6 +3065,7 @@ function Nx.Map:HijackBlizzBountyMap()
 	
 	local bountyBoard = NXBountyBoard;
 	if bountyBoard == nil then bountyBoard = CreateFrame('BUTTON', 'NXBountyBoard', map.Frm, 'WorldMapBountyBoardTemplate') end
+	bountyBoard:RegisterEvent('QUEST_LOG_UPDATE')
 	bountyBoard:SetParent(map.Frm)
 	bountyBoard:SetFrameLevel(140)
 	bountyBoard:SetMapAreaID(1007)
@@ -3078,8 +3079,8 @@ end
 function Nx.Map:RestoreBlizzBountyMap(tooltip)
 	if tooltip ~= false then WorldMap_RestoreTooltip() end
 	if NXBountyBoard then 
-		NXBountyBoard:SetParent(WorldFrame)
-		NXBountyBoard:SetPoint("BOTTOMRIGHT", 10000, 10000);
+		NXBountyBoard:UnregisterEvent('QUEST_LOG_UPDATE')
+		NXBountyBoard:Clear()
 		NXBountyBoard:Hide()
 	end
 end
