@@ -151,7 +151,7 @@ local function Constructor()
 	if IsLegion then
 		texture:SetColorTexture(1, 1, 1)
 	else
-		texture:SetColorTexture(1, 1, 1)
+		texture:SetTexture(1, 1, 1)
 	end
 	texture:SetPoint("CENTER", colorSwatch)
 	texture:Show()
