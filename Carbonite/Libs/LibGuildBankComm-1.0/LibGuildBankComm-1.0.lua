@@ -3,18 +3,19 @@
 -- See the [[examples]] page for information regarding the available callbacks and more complete examples of using the Library in your addons.
 -- @class file
 -- @name LibGuildBankComm-1.0
--- @release $Id: LibGuildBankComm-1.0.lua 69 2015-03-18 14:25:48Z myrroddin $
+-- @release $Id: LibGuildBankComm-1.0.lua 79 2016-12-03 09:37:45Z myrroddin $
+
 --[[
 Name: LibGuildBankComm-1.0
-Revision: $Revision: 69 $
-Date: $Date: 2015-03-18 14:25:48 +0000 (Wed, 18 Mar 2015) $
+Revision: $Revision: 79 $
+Date: $Date: 2016-12-03 03:37:45 -0600 (Sat, 03 Dec 2016) $
 Author(s): Myrroddin of Llane (Alliance US), Lyte of Lothar (Alliance US)
 Description: Saves guild bank contents and sends/receives updates over the addon channel
 Dependencies: LibStub, CallbackHandler-1.0, AceComm-3.0, AceSerializer-3.0, LibCompress
-]]
+]]--
 
 local MAJOR_VERSION = "LibGuildBankComm-1.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 69 $"):match("%d+"))
+local MINOR_VERSION = tonumber(("$Revision: 79 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION.."requires LibStub") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
