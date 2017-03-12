@@ -460,7 +460,7 @@ do
 		if IsLegion then
 			line:SetColorTexture(.5, .5, .5)
 		else
-			line:SetColorTexture(.5, .5, .5)
+			line:SetTexture(.5, .5, .5)
 		end
 		line:SetPoint("LEFT", self.frame, "LEFT", 10, 0)
 		line:SetPoint("RIGHT", self.frame, "RIGHT", -10, 0)
