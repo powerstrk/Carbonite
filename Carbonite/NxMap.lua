@@ -4569,7 +4569,8 @@ function Nx.Map:Update (elapsed)
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
 		Nx.prtCtrl ("LandMs %s", i)
-		type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (i)		
+		-- type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (i)
+		type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)		
 		if pX and txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
@@ -5046,7 +5047,8 @@ function Nx.Map:ScanContinents()
 --		Nx.prt ("poiNum %d", poiNum)
 
 		for n = 1, poiNum do
-			type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (n)
+			-- type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (n)
+			type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (n)
 				
 			if pX and name and not hideT[txIndex] then
 
