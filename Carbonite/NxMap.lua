@@ -10676,10 +10676,8 @@ function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arro
 
 	NXWorldMapUnitPositionFrame:ClearUnits()
 
-	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1)
-	NXWorldMapUnitPositionFrame:SetPlayerArrowSize(24)
-	local playerArrowSize = NXWorldMapUnitPositionFrame:GetPlayerArrowSize()
-	NXWorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", playerArrowSize, playerArrowSize, r, g, b, 1, 7, true)
+	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1)	
+	NXWorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", 24, 24, r, g, b, 1, 7, true)
 
 	local isInRaid = IsInRaid()
 	local memberCount = 0
@@ -10693,15 +10691,13 @@ function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arro
 		unitBase = "party"
 	end
 
-	local groupMemberSize = NXWorldMapUnitPositionFrame:GetGroupMemberSize()
-
 	for i = 1, memberCount do
 		local unit = unitBase..i
 		if UnitExists(unit) and not UnitIsUnit(unit, "player") then
 			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips"
 			local class = select(2, UnitClass(unit))
 			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class))
-			NXWorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, groupMemberSize, groupMemberSize, r, g, b, 1)
+			NXWorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, 24, 24, r, g, b, 1)
 		end
 	end
 
