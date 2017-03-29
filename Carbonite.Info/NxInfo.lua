@@ -277,7 +277,7 @@ function Nx.Info:OnTimer()
 	self.NeedDurability = false
 
 	local h = UnitHealth ("player")
-	local m = UnitMana ("player")
+	local m = UnitPower ("player")
 	if UnitIsDeadOrGhost ("player") then
 		h = 0
 		m = 0
@@ -286,7 +286,7 @@ function Nx.Info:OnTimer()
 	vars["Mana"] = m
 
 	vars["HealthMax"] = UnitHealthMax ("player")
-	vars["ManaMax"] = UnitManaMax ("player")
+	vars["ManaMax"] = UnitPowerMax ("player")
 
 	vars["Health%"] = h / vars["HealthMax"]
 	vars["Mana%"] = m / vars["ManaMax"]
@@ -299,14 +299,14 @@ function Nx.Info:OnTimer()
 
 	if tarName then
 
-		m = UnitManaMax ("target") > 0 and 0 or -1
+		m = UnitPowerMax ("target") > 0 and 0 or -1
 		if not UnitIsDeadOrGhost ("target") then
 			h = UnitHealth ("target")
-			m = UnitManaMax ("target") > 0 and UnitMana ("target") or -1
+			m = UnitPowerMax ("target") > 0 and UnitPower ("target") or -1
 		end
 
 		vars["THealthMax"] = max (UnitHealthMax ("target"), 1)
-		vars["TManaMax"] = max (UnitManaMax ("target"), 1)
+		vars["TManaMax"] = max (UnitPowerMax ("target"), 1)
 	end
 	vars["THealth"] = h
 	vars["TMana"] = m
@@ -580,7 +580,7 @@ function Nx.Info:Create2 (index)
 
 	self.HealthLast = UnitHealth ("player")
 	self.HealthLastVal = 0
-	self.ManaLast = UnitMana ("player")
+	self.ManaLast = UnitPower ("player")
 	self.ManaLastVal = 0
 
 	-- Show if it exists

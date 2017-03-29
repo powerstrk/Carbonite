@@ -134,11 +134,9 @@ function Nx.prtD (...)
 end
 
 function Nx.prtCtrl (msg, ...)
---[[
 	if IsControlKeyDown() then
 		Nx.prt (msg, ...)
 	end
---]]
 end
 
 function Nx.prtTable (msg, s)
