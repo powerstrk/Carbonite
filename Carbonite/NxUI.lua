@@ -134,7 +134,7 @@ function Nx.prtD (...)
 end
 
 function Nx.prtCtrl (msg, ...)
-	if IsControlKeyDown() then
+	if Nx.DebugOn and IsControlKeyDown() then
 		Nx.prt (msg, ...)
 	end
 end
