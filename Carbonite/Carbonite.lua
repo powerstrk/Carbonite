@@ -414,6 +414,9 @@ local defaults = {
 			TrailTime = 90,
 			WOwn = false,
 			ZoneDrawCnt = 3,
+			InstanceBossSize = 32,
+			InstancePlayerSize = 24,
+			InstanceGroupSize = 24,
 		},
 		MiniMap = {
 			AboveIcons = false,

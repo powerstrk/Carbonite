@@ -535,12 +535,11 @@ function Nx.Map:Create (index)
 	m.DotZoneScale = opts.NXDotZoneScale
 	m.DotPalScale = opts.NXDotPalScale
 	m.DotPartyScale = opts.NXDotPartyScale
-	m.DotRaidScale = opts.NXDotRaidScale
+	m.DotRaidScale = opts.NXDotRaidScale	
 	m.IconNavScale = opts.NXIconNavScale
 	m.IconScale = opts.NXIconScale
 	m.ArrowPulse = 1
 	m.ArrowScroll = 0
-
 	m.UpdateTargetDelay = 0
 	m.UpdateTrackingDelay = 0
 
@@ -788,7 +787,6 @@ function Nx.Map:Create (index)
 	local item = showMenu:AddItem (0, L["Show Unexplored Areas"], func, m)
 	item:SetChecked (m.ShowUnexplored)
 
-
 	m.MenuIShowWorld = showMenu:AddItem (0, L["Show World"], self.Menu_OnShowWorld, m)
 
 
@@ -906,6 +904,20 @@ function Nx.Map:Create (index)
 	local item = smenu:AddItem (0, L["POI Icons At Scale"])
 	item:SetSlider (opts, .1, 10, nil, "NXPOIAtScale")
 
+	local ismenu = Nx.Menu:Create (f)
+
+	menu:AddSubMenu (ismenu, L["Instance Scale..."])
+	
+	local item = ismenu:AddItem (0, L["Player Arrow"])
+	item:SetSlider (Nx.db.profile.Map, 1, 50, nil, "InstancePlayerSize")
+
+	local item = ismenu:AddItem (0, L["Group Player Size"])
+	item:SetSlider (Nx.db.profile.Map, 1, 50, nil, "InstanceGroupSize")
+
+	local item = ismenu:AddItem (0, L["Raid Boss Size"])
+	item:SetSlider (Nx.db.profile.Map, 1, 50, nil, "InstanceBossSize")
+	
+	
 	-- Create transparency sub menu
 
 	local tmenu = Nx.Menu:Create (f)
@@ -10666,12 +10678,12 @@ function Nx.Map.MoveWorldMap()
 			bossButton:SetFrameStrata("HIGH")
 			_, _, _, displayInfo = EJ_GetCreatureInfo(1, encounterID)
 			bossButton.displayInfo = displayInfo
-			bossButton:SetWidth(32)
-			bossButton:SetHeight(32)
+			bossButton:SetWidth(Nx.db.profile.Map.InstanceBossSize)
+			bossButton:SetHeight(Nx.db.profile.Map.InstanceBossSize)
 			if ( displayInfo ) then
 				SetPortraitTexture(bossButton.bgImage, displayInfo)
-				bossButton.bgImage:SetWidth(24)
-				bossButton.bgImage:SetHeight(24)
+				bossButton.bgImage:SetWidth(Nx.db.profile.Map.InstanceBossSize / 1.3)
+				bossButton.bgImage:SetHeight(Nx.db.profile.Map.InstanceBossSize / 1.3)
 			else
 				bossButton.bgImage:SetTexture("DoesNotExist")
 			end			
@@ -10696,7 +10708,7 @@ function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arro
 	NXWorldMapUnitPositionFrame:ClearUnits()
 
 	local r, g, b = CheckColorOverrideForPVPInactive("player", timeNow, 1, 1, 1)	
-	NXWorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", 24, 24, r, g, b, 1, 7, true)
+	NXWorldMapUnitPositionFrame:AddUnit("player", "Interface\\WorldMap\\WorldMapArrow", Nx.db.profile.Map.InstancePlayerSize, Nx.db.profile.Map.InstancePlayerSize, r, g, b, 1, 7, true)
 
 	local isInRaid = IsInRaid()
 	local memberCount = 0
@@ -10716,7 +10728,7 @@ function Nx.Map:UpdatePlayerPositions() -- Copy of the local defined player arro
 			local atlas = UnitInSubgroup(unit) and "WhiteCircle-RaidBlips" or "WhiteDotCircle-RaidBlips"
 			local class = select(2, UnitClass(unit))
 			local r, g, b = CheckColorOverrideForPVPInactive(unit, timeNow, GetClassColor(class))
-			NXWorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, 24, 24, r, g, b, 1)
+			NXWorldMapUnitPositionFrame:AddUnitAtlas(unit, atlas, Nx.db.profile.Map.InstanceGroupSize, Nx.db.profile.Map.InstanceGroupSize, r, g, b, 1)
 		end
 	end
 
