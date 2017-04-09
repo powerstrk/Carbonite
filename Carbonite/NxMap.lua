@@ -3993,7 +3993,7 @@ function Nx.Map:UpdateWorld()
 
 	self.NeedWorldUpdate = false
 	if not Nx.Map.MouseOver then		
-		SetMapToCurrentZone()
+		--SetMapToCurrentZone()
 	end
 	local mapId = self:GetCurrentMapId()
 	local winfo = self.MapWorldInfo[mapId]
