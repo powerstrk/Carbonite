@@ -98,9 +98,9 @@ function Nx.prt (...)
 	-- replace missing/erroneous placeholders
 	function replace_placeholders(placeholder, item)
 		i = i + 1
-		if (args[i] == nil) then
-			return '[missing argument]'
-		end
+		--if (args[i] == nil) then
+		--	return '[missing argument]'
+		--end
 		if item ~= 's' and item ~= 'q' then
 			if type(args[i]) == 'string' and string.match(args[i], '^[.0-9]+$') then
 				return placeholder
@@ -111,7 +111,16 @@ function Nx.prt (...)
 		return placeholder
 	end
 	args[1] = string.gsub((args[1] or 'nil'), '(%%[0-9.]*([cdeEfgGioqsuxX]))', replace_placeholders)
-
+	
+	-- convert boolean and nil to string
+	for n = 1, #args do
+		if n > 1 then
+			if type(args[n]) == 'boolean' or type(args[n]) == 'nil' then
+				args[n] = tostring(args[n])
+			end
+		end
+	end
+	
 	local f = Nx.prtChatFrm or DEFAULT_CHAT_FRAME
 	f:AddMessage ("|cffff0000[" .. Nx.TXTBLUE..L["Carbonite"].."|cffff0000] |cffffffff".. format (unpack(args)), 1, 1, 1)
 end

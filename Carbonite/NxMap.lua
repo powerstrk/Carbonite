@@ -4094,9 +4094,7 @@ function Nx.Map:Update (elapsed)
 
 	if self.MapId ~= mapId then
 
-		if self.Debug then
-			Nx.prt ("%d Map change %d to %d", self.Tick, self.MapId, mapId)
-		end
+		Nx.prtD ("%d Map change %d to %d", self.Tick, self.MapId, mapId)
 
 		self.CurMapBG = self:IsBattleGroundMap (mapId)
 
@@ -4219,7 +4217,7 @@ function Nx.Map:Update (elapsed)
 
 	if Nx.Map.RMapId ~= rid then
 		if rid ~= 9000 then
---			Nx.prt ("Map zone changed %d, %d", rid, mapId)
+			Nx.prtD ("Map zone changed %d, %d", rid, mapId)
 
 			if Nx.Map.RMapId == 9000 then	-- Loading?
 				self.CurOpts = nil
@@ -4596,10 +4594,10 @@ function Nx.Map:Update (elapsed)
 	local txX1, txX2, txY1, txY2
 	local poiNum = GetNumMapLandmarks()
 	for i = 1, poiNum do
-		Nx.prtCtrl ("LandMs %s", i)
 		-- type, name, desc, txIndex, pX, pY = C_WorldMap.GetMapLandmarkInfo (i)
-		type, name, desc, txIndex, pX, pY = GetMapLandmarkInfo (i)		
-		if pX and txIndex ~= 0 then		-- WotLK has 0 index POIs for named locations
+		type, name, desc, txIndex, pX, pY, mapLinkID, inBattleMap, graveyardID, areaID, poiID, isObjectIcon, atlasIcon, displayAsBanner = C_WorldMap.GetMapLandmarkInfo (i)		
+		Nx.prtCtrl ("LandMs %s, %s, %s, %s, %s, %s, %s, %s, %s", i, poiID, txIndex or '-', name, type, isObjectIcon, atlasIcon, displayAsBanner, WorldMap_IsSpecialPOI(poiID))
+		if atlasIcon or (pX and txIndex ~= 0) then		-- WotLK has 0 index POIs for named locations
 
 			local tip = name
 			if desc then
@@ -4735,11 +4733,18 @@ function Nx.Map:Update (elapsed)
 
 			f.NxTip = tip
 
-			self:ClipFrameZ (f, pX, pY, 16, 16, 0)
-			f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-			txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
-			f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
-			f.texture:SetVertexColor (1, 1, 1, 1)
+			if atlasIcon then
+				pX, pY = self:GetWorldPos (self.MapId, pX, pY)
+				--self:ClipFrameZ (f, pX, pY, 32, 32, 0)
+				self:ClipFrameTL (f, pX-16, pY-16, 32, 32, 0)
+				f.texture:SetAtlas(atlasIcon)
+			else
+				self:ClipFrameZ (f, pX, pY, 16, 16, 0)
+				f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
+				txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
+				f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
+				f.texture:SetVertexColor (1, 1, 1, 1)
+			end
 		end
 	end
 
