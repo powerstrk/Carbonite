@@ -4747,8 +4747,9 @@ function Nx.Map:Update (elapsed)
 			end
 
 			f.NxTip = tip
-
-			if atlasIcon then
+			
+			-- Sentinax and Broken Shore bosses
+			if atlasIcon and (atlasIcon == 'DemonShip' or atlasIcon == 'DemonInvasion5') then
 				pX, pY = self:GetWorldPos (self.MapId, pX, pY)
 				--self:ClipFrameZ (f, pX, pY, 32, 32, 0)
 				self:ClipFrameTL (f, pX-16, pY-16, 32, 32, 0)
