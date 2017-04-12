@@ -6523,8 +6523,8 @@ function Nx.Quest.List:MakeDescLink (cur, id, debug)
 	local Quest = Nx.Quest
 	local quest = cur and cur.Q or Nx.Quests[qId]
 
-	local title = cur and cur.Title
-	local realLevel = cur and cur.RealLevel
+	local title = cur and cur.Title or ''
+	local realLevel = cur and cur.RealLevel or 0
 
 	if quest then
 		local s
