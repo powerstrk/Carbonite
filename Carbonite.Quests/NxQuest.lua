@@ -2816,6 +2816,7 @@ end
 
 function CarboniteQuest.HideUIPanel (frame)
 	if frame then
+		if frame:IsProtected() then return end
 		if frame == _G["QuestMapFrame"] and Nx.qdb.profile.Quest.Enable then
 			Nx.Quest:HideUIPanel (frame)
 		end
