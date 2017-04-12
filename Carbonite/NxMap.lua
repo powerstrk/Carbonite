@@ -3098,6 +3098,23 @@ function Nx.Map:RestoreBlizzBountyMap(tooltip)
 end
 
 -------
+-- Changing orginal Blizz functions to fix world map toggle
+
+WorldMapFrame_Update()
+
+local oActionButtonClear = WorldMapFrame.UIElementsFrame.ActionButton.Clear
+function WorldMapFrame.UIElementsFrame.ActionButton:Clear()
+	if self:IsProtected() then return end
+	oActionButtonClear()
+end
+
+local oWorldMapFrame_SetOverlayLocation = WorldMapFrame_SetOverlayLocation
+function WorldMapFrame_SetOverlayLocation(frame, location)
+	if frame:IsProtected() then return end
+	oWorldMapFrame_SetOverlayLocation(frame, location)
+end
+
+-------
 -- Blizz map toggle
 
 function Nx.Map:BlizzToggleWorldMap()
