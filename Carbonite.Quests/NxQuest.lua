@@ -2806,6 +2806,37 @@ function Nx.Quest:Init()
 	
 end
 
+-------
+-- Changing orginal Blizz functions to fix quest map toggle
+
+local oQuestMapFrame_Show = QuestMapFrame_Show
+function QuestMapFrame_Show()
+	QuestMapFrame:SetFrameLevel(2)
+	if UnitAffectingCombat("player") then 
+		QuestMapFrame_UpdateAll();
+		QuestMapFrame:SetFrameLevel(4)
+		QuestMapFrame:Show();
+		
+		WorldMapFrame.UIElementsFrame.OpenQuestPanelButton:Hide();
+		WorldMapFrame.UIElementsFrame.CloseQuestPanelButton:Show();
+		return 
+	end
+	oQuestMapFrame_Show()
+end
+
+local oQuestMapFrame_Hide = QuestMapFrame_Hide
+function QuestMapFrame_Hide()
+	if UnitAffectingCombat("player") then 
+		QuestMapFrame:Hide();
+		QuestMapFrame_UpdateAll();
+		
+		WorldMapFrame.UIElementsFrame.OpenQuestPanelButton:Show();
+		WorldMapFrame.UIElementsFrame.CloseQuestPanelButton:Hide();
+		return
+	end
+	oQuestMapFrame_Hide()
+end
+
 function CarboniteQuest.ShowUIPanel(frame)
 	if frame then
 		if frame == _G["QuestMapFrame"] and Nx.qdb.profile.Quest.Enable then
@@ -2816,7 +2847,6 @@ end
 
 function CarboniteQuest.HideUIPanel (frame)
 	if frame then
-		if frame:IsProtected() then return end
 		if frame == _G["QuestMapFrame"] and Nx.qdb.profile.Quest.Enable then
 			Nx.Quest:HideUIPanel (frame)
 		end
