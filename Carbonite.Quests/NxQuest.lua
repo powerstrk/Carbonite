@@ -4000,15 +4000,21 @@ end
 -------------------------------------------------------------------------------
 
 function Nx.Quest:CalcCNumMax (cur, quest)
-
 	if quest.CNum then
-
 		cur.CNumMax = quest.CNum - 1
 
 		local qc = quest
+		local _qids = {}
+		local cnum = 0
 		while qc do
+			cnum = cnum + 1
 			cur.CNumMax = cur.CNumMax + 1
-			qc = Nx.Quests[self:UnpackNext (qc["Quest"])]
+			qnext = self:UnpackNext (qc["Quest"])
+			if not qnext or qnext == 0 or _qids[qnext] == true or cnum > 40 then
+				break
+			end
+			_qids[qnext] = true;
+			qc = Nx.Quests[qnext]
 		end
 	end
 end
@@ -7466,11 +7472,12 @@ function Nx.Quest.List:Update()
 end
 
 function Nx.Quest.List:CheckShow (mapId, index)
-
 	local Quest = Nx.Quest
-
+	local _qids = {}
+	local cnum = 0
+	
 	while true do
-
+		cnum = cnum + 1
 		local qId = Quest.Sorted[index]
 
 		if Quest:CheckShow (mapId, qId) then
@@ -7478,11 +7485,13 @@ function Nx.Quest.List:CheckShow (mapId, index)
 		end
 
 		local quest = Nx.Quests[qId]
-		local next = Quest:UnpackNext (quest["Quest"])
+		local qnext = Quest:UnpackNext (quest["Quest"])
 
-		if next == 0 then		-- End?
+		if not qnext or qnext == 0 or _qids[qnext] == true or cnum > 40 then
 			return
 		end
+		
+		_qids[qnext] = true
 
 		index = index + 1
 	end
