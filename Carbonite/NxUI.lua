@@ -51,6 +51,13 @@ end
 
 ---------------------------------------------------------------------------------------
 
+function Nx.strpos (haystack, needle, offset) 
+  local pattern = string.format("(%s)", needle)
+  local i       = string.find (haystack, pattern, (offset or 0))
+  
+  return (i ~= nil and i or false)
+end
+
 function Nx.prtStack (str)
 	local s = debugstack (2, 3, 2)
 	s = gsub (s, "Interface\\AddOns\\", "")
