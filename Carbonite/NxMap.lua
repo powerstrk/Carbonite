@@ -3100,17 +3100,17 @@ end
 -------
 -- Changing orginal Blizz functions to fix world map toggle
 
-WorldMapFrame.UIElementsFrame.ActionButton.oClear = WorldMapFrame.UIElementsFrame.ActionButton.Clear
-function WorldMapFrame.UIElementsFrame.ActionButton:Clear()
+--[[WorldMapFrame.UIElementsFrame.ActionButton.oRefresh = WorldMapFrame.UIElementsFrame.ActionButton.Refresh
+function WorldMapFrame.UIElementsFrame.ActionButton:Refresh()
 	if UnitAffectingCombat("player") then return end
-	WorldMapFrame.UIElementsFrame.ActionButton:oClear()
-end
+	WorldMapFrame.UIElementsFrame.ActionButton:oRefresh()
+end]]--
 
-local oWorldMapFrame_SetOverlayLocation = WorldMapFrame_SetOverlayLocation
+--[[local oWorldMapFrame_SetOverlayLocation = WorldMapFrame_SetOverlayLocation
 function WorldMapFrame_SetOverlayLocation(frame, location)
 	if UnitAffectingCombat("player") then return end
 	oWorldMapFrame_SetOverlayLocation(frame, location)
-end
+end]]--
 
 -------
 -- Blizz map toggle
