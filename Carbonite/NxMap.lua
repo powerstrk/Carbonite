@@ -3341,11 +3341,11 @@ function Nx.Map:MouseEnable (max)
 	local on = true
 
 	if max then
-		if Nx.db.profile.Map.MaxMouseIgnore then
+		if Nx.db.profile.Map.MaxMouseIgnore or ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) then
 			on = IsAltKeyDown() and true or false		-- IsAltKeyDown returns nil or 1
 		end
 	else
-		if Nx.db.profile.Map.MouseIgnore then
+		if Nx.db.profile.Map.MaxMouseIgnore or ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) then
 			on = IsAltKeyDown() and true or false		-- IsAltKeyDown returns nil or 1
 		end
 	end
