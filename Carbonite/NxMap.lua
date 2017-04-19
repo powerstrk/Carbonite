@@ -3380,6 +3380,13 @@ function Nx.Map:MouseEnable (max)
 			f:EnableMouse (on)
 		end
 	end
+	
+	if not Nx.db.profile.Map.MaxMouseIgnore and ((Nx.Map:IsInstanceMap(Nx.Map.RMapId) or Nx.Map:IsBattleGroundMap(Nx.Map.RMapId)) and self.CurOpts.NXInstanceMaps) then
+		self.Win:EnableMouse (true)
+		self.Frm:EnableMouse (true)
+		self.ButAutoScaleOn.Frm:Show()
+		self:UpdateToolBar()
+	end
 end
 
 --------
