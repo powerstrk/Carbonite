@@ -4756,10 +4756,13 @@ function Nx.Map:Update (elapsed)
 			f.NxTip = tip
 			
 			-- Sentinax and Broken Shore bosses
-			if atlasIcon and (Nx.strpos(atlasIcon, 'DemonShip') == 1 or Nx.strpos(atlasIcon, 'DemonInvasion') == 1) then
+			if not IsAltKeyDown() and atlasIcon and (Nx.strpos(atlasIcon, 'DemonShip') == 1 or Nx.strpos(atlasIcon, 'DemonInvasion') == 1) then
 				pX, pY = self:GetWorldPos (self.MapId, pX, pY)
-				--self:ClipFrameZ (f, pX, pY, 32, 32, 0)
-				self:ClipFrameTL (f, pX-16, pY-16, 32, 32, 0)
+				if self.ScaleDraw > 1 then	
+					self:ClipFrameTL (f, pX-16, pY-16, 32 / self.ScaleDraw, 32 / self.ScaleDraw, 0)
+				else
+					self:ClipFrameTL (f, pX-16, pY-16, 32, 32, 0)
+				end
 				f.texture:SetAtlas(atlasIcon)
 			else
 				self:ClipFrameZ (f, pX, pY, 16, 16, 0)
