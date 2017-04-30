@@ -20,6 +20,7 @@ L["Arathi Highlands"] = "Tierras Altas de Arathi"
 L["Arena of Annihilation"] = "Arena de la Aniquilación"			-- http://es.wowhead.com/zone=6219
 L["Ashenvale"] = "Vallefresno"
 L["Ashran"] = "Ashran"							-- http://es.wowhead.com/zone=6941
+L["Assault on Broken Shore"] = true
 L["Assault on Zan'vess"] = "Asalto a Zan'vess"				-- http://es.wowhead.com/zone=6328
 L["Auchenai Crypts"] = "Criptas Auchenai"
 L["Auchindoun"] = "Auchindoun"						-- http://es.wowhead.com/zone=6912
@@ -338,3 +339,9 @@ L["Emerald Nightmare"] = true
 L["The Cove of Nashal"] = true
 L["The Arcway"] = true
 L["The Broken Isles"] = true
+L["Cave of the Blood Totem"] = true
+L["Cathedral of Eternal Night"] = true
+L["Tomb of Sargeras"] = true
+L["Felwing Ledge"] = true
+L["The Lost Glacier"] = true
+L["Fields of the Eternal Hunt"] = true
