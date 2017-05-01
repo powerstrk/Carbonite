@@ -100,6 +100,11 @@ L["Incoming"] = true
 L["Speed"] = true
 L["players"] = true
 L["Unknown map name"] = true
+L["Show Instance Map"] = true
+L["Instance Scale..."] = true
+L["Player Arrow"] = true
+L["Group Player Size"] = true
+L["Raid Boss Size"] = true
 
 -- Battle ground messages
 L["Incoming"] = true

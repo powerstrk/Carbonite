@@ -99,6 +99,11 @@ L["Incoming"] = "Входящие"
 L["Speed"] = "Скорость"
 L["players"] = "игроки"
 L["Unknown map name"] = "Неизвестное имя карты"
+L["Show Instance Map"] = true
+L["Instance Scale..."] = true
+L["Player Arrow"] = true
+L["Group Player Size"] = true
+L["Raid Boss Size"] = true
 
 -- Battle ground messages
 L["Incoming"] = "Наступайте"		-- why was it commented? --mb because of next string?

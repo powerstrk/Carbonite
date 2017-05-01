@@ -99,6 +99,11 @@ L["Incoming"] = "Entr\195\169e"
 L["Speed"] = "Vitesse"
 L["players"] = "Joueurs"
 L["Unknown map name"] = "Nom de Map Inconnu"
+L["Show Instance Map"] = true
+L["Instance Scale..."] = true
+L["Player Arrow"] = true
+L["Group Player Size"] = true
+L["Raid Boss Size"] = true
 
 -- Battle ground messages
 L["Incoming"] = "Entr\195\169e"

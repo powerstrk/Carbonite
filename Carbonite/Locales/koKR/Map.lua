@@ -100,6 +100,11 @@ L["Incoming"] = true
 L["Speed"] = "비행속도"
 L["players"] = "플레이어"
 L["Unknown map name"] = "알수없는 지도 이름"
+L["Show Instance Map"] = true
+L["Instance Scale..."] = true
+L["Player Arrow"] = true
+L["Group Player Size"] = true
+L["Raid Boss Size"] = true
 
 -- Battle ground messages
 L["Incoming"] = "공격 당함"

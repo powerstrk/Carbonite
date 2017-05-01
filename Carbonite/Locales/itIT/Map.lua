@@ -99,6 +99,11 @@ L["Incoming"] = "In arrivo"
 L["Speed"] = "Velocit\195\160"
 L["players"] = giocatori
 L["Unknown map name"] = "Nome Mappa Sconosciuto"
+L["Show Instance Map"] = true
+L["Instance Scale..."] = true
+L["Player Arrow"] = true
+L["Group Player Size"] = true
+L["Raid Boss Size"] = true
 
 -- Battle ground messages
 L["Incoming"] = "In arrivo"

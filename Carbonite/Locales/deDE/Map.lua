@@ -98,7 +98,12 @@ L["No edit box open!"] = "Keine Eingabe offen"
 L["Incoming"] = "Ankommend"
 L["Speed"] = "Geschwindigkeit"
 L["players"] = "Spieler"
+L["Show Instance Map"] = "Zeige Instanzkarte an"
 L["Unknown map name"] = "Unbekannter Karten-Name"
+L["Instance Scale..."] = "Instanz Skalierung..."
+L["Player Arrow"] = "Spielerpfeil"
+L["Group Player Size"] = "Gruppen Spieler Gr\195\182\195\159e"
+L["Raid Boss Size"] = "Raid Boss Gr\195\182\195\159e"
 
 -- Battle ground messages
 L["Incoming"] = "Feind r\195\188ckt an"

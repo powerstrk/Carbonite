@@ -99,6 +99,11 @@ L["Incoming"] = ""
 L["Speed"] = "速度"
 L["players"] = "玩家"
 L["Unknown map name"] = "未知地图名称"
+L["Show Instance Map"] = true
+L["Instance Scale..."] = true
+L["Player Arrow"] = true
+L["Group Player Size"] = true
+L["Raid Boss Size"] = true
 
 -- Battle ground messages
 L["Incoming"] = "敌人进攻"
